@@ -1,0 +1,7 @@
+# Pliki WEWNETRZNE — nie trafiaja do publicznej migawki (git archive).
+#
+# ROZWOJ.md to 900-linijkowy dziennik decyzji po polsku: historia wzgledem TVS,
+# uklad monorepo, kroki do Sklepu, wynik przegladu bezpieczenstwa. Jest cenny
+# dla nas, ale opisuje rzeczy wewnetrzne, a czesc z niego dezaktualizuje sie
+# z chwila publikacji. Publiczne README pisane jest osobno, po angielsku.
+ROZWOJ.md export-ignore

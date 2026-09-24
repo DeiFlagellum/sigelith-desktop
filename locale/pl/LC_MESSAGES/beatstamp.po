@@ -1,0 +1,2620 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: BeatStamp\n"
+"POT-Creation-Date: 2026-09-23 22:05+0200\n"
+"Language: pl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
+
+#: beatstamp/ui/widgets.py:307
+msgid " (not synchronised)"
+msgstr " (bez synchronizacji)"
+
+#: beatstamp/certificate.py:281
+msgid " · confirmation no. %(ref)s"
+msgstr " · nr potwierdzenia %(ref)s"
+
+#: beatstamp/certificate.py:242
+msgid " — .ots file for independent verification: beattime.live/api/proof/ots/%(week)s"
+msgstr " — plik .ots do niezależnej weryfikacji: beattime.live/api/proof/ots/%(week)s"
+
+#: beatstamp/proof.py:221
+msgid " — a different root, not accepted"
+msgstr " — inny korzeń, nieuznana"
+
+#: beatstamp/hashing.py:151
+msgid "\"%(name)s\" is a folder, not a file."
+msgstr "\"%(name)s\" to katalog, nie plik."
+
+#: beatstamp/hashing.py:97
+msgid "\"%(name)s\" is not a file."
+msgstr "\"%(name)s\" nie jest plikiem."
+
+#: beatstamp/ui/main_window.py:1355
+msgid "%(count)s anchored"
+msgstr "%(count)s zakotwiczonych"
+
+#: beatstamp/plural.py:84
+msgid "%(count)s character"
+msgid_plural "%(count)s characters"
+msgstr[0] "%(count)s znak"
+msgstr[1] "%(count)s znaki"
+msgstr[2] "%(count)s znaków"
+
+#: beatstamp/plural.py:72
+msgid "%(count)s entry"
+msgid_plural "%(count)s entries"
+msgstr[0] "%(count)s wpis"
+msgstr[1] "%(count)s wpisy"
+msgstr[2] "%(count)s wpisów"
+
+#: beatstamp/plural.py:78
+msgid "%(count)s file"
+msgid_plural "%(count)s files"
+msgstr[0] "%(count)s plik"
+msgstr[1] "%(count)s pliki"
+msgstr[2] "%(count)s plików"
+
+#: beatstamp/ui/main_window.py:1357
+msgid "%(count)s from the TVS archive"
+msgstr "%(count)s z archiwum TVS"
+
+#: beatstamp/plural.py:96
+msgid "%(count)s minute"
+msgid_plural "%(count)s minutes"
+msgstr[0] "%(count)s minuta"
+msgstr[1] "%(count)s minuty"
+msgstr[2] "%(count)s minut"
+
+#: beatstamp/plural.py:90
+msgid "%(count)s step"
+msgid_plural "%(count)s steps"
+msgstr[0] "%(count)s krok"
+msgstr[1] "%(count)s kroki"
+msgstr[2] "%(count)s kroków"
+
+#: beatstamp/ui/main_window.py:1656
+msgid "%(entries)s exported"
+msgstr "Wyeksportowano %(entries)s"
+
+#: beatstamp/ui/main_window.py:1602
+msgid "%(entries)s removed from the history."
+msgstr "Usunięto %(entries)s z historii."
+
+#: beatstamp/ui/main_window.py:871
+msgid "%(files)s could not be stamped:<br><br>%(list)s"
+msgstr "Nie udało się ostemplować %(files)s:<br><br>%(list)s"
+
+#: beatstamp/ui/main_window.py:823
+msgid "%(files)s queued"
+msgstr "%(files)s w kolejce"
+
+#: beatstamp/certificate.py:415
+msgid "%(steps)s to the week root"
+msgstr "%(steps)s do korzenia tygodnia"
+
+#: beatstamp/ui/main_window.py:635
+msgid "&File"
+msgstr "&Plik"
+
+#: beatstamp/ui/main_window.py:651
+msgid "&Tools"
+msgstr "&Narzędzia"
+
+#: beatstamp/ui/main_window.py:899
+msgid "(%(count)s files in this batch)"
+msgstr "(%(count)s plików w tej serii)"
+
+#: beatstamp/ui/dialogs.py:447
+msgid ".onion address:"
+msgstr "Adres .onion:"
+
+#: beatstamp/ui/main_window.py:1320
+msgid ".ots proof saved"
+msgstr "Dowód .ots zapisany"
+
+#: beatstamp/bundle.py:97
+msgid "1) Compute the SHA-256 of the document and compare it with \"digest\". 2) Fold \"inclusion_proof\" from the leaf SHA-256(0x00||digest), computing SHA-256(0x01||left||right) at every step — the result must equal \"week_root\". 3) Check the Ed25519 signature \"root_signature\" over the text \"beattime-proof-v1|<week>|<week_root>\" with the key \"public_key\". 4) Compare \"public_key\" with the current BeatTime key: %(key)s — the key history (including retired keys, whose signature is no longer binding): https://beattime.live/spec/#keys. 5) The signature covers the week, not the exact moment: \"utc\" (and \"beat\") must lie within the ISO week \"week\". What is confirmed is that the document existed no later than the end of that week; the exact time is given by the BeatTime register."
+msgstr "1) Policz SHA-256 dokumentu i porównaj z \"digest\". 2) Zwiń \"inclusion_proof\" od liścia SHA-256(0x00||digest), na każdym kroku licząc SHA-256(0x01||lewy||prawy) — wynik musi być równy \"week_root\". 3) Sprawdź podpis Ed25519 \"root_signature\" nad tekstem \"beattime-proof-v1|<week>|<week_root>\" kluczem \"public_key\". 4) Porównaj \"public_key\" z aktualnym kluczem BeatTime: %(key)s — historia kluczy (także wycofanych, których podpis nie jest już wiążący): https://beattime.live/spec/#keys. 5) Podpis obejmuje tydzień, nie dokładną chwilę: \"utc\" (i \"beat\") musi leżeć w tygodniu ISO \"week\". Potwierdzone jest istnienie dokumentu najpóźniej z końcem tego tygodnia; dokładny czas podaje rejestr BeatTime."
+
+#: beatstamp/ui/main_window.py:1511
+msgid "<b>%(entries)s</b> from the old TVS client were added to the history.<br><br>They are marked as an <b>archive</b>: their former \"signature\" is a concatenation of a time and a digest that cannot be verified. To get a proof that can be checked independently, stamp those files again — BeatTime will write a new entry and the old one will stay in the history."
+msgstr "Do historii dodano <b>%(entries)s</b> ze starego klienta TVS.<br><br>Są oznaczone jako <b>archiwum</b>: ich dawny \"podpis\" to sklejka czasu i skrótu, której nie da się zweryfikować. Aby uzyskać dowód sprawdzalny niezależnie, ostempluj te pliki ponownie — BeatTime zapisze nowy wpis, a stary pozostanie w historii."
+
+#: beatstamp/ui/main_window.py:1625
+msgid "<b>%(entries)s</b> updated — the proofs have matured."
+msgstr "Zaktualizowano <b>%(entries)s</b> — dowody dojrzały."
+
+#: beatstamp/ui/main_window.py:1269
+msgid "<b>%(name)s</b> was saved."
+msgstr "Zapisano <b>%(name)s</b>."
+
+#: beatstamp/ui/main_window.py:1247
+msgid "<b>%(name)s</b> was saved.<br><br>The root of this week is signed with a <b>retired</b> key, so the recipient will not accept this proof. Refresh the statuses (History -> Refresh statuses, F5) and export the proof again — it will get a signature made with the current BeatTime key."
+msgstr "Zapisano <b>%(name)s</b>.<br><br>Korzeń tego tygodnia jest podpisany kluczem <b>wycofanym</b>, więc odbiorca nie uzna tego dowodu. Odśwież statusy (Historia → Odśwież statusy, F5) i wyeksportuj dowód ponownie — dostanie podpis aktualnym kluczem BeatTime."
+
+#: beatstamp/ui/main_window.py:1256
+msgid "<b>%(name)s</b> was saved.<br><br>The week is still running, so the proof contains no root signature and <b>cannot be verified offline for now</b>. Export it again once the week has closed (the coming Monday, 00:00 UTC) — then it will be complete."
+msgstr "Zapisano <b>%(name)s</b>.<br><br>Tydzień jeszcze trwa, więc dowód nie zawiera podpisu korzenia i <b>nie da się go na razie zweryfikować offline</b>. Wyeksportuj go ponownie po zamknięciu tygodnia (najbliższy poniedziałek, 00:00 UTC) — wtedy będzie kompletny."
+
+#: beatstamp/ui/main_window.py:1321
+msgid "<b>%(name)s</b> was saved.<br><br>You can check it with an OpenTimestamps client:<br><code>ots verify %(command)s</code><br><br>That verification goes through the Bitcoin chain — entirely outside BeatTime and outside this application."
+msgstr "Zapisano <b>%(name)s</b>.<br><br>Sprawdzisz go klientem OpenTimestamps:<br><code>ots verify %(command)s</code><br><br>Ta weryfikacja idzie przez łańcuch Bitcoin — całkowicie poza BeatTime i poza tą aplikacją."
+
+#: beatstamp/certificate.py:465
+msgid "<b>Entry from the archive of the old TVS client.</b> Its former \"signature\" is a concatenation of a time and a digest that cannot be verified. Stamp the file again in BeatStamp to get a proof that can be checked independently."
+msgstr "<b>Wpis z archiwum starego klienta TVS.</b> Jego dawny „podpis\" to sklejka czasu i skrótu, której nie da się zweryfikować. Ostempluj plik ponownie w BeatStamp, aby uzyskać dowód sprawdzalny niezależnie."
+
+#: beatstamp/certificate.py:453
+msgid "<b>The proof did not pass the local check.</b> "
+msgstr "<b>Dowód nie przeszedł kontroli lokalnej.</b> "
+
+#: beatstamp/certificate.py:472
+msgid "<b>The proof is not closed yet.</b> The Ed25519 signature, the Bitcoin attestation (OpenTimestamps) and the bank anchor are added <i>after the current week closes</i> (the coming Monday, 00:00 UTC). Issue the certificate again after that date — the fields will fill in. <b>The timestamp itself will no longer change.</b>"
+msgstr "<b>Dowód jeszcze nie domknięty.</b> Podpis Ed25519, atestacja Bitcoin (OpenTimestamps) i kotwica bankowa są dokładane <i>po zamknięciu bieżącego tygodnia</i> (najbliższy poniedziałek, 00:00 UTC). Wystaw certyfikat ponownie po tym terminie — pola się uzupełnią. <b>Sam znacznik czasu już się nie zmieni.</b>"
+
+#: beatstamp/certificate.py:441
+msgid "<b>The proof needs refreshing.</b> The root of this week was signed with a BeatTime key retired on %(when)s — such a signature is no longer binding. BeatTime has re-signed every published root with the current key: refresh the proof in BeatStamp (History -> Refresh statuses) and issue the certificate again. <b>The timestamp itself does not change.</b>"
+msgstr "<b>Dowód wymaga odświeżenia.</b> Korzeń tego tygodnia podpisano kluczem BeatTime wycofanym %(when)s — taki podpis nie jest już wiążący. BeatTime podpisał każdy opublikowany korzeń ponownie aktualnym kluczem: odśwież dowód w BeatStamp (Historia → Odśwież statusy) i wystaw certyfikat ponownie. <b>Sam znacznik czasu się nie zmienia.</b>"
+
+#: beatstamp/ui/dialogs.py:493
+msgid "<b>current</b> since %(date)s: <span style=\"font-family:monospace\">%(key)s</span>"
+msgstr "<b>aktualny</b> od %(date)s: <span style=\"font-family:monospace\">%(key)s</span>"
+
+#: beatstamp/ui/dialogs.py:870
+msgid "<p><b>Third-party software.</b> BeatStamp uses the <b>Qt</b> and <b>PySide6</b> libraries (copyright (C) The Qt Company Ltd. and other contributors) under the <b>GNU Lesser General Public License, version 3</b>. %(relinking)s</p><p>Qt itself contains third-party code, among others FreeType: portions of this software are copyright (c) 2025 The FreeType Project (https://freetype.org), all rights reserved. The notices of the other components are delivered with the program.</p><p>The full licence texts — including the GNU GPL and the GNU LGPL — and the list of every file in this package with its licence are delivered together with the program, and the button below opens them. The rest of BeatStamp is published under the Apache License 2.0.</p>"
+msgstr "<p><b>Oprogramowanie innych autorów.</b> BeatStamp korzysta z bibliotek <b>Qt</b> i <b>PySide6</b> (prawa autorskie (C) The Qt Company Ltd. i pozostali współautorzy) na licencji <b>GNU Lesser General Public License w wersji 3</b>. %(relinking)s</p><p>Samo Qt zawiera kod innych autorów, między innymi FreeType: portions of this software are copyright (c) 2025 The FreeType Project (https://freetype.org), all rights reserved. Noty pozostałych składników są dostarczone razem z programem.</p><p>Pełne teksty licencji — razem z GNU GPL i GNU LGPL — oraz spis wszystkich plików tej paczki wraz z ich licencjami są dostarczone razem z programem, a przycisk poniżej je otwiera. Reszta BeatStampa jest wydana na licencji Apache License 2.0.</p>"
+
+#: beatstamp/ui/dialogs.py:803
+msgid "<p>Registers the SHA-256 digest of a document in the public, append-only <b>BeatTime</b> register, giving proof that the file existed at a given moment and has not been changed since.</p><p><b>The document never leaves this computer.</b> Only the 64-character digest goes to the network — the content, or even the file name, cannot be recovered from it.</p><p><b>How the proof matures</b><br>1. <b>Recorded</b> — the digest reaches the register, the timestamp is already final.<br>2. <b>Signed</b> — after the week closes (Monday 00:00 UTC) the Merkle root is frozen and signed with an Ed25519 key.<br>3. <b>Anchored</b> — the root goes into the Bitcoin chain (OpenTimestamps) and is confirmed by an independent bank transfer.</p><p><b>What the proof does NOT attest:</b> the authorship of the document or the truth of its content. It attests only existence in time and integrity.</p><p>Verification is possible <b>without this application</b>: at beattime.live/proof, from a <code>.beatproof</code> file with any tool that computes SHA-256 and Ed25519, or from an <code>.ots</code> file with an OpenTimestamps client.</p>"
+msgstr "<p>Rejestruje skrót SHA-256 dokumentu w publicznym, dopisywalnym-tylko rejestrze <b>BeatTime</b>, dając dowód, że plik istniał w danej chwili i nie został od tego czasu zmieniony.</p><p><b>Dokument nigdy nie opuszcza tego komputera.</b> Do sieci idzie wyłącznie 64-znakowy skrót — z niego nie da się odtworzyć treści ani nawet nazwy pliku.</p><p><b>Jak dojrzewa dowód</b><br>1. <b>Zarejestrowany</b> — skrót trafia do rejestru, znacznik czasu jest już ostateczny.<br>2. <b>Podpisany</b> — po zamknięciu tygodnia (poniedziałek 00:00 UTC) korzeń Merkle zostaje zamrożony i podpisany kluczem Ed25519.<br>3. <b>Zakotwiczony</b> — korzeń trafia do łańcucha Bitcoin (OpenTimestamps) i jest potwierdzany niezależnym przelewem bankowym.</p><p><b>Czego dowód NIE poświadcza:</b> autorstwa dokumentu ani prawdziwości jego treści. Poświadcza wyłącznie istnienie w czasie i nienaruszalność.</p><p>Weryfikacja jest możliwa <b>bez tej aplikacji</b>: na beattime.live/proof, z pliku <code>.beatproof</code> dowolnym narzędziem liczącym SHA-256 i Ed25519, albo z pliku <code>.ots</code> klientem OpenTimestamps.</p>"
+
+#: beatstamp/certificate.py:394
+#: beatstamp/history.py:454
+msgid "@beat time"
+msgstr "Czas @beat"
+
+#: beatstamp/ui/widgets.py:262
+msgid ""
+"@beat time: the day split into 1000 beats (1 beat = 86.4 s),\n"
+"anchored in UTC. @000 is UTC midnight, @500 — UTC noon.\n"
+"No time zones: @523 means the same all over the world."
+msgstr ""
+"Czas @beat: doba podzielona na 1000 beatów (1 beat = 86,4 s),\n"
+"kotwiczony w UTC. @000 to północ UTC, @500 — południe UTC.\n"
+"Bez stref czasowych: @523 znaczy to samo na całym świecie."
+
+#: beatstamp/ui/main_window.py:206
+msgid "@beat timestamps %(version)s — BeatStamp"
+msgstr "znacznik czasu @beat %(version)s — BeatStamp"
+
+#: beatstamp/ui/dialogs.py:800
+msgid "@beat timestamps for local files"
+msgstr "Znacznik czasu @beat dla plików lokalnych"
+
+#: beatstamp/ui/main_window.py:1014
+msgid "A SHA-256 digest is exactly <b>64 hexadecimal characters</b> (digits 0-9 and letters a-f).<br><br>%(typed)s were entered."
+msgstr "Skrót SHA-256 to dokładnie <b>64 znaki szesnastkowe</b> (cyfry 0-9 i litery a-f).<br><br>Wpisano %(typed)s."
+
+#: beatstamp/ui/main_window.py:1879
+msgid "A background task is still running. Close the program and stop it?"
+msgstr "Trwa jeszcze zadanie w tle. Zamknąć program i przerwać je?"
+
+#: beatstamp/ui/main_window.py:326
+msgid "A description visible only to you"
+msgstr "Opis widoczny tylko dla Ciebie"
+
+#: beatstamp/api.py:373
+msgid "A digest must be exactly 64 hexadecimal characters (SHA-256)."
+msgstr "Skrót musi mieć dokładnie 64 znaki szesnastkowe (SHA-256)."
+
+#: beatstamp/config.py:633
+msgid "A file of that name was already there, so the version from the old location was saved next to it as: %(names)s"
+msgstr "Plik o tej nazwie już tam był, więc wersję ze starej lokalizacji zapisano obok jako: %(names)s"
+
+#: beatstamp/ui/main_window.py:810
+msgid "A large number of files"
+msgstr "Duża liczba plików"
+
+#: beatstamp/ui/main_window.py:558
+msgid ""
+"A proof MATURES: a stamp from this week gets its signature once the\n"
+"week closes, and the Bitcoin attestation a few hours later.\n"
+"This operation asks the register about entries that are not yet\n"
+"anchored or are signed with a retired key. (F5)"
+msgstr ""
+"Dowód DOJRZEWA: stempel z tego tygodnia dostanie podpis po jego\n"
+"zamknięciu, a atestację Bitcoina kilka godzin później.\n"
+"Ta operacja odpytuje rejestr o wpisy, które jeszcze nie są\n"
+"zakotwiczone albo mają podpis kluczem wycofanym. (F5)"
+
+#: beatstamp/ui/main_window.py:686
+msgid "A record of errors — useful when reporting a problem"
+msgstr "Zapis błędów — przydatny przy zgłaszaniu problemu"
+
+#: beatstamp/ui/main_window.py:1878
+msgid "A task is running"
+msgstr "Zadanie w toku"
+
+#: beatstamp/ui/dialogs.py:987
+msgid "A thank-you at our discretion — not an entitlement and not something a payment buys."
+msgstr "Podziękowanie według naszego uznania — nie jest to żadne uprawnienie ani świadczenie, które kupuje się płatnością."
+
+#: beatstamp/certificate.py:169
+msgid "ANCHORED — the week root is preserved outside BeatTime"
+msgstr "ZAKOTWICZONY — korzeń tygodnia utrwalony poza BeatTime"
+
+#: beatstamp/ui/dialogs.py:430
+msgid "API address:"
+msgstr "Adres API:"
+
+#: beatstamp/ui/dialogs.py:903
+msgid "API documentation"
+msgstr "Dokumentacja API"
+
+#: beatstamp/ui/main_window.py:666
+msgid "About"
+msgstr "O programie"
+
+#: beatstamp/ui/dialogs.py:796
+msgid "About — BeatStamp"
+msgstr "O programie — BeatStamp"
+
+#: beatstamp/ui/dialogs.py:426
+msgid ""
+"Address of the BeatTime server. It must start with https://\n"
+"Default value: %(default)s\n"
+"\n"
+"Change it only if you use your own instance."
+msgstr ""
+"Adres serwera BeatTime. Musi zaczynać się od https://\n"
+"Wartość domyślna: %(default)s\n"
+"\n"
+"Zmieniaj tylko, jeśli korzystasz z własnej instancji."
+
+#: beatstamp/ui/dialogs.py:451
+msgid ""
+"Address of the local SOCKS proxy. Default: %(default)s\n"
+"\n"
+"Tor Browser usually listens on port 9150, and the system tor\n"
+"service on 9050. The socks5h prefix means the .onion name is\n"
+"resolved by the Tor network, not by your computer (otherwise\n"
+"the address would leak to your internet provider)."
+msgstr ""
+"Adres lokalnego proxy SOCKS. Domyślnie: %(default)s\n"
+"\n"
+"Tor Browser nasłuchuje zwykle na porcie 9150, a usługa\n"
+"systemowa tor — na 9050. Przedrostek socks5h oznacza, że nazwę\n"
+".onion rozwiązuje sieć Tor, a nie Twój komputer (inaczej adres\n"
+"wyciekałby do dostawcy internetu)."
+
+#: beatstamp/ui/dialogs.py:579
+msgid ""
+"After the digest is registered the application immediately checks\n"
+"the inclusion path and the signature — locally, without another request."
+msgstr ""
+"Po zarejestrowaniu skrótu aplikacja od razu sprawdza\n"
+"ścieżkę inkluzji i podpis — lokalnie, bez dodatkowego zapytania."
+
+#: beatstamp/ui/main_window.py:550
+msgid "All levels"
+msgstr "Wszystkie poziomy"
+
+#: beatstamp/proof.py:394
+msgid "An @beat time was given without a UTC date — such a time cannot be checked."
+msgstr "Podano czas @beat bez daty UTC — takiego czasu nie da się sprawdzić."
+
+#: beatstamp/ui/dialogs.py:719
+msgid "An Ed25519 public key is 32 bytes written in canonical base64 — 44 characters ending with \"=\".<br><br>Leave the field empty to use the built-in list of BeatTime keys (recommended)."
+msgstr "Klucz publiczny Ed25519 to 32 bajty zapisane w kanonicznym base64 — 44 znaki zakończone znakiem \"=\".<br><br>Zostaw pole puste, aby używać wbudowanej listy kluczy BeatTime (zalecane)."
+
+#: beatstamp/ui/dialogs.py:521
+msgid ""
+"An additional Ed25519 public key in base64 (32 bytes).\n"
+"\n"
+"Leave it empty — the program knows the BeatTime keys itself.\n"
+"Fill it in only when BeatTime announces a new key before a new\n"
+"version of the program is released — and only with a value\n"
+"confirmed from an independent source. A retired key cannot be\n"
+"entered."
+msgstr ""
+"Dodatkowy klucz publiczny Ed25519 w base64 (32 bajty).\n"
+"\n"
+"Zostaw puste — program zna klucze BeatTime sam.\n"
+"Wpisz wyłącznie, gdy BeatTime ogłosi nowy klucz, zanim\n"
+"wyjdzie nowa wersja programu — i tylko wartość potwierdzoną\n"
+"z niezależnego źródła. Klucza wycofanego wpisać się nie da."
+
+#: beatstamp/__main__.py:113
+msgid "An unexpected error occurred."
+msgstr "Wystąpił nieoczekiwany błąd."
+
+#: beatstamp/workers.py:87
+msgid "An unexpected error occurred. The details were written to the log (Help -> Show event log)."
+msgstr "Wystąpił nieoczekiwany błąd. Szczegóły zapisano w dzienniku (Pomoc → Pokaż dziennik zdarzeń)."
+
+#: beatstamp/ui/history_model.py:48
+msgid "Anchor"
+msgstr "Kotwica"
+
+#: beatstamp/proof.py:106
+msgid "Anchored"
+msgstr "Zakotwiczony"
+
+#: beatstamp/__main__.py:112
+msgid "Application error — BeatStamp"
+msgstr "Błąd aplikacji — BeatStamp"
+
+#: beatstamp/ui/dialogs.py:594
+msgid "Ask before overwriting an existing file"
+msgstr "Pytaj przed nadpisaniem istniejącego pliku"
+
+#: beatstamp/ui/main_window.py:457
+msgid ""
+"Asks the BeatTime register about this digest and checks the answer\n"
+"locally: the inclusion path, the root signature and the identity of\n"
+"the key. It records nothing and changes nothing."
+msgstr ""
+"Odpytuje rejestr BeatTime o ten skrót i sprawdza odpowiedź\n"
+"lokalnie: ścieżkę inkluzji, podpis korzenia i tożsamość klucza.\n"
+"Niczego nie rejestruje ani nie zmienia."
+
+#: beatstamp/certificate.py:423
+msgid "Bank anchor"
+msgstr "Kotwica bankowa"
+
+#: beatstamp/ui/history_model.py:231
+msgid "Bank anchor: %(details)s"
+msgstr "Kotwica bankowa: %(details)s"
+
+#: beatstamp/ui/dialogs.py:367
+msgid "BeatStamp can write to this folder again:"
+msgstr "BeatStamp znowu może zapisywać w tym folderze:"
+
+#: beatstamp/config.py:489
+msgid "BeatStamp cannot save data"
+msgstr "BeatStamp nie może zapisać danych"
+
+#: beatstamp/ui/main_window.py:1388
+msgid "BeatStamp cannot save data in %(path)s — new stamps will not be recorded in the history until the folder is changed (Settings -> Data)."
+msgstr "BeatStamp nie może zapisywać danych w %(path)s — nowe stemple nie trafią do historii, dopóki folder się nie zmieni (Ustawienia -> Dane)."
+
+#: beatstamp/config.py:666
+msgid ""
+"BeatStamp data (stamp history, settings) has been moved to:\n"
+"\n"
+"    %(path)s\n"
+"\n"
+"This folder is no longer in use. The files were kept here as a copy — you can delete them once you are sure everything is in the new place.\n"
+msgstr ""
+"Dane programu BeatStamp (historia stempli, ustawienia) zostały przeniesione do:\n"
+"\n"
+"    %(path)s\n"
+"\n"
+"Ten katalog nie jest już używany. Pliki zostały tu zachowane jako kopia — możesz je usunąć, gdy upewnisz się, że wszystko jest na nowym miejscu.\n"
+
+#: beatstamp/config.py:628
+msgid "BeatStamp data has been moved to: %(path)s"
+msgstr "Dane BeatStamp przeniesiono do: %(path)s"
+
+#: beatstamp/ui/dialogs.py:628
+msgid "BeatStamp keeps the stamp history, the settings and the event log in one folder. The proofs themselves live in the public BeatTime register, but the history is the only record of WHAT you stamped and when — it exists nowhere else."
+msgstr "BeatStamp trzyma w jednym folderze historię stempli, ustawienia i dziennik zdarzeń. Same dowody są w publicznym rejestrze BeatTime, ale historia to jedyny zapis tego, CO i kiedy zostało ostemplowane — nie istnieje nigdzie indziej."
+
+#: beatstamp/ui/main_window.py:1232
+msgid "BeatStamp proof (*.beatproof)"
+msgstr "Dowód BeatStamp (*.beatproof)"
+
+#: beatstamp/ui/main_window.py:1086
+msgid "BeatStamp proof (*.beatproof);;JSON files (*.json);;All files (*)"
+msgstr "Dowód BeatStamp (*.beatproof);;Pliki JSON (*.json);;Wszystkie pliki (*)"
+
+#: beatstamp/ui/main_window.py:111
+msgid "BeatTime key RETIRED — the proof needs refreshing"
+msgstr "klucz BeatTime WYCOFANY — dowód wymaga odświeżenia"
+
+#: beatstamp/ui/main_window.py:107
+msgid "BeatTime key from the list built into the application"
+msgstr "klucz BeatTime z listy wbudowanej w aplikację"
+
+#: beatstamp/ui/main_window.py:1700
+msgid "BeatTime service status"
+msgstr "Stan usługi BeatTime"
+
+#: beatstamp/ui/dialogs.py:477
+msgid "BeatTime signs weekly Merkle roots with an Ed25519 key. The application checks that signature <b>locally</b> and compares the key with the <b>built-in list of BeatTime keys</b> — never with whatever the server sends.<br><br>Without that, the signature alone would prove nothing: a fake server would send its own key together with a matching signature and everything would add up. A signature from a <b>retired</b> key is not enough either — such a proof has to be refreshed online so that it gets a signature made with the current key."
+msgstr "BeatTime podpisuje tygodniowe korzenie Merkle kluczem Ed25519. Aplikacja sprawdza ten podpis <b>lokalnie</b>, a klucz porównuje z <b>wbudowaną listą kluczy BeatTime</b> — nigdy z tym, co przyśle serwer.<br><br>Bez tego sam podpis nic by nie dowodził: fałszywy serwer przysłałby własny klucz razem z pasującym podpisem i wszystko by się zgadzało. Podpis kluczem <b>wycofanym</b> też nie wystarcza — taki dowód trzeba odświeżyć online, żeby dostał podpis aktualnym kluczem."
+
+#: beatstamp/certificate.py:331
+msgid "BeatTime — proof of existence %(digest)s"
+msgstr "BeatTime — dowód istnienia %(digest)s"
+
+#: beatstamp/ui/dialogs.py:401
+msgid "Behaviour"
+msgstr "Zachowanie"
+
+#: beatstamp/ui/main_window.py:1759
+msgid "Besides the built-in list of BeatTime keys, the application will now also accept signatures made with <b>the key you entered</b>.<br><br>Whoever gave you that key can sign any \"proof\" with it. The status bar will keep reminding you. To go back to the built-in list alone, clear the field in Settings -> Trust."
+msgstr "Oprócz wbudowanej listy kluczy BeatTime aplikacja uzna teraz także podpisy <b>wpisanym przez Ciebie kluczem</b>.<br><br>Kto podsunął Ci ten klucz, może podpisać nim dowolny „dowód\". Pasek stanu będzie o tym przypominał. Aby wrócić do samej listy wbudowanej, wyczyść pole w Ustawieniach → Zaufanie."
+
+#: beatstamp/history.py:463
+msgid "Bitcoin block"
+msgstr "Blok Bitcoin"
+
+#: beatstamp/certificate.py:239
+msgid "Bitcoin block %(height)s"
+msgstr "blok Bitcoin %(height)s"
+
+#: beatstamp/proof.py:210
+msgid "Bitcoin — block %(height)s"
+msgstr "Bitcoin — blok %(height)s"
+
+#: beatstamp/ui/main_window.py:507
+msgid "Builds a certificate for the checked digest"
+msgstr "Składa certyfikat dla sprawdzonego skrótu"
+
+#: beatstamp/ui/main_window.py:386
+msgid ""
+"Builds the certificate on this computer — it works without the internet too.\n"
+"It contains the digest, the time, the week root and a QR code for verification."
+msgstr ""
+"Składa certyfikat na tym komputerze — działa także bez internetu.\n"
+"Zawiera skrót, czas, korzeń tygodnia i kod QR do weryfikacji."
+
+#: beatstamp/ui/dialogs.py:491
+msgid "Built-in BeatTime keys"
+msgstr "Wbudowane klucze BeatTime"
+
+#: beatstamp/ui/main_window.py:1641
+msgid "CSV sheet for Excel (*.csv);;JSON file (*.json)"
+msgstr "Arkusz CSV dla Excela (*.csv);;Plik JSON (*.json)"
+
+#: beatstamp/ui/dialogs.py:407
+msgid "Cancel"
+msgstr "Anuluj"
+
+#: beatstamp/certificate.py:510
+msgid "Certificate issued %(utc)s (%(beat)s) by BeatStamp %(version)s · beattime.live"
+msgstr "Certyfikat wystawiony %(utc)s (%(beat)s) przez BeatStamp %(version)s · beattime.live"
+
+#: beatstamp/ui/main_window.py:1222
+msgid "Certificate saved"
+msgstr "Certyfikat zapisany"
+
+#: beatstamp/ui/dialogs.py:647
+msgid "Change…"
+msgstr "Zmień…"
+
+#: beatstamp/ui/main_window.py:250
+msgid "Check a file, a SHA-256 digest or a .beatproof proof"
+msgstr "Sprawdź plik, skrót SHA-256 albo dowód .beatproof"
+
+#: beatstamp/ui/main_window.py:643
+msgid "Check a stand-alone proof — without the network"
+msgstr "Sprawdź samodzielny dowód — bez sieci"
+
+#: beatstamp/ui/dialogs.py:322
+msgid "Check again"
+msgstr "Sprawdź jeszcze raz"
+
+#: beatstamp/ui/main_window.py:455
+msgid "Check digest"
+msgstr "Sprawdź skrót"
+
+#: beatstamp/ui/main_window.py:398
+#: beatstamp/ui/main_window.py:1548
+msgid "Check in the browser"
+msgstr "Sprawdź w przeglądarce"
+
+#: beatstamp/ui/main_window.py:1044
+msgid "Check that the digest was pasted in full."
+msgstr "Sprawdź, czy skrót został wklejony w całości."
+
+#: beatstamp/ui/main_window.py:658
+msgid "Check the service status"
+msgstr "Sprawdź stan usługi"
+
+#: beatstamp/bundle.py:216
+msgid "Check this digest in the register (Verification tab -> Check digest) and export the proof again — it will get a signature made with the current key."
+msgstr "Sprawdź ten skrót w rejestrze (zakładka Weryfikacja → Sprawdź skrót) i wyeksportuj dowód ponownie — dostanie podpis aktualnym kluczem."
+
+#: beatstamp/ui/main_window.py:430
+msgid "Check whether a document already has a timestamp — and whether the proof is consistent. Verification records nothing and changes nothing."
+msgstr "Sprawdź, czy dokument ma już znacznik czasu — i czy dowód jest spójny. Weryfikacja niczego nie rejestruje i nie zmienia."
+
+#: beatstamp/ui/main_window.py:640
+msgid "Check whether a file already has a stamp"
+msgstr "Sprawdź, czy plik ma już stempel"
+
+#: beatstamp/ui/main_window.py:654
+msgid "Check whether the proofs have matured"
+msgstr "Sprawdź, czy dowody dojrzały"
+
+#: beatstamp/ui/main_window.py:1001
+msgid "Checking the first of %(count)s files — verification works on one file at a time."
+msgstr "Sprawdzam pierwszy z %(count)s plików — weryfikacja działa na jednym pliku naraz."
+
+#: beatstamp/ui/main_window.py:1108
+msgid "Checking the proof…"
+msgstr "Sprawdzam dowód…"
+
+#: beatstamp/ui/main_window.py:1691
+#: beatstamp/workers.py:405
+msgid "Checking the service status…"
+msgstr "Sprawdzam stan usługi…"
+
+#: beatstamp/ui/main_window.py:464
+msgid ""
+"Checks a stand-alone proof file. The verification happens\n"
+"entirely locally — without connecting to anything."
+msgstr ""
+"Sprawdza samodzielny plik dowodu. Weryfikacja odbywa się\n"
+"całkowicie lokalnie — bez łączenia się z czymkolwiek."
+
+#: beatstamp/ui/main_window.py:991
+msgid "Choose a file to check"
+msgstr "Wybierz plik do sprawdzenia"
+
+#: beatstamp/ui/dialogs.py:205
+msgid "Choose a folder for BeatStamp data"
+msgstr "Wybierz folder na dane BeatStamp"
+
+#: beatstamp/ui/main_window.py:1084
+msgid "Choose a proof file"
+msgstr "Wybierz plik dowodu"
+
+#: beatstamp/ui/main_window.py:637
+#: beatstamp/ui/main_window.py:796
+msgid "Choose files to stamp"
+msgstr "Wybierz pliki do ostemplowania"
+
+#: beatstamp/ui/main_window.py:1101
+msgid "Choose the document"
+msgstr "Wybierz dokument"
+
+#: beatstamp/ui/dialogs.py:532
+msgid "Clears your own key — verification then uses only the keys shipped with this version of the program"
+msgstr "Czyści własny klucz — weryfikacja używa tylko kluczy dostarczonych z tą wersją programu"
+
+#: beatstamp/ui/main_window.py:1684
+msgid "Clock synchronised (difference %(offset)s s, round trip %(rtt)s ms)."
+msgstr "Zegar zsynchronizowany (różnica %(offset)s s, czas obiegu %(rtt)s ms)."
+
+#: beatstamp/ui/dialogs.py:327
+#: beatstamp/ui/dialogs.py:923
+#: beatstamp/ui/dialogs.py:1030
+#: beatstamp/ui/dialogs.py:1177
+#: beatstamp/ui/dialogs.py:1234
+#: beatstamp/ui/dialogs.py:1286
+#: beatstamp/ui/main_window.py:1274
+msgid "Close"
+msgstr "Zamknij"
+
+#: beatstamp/ui/dialogs.py:574
+msgid "Colour theme. The change takes effect at once."
+msgstr "Motyw kolorystyczny. Zmiana działa natychmiast."
+
+#: beatstamp/workers.py:200
+#: beatstamp/workers.py:263
+#: beatstamp/workers.py:359
+msgid "Computing SHA-256: %(name)s"
+msgstr "Liczę SHA-256: %(name)s"
+
+#: beatstamp/ui/main_window.py:1007
+#: beatstamp/workers.py:196
+msgid "Computing digest: %(name)s"
+msgstr "Liczę skrót: %(name)s"
+
+#: beatstamp/workers.py:353
+msgid "Computing the document digest: %(name)s"
+msgstr "Liczę skrót dokumentu: %(name)s"
+
+#: beatstamp/ui/main_window.py:1065
+msgid "Confirmed"
+msgstr "Potwierdzono"
+
+#: beatstamp/certificate.py:398
+msgid "Confirmed by signature"
+msgstr "Potwierdzone podpisem"
+
+#: beatstamp/ui/dialogs.py:432
+msgid "Connect through the Tor network (.onion service)"
+msgstr "Łączy przez sieć Tor (usługa .onion)"
+
+#: beatstamp/workers.py:209
+msgid "Connecting to beattime.live…"
+msgstr "Łączę z beattime.live…"
+
+#: beatstamp/ui/dialogs.py:399
+msgid "Connection"
+msgstr "Połączenie"
+
+#: beatstamp/ui/main_window.py:663
+msgid "Connection, trust, behaviour"
+msgstr "Połączenie, zaufanie, zachowanie"
+
+#: beatstamp/ui/widgets.py:361
+msgid "Copied"
+msgstr "Skopiowano"
+
+#: beatstamp/ui/widgets.py:331
+msgid "Copies the contents to the clipboard"
+msgstr "Kopiuje zawartość do schowka"
+
+#: beatstamp/ui/main_window.py:605
+msgid "Copies the full SHA-256 digest to the clipboard"
+msgstr "Kopiuje pełny skrót SHA-256 do schowka"
+
+#: beatstamp/ui/dialogs.py:1173
+msgid "Copies the whole JSON document to the clipboard"
+msgstr "Kopiuje cały dokument JSON do schowka"
+
+#: beatstamp/ui/widgets.py:330
+msgid "Copy"
+msgstr "Kopiuj"
+
+#: beatstamp/ui/main_window.py:604
+msgid "Copy digest"
+msgstr "Kopiuj skrót"
+
+#: beatstamp/ui/dialogs.py:1172
+msgid "Copy everything"
+msgstr "Kopiuj wszystko"
+
+#: beatstamp/ui/main_window.py:1544
+msgid "Copy the SHA-256 digest"
+msgstr "Kopiuj skrót SHA-256"
+
+#: beatstamp/ui/dialogs.py:570
+msgid "Dark"
+msgstr "Ciemny"
+
+#: beatstamp/ui/dialogs.py:402
+msgid "Data"
+msgstr "Dane"
+
+#: beatstamp/ui/dialogs.py:258
+#: beatstamp/ui/dialogs.py:366
+msgid "Data folder"
+msgstr "Katalog danych"
+
+#: beatstamp/config.py:629
+#: beatstamp/ui/main_window.py:1403
+msgid "Data folder: %(path)s"
+msgstr "Katalog danych: %(path)s"
+
+#: beatstamp/ui/main_window.py:402
+#: beatstamp/ui/main_window.py:517
+#: beatstamp/ui/main_window.py:601
+#: beatstamp/ui/main_window.py:1550
+msgid "Details…"
+msgstr "Szczegóły…"
+
+#: beatstamp/ui/main_window.py:1574
+msgid "Digest copied to the clipboard."
+msgstr "Skrót skopiowany do schowka."
+
+#: beatstamp/ui/main_window.py:492
+msgid "Digest:"
+msgstr "Skrót:"
+
+#: beatstamp/ui/main_window.py:1091
+msgid "Do you also want to point to the <b>document</b> this proof is about?<br><br>Without the document we check only whether the proof itself is consistent. With the document we additionally check whether the proof really is about <i>this</i> file and whether the file has been changed."
+msgstr "Czy wskazać także <b>dokument</b>, którego dotyczy ten dowód?<br><br>Bez dokumentu sprawdzimy wyłącznie, czy sam dowód jest spójny. Z dokumentem sprawdzimy dodatkowo, czy dowód naprawdę dotyczy <i>tego</i> pliku i czy plik nie został zmieniony."
+
+#: beatstamp/certificate.py:392
+msgid "Document"
+msgstr "Dokument"
+
+#: beatstamp/ui/history_model.py:44
+msgid "Document digest — the only information that reached the register"
+msgstr "Skrót dokumentu — jedyna informacja, która trafiła do rejestru"
+
+#: beatstamp/ui/history_model.py:43
+msgid "Document name. It was never sent to the server"
+msgstr "Nazwa dokumentu. Nigdy nie była wysyłana do serwera"
+
+#: beatstamp/ui/main_window.py:854
+msgid "Done — %(files)s stamped."
+msgstr "Gotowe — ostemplowano %(files)s."
+
+#: beatstamp/ui/main_window.py:855
+msgid "Done — the file has a timestamp."
+msgstr "Gotowe — plik ma znacznik czasu."
+
+#: beatstamp/ui/main_window.py:512
+msgid "Download the .ots proof"
+msgstr "Pobierz dowód .ots"
+
+#: beatstamp/ui/dialogs.py:1120
+msgid "Downloaded: %(when)s"
+msgstr "Pobrano: %(when)s"
+
+#: beatstamp/ui/main_window.py:1305
+#: beatstamp/workers.py:443
+msgid "Downloading the .ots proof for %(week)s…"
+msgstr "Pobieram dowód .ots dla %(week)s…"
+
+#: beatstamp/workers.py:393
+msgid "Downloading the certificate from beattime.live…"
+msgstr "Pobieram certyfikat z beattime.live…"
+
+#: beatstamp/ui/dialogs.py:1016
+msgid "Downloads the list from beattime.live again"
+msgstr "Pobiera listę z beattime.live jeszcze raz"
+
+#: beatstamp/ui/main_window.py:437
+msgid "Drag a file here to check it"
+msgstr "Przeciągnij plik do sprawdzenia"
+
+#: beatstamp/ui/main_window.py:488
+msgid "Drag a file in, paste a digest, or load a .beatproof file."
+msgstr "Przeciągnij plik, wklej skrót albo wczytaj plik .beatproof."
+
+#: beatstamp/ui/main_window.py:362
+msgid "Drag a file into the area above to give it a timestamp."
+msgstr "Przeciągnij plik do obszaru powyżej, aby nadać mu znacznik czasu."
+
+#: beatstamp/ui/main_window.py:98
+msgid "Drag files here"
+msgstr "Przeciągnij pliki tutaj"
+
+#: beatstamp/ui/widgets.py:116
+msgid ""
+"Drag files here, or click to pick them from disk.\n"
+"You can drop several files at once — a whole folder too.\n"
+"\n"
+"Files are NOT sent anywhere: only their 64-character\n"
+"SHA-256 digest, computed on this computer, goes to the network."
+msgstr ""
+"Przeciągnij tutaj pliki albo kliknij, aby wybrać je z dysku.\n"
+"Możesz upuścić kilka plików naraz — także cały katalog.\n"
+"\n"
+"Pliki NIE są nigdzie wysyłane: do sieci idzie wyłącznie ich\n"
+"64-znakowy skrót SHA-256 liczony na tym komputerze."
+
+#: beatstamp/certificate.py:203
+msgid "Ed25519 — root signed with YOUR OWN key from the settings (outside the built-in list), checked locally"
+msgstr "Ed25519 — korzeń podpisany WŁASNYM kluczem z ustawień (spoza listy wbudowanej), sprawdzony lokalnie"
+
+#: beatstamp/certificate.py:205
+msgid "Ed25519 — root signed with a BeatTime key, checked locally"
+msgstr "Ed25519 — korzeń podpisany kluczem BeatTime, sprawdzony lokalnie"
+
+#: beatstamp/certificate.py:201
+msgid "Ed25519 — the signature was not confirmed by the local check"
+msgstr "Ed25519 — podpis nie został potwierdzony kontrolą lokalną"
+
+#: beatstamp/certificate.py:198
+msgid "Ed25519 — with a key outside the BeatTime list, signature not binding"
+msgstr "Ed25519 — kluczem spoza listy BeatTime, podpis niewiążący"
+
+#: beatstamp/certificate.py:195
+msgid "Ed25519 — with a key retired on %(when)s, signature not binding"
+msgstr "Ed25519 — kluczem wycofanym %(when)s, podpis niewiążący"
+
+#: beatstamp/ui/history_model.py:144
+msgid ""
+"Entry carried over from the old TVS client. Its \"signature\" is a concatenation of a time and a digest that cannot be verified.\n"
+"\n"
+"Stamp this file again to get a proof that\n"
+"can be checked independently."
+msgstr ""
+"Wpis przeniesiony ze starego klienta TVS. Jego \"podpis\" to sklejka czasu i skrótu, której nie da się zweryfikować.\n"
+"\n"
+"Ostempluj ten plik ponownie, aby uzyskać dowód, który\n"
+"da się sprawdzić niezależnie."
+
+#: beatstamp/ui/main_window.py:1568
+msgid "Entry details"
+msgstr "Szczegóły wpisu"
+
+#: beatstamp/ui/main_window.py:878
+msgid "Error"
+msgstr "Błąd"
+
+#: beatstamp/ui/dialogs.py:1264
+msgid "Event log — BeatStamp"
+msgstr "Dziennik zdarzeń — BeatStamp"
+
+#: beatstamp/workers.py:305
+msgid "Every entry is already anchored — there is nothing to refresh."
+msgstr "Wszystkie wpisy są już zakotwiczone — nie ma czego odświeżać."
+
+#: beatstamp/ui/main_window.py:645
+msgid "Export history…"
+msgstr "Eksportuj historię…"
+
+#: beatstamp/ui/main_window.py:1638
+msgid "Export the history"
+msgstr "Eksportuj historię"
+
+#: beatstamp/ui/main_window.py:617
+msgid "Export…"
+msgstr "Eksportuj…"
+
+#: beatstamp/ui/main_window.py:112
+msgid "FOREIGN key — outside the BeatTime keys built into the application"
+msgstr "klucz OBCY — spoza kluczy BeatTime wbudowanych w aplikację"
+
+#: beatstamp/history.py:456
+#: beatstamp/ui/history_model.py:43
+msgid "File"
+msgstr "Plik"
+
+#: beatstamp/ui/main_window.py:1654
+msgid "File write error:<br>%(reason)s"
+msgstr "Błąd zapisu pliku:<br>%(reason)s"
+
+#: beatstamp/ui/main_window.py:544
+msgid ""
+"Filters entries as you type. It also searches the full digest,\n"
+"so you can paste a whole hash."
+msgstr ""
+"Filtruje wpisy na bieżąco. Szuka także w pełnym skrócie,\n"
+"więc można wkleić cały hash."
+
+#: beatstamp/ui/main_window.py:248
+msgid "Give files a timestamp in the BeatTime register"
+msgstr "Nadaj plikom znacznik czasu w rejestrze BeatTime"
+
+#: beatstamp/api.py:179
+msgid "HTTP request error: %(kind)s."
+msgstr "Błąd zapytania HTTP: %(kind)s."
+
+#: beatstamp/ui/main_window.py:1807
+msgid "HTTPS connection with full certificate verification (certifi)."
+msgstr "Połączenie HTTPS z pełną weryfikacją certyfikatu (certifi)."
+
+#: beatstamp/ui/main_window.py:665
+msgid "Hel&p"
+msgstr "Pomo&c"
+
+#: beatstamp/proof.py:124
+msgid "Highest level: the week root is anchored outside BeatTime — in the Bitcoin chain (OpenTimestamps) and/or by a bank confirmation. Undoing this timestamp would require rewriting other parties' registers."
+msgstr "Najwyższy poziom: korzeń tygodnia jest zakotwiczony poza BeatTime — w łańcuchu Bitcoin (OpenTimestamps) i/lub potwierdzeniem bankowym. Cofnięcie tego znacznika wymagałoby przepisania cudzych rejestrów."
+
+#: beatstamp/ui/main_window.py:246
+msgid "History"
+msgstr "Historia"
+
+#: beatstamp/ui/main_window.py:1510
+msgid "History carried over from TVS"
+msgstr "Przeniesiono historię z TVS"
+
+#: beatstamp/ui/dialogs.py:612
+msgid "History limit:"
+msgstr "Limit historii:"
+
+#: beatstamp/ui/dialogs.py:78
+msgid ""
+"History, settings and the event log:\n"
+"%(path)s"
+msgstr ""
+"Historia, ustawienia i dziennik zdarzeń:\n"
+"%(path)s"
+
+#: beatstamp/ui/history_model.py:46
+msgid "How far the proof has matured: recorded -> signed -> anchored"
+msgstr "Jak daleko dojrzał dowód: zarejestrowany → podpisany → zakotwiczony"
+
+#: beatstamp/ui/main_window.py:668
+msgid "How it works — beattime.live"
+msgstr "Jak to działa — beattime.live"
+
+#: beatstamp/ui/dialogs.py:464
+msgid ""
+"How long to wait for the server answer. Over Tor it is worth\n"
+"raising to 30-60 s — the traffic goes through several relays."
+msgstr ""
+"Ile czekać na odpowiedź serwera. Przez Tora warto zwiększyć\n"
+"do 30-60 s — ruch idzie przez kilka węzłów pośredniczących."
+
+#: beatstamp/certificate.py:500
+msgid "How to check independently: compute the SHA-256 of your document and enter the result at <b>beattime.live/proof</b>. The weekly Merkle root is signed with an Ed25519 key and anchored outside BeatTime — in the Bitcoin chain (OpenTimestamps) and by an independent bank confirmation. The certificate attests <i>the existence of the document at a given moment</i> and its integrity — it does not attest authorship or the truth of the content."
+msgstr "Jak sprawdzić niezależnie: policz SHA-256 swojego dokumentu i wpisz wynik na <b>beattime.live/proof</b>. Tygodniowy korzeń Merkle jest podpisany kluczem Ed25519 i kotwiczony poza BeatTime — w łańcuchu Bitcoin (OpenTimestamps) oraz niezależnym potwierdzeniem bankowym. Certyfikat poświadcza <i>istnienie dokumentu w danej chwili</i> oraz jego nienaruszalność — nie poświadcza autorstwa ani prawdziwości treści."
+
+#: beatstamp/ui/dialogs.py:302
+msgid "In Windows Security open: Virus & threat protection > Ransomware protection > Allow an app through Controlled folder access."
+msgstr "W Zabezpieczeniach Windows otwórz: Ochrona przed wirusami i zagrożeniami > Ochrona przed ransomware > Zezwalaj aplikacji na dostęp przez kontrolowany dostęp do folderów."
+
+#: beatstamp/certificate.py:414
+msgid "Inclusion path"
+msgstr "Ścieżka inkluzji"
+
+#: beatstamp/ui/main_window.py:1173
+msgid "Incomplete"
+msgstr "Niekompletny"
+
+#: beatstamp/ui/main_window.py:1172
+msgid "Incomplete proof"
+msgstr "Dowód niekompletny"
+
+#: beatstamp/ui/main_window.py:884
+#: beatstamp/ui/main_window.py:1051
+#: beatstamp/ui/main_window.py:1161
+msgid "Inconsistent proof"
+msgstr "Dowód niespójny"
+
+#: beatstamp/ui/main_window.py:1832
+msgid "Interface language"
+msgstr "Język interfejsu"
+
+#: beatstamp/ui/dialogs.py:561
+msgid ""
+"Interface language. \"Same as system\" follows the language of the\n"
+"Windows interface (not the regional format).\n"
+"\n"
+"Texts already drawn on screen keep the previous language until\n"
+"the program is restarted."
+msgstr ""
+"Język interfejsu. „Jak w systemie\" idzie za językiem interfejsu\n"
+"Windows (nie za formatem regionalnym).\n"
+"\n"
+"Napisy już narysowane na ekranie zostają w poprzednim języku\n"
+"do ponownego uruchomienia programu."
+
+#: beatstamp/ui/dialogs.py:712
+msgid "Invalid address"
+msgstr "Nieprawidłowy adres"
+
+#: beatstamp/ui/main_window.py:1013
+msgid "Invalid digest"
+msgstr "Nieprawidłowy skrót"
+
+#: beatstamp/ui/dialogs.py:718
+msgid "Invalid key"
+msgstr "Nieprawidłowy klucz"
+
+#: beatstamp/ui/main_window.py:596
+msgid "Issues a certificate for the selected entry"
+msgstr "Wystawia certyfikat dla zaznaczonego wpisu"
+
+#: beatstamp/ui/main_window.py:1218
+#: beatstamp/ui/main_window.py:1239
+#: beatstamp/ui/main_window.py:1317
+#: beatstamp/ui/main_window.py:1653
+msgid "It could not be saved"
+msgstr "Nie udało się zapisać"
+
+#: beatstamp/ui/main_window.py:780
+msgid "It did not work"
+msgstr "Nie udało się"
+
+#: beatstamp/ui/dialogs.py:566
+msgid "Language:"
+msgstr "Język:"
+
+#: beatstamp/ui/dialogs.py:913
+#: beatstamp/ui/main_window.py:682
+msgid "Legal notice (Impressum)"
+msgstr "Nota prawna (Impressum)"
+
+#: beatstamp/ui/history_model.py:46
+msgid "Level"
+msgstr "Poziom"
+
+#: beatstamp/ui/dialogs.py:895
+msgid "Licences and notices"
+msgstr "Licencje i noty"
+
+#: beatstamp/ui/dialogs.py:1201
+msgid "Licences and notices — BeatStamp"
+msgstr "Licencje i noty — BeatStamp"
+
+#: beatstamp/ui/dialogs.py:570
+msgid "Light"
+msgstr "Jasny"
+
+#: beatstamp/ui/main_window.py:463
+#: beatstamp/ui/main_window.py:641
+msgid "Load a .beatproof proof…"
+msgstr "Wczytaj dowód .beatproof…"
+
+#: beatstamp/workers.py:348
+msgid "Loading proof: %(name)s"
+msgstr "Wczytuję dowód: %(name)s"
+
+#: beatstamp/workers.py:429
+msgid "Loading the list of supporters…"
+msgstr "Pobieranie listy wspierających…"
+
+#: beatstamp/ui/dialogs.py:1053
+#: beatstamp/ui/dialogs.py:1069
+msgid "Loading the list…"
+msgstr "Wczytywanie listy…"
+
+#: beatstamp/ui/main_window.py:377
+#: beatstamp/ui/main_window.py:500
+msgid "Local check:"
+msgstr "Kontrola lokalna:"
+
+#: beatstamp/ui/main_window.py:1456
+msgid "Local history"
+msgstr "Historia lokalna"
+
+#: beatstamp/certificate.py:397
+#: beatstamp/ui/history_model.py:41
+msgid "Local time"
+msgstr "Czas lokalny"
+
+#: beatstamp/ui/main_window.py:657
+msgid "Measure the clock drift of this computer"
+msgstr "Zmierz dryf zegara tego komputera"
+
+#: beatstamp/history.py:461
+msgid "Merkle root"
+msgstr "Korzeń Merkle"
+
+#: beatstamp/certificate.py:411
+msgid "Merkle root of the week"
+msgstr "Korzeń Merkle tygodnia"
+
+#: beatstamp/ui/history_model.py:218
+msgid "Merkle root: %(root)s"
+msgstr "Korzeń Merkle: %(root)s"
+
+#: beatstamp/ui/dialogs.py:586
+msgid "Name certificates after the source file"
+msgstr "Nazywaj certyfikaty wg pliku źródłowego"
+
+#: beatstamp/ui/history_model.py:233
+msgid "No anchor — the week is still running."
+msgstr "Brak kotwicy — tydzień jeszcze trwa."
+
+#: beatstamp/ui/main_window.py:1629
+msgid "No change — none of the proofs has moved to another stage yet."
+msgstr "Brak zmian — żaden z dowodów nie zmienił jeszcze etapu."
+
+#: beatstamp/api.py:174
+msgid "No connection to beattime.live. Check your internet access and firewall settings."
+msgstr "Brak połączenia z beattime.live. Sprawdź dostęp do internetu i ustawienia zapory."
+
+#: beatstamp/api.py:160
+msgid "No connection to the Tor proxy at %(proxy)s. Start Tor Browser or the tor service, or turn off Tor mode in the settings."
+msgstr "Brak połączenia z proxy Tor pod adresem %(proxy)s. Uruchom Tor Browser lub usługę tor, albo wyłącz tryb Tor w ustawieniach."
+
+#: beatstamp/ui/main_window.py:806
+msgid "No file was found. Folders are expanded automatically — perhaps the chosen folder is empty."
+msgstr "Nie znaleziono żadnego pliku. Katalogi są rozwijane automatycznie — być może wybrany katalog jest pusty."
+
+#: beatstamp/ui/history_model.py:169
+msgid "No note"
+msgstr "Brak notatki"
+
+#: beatstamp/hashing.py:150
+msgid "No permission to read the file \"%(name)s\"."
+msgstr "Brak uprawnień do odczytu pliku \"%(name)s\"."
+
+#: beatstamp/ui/main_window.py:354
+#: beatstamp/ui/main_window.py:480
+msgid "No result"
+msgstr "Brak wyniku"
+
+#: beatstamp/proof.py:103
+#: beatstamp/ui/main_window.py:1035
+msgid "No stamp"
+msgstr "Brak stempla"
+
+#: beatstamp/api.py:359
+msgid "No week identifier was given."
+msgstr "Nie podano identyfikatora tygodnia."
+
+#: beatstamp/ui/dialogs.py:1118
+msgid "Nobody is named here right now."
+msgstr "Na razie nie ma tu nikogo."
+
+#: beatstamp/ui/main_window.py:1036
+msgid "Not found"
+msgstr "Nie znaleziono"
+
+#: beatstamp/ui/main_window.py:877
+msgid "Not registered"
+msgstr "Nie zarejestrowano"
+
+#: beatstamp/certificate.py:425
+#: beatstamp/history.py:458
+#: beatstamp/ui/history_model.py:49
+msgid "Note"
+msgstr "Notatka"
+
+#: beatstamp/ui/main_window.py:982
+msgid "Note saved."
+msgstr "Notatka zapisana."
+
+#: beatstamp/ui/main_window.py:325
+msgid "Note:"
+msgstr "Notatka:"
+
+#: beatstamp/ui/main_window.py:805
+msgid "Nothing to stamp"
+msgstr "Nic do ostemplowania"
+
+#: beatstamp/ui/main_window.py:598
+msgid "Offline proof"
+msgstr "Dowód offline"
+
+#: beatstamp/ui/main_window.py:391
+#: beatstamp/ui/main_window.py:509
+msgid "Offline proof (.beatproof)"
+msgstr "Dowód offline (.beatproof)"
+
+#: beatstamp/ui/main_window.py:1547
+msgid "Offline proof (.beatproof)…"
+msgstr "Dowód offline (.beatproof)…"
+
+#: beatstamp/ui/main_window.py:278
+msgid "Only the SHA-256 digest, computed on this computer, reaches the BeatTime register."
+msgstr "Do rejestru BeatTime trafia wyłącznie skrót SHA-256 liczony na tym komputerze."
+
+#: beatstamp/ui/dialogs.py:69
+msgid "Open data folder"
+msgstr "Otwórz katalog danych"
+
+#: beatstamp/ui/main_window.py:1272
+msgid "Open the file"
+msgstr "Otwórz plik"
+
+#: beatstamp/ui/main_window.py:1311
+msgid "OpenTimestamps proof (*.ots)"
+msgstr "Dowód OpenTimestamps (*.ots)"
+
+#: beatstamp/proof.py:213
+msgid "OpenTimestamps — waiting for a block"
+msgstr "OpenTimestamps — oczekuje na blok"
+
+#: beatstamp/ui/history_model.py:220
+msgid "OpenTimestamps: confirmed in block %(height)s"
+msgstr "OpenTimestamps: potwierdzony w bloku %(height)s"
+
+#: beatstamp/ui/history_model.py:223
+msgid "OpenTimestamps: submitted, waiting for a Bitcoin block"
+msgstr "OpenTimestamps: zgłoszony, czeka na blok Bitcoina"
+
+#: beatstamp/ui/dialogs.py:316
+msgid "Opens Windows Security, where BeatStamp can be allowed to write to protected folders."
+msgstr "Otwiera Zabezpieczenia Windows, gdzie można zezwolić BeatStamp na zapis w folderach chronionych."
+
+#: beatstamp/ui/dialogs.py:784
+#: beatstamp/ui/main_window.py:705
+msgid "Opens in the browser: %(url)s"
+msgstr "Otwiera w przeglądarce: %(url)s"
+
+#: beatstamp/ui/main_window.py:399
+msgid ""
+"Opens the public verification page beattime.live/proof\n"
+"with the digest filled in — an independent confirmation."
+msgstr ""
+"Otwiera publiczną stronę weryfikacji beattime.live/proof\n"
+"z wpisanym skrótem — niezależne potwierdzenie."
+
+#: beatstamp/ui/main_window.py:1701
+msgid "Overall state: <b>%(status)s</b><br>Database: %(database)s<br>Cache: %(cache)s<br>Server clock against NTP: %(offset)s (source: %(source)s)"
+msgstr "Stan ogólny: <b>%(status)s</b><br>Baza danych: %(database)s<br>Pamięć podręczna: %(cache)s<br>Zegar serwera względem NTP: %(offset)s (źródło: %(source)s)"
+
+#: beatstamp/ui/main_window.py:385
+#: beatstamp/ui/main_window.py:506
+#: beatstamp/ui/main_window.py:595
+msgid "PDF certificate"
+msgstr "Certyfikat PDF"
+
+#: beatstamp/ui/main_window.py:1545
+msgid "PDF certificate…"
+msgstr "Certyfikat PDF…"
+
+#: beatstamp/ui/main_window.py:1210
+msgid "PDF document (*.pdf)"
+msgstr "Dokument PDF (*.pdf)"
+
+#: beatstamp/ui/dialogs.py:982
+msgid "People who support BeatTime and agreed to be named here"
+msgstr "Osoby, które wspierają BeatTime i zgodziły się na wymienienie ich tutaj"
+
+#: beatstamp/ui/main_window.py:673
+msgid "People who support BeatTime — the list is loaded from beattime.live"
+msgstr "Osoby, które wspierają BeatTime — lista pobierana z beattime.live"
+
+#: beatstamp/ui/dialogs.py:309
+msgid "Pick another folder…"
+msgstr "Wskaż inny folder…"
+
+#: beatstamp/ui/main_window.py:910
+msgid "Please note:"
+msgstr "Uwaga:"
+
+#: beatstamp/ui/main_window.py:1090
+msgid "Point to the document?"
+msgstr "Wskazać dokument?"
+
+#: beatstamp/ui/main_window.py:827
+msgid "Preparing…"
+msgstr "Przygotowuję…"
+
+#: beatstamp/ui/dialogs.py:914
+#: beatstamp/ui/main_window.py:683
+msgid "Privacy policy"
+msgstr "Polityka prywatności (Datenschutz)"
+
+#: beatstamp/ui/main_window.py:1150
+msgid "Proof confirmed — %(name)s"
+msgstr "Dowód potwierdzony — %(name)s"
+
+#: beatstamp/ui/main_window.py:1337
+#: beatstamp/ui/main_window.py:1345
+msgid "Proof details"
+msgstr "Szczegóły dowodu"
+
+#: beatstamp/history.py:459
+msgid "Proof level"
+msgstr "Poziom dowodu"
+
+#: beatstamp/certificate.py:382
+msgid "Proof level: %(level)s"
+msgstr "Poziom dowodu: %(level)s"
+
+#: beatstamp/certificate.py:361
+msgid "Proof of existence of a document"
+msgstr "Dowód istnienia dokumentu"
+
+#: beatstamp/ui/main_window.py:1263
+msgid "Proof saved"
+msgstr "Dowód zapisany"
+
+#: beatstamp/ui/main_window.py:1246
+msgid "Proof saved — it needs refreshing"
+msgstr "Dowód zapisany — wymaga odświeżenia"
+
+#: beatstamp/ui/main_window.py:1255
+msgid "Proof saved — not closed yet"
+msgstr "Dowód zapisany — jeszcze niedomknięty"
+
+#: beatstamp/ui/main_window.py:276
+msgid "Proof that a file existed in time — without sending the file"
+msgstr "Dowód istnienia pliku w czasie — bez wysyłania pliku"
+
+#: beatstamp/certificate.py:420
+msgid "Public key"
+msgstr "Klucz publiczny"
+
+#: beatstamp/ui/dialogs.py:904
+msgid "Public register"
+msgstr "Publiczny rejestr"
+
+#: beatstamp/ui/dialogs.py:891
+msgid "PySide6 sources"
+msgstr "Źródła PySide6"
+
+#: beatstamp/ui/dialogs.py:890
+msgid "Qt sources"
+msgstr "Źródła Qt"
+
+#: beatstamp/workers.py:245
+msgid "Querying the BeatTime register…"
+msgstr "Odpytuję rejestr BeatTime…"
+
+#: beatstamp/ui/main_window.py:1027
+msgid "Querying the register…"
+msgstr "Odpytuję rejestr…"
+
+#: beatstamp/ui/main_window.py:649
+msgid "Quit"
+msgstr "Zakończ"
+
+#: beatstamp/certificate.py:161
+msgid "RECORDED — root signed with a retired key, the proof needs refreshing"
+msgstr "ZAREJESTROWANY — korzeń podpisany kluczem wycofanym, dowód wymaga odświeżenia"
+
+#: beatstamp/certificate.py:174
+msgid "RECORDED — the week is still running, the anchor is on its way"
+msgstr "ZAREJESTROWANY — tydzień jeszcze trwa, kotwica w drodze"
+
+#: beatstamp/certificate.py:173
+msgid "RECORDED — week closed, the root signature is on its way"
+msgstr "ZAREJESTROWANY — tydzień zamknięty, podpis korzenia w drodze"
+
+#: beatstamp/ui/main_window.py:263
+msgid "Ready. Drag files in to give them a timestamp."
+msgstr "Gotowy. Przeciągnij pliki, aby nadać im znacznik czasu."
+
+#: beatstamp/proof.py:104
+msgid "Recorded"
+msgstr "Zarejestrowany"
+
+#: beatstamp/ui/dialogs.py:1015
+msgid "Refresh"
+msgstr "Odśwież"
+
+#: beatstamp/ui/main_window.py:652
+msgid "Refresh proof statuses"
+msgstr "Odśwież statusy dowodów"
+
+#: beatstamp/ui/main_window.py:557
+msgid "Refresh statuses"
+msgstr "Odśwież statusy"
+
+#: beatstamp/certificate.py:460
+msgid "Refresh the proof in BeatStamp (History -> Refresh statuses, F5) and issue the certificate again. <b>Until then this document certifies nothing.</b>"
+msgstr "Odśwież dowód w BeatStamp (Historia → Odśwież statusy, F5) i wystaw certyfikat ponownie. <b>Do tego czasu ten dokument niczego nie poświadcza.</b>"
+
+#: beatstamp/proof.py:428
+msgid "Refresh the proof online (History -> Refresh statuses, F5) to fetch a signature made with the current key."
+msgstr "Odśwież dowód online (Historia → Odśwież statusy, F5), aby pobrać podpis aktualnym kluczem."
+
+#: beatstamp/workers.py:314
+msgid "Refreshing %(index)s of %(total)s…"
+msgstr "Odświeżam %(index)s z %(total)s…"
+
+#: beatstamp/ui/main_window.py:1615
+msgid "Refreshing statuses…"
+msgstr "Odświeżam statusy…"
+
+#: beatstamp/certificate.py:401
+#: beatstamp/history.py:464
+msgid "Register no."
+msgstr "Nr w rejestrze"
+
+#: beatstamp/workers.py:207
+msgid "Registering in BeatTime: %(name)s"
+msgstr "Rejestruję w BeatTime: %(name)s"
+
+#: beatstamp/ui/main_window.py:1162
+msgid "Rejected"
+msgstr "Odrzucony"
+
+#: beatstamp/ui/main_window.py:1587
+msgid "Remove <b>%(entries)s</b> from the local history?<br><br>The stamp <b>stays in the public BeatTime register</b> — the register is append-only and nothing can be removed from it. Only this list on this computer changes."
+msgstr "Usunąć <b>%(entries)s</b> z historii lokalnej?<br><br>Stempel w <b>publicznym rejestrze BeatTime pozostaje</b> — rejestr jest dopisywalny-tylko i nie da się z niego nic usunąć. Znika wyłącznie ta lista na tym komputerze."
+
+#: beatstamp/ui/main_window.py:607
+#: beatstamp/ui/main_window.py:1552
+msgid "Remove from history"
+msgstr "Usuń z historii"
+
+#: beatstamp/ui/main_window.py:1586
+msgid "Remove from history?"
+msgstr "Usunąć z historii?"
+
+#: beatstamp/ui/main_window.py:608
+msgid ""
+"Removes the entry from this list ONLY.\n"
+"The stamp in the public BeatTime register\n"
+"stays — it cannot be undone."
+msgstr ""
+"Usuwa wpis wyłącznie z tej listy.\n"
+"Stempel w publicznym rejestrze BeatTime\n"
+"pozostaje — nie da się go cofnąć."
+
+#: beatstamp/ui/dialogs.py:408
+msgid "Restore defaults"
+msgstr "Przywróć domyślne"
+
+#: beatstamp/ui/dialogs.py:531
+msgid "Restore the built-in list"
+msgstr "Przywróć wbudowaną listę"
+
+#: beatstamp/ui/dialogs.py:725
+#: beatstamp/ui/main_window.py:892
+#: beatstamp/ui/main_window.py:1060
+#: beatstamp/ui/main_window.py:1168
+msgid "Retired key"
+msgstr "Klucz wycofany"
+
+#: beatstamp/ui/history_model.py:139
+msgid "Right-click to copy."
+msgstr "Kliknij prawym, aby skopiować."
+
+#: beatstamp/certificate.py:417
+msgid "Root signature"
+msgstr "Podpis korzenia"
+
+#: beatstamp/ui/dialogs.py:434
+msgid ""
+"Routes traffic through a local Tor proxy to the BeatTime hidden service.\n"
+"\n"
+"What for: the server does not learn your IP address, so stamps\n"
+"cannot be tied to you through the connection. The digest itself\n"
+"says nothing about the content of the document anyway.\n"
+"\n"
+"Requires a running Tor Browser or tor service on this computer."
+msgstr ""
+"Kieruje ruch przez lokalne proxy Tor na ukrytą usługę BeatTime.\n"
+"\n"
+"Po co: serwer nie poznaje Twojego adresu IP, więc nie da się\n"
+"powiązać stempli z Tobą na podstawie połączenia. Sam skrót i tak\n"
+"nie mówi nic o treści dokumentu.\n"
+"\n"
+"Wymaga uruchomionego Tor Browsera albo usługi tor na tym komputerze."
+
+#: beatstamp/certificate.py:393
+msgid "SHA-256 digest"
+msgstr "Skrót SHA-256"
+
+#: beatstamp/ui/main_window.py:366
+msgid "SHA-256 digest:"
+msgstr "Skrót SHA-256:"
+
+#: beatstamp/certificate.py:171
+msgid "SIGNED — the week root is frozen and signed with Ed25519"
+msgstr "PODPISANY — korzeń tygodnia zamrożony i podpisany Ed25519"
+
+#: beatstamp/i18n.py:250
+#: beatstamp/ui/dialogs.py:569
+msgid "Same as system"
+msgstr "Jak w systemie"
+
+#: beatstamp/ui/dialogs.py:406
+msgid "Save"
+msgstr "Zapisz"
+
+#: beatstamp/ui/main_window.py:1310
+msgid "Save the OpenTimestamps proof"
+msgstr "Zapisz dowód OpenTimestamps"
+
+#: beatstamp/ui/main_window.py:1207
+msgid "Save the PDF certificate"
+msgstr "Zapisz certyfikat PDF"
+
+#: beatstamp/ui/main_window.py:647
+msgid "Save the history to CSV or JSON"
+msgstr "Zapisz historię do CSV albo JSON"
+
+#: beatstamp/ui/main_window.py:1229
+msgid "Save the offline proof"
+msgstr "Zapisz dowód offline"
+
+#: beatstamp/ui/main_window.py:599
+msgid "Saves a stand-alone .beatproof proof"
+msgstr "Zapisuje samodzielny dowód .beatproof"
+
+#: beatstamp/ui/main_window.py:510
+msgid "Saves a stand-alone proof for the checked digest"
+msgstr "Zapisuje samodzielny dowód dla sprawdzonego skrótu"
+
+#: beatstamp/ui/main_window.py:618
+msgid "Saves the history to a CSV (Excel) or JSON file"
+msgstr "Zapisuje historię do pliku CSV (Excel) albo JSON"
+
+#: beatstamp/ui/main_window.py:392
+msgid ""
+"Saves the proof in a form that can be checked WITHOUT this application\n"
+"and without access to beattime.live: the digest, the inclusion path, the\n"
+"week root and the Ed25519 signature in one JSON file."
+msgstr ""
+"Zapisuje dowód w postaci, która da się sprawdzić BEZ tej aplikacji\n"
+"i bez dostępu do beattime.live: skrót, ścieżka inkluzji, korzeń\n"
+"tygodnia i podpis Ed25519 w jednym pliku JSON."
+
+#: beatstamp/certificate.py:481
+msgid "Scan to verify at beattime.live/proof"
+msgstr "Zeskanuj, aby zweryfikować na beattime.live/proof"
+
+#: beatstamp/ui/main_window.py:542
+msgid "Search: file name, digest, note, week…"
+msgstr "Szukaj: nazwa pliku, skrót, notatka, tydzień…"
+
+#: beatstamp/ui/main_window.py:1765
+msgid "Settings saved."
+msgstr "Ustawienia zapisane."
+
+#: beatstamp/ui/dialogs.py:394
+msgid "Settings — BeatStamp"
+msgstr "Ustawienia — BeatStamp"
+
+#: beatstamp/ui/main_window.py:661
+msgid "Settings…"
+msgstr "Ustawienia…"
+
+#: beatstamp/ui/main_window.py:1273
+msgid "Show in folder"
+msgstr "Pokaż w katalogu"
+
+#: beatstamp/ui/main_window.py:554
+msgid "Show only entries at the selected proof stage"
+msgstr "Pokaż tylko wpisy na wybranym etapie dowodu"
+
+#: beatstamp/ui/main_window.py:685
+msgid "Show the event log"
+msgstr "Pokaż dziennik zdarzeń"
+
+#: beatstamp/ui/dialogs.py:896
+msgid ""
+"Shows the full licence texts delivered with the program:\n"
+"%(path)s"
+msgstr ""
+"Pokazuje pełne teksty licencji dostarczone razem z programem:\n"
+"%(path)s"
+
+#: beatstamp/proof.py:105
+msgid "Signed"
+msgstr "Podpisany"
+
+#: beatstamp/history.py:457
+msgid "Size (B)"
+msgstr "Rozmiar (B)"
+
+#: beatstamp/history.py:266
+msgid "Skipped %(count)s damaged history entries; the rest were read correctly."
+msgstr "Pominięto %(count)s uszkodzonych wpisów historii; pozostałe wczytano poprawnie."
+
+#: beatstamp/ui/dialogs.py:251
+msgid "Some files could not be copied: %(names)s. The originals stayed in the previous folder."
+msgstr "Części plików nie udało się skopiować: %(names)s. Oryginały zostały w poprzednim folderze."
+
+#: beatstamp/ui/main_window.py:870
+msgid "Some files did not work out"
+msgstr "Część plików się nie powiodła"
+
+#: beatstamp/history.py:465
+msgid "Source"
+msgstr "Źródło"
+
+#: beatstamp/ui/main_window.py:636
+msgid "Stamp files…"
+msgstr "Zastempluj pliki…"
+
+#: beatstamp/ui/main_window.py:244
+msgid "Stamping"
+msgstr "Stemplowanie"
+
+#: beatstamp/ui/main_window.py:659
+msgid "State of the BeatTime server"
+msgstr "Stan serwera BeatTime"
+
+#: beatstamp/ui/main_window.py:1624
+msgid "Statuses refreshed"
+msgstr "Statusy odświeżone"
+
+#: beatstamp/ui/main_window.py:301
+msgid "Stop"
+msgstr "Przerwij"
+
+#: beatstamp/ui/main_window.py:789
+msgid "Stopping…"
+msgstr "Przerywam…"
+
+#: beatstamp/ui/main_window.py:302
+msgid "Stops the current task (Esc)"
+msgstr "Przerywa bieżące zadanie (Esc)"
+
+#: beatstamp/ui/main_window.py:655
+msgid "Synchronise the clock"
+msgstr "Synchronizuj zegar"
+
+#: beatstamp/certificate.py:156
+msgid "TVS ARCHIVE — entry from the old client, without verifiable proof"
+msgstr "ARCHIWUM TVS — wpis starego klienta, bez weryfikowalnego dowodu"
+
+#: beatstamp/ui/history_model.py:126
+msgid "TVS archive"
+msgstr "Archiwum TVS"
+
+#: beatstamp/ui/main_window.py:790
+msgid "Task stopped."
+msgstr "Zadanie przerwane."
+
+#: beatstamp/ui/dialogs.py:981
+msgid "Thank you"
+msgstr "Dziękujemy"
+
+#: beatstamp/ui/main_window.py:671
+msgid "Thank you to the supporters…"
+msgstr "Podziękowania dla wspierających…"
+
+#: beatstamp/ui/dialogs.py:974
+msgid "Thank you — BeatStamp"
+msgstr "Podziękowania — BeatStamp"
+
+#: beatstamp/api.py:365
+msgid "The .ots proof could not be downloaded (HTTP %(code)s)."
+msgstr "Nie udało się pobrać dowodu .ots (HTTP %(code)s)."
+
+#: beatstamp/proof.py:402
+msgid "The @beat time %(beat)s does not match the UTC time %(utc)s (it should be %(expected)s)."
+msgstr "Czas @beat %(beat)s nie odpowiada czasowi UTC %(utc)s (powinno być %(expected)s)."
+
+#: beatstamp/proof.py:391
+msgid "The @beat time has an invalid format."
+msgstr "Czas @beat ma nieprawidłowy format."
+
+#: beatstamp/ui/dialogs.py:713
+msgid "The API address must start with <b>https://</b>.<br><br>An unencrypted connection exposes digests and answers to being swapped on the way."
+msgstr "Adres API musi zaczynać się od <b>https://</b>.<br><br>Połączenie nieszyfrowane naraża skróty i odpowiedzi na podmianę po drodze."
+
+#: beatstamp/api.py:191
+msgid "The API request limit was exceeded (20 stamps per minute per IP address). "
+msgstr "Przekroczono limit zapytań do API (20 stempli na minutę na adres IP). "
+
+#: beatstamp/api.py:201
+msgid "The BeatTime server returned error %(code)s. Try again in a moment."
+msgstr "Serwer BeatTime zwrócił błąd %(code)s. Spróbuj ponownie za chwilę."
+
+#: beatstamp/bundle.py:208
+#: beatstamp/proof.py:536
+msgid "The Ed25519 signature of the week root is invalid."
+msgstr "Podpis Ed25519 korzenia tygodnia jest nieprawidłowy."
+
+#: beatstamp/ui/main_window.py:513
+msgid ""
+"The OpenTimestamps proof of the week — to be checked with an\n"
+"OpenTimestamps client, entirely outside BeatTime and outside this application."
+msgstr ""
+"Dowód OpenTimestamps tygodnia — do sprawdzenia klientem\n"
+"OpenTimestamps, całkowicie poza BeatTime i poza tą aplikacją."
+
+#: beatstamp/__main__.py:115
+msgid ""
+"The application will try to carry on. The details were written to the event log:\n"
+"%(path)s"
+msgstr ""
+"Aplikacja próbuje działać dalej. Szczegóły zapisano w dzienniku zdarzeń:\n"
+"%(path)s"
+
+#: beatstamp/ui/main_window.py:1219
+msgid "The certificate could not be saved:<br>%(reason)s"
+msgstr "Nie udało się zapisać certyfikatu:<br>%(reason)s"
+
+#: beatstamp/ui/dialogs.py:588
+msgid ""
+"The certificate gets the name \"document_beattime.pdf\" instead of\n"
+"asking for it every time."
+msgstr ""
+"Certyfikat dostanie nazwę \"dokument_beattime.pdf\" zamiast\n"
+"pytać o nią za każdym razem."
+
+#: beatstamp/ui/dialogs.py:255
+msgid "The choice could not be written down, so the next start will go back to the previous folder."
+msgstr "Nie udało się zapisać tego wyboru, więc przy następnym uruchomieniu obowiązywać będzie poprzedni folder."
+
+#: beatstamp/ui/main_window.py:1671
+msgid "The clock was not synchronised: %(reason)s"
+msgstr "Nie zsynchronizowano zegara: %(reason)s"
+
+#: beatstamp/ui/main_window.py:602
+msgid "The complete entry data (JSON)"
+msgstr "Pełne dane wpisu (JSON)"
+
+#: beatstamp/ui/main_window.py:518
+msgid "The complete proof data (JSON)"
+msgstr "Pełne dane dowodu (JSON)"
+
+#: beatstamp/ui/dialogs.py:1160
+msgid "The complete proof data in JSON. The <b>.beatproof</b> export writes the same values — you can check them with your own tool."
+msgstr "Komplet danych dowodu w formacie JSON. Te same wartości zapisuje eksport <b>.beatproof</b> — możesz je sprawdzić własnym narzędziem."
+
+#: beatstamp/ui/main_window.py:403
+msgid "The complete technical proof data in JSON"
+msgstr "Pełne dane techniczne dowodu w formacie JSON"
+
+#: beatstamp/ui/dialogs.py:641
+msgid "The current data folder. Changing it copies the files to the new place and checks straight away that writing works there — the old folder is left untouched."
+msgstr "Obecny katalog danych. Zmiana kopiuje pliki w nowe miejsce i od razu sprawdza, czy zapis tam działa — stary folder zostaje nietknięty."
+
+#: beatstamp/ui/dialogs.py:310
+msgid "The data are copied to the new folder; nothing is deleted from the old one."
+msgstr "Dane zostaną skopiowane do nowego folderu; ze starego nic nie znika."
+
+#: beatstamp/config.py:507
+msgid ""
+"The data folder does not accept writes:\n"
+"%(path)s\n"
+"\n"
+"What the system reports: %(reason)s\n"
+"\n"
+"Pick another folder for the data — nothing is deleted, whatever is already in the old folder stays there."
+msgstr ""
+"Katalog danych nie przyjmuje zapisu:\n"
+"%(path)s\n"
+"\n"
+"Co zgłasza system: %(reason)s\n"
+"\n"
+"Wskaż inny folder na dane — nic nie zostanie skasowane, wszystko, co jest w starym folderze, tam zostaje."
+
+#: beatstamp/ui/dialogs.py:246
+msgid "The data folder is now:"
+msgstr "Katalog danych to teraz:"
+
+#: beatstamp/certificate.py:483
+msgid "The digest in this entry has an invalid format — the QR code was skipped"
+msgstr "Skrót w tym wpisie ma nieprawidłowy format — kod QR pominięty"
+
+#: beatstamp/proof.py:114
+msgid "The digest is in the public, append-only register. The current week is still running, so the Merkle root has not been frozen yet — the signature and the anchor arrive once it closes (Monday 00:00 UTC)."
+msgstr "Skrót jest w publicznym, dopisywalnym-tylko rejestrze. Bieżący tydzień jeszcze trwa, więc korzeń Merkle nie został zamrożony — podpis i kotwica dojdą po jego zamknięciu (poniedziałek 00:00 UTC)."
+
+#: beatstamp/bundle.py:179
+msgid "The digest of the selected file does NOT match the digest in the proof. The file was changed, or the proof is about a different document."
+msgstr "Skrót wskazanego pliku NIE zgadza się ze skrótem w dowodzie. Plik został zmieniony albo dowód dotyczy innego dokumentu."
+
+#: beatstamp/hashing.py:161
+msgid "The file \"%(name)s\" could not be read."
+msgstr "Nie udało się odczytać pliku \"%(name)s\"."
+
+#: beatstamp/hashing.py:149
+msgid "The file \"%(name)s\" does not exist or has been moved."
+msgstr "Plik \"%(name)s\" nie istnieje lub został przeniesiony."
+
+#: beatstamp/hashing.py:153
+msgid "The file \"%(name)s\" is in use by another program."
+msgstr "Plik \"%(name)s\" jest używany przez inny program."
+
+#: beatstamp/hashing.py:158
+msgid "The file \"%(name)s\" is open in another program and locked for reading. Close it and try again."
+msgstr "Plik \"%(name)s\" jest otwarty w innym programie i zablokowany do odczytu. Zamknij go i spróbuj ponownie."
+
+#: beatstamp/ui/main_window.py:1195
+msgid "The file <b>%(name)s</b> already exists in this folder.<br><br>Overwrite it?"
+msgstr "Plik <b>%(name)s</b> już istnieje w tym katalogu.<br><br>Nadpisać go?"
+
+#: beatstamp/ui/main_window.py:1194
+msgid "The file already exists"
+msgstr "Plik już istnieje"
+
+#: beatstamp/bundle.py:145
+msgid "The file does not contain a valid JSON object."
+msgstr "Plik nie zawiera poprawnego obiektu JSON."
+
+#: beatstamp/bundle.py:249
+msgid "The file is not a valid JSON document."
+msgstr "Plik nie jest poprawnym dokumentem JSON."
+
+#: beatstamp/ui/main_window.py:1040
+msgid "The file was never stamped, or it was changed after stamping — even a single changed byte gives a completely different digest."
+msgstr "Plik nie był stemplowany albo został zmieniony po ostemplowaniu — nawet jeden zmieniony bajt daje zupełnie inny skrót."
+
+#: beatstamp/ui/dialogs.py:248
+msgid "The files were copied. The previous folder was left untouched: %(path)s"
+msgstr "Pliki zostały skopiowane. Poprzedni folder został nietknięty: %(path)s"
+
+#: beatstamp/ui/dialogs.py:669
+msgid "The folder is set for this run by the %(name)s environment variable, so it cannot be changed here."
+msgstr "Katalog narzuca na to uruchomienie zmienna środowiskowa %(name)s, więc nie da się go tutaj zmienić."
+
+#: beatstamp/history.py:232
+msgid "The history file could not be opened: %(reason)s."
+msgstr "Nie udało się otworzyć pliku historii: %(reason)s."
+
+#: beatstamp/history.py:252
+msgid "The history file had an unexpected structure and has been set aside as \"%(name)s\"."
+msgstr "Plik historii miał nieoczekiwaną strukturę i został odłożony na bok jako \"%(name)s\"."
+
+#: beatstamp/history.py:241
+msgid "The history file was damaged and has been set aside as \"%(name)s\". The history starts over — the previous entries are in that file."
+msgstr "Plik historii był uszkodzony i został odłożony na bok jako \"%(name)s\". Historia zaczyna się od nowa — poprzednie wpisy są w tamtym pliku."
+
+#: beatstamp/ui/main_window.py:1634
+msgid "The history is empty"
+msgstr "Historia pusta"
+
+#: beatstamp/ui/main_window.py:1608
+msgid "The history is empty — there is nothing to refresh."
+msgstr "Historia jest pusta — nie ma czego odświeżać."
+
+#: beatstamp/proof.py:520
+msgid "The inclusion path does NOT lead to the given week root — the proof data is inconsistent."
+msgstr "Ścieżka inkluzji NIE prowadzi do podanego korzenia tygodnia — dane dowodu są niespójne."
+
+#: beatstamp/bundle.py:196
+msgid "The inclusion path does not lead to the week root."
+msgstr "Ścieżka inkluzji nie prowadzi do korzenia tygodnia."
+
+#: beatstamp/certificate.py:458
+msgid "The inclusion path, the root signature or the stamp time do not agree with the proof data. "
+msgstr "Ścieżka inkluzji, podpis korzenia albo czas stempla nie zgadzają się z danymi dowodu. "
+
+#: beatstamp/ui/dialogs.py:509
+msgid ""
+"The key history shipped with this version of the program.\n"
+"Public list: beattime.live/spec/#keys"
+msgstr ""
+"Historia kluczy dostarczona z tą wersją programu.\n"
+"Publiczna lista: beattime.live/spec/#keys"
+
+#: beatstamp/ui/dialogs.py:1226
+msgid "The licence texts are missing from this installation: %(path)s"
+msgstr "W tej instalacji brakuje tekstów licencji: %(path)s"
+
+#: beatstamp/ui/dialogs.py:1092
+msgid "The list could not be loaded. %(reason)s"
+msgstr "Nie udało się wczytać listy. %(reason)s"
+
+#: beatstamp/ui/dialogs.py:1090
+msgid "The list could not be refreshed. %(reason)s"
+msgstr "Nie udało się odświeżyć listy. %(reason)s"
+
+#: beatstamp/ui/dialogs.py:1099
+msgid "The list did not arrive in time. Please try again in a moment."
+msgstr "Lista nie dotarła na czas. Spróbuj ponownie za chwilę."
+
+#: beatstamp/ui/dialogs.py:1004
+msgid "The list is downloaded from beattime.live — it is not part of the installed program."
+msgstr "Lista jest pobierana z beattime.live — nie jest częścią zainstalowanego programu."
+
+#: beatstamp/supporters.py:155
+#: beatstamp/supporters.py:198
+#: beatstamp/supporters.py:202
+msgid "The list of supporters came back in an unexpected format."
+msgstr "Lista wspierających wróciła w nieoczekiwanej postaci."
+
+#: beatstamp/ui/dialogs.py:1273
+msgid "The log is still empty."
+msgstr "Dziennik jest jeszcze pusty."
+
+#: beatstamp/ui/dialogs.py:992
+msgid "The names come from a public list on beattime.live. Everyone on it asked to be named and can withdraw at any time, so BeatStamp reloads the list at least once a day and keeps no copy older than that."
+msgstr "Nazwy pochodzą z publicznej listy na beattime.live. Każda z tych osób sama poprosiła o wymienienie i może wycofać zgodę w dowolnej chwili, dlatego BeatStamp pobiera listę co najmniej raz na dobę i nie trzyma starszej kopii."
+
+#: beatstamp/ui/main_window.py:1833
+msgid "The new language applies to texts drawn from now on. The whole window switches after BeatStamp is restarted."
+msgstr "Nowy język obowiązuje dla napisów rysowanych od tej chwili. Całe okno przełącza się po ponownym uruchomieniu BeatStamp."
+
+#: beatstamp/ui/main_window.py:330
+msgid ""
+"The note stays ONLY on this computer, in the local history.\n"
+"It is not sent to the register and does not reach the server certificate.\n"
+"It is saved together with the stamp and on every change of the text."
+msgstr ""
+"Notatka zostaje wyłącznie na tym komputerze, w historii lokalnej.\n"
+"Nie jest wysyłana do rejestru i nie trafia do certyfikatu serwerowego.\n"
+"Zapisuje się razem ze stemplem oraz przy każdej zmianie tekstu."
+
+#: beatstamp/ui/main_window.py:369
+msgid "The only information that reaches the BeatTime register"
+msgstr "Jedyna informacja, która trafia do rejestru BeatTime"
+
+#: beatstamp/hashing.py:152
+msgid "The path to the file \"%(name)s\" is too long."
+msgstr "Ścieżka do pliku \"%(name)s\" jest za długa."
+
+#: beatstamp/ui/dialogs.py:596
+msgid ""
+"The previous version of the program overwrote certificates silently\n"
+"when a file of the same name was already in the folder."
+msgstr ""
+"Poprzednia wersja programu nadpisywała certyfikaty po cichu,\n"
+"gdy w katalogu był już plik o tej samej nazwie."
+
+#: beatstamp/bundle.py:225
+msgid "The proof contains no public key for the signature."
+msgstr "Dowód nie zawiera klucza publicznego podpisu."
+
+#: beatstamp/bundle.py:228
+msgid "The proof contains no root signature. Export it again once the week has closed so that it is complete."
+msgstr "Dowód nie zawiera podpisu korzenia. Wyeksportuj go ponownie po zamknięciu tygodnia, żeby był kompletny."
+
+#: beatstamp/bundle.py:199
+msgid "The proof contains no week root — the week was still open when it was exported."
+msgstr "Dowód nie zawiera korzenia tygodnia — tydzień był jeszcze otwarty w chwili eksportu."
+
+#: beatstamp/ui/main_window.py:1240
+msgid "The proof could not be saved:<br>%(reason)s"
+msgstr "Nie udało się zapisać dowodu:<br>%(reason)s"
+
+#: beatstamp/ui/main_window.py:1055
+msgid "The proof data did not pass the local check:"
+msgstr "Dane dowodu nie przeszły kontroli lokalnej:"
+
+#: beatstamp/bundle.py:161
+msgid "The proof does not contain a valid SHA-256 digest."
+msgstr "Dowód nie zawiera poprawnego skrótu SHA-256."
+
+#: beatstamp/bundle.py:241
+msgid "The proof file could not be opened: %(reason)s."
+msgstr "Nie udało się otworzyć pliku dowodu: %(reason)s."
+
+#: beatstamp/bundle.py:251
+msgid "The proof file has an unexpected structure."
+msgstr "Plik dowodu ma nieoczekiwaną strukturę."
+
+#: beatstamp/bundle.py:245
+msgid "The proof file is unnaturally large — rejected."
+msgstr "Plik dowodu jest nienaturalnie duży — odrzucono."
+
+#: beatstamp/bundle.py:167
+msgid "The proof gives the week in an invalid format."
+msgstr "Dowód podaje tydzień w nieprawidłowym formacie."
+
+#: beatstamp/bundle.py:170
+msgid "The proof gives the week root in an invalid format."
+msgstr "Dowód podaje korzeń tygodnia w nieprawidłowym formacie."
+
+#: beatstamp/ui/main_window.py:1174
+msgid "The proof is consistent but not closed yet — it was exported before the week ended. Check the digest in the register (the <b>Check digest</b> button) and export the proof again."
+msgstr "Dowód jest spójny, ale jeszcze niedomknięty — wyeksportowano go przed zamknięciem tygodnia. Sprawdź skrót w rejestrze (przycisk <b>Sprawdź skrót</b>) i wyeksportuj dowód ponownie."
+
+#: beatstamp/ui/main_window.py:891
+#: beatstamp/ui/main_window.py:1058
+msgid "The proof needs refreshing"
+msgstr "Dowód wymaga odświeżenia"
+
+#: beatstamp/ui/main_window.py:1166
+msgid "The proof needs refreshing — %(name)s"
+msgstr "Dowód wymaga odświeżenia — %(name)s"
+
+#: beatstamp/ui/main_window.py:1153
+msgid "The proof was checked <b>entirely locally</b> — without connecting to beattime.live and without trusting anyone. The inclusion path, the root signature, the identity of the key and the week of the stamp all add up. The signature confirms that the document existed no later than the end of the week; the exact moment is given by the register."
+msgstr "Dowód sprawdzony <b>w całości lokalnie</b> — bez łączenia się z beattime.live i bez zaufania do kogokolwiek. Zgadza się ścieżka inkluzji, podpis korzenia, tożsamość klucza i tydzień stempla. Podpis potwierdza istnienie dokumentu najpóźniej z końcem tygodnia; dokładną chwilę podaje rejestr."
+
+#: beatstamp/ui/main_window.py:1799
+msgid "The proxy \"%(proxy)s\" is not a local address. Traffic to the .onion service goes over plain HTTP, so it reaches that machine in clear text — this is NOT anonymisation."
+msgstr "Proxy „%(proxy)s\" nie jest adresem lokalnym. Ruch do usługi .onion idzie zwykłym HTTP-em, więc trafia jawnym tekstem do tej maszyny — to NIE jest anonimizacja."
+
+#: beatstamp/ui/main_window.py:670
+msgid "The public verification page"
+msgstr "Publiczna strona weryfikacji"
+
+#: beatstamp/ui/main_window.py:880
+msgid "The register did not confirm the write. Try again."
+msgstr "Rejestr nie potwierdził zapisu. Spróbuj ponownie."
+
+#: beatstamp/proof.py:430
+msgid "The root of week%(week)s was signed with a BeatTime key retired on %(when)s. A signature from a retired key is no longer a proof, so the level stays \"Recorded\" — the external anchor is also waiting for confirmation. %(hint)s"
+msgstr "Korzeń tygodnia%(week)s podpisano kluczem BeatTime wycofanym %(when)s. Podpis wycofanym kluczem nie jest już dowodem, więc poziom pozostaje „Zarejestrowany\" — kotwica zewnętrzna też czeka na potwierdzenie. %(hint)s"
+
+#: beatstamp/ui/history_model.py:156
+msgid ""
+"The root signature was not accepted at the last check:\n"
+"a key outside the built-in list, or inconsistent proof data.\n"
+"\n"
+"Refresh statuses (F5) to check the proof again."
+msgstr ""
+"Podpis korzenia nie został uznany przy ostatniej kontroli:\n"
+"klucz spoza listy wbudowanej albo dane dowodu niespójne.\n"
+"\n"
+"Odśwież statusy (F5), aby sprawdzić dowód ponownie."
+
+#: beatstamp/bundle.py:221
+msgid "The root was signed with a key other than the BeatTime keys built into the application — the signature does not prove its origin."
+msgstr "Korzeń podpisano innym kluczem niż klucze BeatTime wbudowane w aplikację — podpis nie dowodzi pochodzenia."
+
+#: beatstamp/ui/history_model.py:42
+msgid "The same moment in @beat time — without time zones"
+msgstr "Ten sam moment w czasie @beat — bez stref czasowych"
+
+#: beatstamp/api.py:169
+msgid "The server accepted the connection but sent no answer in time."
+msgstr "Serwer przyjął połączenie, ale nie odesłał odpowiedzi w wyznaczonym czasie."
+
+#: beatstamp/api.py:129
+msgid "The server address must start with https:// — an unencrypted connection is allowed only for an .onion address."
+msgstr "Adres serwera musi zaczynać się od https:// — połączenie nieszyfrowane jest dozwolone tylko dla adresu .onion."
+
+#: beatstamp/ui/main_window.py:888
+msgid "The server answer did not pass the local check."
+msgstr "Odpowiedź serwera nie przeszła kontroli lokalnej."
+
+#: beatstamp/api.py:239
+msgid "The server answer exceeded the allowed size — the download was aborted."
+msgstr "Odpowiedź serwera przekroczyła dopuszczalny rozmiar — przerwano pobieranie."
+
+#: beatstamp/proof.py:452
+msgid "The server answer is not a valid JSON object."
+msgstr "Odpowiedź serwera nie jest poprawnym obiektem JSON."
+
+#: beatstamp/api.py:232
+msgid "The server answer is unnaturally large — aborted."
+msgstr "Odpowiedź serwera jest nienaturalnie duża — przerwano."
+
+#: beatstamp/proof.py:461
+msgid "The server answered with a proof for a DIFFERENT digest than the one sent — the answer was rejected."
+msgstr "Serwer odpowiedział dowodem na INNY skrót niż wysłany — odpowiedź odrzucona."
+
+#: beatstamp/api.py:153
+msgid "The server certificate could not be verified. The connection was aborted. Check whether something is intercepting the traffic (corporate firewall, antivirus with HTTPS inspection)."
+msgstr "Nie udało się zweryfikować certyfikatu serwera. Połączenie przerwano. Sprawdź, czy sieć nie pośredniczy w ruchu (firewall firmowy, antywirus z inspekcją HTTPS)."
+
+#: beatstamp/proof.py:595
+msgid "The server claims the week root is anchored, but it did not supply the complete data (inclusion path + signature), so this could not be confirmed locally. The proof level stays \"Recorded\"."
+msgstr "Serwer twierdzi, że korzeń tygodnia jest zakotwiczony, ale nie dostarczył kompletu danych (ścieżka inkluzji + podpis), więc nie dało się tego potwierdzić lokalnie. Poziom dowodu pozostaje „Zarejestrowany\"."
+
+#: beatstamp/api.py:165
+msgid "The server did not answer in time (limit %(seconds)s s to connect)."
+msgstr "Serwer nie odpowiedział w wyznaczonym czasie (limit %(seconds)s s na połączenie)."
+
+#: beatstamp/proof.py:547
+msgid "The server did not give a public key for the signature."
+msgstr "Serwer nie podał klucza publicznego do podpisu."
+
+#: beatstamp/api.py:342
+msgid "The server did not issue a certificate (HTTP %(code)s)."
+msgstr "Serwer nie wydał certyfikatu (HTTP %(code)s)."
+
+#: beatstamp/api.py:312
+msgid "The server did not return a synchronisation time."
+msgstr "Serwer nie zwrócił czasu synchronizacji."
+
+#: beatstamp/proof.py:609
+msgid "The server did not supply an inclusion path — membership in the root could not be confirmed locally."
+msgstr "Serwer nie dostarczył ścieżki inkluzji — przynależności do korzenia nie dało się potwierdzić lokalnie."
+
+#: beatstamp/proof.py:584
+msgid "The server gave a confirmed bank anchor for a root other than the root of this week — that anchor was not accepted."
+msgstr "Serwer podał potwierdzoną kotwicę bankową dla innego korzenia niż korzeń tego tygodnia — ta kotwica nie została uznana."
+
+#: beatstamp/proof.py:499
+msgid "The server gave the week root in an invalid format — the answer was rejected."
+msgstr "Serwer podał korzeń tygodnia w nieprawidłowym formacie — odpowiedź odrzucona."
+
+#: beatstamp/api.py:215
+msgid "The server rejected the request (HTTP %(code)s)."
+msgstr "Serwer odrzucił zapytanie (HTTP %(code)s)."
+
+#: beatstamp/proof.py:473
+msgid "The server returned a digest in an invalid format."
+msgstr "Serwer zwrócił skrót w nieprawidłowym formacie."
+
+#: beatstamp/api.py:316
+msgid "The server returned a time in an invalid format."
+msgstr "Serwer zwrócił czas w nieprawidłowym formacie."
+
+#: beatstamp/api.py:258
+#: beatstamp/api.py:267
+#: beatstamp/api.py:295
+msgid "The server returned an answer in an unexpected format."
+msgstr "Serwer zwrócił odpowiedź w nieoczekiwanym formacie."
+
+#: beatstamp/api.py:208
+msgid "The server sent back an answer that cannot be read as JSON."
+msgstr "Serwer odesłał odpowiedź, której nie da się odczytać jako JSON."
+
+#: beatstamp/api.py:345
+msgid "The server sent back data that is not a PDF file."
+msgstr "Serwer odesłał dane, które nie są plikiem PDF."
+
+#: beatstamp/ui/dialogs.py:1127
+msgid "The server sent more names than this window shows."
+msgstr "Serwer przysłał więcej nazw, niż pokazuje to okno."
+
+#: beatstamp/proof.py:550
+msgid "The server signed the root with a key OTHER than the BeatTime keys built into the application. The signature may be technically valid, but it does not prove it comes from BeatTime."
+msgstr "Serwer podpisał korzeń INNYM kluczem niż klucze BeatTime wbudowane w aplikację. Podpis może być technicznie poprawny, ale nie dowodzi, że pochodzi od BeatTime."
+
+#: beatstamp/api.py:184
+msgid "The server tried to redirect the request — rejected for security reasons."
+msgstr "Serwer próbował przekierować zapytanie — odrzucono ze względów bezpieczeństwa."
+
+#: beatstamp/ui/main_window.py:118
+msgid "The signature comes from a retired BeatTime key."
+msgstr "Podpis pochodzi z wycofanego klucza BeatTime."
+
+#: beatstamp/ui/dialogs.py:234
+msgid ""
+"The stamp history is a list of your documents: their names and their digests. In this folder OneDrive will copy it to the cloud and to your other computers.\n"
+"\n"
+"Use this folder anyway?"
+msgstr ""
+"Historia stempli to lista Twoich dokumentów: ich nazwy i skróty. W tym folderze OneDrive skopiuje ją do chmury i na inne Twoje komputery.\n"
+"\n"
+"Użyć mimo to tego folderu?"
+
+#: beatstamp/proof.py:414
+msgid "The stamp time (%(utc)s) lies outside week %(week)s (%(range)s UTC), whose root the proof covers. The signature confirms only the week, so a time outside it has no backing in the proof — the data is inconsistent."
+msgstr "Czas stempla (%(utc)s) leży poza tygodniem %(week)s (%(range)s UTC), którego korzeń obejmuje dowód. Podpis potwierdza tylko tydzień, więc czas spoza niego nie ma pokrycia w dowodzie — dane są niespójne."
+
+#: beatstamp/proof.py:387
+msgid "The stamp time (UTC) has an invalid format."
+msgstr "Czas stempla (UTC) ma nieprawidłowy format."
+
+#: beatstamp/ui/main_window.py:779
+msgid "The task ended with an error."
+msgstr "Zadanie zakończone błędem."
+
+#: beatstamp/proof.py:604
+msgid "The week is closed, but the root has no signature yet. This usually means the closing is under way."
+msgstr "Tydzień jest zamknięty, ale korzeń nie ma jeszcze podpisu. Zwykle znaczy to, że zamknięcie właśnie trwa."
+
+#: beatstamp/proof.py:410
+msgid "The week of the proof does not exist in the ISO calendar."
+msgstr "Tydzień dowodu nie istnieje w kalendarzu ISO."
+
+#: beatstamp/ui/history_model.py:150
+msgid ""
+"The week root was signed with a BeatTime key that has been\n"
+"retired — such a signature is no longer a proof, so the level\n"
+"stays \"Recorded\".\n"
+"\n"
+"Refresh statuses (F5) to fetch a signature made with the current key."
+msgstr ""
+"Korzeń tygodnia podpisano kluczem BeatTime, który został\n"
+"wycofany — taki podpis nie jest już dowodem, więc poziom\n"
+"pozostaje „Zarejestrowany\".\n"
+"\n"
+"Odśwież statusy (F5), aby pobrać podpis aktualnym kluczem."
+
+#: beatstamp/certificate.py:454
+msgid "The week root was signed with a key outside the BeatTime key list built into the application — such a signature does not prove its origin. "
+msgstr "Korzeń tygodnia podpisano kluczem spoza listy kluczy BeatTime wbudowanej w aplikację — taki podpis nie dowodzi pochodzenia. "
+
+#: beatstamp/ui/dialogs.py:575
+msgid "Theme:"
+msgstr "Motyw:"
+
+#: beatstamp/ui/main_window.py:1635
+msgid "There is nothing to export yet."
+msgstr "Nie ma jeszcze czego eksportować."
+
+#: beatstamp/ui/dialogs.py:855
+msgid "They are used unmodified and linked dynamically. This copy comes from the Microsoft Store, so its files cannot be exchanged in place — the package is installed read-only and bound to its signature. To run this program against your own build of Qt, use the portable release of the same version, where the libraries sit in the <code>_internal</code> folder next to the program; the notices below say how to obtain it."
+msgstr "Używamy ich bez zmian i łączymy dynamicznie. Ten egzemplarz pochodzi ze Sklepu Microsoftu, więc jego plików nie da się podmienić na miejscu — paczka jest zainstalowana tylko do odczytu i związana swoim podpisem. Żeby uruchomić ten program z własną kompilacją Qt, użyj wersji przenośnej w tej samej wersji, w której biblioteki leżą w katalogu <code>_internal</code> obok programu; noty poniżej mówią, jak ją zdobyć."
+
+#: beatstamp/ui/dialogs.py:864
+msgid "They are used unmodified and linked dynamically: the libraries sit in the <code>_internal</code> folder next to the program and may be replaced with your own build of the same version."
+msgstr "Używamy ich bez zmian i łączymy dynamicznie: biblioteki leżą w katalogu <code>_internal</code> obok programu i można je zastąpić własną kompilacją tej samej wersji."
+
+#: beatstamp/ui/dialogs.py:726
+msgid "This BeatTime key was retired on %(date)s and cannot be accepted — a signature made with it is no longer a proof.<br><br>Leave the field empty to use the built-in list of keys."
+msgstr "Ten klucz BeatTime został wycofany %(date)s i nie może być uznawany — podpis nim nie jest już dowodem.<br><br>Zostaw pole puste, aby używać wbudowanej listy kluczy."
+
+#: beatstamp/certificate.py:373
+msgid "This certificate attests that the document with the SHA-256 digest given below was registered in the public, append-only BeatTime register at the moment shown — in <b>@beat</b> time (1000 beats per day, anchored in UTC). The document itself <b>never left the computer</b>: only its cryptographic digest went to the register."
+msgstr "Niniejszy certyfikat poświadcza, że dokument o podanym niżej skrócie SHA-256 został zarejestrowany w publicznym, dopisywalnym-tylko rejestrze BeatTime w pokazanej chwili — w czasie <b>@beat</b> (1000 beatów na dobę, kotwica w UTC). Sam dokument <b>nigdy nie opuścił komputera</b>: do rejestru trafił wyłącznie jego skrót kryptograficzny."
+
+#: beatstamp/ui/widgets.py:296
+msgid "This computer's clock is %(direction)s the BeatTime server time by %(seconds)s s. Timestamps are issued by the server, so the proof is correct — but the clock shown next to it may differ from the real @beat."
+msgstr "Zegar tego komputera jest %(direction)s o %(seconds)s s względem czasu serwera BeatTime. Znaczniki czasu nadaje serwer, więc dowód jest poprawny — ale zegar pokazywany obok może się różnić od rzeczywistego @beat."
+
+#: beatstamp/ui/main_window.py:1038
+msgid "This digest <b>does not appear</b> in the BeatTime register.<br><br>"
+msgstr "Ten skrót <b>nie figuruje</b> w rejestrze BeatTime.<br><br>"
+
+#: beatstamp/proof.py:113
+msgid "This digest does not appear in the public BeatTime register."
+msgstr "Ten skrót nie figuruje w publicznym rejestrze BeatTime."
+
+#: beatstamp/api.py:338
+msgid "This digest has no stamp yet, so there is no certificate for it on the server."
+msgstr "Ten skrót nie ma jeszcze stempla, więc nie ma dla niego certyfikatu na serwerze."
+
+#: beatstamp/certificate.py:367
+msgid "This document describes an entry whose proof was <b>not confirmed</b> by the local check. <b>It does not certify a timestamp</b> — the values below are merely the data stored in the entry."
+msgstr "Ten dokument opisuje wpis, którego dowodu <b>nie potwierdzono</b> kontrolą lokalną. <b>Nie poświadcza on znacznika czasu</b> — wartości poniżej są jedynie danymi zapisanymi we wpisie."
+
+#: beatstamp/ui/dialogs.py:1254
+msgid "This file could not be read: %(name)s"
+msgstr "Nie udało się odczytać tego pliku: %(name)s"
+
+#: beatstamp/ui/main_window.py:897
+msgid "This file had already been stamped"
+msgstr "Ten plik był już ostemplowany"
+
+#: beatstamp/ui/dialogs.py:233
+msgid "This folder is inside OneDrive"
+msgstr "Ten folder jest w OneDrive"
+
+#: beatstamp/ui/dialogs.py:181
+msgid "This folder is outside OneDrive and outside Windows Backup, so the stamp history is not copied anywhere by itself. If it matters to you, make your own copy of the folder."
+msgstr "Ten folder jest poza OneDrive i poza Kopią zapasową Windows, więc historia stempli nie kopiuje się nigdzie sama. Jeśli jest dla Ciebie ważna, zrób własną kopię folderu."
+
+#: beatstamp/supporters.py:205
+msgid "This version of BeatStamp cannot read the list of supporters (the server speaks version %(version)s). A newer version of the application can."
+msgstr "Ta wersja BeatStamp nie umie odczytać listy wspierających (serwer mówi w wersji %(version)s). Poradzi sobie z nią nowsza wersja programu."
+
+#: beatstamp/ui/dialogs.py:467
+msgid "Time limit:"
+msgstr "Limit czasu:"
+
+#: beatstamp/ui/dialogs.py:836
+msgid "TimeVaultSecure (timevaultsecure.com) is an earlier product by the same author, and BeatStamp carries over the history it left behind."
+msgstr "TimeVaultSecure (timevaultsecure.com) to wcześniejszy produkt tego samego autora, a BeatStamp przejmuje pozostawioną przez niego historię."
+
+#: beatstamp/certificate.py:333
+msgid "Timestamp certificate"
+msgstr "Certyfikat znacznika czasu"
+
+#: beatstamp/certificate.py:362
+msgid "Timestamp certificate · beattime.live"
+msgstr "Certyfikat znacznika czasu · beattime.live"
+
+#: beatstamp/ui/main_window.py:896
+msgid "Timestamp granted"
+msgstr "Znacznik czasu nadany"
+
+#: beatstamp/ui/main_window.py:372
+#: beatstamp/ui/main_window.py:496
+msgid "Timestamp:"
+msgstr "Znacznik czasu:"
+
+#: beatstamp/ui/dialogs.py:457
+msgid "Tor proxy:"
+msgstr "Proxy Tor:"
+
+#: beatstamp/ui/main_window.py:1793
+msgid ""
+"Traffic goes through the Tor network to the BeatTime hidden service.\n"
+"The server does not learn your IP address."
+msgstr ""
+"Ruch idzie przez sieć Tor do ukrytej usługi BeatTime.\n"
+"Serwer nie poznaje Twojego adresu IP."
+
+#: beatstamp/ui/dialogs.py:323
+msgid "Tries to write a test file to the folder once more."
+msgstr "Próbuje jeszcze raz zapisać w folderze plik próbny."
+
+#: beatstamp/ui/dialogs.py:400
+msgid "Trust"
+msgstr "Zaufanie"
+
+#: beatstamp/api.py:193
+msgid "Try again in %(seconds)s s."
+msgstr "Spróbuj ponownie za %(seconds)s s."
+
+#: beatstamp/certificate.py:164
+msgid "UNCONFIRMED — root signed with a key outside the BeatTime list, signature not binding"
+msgstr "NIEPOTWIERDZONY — korzeń podpisany kluczem spoza listy BeatTime, podpis niewiążący"
+
+#: beatstamp/certificate.py:167
+msgid "UNCONFIRMED — the proof did not pass the local check"
+msgstr "NIEPOTWIERDZONY — dowód nie przeszedł kontroli lokalnej"
+
+#: beatstamp/certificate.py:396
+#: beatstamp/history.py:453
+msgid "UTC time"
+msgstr "Czas UTC"
+
+#: beatstamp/workers.py:226
+msgid "Unexpected error: %(kind)s."
+msgstr "Nieoczekiwany błąd: %(kind)s."
+
+#: beatstamp/bundle.py:148
+msgid "Unknown proof format (expected \"%(format)s\")."
+msgstr "Nieznany format dowodu (oczekiwano \"%(format)s\")."
+
+#: beatstamp/ui/dialogs.py:607
+msgid ""
+"Upper ceiling on the number of entries in the local history. Above\n"
+"it the OLDEST entries are removed. 0 = no limit.\n"
+"\n"
+"The proof itself is in the public BeatTime register — removing an\n"
+"entry from the local history does not delete the stamp."
+msgstr ""
+"Górny sufit liczby wpisów w historii lokalnej. Po przekroczeniu\n"
+"usuwane są NAJSTARSZE wpisy. 0 = bez limitu.\n"
+"\n"
+"Sam dowód jest w publicznym rejestrze BeatTime — usunięcie wpisu\n"
+"z historii lokalnej nie kasuje stempla."
+
+#: beatstamp/ui/main_window.py:245
+msgid "Verification"
+msgstr "Weryfikacja"
+
+#: beatstamp/history.py:466
+msgid "Verification address"
+msgstr "Adres weryfikacji"
+
+#: beatstamp/ui/main_window.py:1152
+msgid "Verified offline"
+msgstr "Zweryfikowany offline"
+
+#: beatstamp/ui/main_window.py:638
+msgid "Verify a file…"
+msgstr "Zweryfikuj plik…"
+
+#: beatstamp/ui/dialogs.py:577
+msgid "Verify the proof right after stamping"
+msgstr "Weryfikuj dowód od razu po ostemplowaniu"
+
+#: beatstamp/api.py:194
+msgid "Wait a moment."
+msgstr "Odczekaj chwilę."
+
+#: beatstamp/ui/main_window.py:735
+msgid "Wait for the current task to finish, or stop it (Esc)."
+msgstr "Poczekaj na zakończenie bieżącego zadania albo przerwij je (Esc)."
+
+#: beatstamp/ui/main_window.py:885
+#: beatstamp/ui/main_window.py:1052
+msgid "Warning"
+msgstr "Uwaga"
+
+#: beatstamp/certificate.py:409
+#: beatstamp/history.py:460
+msgid "Week"
+msgstr "Tydzień"
+
+#: beatstamp/ui/history_model.py:215
+msgid "Week %(week)s (%(state)s)"
+msgstr "Tydzień %(week)s (%(state)s)"
+
+#: beatstamp/api.py:362
+msgid "Week %(week)s has no OpenTimestamps proof yet."
+msgstr "Tydzień %(week)s nie ma jeszcze dowodu OpenTimestamps."
+
+#: beatstamp/proof.py:119
+msgid "Week closed: the Merkle root is frozen and signed with the BeatTime Ed25519 key, and the digest was confirmed locally to belong to that root. The external anchor is on its way."
+msgstr "Tydzień zamknięty: korzeń Merkle jest zamrożony i podpisany kluczem Ed25519 BeatTime, a przynależność skrótu do korzenia potwierdzona lokalnie. Kotwica zewnętrzna jest w drodze."
+
+#: beatstamp/ui/main_window.py:378
+msgid "What the application computed ITSELF, without trusting the server"
+msgstr "Co aplikacja policzyła SAMA, bez ufania serwerowi"
+
+#: beatstamp/ui/history_model.py:41
+msgid "When the stamp was created, in your time zone"
+msgstr "Kiedy założono stempel, w Twojej strefie czasowej"
+
+#: beatstamp/ui/history_model.py:48
+msgid "Where the week root was preserved outside BeatTime"
+msgstr "Gdzie korzeń tygodnia został utrwalony poza BeatTime"
+
+#: beatstamp/config.py:495
+msgid ""
+"Windows is blocking writes to this folder:\n"
+"%(path)s\n"
+"\n"
+"This is almost always ransomware protection in Windows Security (\"Controlled folder access\"). It lets only applications it already knows write to folders such as Documents, Pictures or Videos — a newly installed program is not one of them yet.\n"
+"\n"
+"There are two ways out: allow BeatStamp in the Windows ransomware protection settings, or pick another folder for the data. Nothing is deleted either way — whatever is already in the old folder stays there."
+msgstr ""
+"Windows blokuje zapis w tym folderze:\n"
+"%(path)s\n"
+"\n"
+"To prawie zawsze ochrona przed ransomware w Zabezpieczeniach Windows („kontrolowany dostęp do folderów\"). Pozwala ona pisać w folderach takich jak Dokumenty, Obrazy czy Wideo tylko aplikacjom, które już zna — świeżo zainstalowany program jeszcze do nich nie należy.\n"
+"\n"
+"Są dwa wyjścia: zezwolić BeatStamp w ustawieniach ochrony przed ransomware albo wskazać inny folder na dane. W obu przypadkach nic nie zostaje skasowane — wszystko, co jest w starym folderze, tam zostaje."
+
+#: beatstamp/ui/dialogs.py:315
+msgid "Windows protection settings…"
+msgstr "Ustawienia ochrony Windows…"
+
+#: beatstamp/ui/main_window.py:756
+#: beatstamp/ui/main_window.py:822
+msgid "Working…"
+msgstr "Pracuję…"
+
+#: beatstamp/ui/main_window.py:1786
+msgid "YOUR OWN public key is set — besides the built-in list of BeatTime keys the application also accepts signatures made with that key."
+msgstr "Ustawiono WŁASNY klucz publiczny — obok wbudowanej listy kluczy BeatTime aplikacja uznaje też podpisy tym kluczem."
+
+#: beatstamp/ui/main_window.py:811
+msgid "You are about to stamp <b>%(files)s</b>.<br><br>The server accepts 20 stamps per minute, so the operation will take about %(minutes)s. Continue?"
+msgstr "Zaraz ostemplujesz <b>%(files)s</b>.<br><br>Serwer przyjmuje 20 stempli na minutę, więc operacja potrwa około %(minutes)s. Kontynuować?"
+
+#: beatstamp/ui/main_window.py:450
+msgid ""
+"You can check any digest — including one you did not stamp\n"
+"from this computer. Enter starts the check."
+msgstr ""
+"Możesz sprawdzić dowolny skrót — także taki, którego nie\n"
+"stemplowałeś z tego komputera. Enter uruchamia sprawdzenie."
+
+#: beatstamp/ui/history_model.py:49
+msgid "Your own description. It stays on this computer"
+msgstr "Twój własny opis. Zostaje na tym komputerze"
+
+#: beatstamp/ui/dialogs.py:541
+msgid "Your own key is accepted <b>alongside</b> the built-in list and is permanently visible in the status bar. Whoever slips you their key can sign any \"proof\" with it."
+msgstr "Własny klucz jest uznawany <b>obok</b> wbudowanej listy i jest stale widoczny na pasku stanu. Kto podsunie Ci swój klucz, może podpisać nim dowolny „dowód\"."
+
+#: beatstamp/ui/main_window.py:1758
+msgid "Your own public key"
+msgstr "Własny klucz publiczny"
+
+#: beatstamp/ui/dialogs.py:515
+msgid "Your own public key (advanced)"
+msgstr "Własny klucz publiczny (zaawansowane)"
+
+#: beatstamp/ui/main_window.py:252
+msgid "Your stamps and the stage their proof has reached"
+msgstr "Twoje stemple i etap, na którym jest ich dowód"
+
+#: beatstamp/ui/widgets.py:295
+msgid "ahead of"
+msgstr "przyspieszony"
+
+#: beatstamp/ui/main_window.py:951
+msgid "anchor (according to the register): %(anchors)s"
+msgstr "kotwica (według rejestru): %(anchors)s"
+
+#: beatstamp/ui/main_window.py:1640
+msgid "beatstamp-history.csv"
+msgstr "historia_beatstamp.csv"
+
+#: beatstamp/ui/widgets.py:295
+msgid "behind"
+msgstr "spóźniony"
+
+#: beatstamp/ui/dialogs.py:520
+msgid "built-in list of keys"
+msgstr "wbudowana lista kluczy"
+
+#: beatstamp/certificate.py:535
+#: beatstamp/ui/main_window.py:1209
+msgid "certificate"
+msgstr "certyfikat"
+
+#: beatstamp/ui/main_window.py:1679
+msgid "clock out of step"
+msgstr "zegar rozjechany"
+
+#: beatstamp/certificate.py:403
+#: beatstamp/ui/history_model.py:214
+msgid "closed"
+msgstr "zamknięty"
+
+#: beatstamp/certificate.py:270
+msgid "concerns a root other than the week root — not accepted"
+msgstr "dotyczy innego korzenia niż korzeń tygodnia — nieuznana"
+
+#: beatstamp/certificate.py:273
+msgid "confirmed according to the register"
+msgstr "potwierdzona według rejestru"
+
+#: beatstamp/certificate.py:245
+msgid "confirmed according to the register — %(where)s%(ots)s"
+msgstr "potwierdzony według rejestru — %(where)s%(ots)s"
+
+#: beatstamp/ui/main_window.py:329
+msgid "e.g. \"client contract, signed version\" — optional"
+msgstr "np. \"umowa z klientem, wersja podpisana\" — opcjonalnie"
+
+#: beatstamp/ui/main_window.py:940
+msgid "inclusion path — the week is still open"
+msgstr "ścieżka inkluzji — tydzień jeszcze otwarty"
+
+#: beatstamp/ui/main_window.py:109
+msgid "key accepted thanks to YOUR OWN key from the settings"
+msgstr "klucz uznany dzięki WŁASNEMU kluczowi z ustawień"
+
+#: beatstamp/ui/dialogs.py:1124
+msgid "last change on the server: %(when)s"
+msgstr "ostatnia zmiana na serwerze: %(when)s"
+
+#: beatstamp/ui/main_window.py:1123
+msgid "no document was pointed to — only the proof itself was checked"
+msgstr "dokumentu nie wskazano — sprawdzono sam dowód"
+
+#: beatstamp/ui/dialogs.py:606
+msgid "no limit"
+msgstr "bez limitu"
+
+#: beatstamp/certificate.py:191
+msgid "no root signature"
+msgstr "brak podpisu korzenia"
+
+#: beatstamp/ui/main_window.py:1130
+msgid "no valid root signature"
+msgstr "brak poprawnego podpisu korzenia"
+
+#: beatstamp/ui/history_model.py:230
+msgid "no. %(ref)s"
+msgstr "nr %(ref)s"
+
+#: beatstamp/certificate.py:227
+msgid "none — the time comes from the register alone, without confirmation by a signature."
+msgstr "brak — czas pochodzi wyłącznie z rejestru, bez potwierdzenia podpisem."
+
+#: beatstamp/certificate.py:237
+#: beatstamp/certificate.py:267
+msgid "not binding — root without a confirmed BeatTime signature"
+msgstr "niewiążące — korzeń bez potwierdzonego podpisu BeatTime"
+
+#: beatstamp/ui/main_window.py:368
+msgid "not computed yet"
+msgstr "jeszcze nie policzono"
+
+#: beatstamp/certificate.py:250
+msgid "not submitted yet"
+msgstr "jeszcze niezgłoszony"
+
+#: beatstamp/certificate.py:404
+#: beatstamp/ui/history_model.py:214
+msgid "open"
+msgstr "otwarty"
+
+#: beatstamp/ui/main_window.py:99
+msgid "or click to pick them from disk · you can drop many files and whole folders"
+msgstr "albo kliknij, aby wybrać je z dysku · można upuścić wiele plików i całe katalogi"
+
+#: beatstamp/certificate.py:275
+msgid "pending"
+msgstr "oczekuje"
+
+#: beatstamp/bundle.py:128
+msgid "proof"
+msgstr "dowod"
+
+#: beatstamp/ui/main_window.py:1803
+msgid "proxy outside this computer"
+msgstr "proxy spoza tego komputera"
+
+#: beatstamp/ui/dialogs.py:498
+msgid "retired %(date)s: <span style=\"font-family:monospace\">%(key)s</span>"
+msgstr "wycofany %(date)s: <span style=\"font-family:monospace\">%(key)s</span>"
+
+#: beatstamp/ui/main_window.py:947
+msgid "root signature — it arrives once the week closes"
+msgstr "podpis korzenia — dojdzie po zamknięciu tygodnia"
+
+#: beatstamp/certificate.py:248
+msgid "submitted to the OpenTimestamps calendars, waiting for a block"
+msgstr "zgłoszony do kalendarzy OpenTimestamps, czeka na blok"
+
+#: beatstamp/certificate.py:240
+msgid "the Bitcoin chain"
+msgstr "łańcuch Bitcoin"
+
+#: beatstamp/ui/main_window.py:942
+#: beatstamp/ui/main_window.py:1128
+msgid "the Ed25519 root signature is valid"
+msgstr "podpis Ed25519 korzenia poprawny"
+
+#: beatstamp/ui/main_window.py:944
+msgid "the Ed25519 signature is invalid"
+msgstr "podpis Ed25519 nieprawidłowy"
+
+#: beatstamp/ui/main_window.py:911
+msgid "the ORIGINAL timestamp was returned. The first stamp wins — the date on an already registered document cannot be refreshed."
+msgstr "zwrócono PIERWOTNY znacznik czasu. Pierwszy stempel wygrywa — nie da się odświeżyć daty na wcześniej zarejestrowanym dokumencie."
+
+#: beatstamp/ui/main_window.py:438
+msgid "the digest will be computed locally and looked up in the register"
+msgstr "skrót zostanie policzony lokalnie i odpytany w rejestrze"
+
+#: beatstamp/ui/main_window.py:1121
+msgid "the document digest does NOT match the proof"
+msgstr "skrót dokumentu NIE zgadza się z dowodem"
+
+#: beatstamp/ui/main_window.py:1119
+msgid "the document digest matches the proof"
+msgstr "skrót dokumentu zgadza się z dowodem"
+
+#: beatstamp/ui/main_window.py:938
+msgid "the inclusion path does NOT lead to the root"
+msgstr "ścieżka inkluzji NIE prowadzi do korzenia"
+
+#: beatstamp/ui/main_window.py:1127
+msgid "the inclusion path does not match"
+msgstr "ścieżka inkluzji niezgodna"
+
+#: beatstamp/ui/main_window.py:1125
+msgid "the inclusion path leads to the week root"
+msgstr "ścieżka inkluzji prowadzi do korzenia tygodnia"
+
+#: beatstamp/ui/main_window.py:936
+msgid "the inclusion path matches the week root"
+msgstr "ścieżka inkluzji zgadza się z korzeniem tygodnia"
+
+#: beatstamp/ui/main_window.py:137
+msgid "the signature covers week %(week)s (%(range)s UTC) — the document existed no later than %(end)s; the exact moment is given by the register"
+msgstr "podpis obejmuje tydzień %(week)s (%(range)s UTC) — dokument istniał najpóźniej %(end)s; dokładną chwilę podaje rejestr"
+
+#: beatstamp/ui/main_window.py:142
+msgid "time according to the register — week %(week)s without a confirmed signature"
+msgstr "czas według rejestru — tydzień %(week)s bez potwierdzonego podpisu"
+
+#: beatstamp/ui/main_window.py:1698
+msgid "unavailable"
+msgstr "niedostępna"
+
+#: beatstamp/certificate.py:332
+#: beatstamp/ui/main_window.py:1709
+msgid "unknown"
+msgstr "nieznany"
+
+#: beatstamp/certificate.py:192
+msgid "waiting for the week to close"
+msgstr "oczekuje na zamknięcie tygodnia"
+
+#: beatstamp/certificate.py:218
+msgid "week %(week)s (%(range)s UTC) — root signed and checked: the document existed no later than %(end)s. The exact moment within that week is given by the BeatTime register."
+msgstr "tydzień %(week)s (%(range)s UTC) — korzeń podpisany i sprawdzony: dokument istniał najpóźniej %(end)s. Dokładną chwilę w tym tygodniu podaje rejestr BeatTime."
+
+#: beatstamp/certificate.py:224
+msgid "week %(week)s is still running — the signature will cover it once it closes; the exact time is given by the BeatTime register."
+msgstr "tydzień %(week)s jeszcze trwa — podpis obejmie go po zamknięciu; dokładny czas podaje rejestr BeatTime."
+
+#: beatstamp/ui/main_window.py:1698
+msgid "working"
+msgstr "działa"
+
+#: beatstamp/certificate.py:251
+msgid "— (the week is still running)"
+msgstr "— (tydzień jeszcze trwa)"
+
+#: beatstamp/ui/main_window.py:867
+msgid "…and %(count)s more."
+msgstr "…oraz %(count)s innych."
+
+#: beatstamp/ui/main_window.py:449
+msgid "…or paste a SHA-256 digest here (64 hex characters)"
+msgstr "…albo wklej tutaj skrót SHA-256 (64 znaki hex)"

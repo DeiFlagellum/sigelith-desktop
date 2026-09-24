@@ -1,0 +1,46 @@
+# BeatStamp (desktop/ w monorepo BeatTime). Wzorce dzialaja wzgledem tego
+# katalogu: desktop/.venv, desktop/build, desktop/dist itd.
+
+# --- Srodowiska i artefakty kompilacji ---
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+build/
+dist/
+# Swiadomie BEZ `*.manifest`: manifesty generowane przez PyInstaller leza
+# w build/ i dist/, a recznie pisany manifest aplikacji (DPI, MSIX) ma trafic
+# do repozytorium.
+
+# --- Dane uzytkownika ---
+# `history.json` starego klienta TVS zawiera SKROTY DOKUMENTOW uzytkownika
+# i byl wczesniej trzymany w repozytorium. To dane osobiste, nie kod:
+# skrot sam w sobie nie zdradza tresci, ale zestawiony z podejrzewanym
+# plikiem POTWIERDZA, ze to wlasnie ten plik byl stemplowany i kiedy.
+# BeatStamp trzyma historie w %USERPROFILE%\BeatStamp\, poza repozytorium.
+history.json
+historia.uszkodzona-*.json
+*.beatproof
+*.ots
+
+# --- Zasoby generowane ---
+# 12,8 MB Pythona wygenerowanego z jednej ikony (rcc). Nowa wersja czyta
+# plik .ico wprost, wiec ten posrednik nie jest juz do niczego potrzebny.
+resources_rc.py
+
+# --- Pakowanie MSIX ---
+# Logo sa GENEROWANE z beatstamp.ico: build_msix.ps1 wywoluje
+# packaging/make_logos.py przy kazdym pakowaniu. Czterdziesci plikow PNG
+# trzymanych w repozytorium rozjechaloby sie z ikona przy pierwszej jej
+# zmianie, o ktorej ktos zapomnialby przy regeneracji.
+packaging/Assets/
+# Certyfikat testowy (.pfx z kluczem prywatnym!) i jego eksport. Sluzy
+# WYLACZNIE do lokalnego sprawdzenia paczki; do repozytorium nie ma wstepu
+# zaden material klucza.
+packaging/_local/
+
+# --- Narzedzia ---
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.log

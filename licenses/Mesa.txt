@@ -1,0 +1,71 @@
+The Mesa 3D Graphics Library
+============================
+
+`_internal/PySide6/opengl32sw.dll` in this package is a software (CPU)
+implementation of OpenGL built from Mesa 3D -- the "llvmpipe" Gallium driver.
+The file is shipped as part of the Qt release; the build string inside it
+reads "Mesa 11.2.2".  Qt loads it only when the machine has no usable OpenGL
+driver of its own.
+
+License / Copyright Information
+-------------------------------
+
+The Mesa distribution consists of several components.  Different copyrights
+and licenses apply to different components.  The core Mesa library is licensed
+according to the terms of the MIT license.  The default Mesa license is as
+follows:
+
+Copyright (C) 1999-2007  Brian Paul   All Rights Reserved.
+
+Permission is hereby granted, free of charge, to any person obtaining a
+copy of this software and associated documentation files (the "Software"),
+to deal in the Software without restriction, including without limitation
+the rights to use, copy, modify, merge, publish, distribute, sublicense,
+and/or sell copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included
+in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+Disclaimer
+----------
+
+Mesa is a 3-D graphics library with an API which is very similar to that of
+OpenGL.  To the extent that Mesa utilizes the OpenGL command syntax or state
+machine, it is being used with authorization from Silicon Graphics, Inc. (SGI).
+However, the author does not possess an OpenGL license from SGI, and makes no
+claim that Mesa is in any way a compatible replacement for OpenGL or associated
+with SGI.  Those who want a licensed implementation of OpenGL should contact a
+licensed vendor.
+
+Please do not refer to the library as MesaGL (for legal reasons).  It's just
+Mesa or The Mesa 3-D graphics library.
+
+OpenGL is a trademark of Silicon Graphics Incorporated.
+
+Upstream: https://www.mesa3d.org/  --  https://docs.mesa3d.org/license.html
+
+Incorporated software
+---------------------
+
+The llvmpipe driver links LLVM (https://llvm.org/) statically, so LLVM is
+inside this file, not beside it.  The build string in the file reads
+"llvm-mc (based on LLVM 3.6.2)".  LLVM was relicensed to the Apache License
+2.0 with LLVM Exceptions only with LLVM 9 (2019); the 3.6 series predates
+that and is distributed under the University of Illinois/NCSA Open Source
+License.  That is the license that applies here, and its full text -- with
+the copyright notice of the University of Illinois -- is in NCSA.txt next to
+this file.  Apache-2.0.txt does NOT apply to this binary.
+
+Mesa itself also carries components under licenses other than the default
+MIT one (among others the SGI Free Software License B in the GL/GLX layer);
+the per-component licensing of the Mesa tree is documented at
+https://docs.mesa3d.org/license.html.

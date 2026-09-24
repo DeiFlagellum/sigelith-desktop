@@ -1,0 +1,11 @@
+# BeatStamp — zaleznosci srodowiska uruchomieniowego.
+# Python 3.12. Wersje przypiete swiadomie: powtarzalny build = powtarzalny exe.
+
+PySide6==6.9.1          # Qt 6 — warstwa GUI (docelowa technologia projektu)
+requests==2.32.4        # klient HTTP (TLS przez urllib3 + certifi)
+urllib3==2.5.0          # retry/backoff, pula polaczen
+certifi==2025.7.14      # magazyn CA — jedyne zrodlo zaufania TLS
+cryptography==45.0.5    # weryfikacja podpisu Ed25519 korzenia Merkle (offline)
+reportlab==4.4.2        # certyfikat PDF + kod QR (rysowany wektorowo)
+pillow==12.3.0          # twarda zaleznosc reportlaba (reportlab.lib.utils)
+PySocks==1.7.1          # opcjonalne wyjscie przez Tor (SOCKS5h) na .onion

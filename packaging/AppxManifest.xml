@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  BeatStamp — manifest paczki MSIX dla Microsoft Store.
+
+  SZABLON. Dwie wartosci w sekcji <Identity> to PLACEHOLDERY i paczka z nimi
+  NIE zostanie przyjeta przez Sklep — trzeba je przepisac z Partner Center po
+  zarejestrowaniu aplikacji (Partner Center → aplikacja → Product management →
+  Product identity). Musza zgadzac sie CO DO ZNAKU, razem z wielkoscia liter:
+  Windows odrzuca paczke, ktorej `Publisher` rozni sie od tego w certyfikacie
+  podpisujacym choc jednym znakiem, a Sklep odrzuca paczke z cudzym `Name`.
+  Szczegoly i kolejnosc krokow: ../README.md, rozdzial „Paczka dla Microsoft
+  Store (MSIX)".
+
+  `Version` podmienia automatycznie `build_msix.ps1` na podstawie
+  `__version__` z `beatstamp/__init__.py` — nie trzeba (i nie warto) pisac go
+  tutaj recznie. CZWARTY SEGMENT MUSI BYC ZEREM: Sklep rezerwuje go dla
+  siebie i odrzuca paczke z wartoscia inna niz 0.
+-->
+
+<Package
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
+  IgnorableNamespaces="uap rescap">
+
+  <!--
+    UZUPELNIC PO REJESTRACJI W PARTNER CENTER.
+
+    Name       — „Package/Identity/Name" z Partner Center. Ma postac
+                 <PrefiksWydawcy>.<NazwaAplikacji>, np. „12345AdamKoch.BeatStamp".
+                 Prefiks przydziela Microsoft; nie da sie go zgadnac.
+    Publisher  — „Package/Identity/Publisher", pelna nazwa wyrozniajaca
+                 certyfikatu, np. „CN=1A2B3C4D-5E6F-7890-ABCD-EF1234567890".
+                 Dla konta indywidualnego jest to zwykle GUID, a NIE „CN=Adam Koch".
+                 Do testu lokalnego (self-signed) wpisz tu cokolwiek — ale
+                 certyfikat testowy musi miec DOKLADNIE ten sam „Subject".
+  -->
+  <Identity
+    Name="PLACEHOLDER-WYDAWCA.BeatStamp"
+    Publisher="CN=PLACEHOLDER-PUBLISHER-Z-PARTNER-CENTER"
+    Version="2.1.0.0"
+    ProcessorArchitecture="x64" />
+
+  <Properties>
+    <DisplayName>BeatStamp</DisplayName>
+    <!--
+      Nazwa wydawcy widoczna dla uzytkownika w karcie Sklepu i w „Aplikacje
+      i funkcje". Musi zgadzac sie z nazwa wydawcy z konta Partner Center.
+    -->
+    <PublisherDisplayName>Adam Koch</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+  </Properties>
+
+  <Dependencies>
+    <!--
+      MinVersion 10.0.19045.0 to Windows 10 22H2 — ostatnia i jedyna wciaz
+      wspierana wersja Windows 10. Nizej nie schodzimy swiadomie: starsze
+      wydania nie dostaja juz poprawek bezpieczenstwa, a program, ktorego
+      cala tresc to dowod kryptograficzny, nie ma czego szukac na systemie
+      bez lat.
+      Windows 11 jest objety tym samym wpisem (kazde jego wydanie ma numer
+      kompilacji wyzszy niz 19045), a MaxVersionTested mowi tylko, na czym
+      wydanie bylo sprawdzone — nie ogranicza instalacji na nowszych.
+    -->
+    <TargetDeviceFamily Name="Windows.Desktop"
+                        MinVersion="10.0.19045.0"
+                        MaxVersionTested="10.0.26100.0" />
+  </Dependencies>
+
+  <!--
+    Jezyki paczki. Interfejs tlumaczy gettext (`beatstamp/i18n.py`), a nie
+    system zasobow Windows, wiec ta lista niczego nie wybiera w czasie
+    dzialania — deklaruje Sklepowi, w jakich jezykach aplikacja istnieje,
+    i decyduje o tym, komu pokaze sie w wynikach wyszukiwania.
+    Pierwszy wpis jest jezykiem domyslnym paczki.
+  -->
+  <Resources>
+    <Resource Language="en-US" />
+    <Resource Language="pl-PL" />
+    <Resource Language="de-DE" />
+  </Resources>
+
+  <Applications>
+    <!--
+      `Windows.FullTrustApplication` — zwykly program Win32 w paczce MSIX.
+      BeatStamp czyta pliki wskazane przez uzytkownika z dowolnego miejsca na
+      dysku i zapisuje historie poza AppData, wiec model piaskownicy UWP nie
+      wchodzi w gre.
+    -->
+    <Application Id="BeatStamp"
+                 Executable="BeatStamp.exe"
+                 EntryPoint="Windows.FullTrustApplication">
+      <uap:VisualElements
+        DisplayName="BeatStamp"
+        Description="Dowod istnienia pliku w czasie. Dokument nie opuszcza komputera - do publicznego rejestru BeatTime trafia wylacznie jego skrot SHA-256."
+        BackgroundColor="transparent"
+        Square150x150Logo="Assets\Square150x150Logo.png"
+        Square44x44Logo="Assets\Square44x44Logo.png">
+        <uap:DefaultTile
+          Square71x71Logo="Assets\Square71x71Logo.png"
+          Square310x310Logo="Assets\Square310x310Logo.png"
+          Wide310x150Logo="Assets\Wide310x150Logo.png">
+          <uap:ShowNameOnTiles>
+            <uap:ShowOn Tile="square150x150Logo" />
+            <uap:ShowOn Tile="wide310x150Logo" />
+          </uap:ShowNameOnTiles>
+        </uap:DefaultTile>
+      </uap:VisualElements>
+    </Application>
+  </Applications>
+
+  <Capabilities>
+    <!--
+      `runFullTrust` to JEDYNE uprawnienie, ktorego paczka zada — i jedyne,
+      ktore program Win32 w MSIX musi miec. Nie deklarujemy ani dostepu do
+      bibliotek dokumentow, ani `broadFileSystemAccess`: aplikacja czyta
+      wylacznie pliki wskazane przez uzytkownika (przeciagniete albo wybrane
+      w oknie dialogowym), a takie otwarcie nie wymaga osobnej zgody.
+      Kazde dodatkowe uprawnienie to dodatkowe pytanie przy recenzji w Sklepie
+      i dodatkowy tekst w karcie aplikacji — przy uprawnieniach z grupy
+      „restricted" (`broadFileSystemAccess`) recenzja wymaga uzasadnienia.
+
+      Katalog danych (`%USERPROFILE%\BeatStamp`) tez ZADNEGO uprawnienia nie
+      wymaga: aplikacja pelnozaufana z paczki pisze w profilu uzytkownika
+      zwyklym Win32 (`open`/`CreateFile`) tak samo jak zwykly `.exe`.
+      Uprawnienia `documentsLibrary` i `broadFileSystemAccess` bramkuja API
+      `Windows.Storage` w aplikacjach AppContainer — nie te sciezke. Katalog
+      lezy przy tym POZA `AppData`, wiec nie podlega wirtualizacji i przezywa
+      odinstalowanie paczki: historia stempli zostaje na dysku uzytkownika.
+    -->
+    <rescap:Capability Name="runFullTrust" />
+  </Capabilities>
+</Package>
