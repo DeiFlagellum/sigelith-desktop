@@ -823,10 +823,25 @@ class TheAboutWindowSaysWhatItMustTests(unittest.TestCase):
         odwrotnosc tego, czego test pilnuje.
         """
         readme = (licenses.ROOT / 'README.md').read_text(encoding='utf-8')
+        # README jest PUBLICZNE i po angielsku (od 2026-09-24) — to ta wersja
+        # czyta ktos, kto trafia na repozytorium. Polski dziennik decyzji
+        # (ROZWOJ.md) zostaje wewnetrzny i do migawki nie trafia.
         self.assertIn(
-            ' '.join('TimeVaultSecure (timevaultsecure.com) to wcześniejszy '
-                     'produkt tego samego autora'.split()),
+            ' '.join('TimeVaultSecure (timevaultsecure.com) is an earlier '
+                     'product by the same author'.split()),
             ' '.join(readme.split()))
+
+    def test_the_readme_does_not_promote_the_old_entries(self):
+        """Wpisy z TVS maja zostac oznaczone, a nie awansowane po cichu.
+
+        To zdanie w README jest obietnica wobec czytelnika, ktory ma stare
+        dowody: mowi, ze program ich nie podniesie do poziomu, na ktory nie
+        zasluguja. Gdyby zniklo z opisu, zniklaby tez umowa.
+        """
+        readme = ' '.join((licenses.ROOT / 'README.md')
+                          .read_text(encoding='utf-8').split())
+        self.assertIn('TVS archive', readme)
+        self.assertIn('not silently promoted', readme)
 
 
 if __name__ == '__main__':

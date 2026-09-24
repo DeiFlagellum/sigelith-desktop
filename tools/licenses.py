@@ -113,7 +113,12 @@ WRITTEN_OFFER_CONTACT = 'kontakt@advena-partners.com'
 #: dostepnosci kodu aplikacji. Dopoki jest pusty, te sciezke niesie TRWALA
 #: PISEMNA OFERTA — dlatego oferta w `NOTICE` obejmuje takze kod aplikacji,
 #: a nie tylko zrodla Qt i PySide6.
-BEATSTAMP_SOURCE_URL = ''
+BEATSTAMP_SOURCE_URL = 'https://github.com/DeiFlagellum/beatstamp'
+# Publiczne repozytorium zalozone 2026-09-24 (migawka wydania, jeden commit
+# na wersje). Do tego dnia pole bylo puste SWIADOMIE: zmyslony adres w
+# pliku not jest gorszy niz jego brak, bo obietnica dostepu do zrodel
+# prowadzilaby donikad. Teraz noty moga wskazac adres wprost i pisemna
+# oferta przestaje byc jedyna droga do kodu aplikacji.
 
 
 # --- Opis skladnika ---------------------------------------------------------

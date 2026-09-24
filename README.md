@@ -101,10 +101,28 @@ A built copy can check itself:
 BeatStamp.exe --selftest --offline
 ```
 
+Earlier versions used Polish flag names. `--samokontrola` and `--bez-sieci`
+still work and always will: once a program is published, its command-line
+flags are a public interface, and quietly dropping one breaks somebody's
+script for no good reason.
+
 ## Interface languages
 
 English, Polish and German. The app follows the system language and can be
 switched in Settings.
+
+## Coming from TimeVaultSecure?
+
+TimeVaultSecure (timevaultsecure.com) is an earlier product by the same
+author, and BeatStamp takes over the history it left behind. Your old entries
+are imported and kept, but they are labelled **TVS archive** and they stay at
+that level — they are not silently promoted to look like the new proofs.
+
+The reason is in the old design: that client's proof rested on trusting the
+server's answer, and its `signature` field was a concatenation that nothing
+could verify. Those records still say what you stamped and when you stamped
+it, which is worth keeping; what they cannot do is prove it to a third party.
+New stamps can, which is the whole difference.
 
 ## Licence
 

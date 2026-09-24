@@ -114,12 +114,7 @@ Homepage: https://beattime.live
 
 License text: _internal/licenses/Apache-2.0.txt
 
-Source: The source code of this program is in the desktop/ directory of the
-BeatTime source tree. Until the public address of that repository is
-published, the written offer in the "Sources of the LGPL libraries" section
-covers it: on request, Adam Koch will supply the complete source of this
-version of the program, in the form needed to relink it against your own build
-of Qt and PySide6.
+Source: https://github.com/DeiFlagellum/beatstamp
 
 When BeatStamp is installed from the Microsoft Store, the package additionally
 contains its MSIX manifest, the application logos generated from the program
