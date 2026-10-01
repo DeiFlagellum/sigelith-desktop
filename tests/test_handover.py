@@ -538,6 +538,8 @@ class SignatureTests(unittest.TestCase):
         self.assertEqual(X.EncKey.from_bytes(key.to_bytes()).public_bytes, key.public_bytes)
 
 
+@unittest.skipUnless(SERVER_STREAM.exists(),
+                     'brak apps/seal/stream.py (publiczna migawka desktopu bez serwera)')
 class StreamParityTests(unittest.TestCase):
     """Lustro apps/seal/stream.py: bajt w bajt ten sam szyfrogram co serwer."""
 

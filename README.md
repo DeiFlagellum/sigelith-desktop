@@ -12,6 +12,12 @@ not the size.
 
 **Free in the [Microsoft Store](https://apps.microsoft.com/detail/9n5xk65gtf33)** (Windows 10 22H2 or Windows 11, 64-bit) — the Store version updates itself. From the command line: `winget install --id 9N5XK65GTF33 --source msstore`. Or build it from source (below).
 
+[![tests](https://github.com/DeiFlagellum/sigelith-desktop/actions/workflows/tests.yml/badge.svg)](https://github.com/DeiFlagellum/sigelith-desktop/actions/workflows/tests.yml)
+
+| Stamp a file | Watch the log's witnesses | Hand over with proof of delivery |
+|---|---|---|
+| ![Stamping a file: the hash is computed locally and recorded in the public log](docs/screenshots/stamp.webp) | ![Witnesses: what the app confirmed in the public log by itself](docs/screenshots/witnesses.webp) | ![Sigelith Handover: sending a file whose receipt the recipient confirms with their own key](docs/screenshots/handover.webp) |
+
 ---
 
 ## Formerly BeatStamp
@@ -163,9 +169,15 @@ history is a local file you can read, copy or delete.
 
 ## Install
 
-Windows 10 or 11, 64-bit. Download the release, unpack it, run
-`SigelithDesktop.exe` — there is no installer and nothing is written outside
-your user profile.
+Windows 10 22H2 or Windows 11, 64-bit:
+
+- **Microsoft Store** — [Sigelith Desktop](https://apps.microsoft.com/detail/9n5xk65gtf33); the
+  Store keeps it up to date.
+- **winget** — `winget install --id 9N5XK65GTF33 --source msstore` (the same Store package).
+- **From source** — see [Run and build from source](#run-and-build-from-source) below.
+
+Releases on this page carry the source of each version; the program itself is distributed
+through the Microsoft Store. Nothing is written outside your user profile.
 
 Your data lives in `%USERPROFILE%\Sigelith` (history, settings, log). That
 location is deliberate: `Documents` is protected by Windows ransomware
@@ -197,7 +209,8 @@ pip install -r requirements-dev.txt
 .\build.ps1
 ```
 
-Tests (657 of them, no network required):
+Tests (over 800, no network required; GitHub Actions runs them on every push — tests that
+compare the app with the server's code are skipped outside the Sigelith source tree):
 
 ```powershell
 python -m unittest discover -s tests
@@ -262,7 +275,7 @@ it ever reappears in a package.
 
 ## Reporting a problem
 
-Security issues: see
+Security issues: see [SECURITY.md](SECURITY.md) — reports go privately to the contact in
 [sigelith.org/.well-known/security.txt](https://sigelith.org/.well-known/security.txt).
 Anything else: open an issue here.
 
@@ -270,5 +283,5 @@ Anything else: open an issue here.
 
 Sigelith Desktop is the desktop side of [Sigelith](https://sigelith.org) —
 public, verifiable proof that a file existed at a point in time. Times are
-shown in [`.beat` time](https://sigelith.org/swatch-internet-time/) as well: 1000 beats a
-day, anchored to UTC, with no timezones.
+shown in [@beat](https://sigelith.org/beat/) as well: 1000 beats a day, anchored to UTC,
+with no timezones.
