@@ -7,7 +7,7 @@ zawsze `True` przeszłaby takie bez trudu. Tu sprawdzamy, że **spreparowane**
 dane są ODRZUCANE, bo to jest jedyna własność, która ma tu wartość.
 
 Model zagrożeń, z którego wyrastają te testy:
-  (a) złośliwy albo przejęty serwer beattime.live — cały sens aplikacji polega
+  (a) złośliwy albo przejęty serwer (sigelith.org / beattime.live) — cały sens aplikacji polega
       na tym, że NIE musi mu ufać;
   (b) plik `.beatproof` otrzymany od kogoś obcego;
   (c) podmieniony `history.json` / `settings.json` w katalogu danych;
@@ -577,14 +577,14 @@ class CertificateTrustTests(unittest.TestCase):
         for entry in (self.rogue, self.rogue_result):
             texts = self._texts(entry)
             self.assertEqual(texts['level'], _(
-                'UNCONFIRMED — root signed with a key outside the BeatTime '
+                'UNCONFIRMED — root signed with a key outside the Sigelith '
                 'list, signature not binding'), texts)
             self.assertEqual(texts['signature'], _(
-                'Ed25519 — with a key outside the BeatTime list, signature not '
+                'Ed25519 — with a key outside the Sigelith list, signature not '
                 'binding'))
             # Kotwica nie ma prawa niczego potwierdzac, gdy sam korzen nie
             # przeszedl kontroli — ani w wierszu OTS, ani w bankowym.
-            not_binding = _('not binding — root without a confirmed BeatTime '
+            not_binding = _('not binding — root without a confirmed Sigelith '
                             'signature')
             self.assertEqual(texts['ots'], not_binding)
             self.assertIn(not_binding, texts['anchors'])
@@ -601,22 +601,22 @@ class CertificateTrustTests(unittest.TestCase):
     def test_verified_certificate_labels_declared_anchors(self):
         texts = self._texts(self.good)
         self.assertEqual(texts['level'], _(
-            'ANCHORED — the week root is preserved outside BeatTime'))
+            'ANCHORED — the week root is preserved outside Sigelith'))
         self.assertEqual(texts['signature'], _(
-            'Ed25519 — root signed with a BeatTime key, checked locally'))
+            'Ed25519 — root signed with a Sigelith key, checked locally'))
         self.assertEqual(texts['ots'], _(
             'confirmed according to the register — %(where)s%(ots)s') % {
                 'where': _('Bitcoin block %(height)s')
                          % {'height': self.good.ots_height},
                 'ots': _(' — .ots file for independent verification: '
-                         'beattime.live/api/proof/ots/%(week)s')
+                         'sigelith.org/api/proof/ots/%(week)s')
                        % {'week': self.good.week}})
         self.assertIn('/api/proof/ots/2026-W25', texts['ots'])
         self.assertIn(_('confirmed according to the register'), texts['anchors'])
         self.assertEqual(texts['coverage'], _(
             'week %(week)s (%(range)s UTC) — root signed and checked: the '
             'document existed no later than %(end)s. The exact moment within '
-            'that week is given by the BeatTime register.') % {
+            'that week is given by the Sigelith register.') % {
                 'week': self.good.week,
                 'range': proof.week_range_text(self.good.week),
                 'end': proof.week_end_text(self.good.week)})
@@ -632,10 +632,10 @@ class CertificateTrustTests(unittest.TestCase):
         entry = Entry(**{**self.good.to_dict(), 'root_signature': ''})
         texts = self._texts(entry)
         self.assertNotIn(texts['level'], (
-            _('ANCHORED — the week root is preserved outside BeatTime'),
+            _('ANCHORED — the week root is preserved outside Sigelith'),
             _('SIGNED — the week root is frozen and signed with Ed25519')), texts)
         self.assertEqual(texts['ots'], _(
-            'not binding — root without a confirmed BeatTime signature'))
+            'not binding — root without a confirmed Sigelith signature'))
 
     def test_backdated_entry_is_not_printed_as_proof(self):
         entry = Entry(**{**self.good.to_dict(), 'utc': '2019-01-01T00:00:00Z',
@@ -651,7 +651,7 @@ class CertificateTrustTests(unittest.TestCase):
             'RECORDED — the week is still running, the anchor is on its way'))
         self.assertEqual(texts['coverage'], _(
             'week %(week)s is still running — the signature will cover it once '
-            'it closes; the exact time is given by the BeatTime register.')
+            'it closes; the exact time is given by the Sigelith register.')
             % {'week': entry.week})
 
 

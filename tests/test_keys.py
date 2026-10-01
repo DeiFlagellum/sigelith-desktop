@@ -1,7 +1,7 @@
 """
 Zaufanie do kluczy po rotacji 2026-09-21.
 
-Model: o tym, czy podpis korzenia pochodzi od BeatTime, decyduje WYLACZNIE
+Model: o tym, czy podpis korzenia pochodzi od Sigelith, decyduje WYLACZNIE
 lista kluczy wbudowana w aplikacje (beatstamp/keys.py) — nigdy klucz
 przyslany przez serwer ani zapisany w pliku `.beatproof`.
 
@@ -48,7 +48,7 @@ CURRENT = keys.primary_key()
 
 
 def _rogue_pair():
-    """(klucz_prywatny, klucz_publiczny_b64) spoza listy BeatTime."""
+    """(klucz_prywatny, klucz_publiczny_b64) spoza listy Sigelith."""
     from cryptography.hazmat.primitives import serialization
     from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
     priv = Ed25519PrivateKey.generate()
@@ -297,10 +297,10 @@ class UnknownKeyTests(unittest.TestCase):
         self.assertFalse(r.trusted)
         self.assertIs(r.level, proof.Level.RECORDED)
         self.assertIn(
-            _('The server signed the root with a key OTHER than the BeatTime '
+            _('The server signed the root with a key OTHER than the Sigelith '
               'keys built into the application. The signature may be '
               'technically valid, but it does not prove it comes from '
-              'BeatTime.'), r.problems)
+              'Sigelith.'), r.problems)
 
     def test_missing_key_is_rejected(self):
         payload = copy.deepcopy(LIVE_PAYLOAD)
@@ -399,14 +399,14 @@ class SettingsMigrationTests(unittest.TestCase):
 
     def setUp(self):
         self._tmp = tempfile.mkdtemp()
-        self._old = os.environ.get('BEATSTAMP_DATA_DIR')
-        os.environ['BEATSTAMP_DATA_DIR'] = self._tmp
+        self._old = os.environ.get('SIGELITH_DATA_DIR')
+        os.environ['SIGELITH_DATA_DIR'] = self._tmp
 
     def tearDown(self):
         if self._old is None:
-            os.environ.pop('BEATSTAMP_DATA_DIR', None)
+            os.environ.pop('SIGELITH_DATA_DIR', None)
         else:
-            os.environ['BEATSTAMP_DATA_DIR'] = self._old
+            os.environ['SIGELITH_DATA_DIR'] = self._old
         shutil.rmtree(self._tmp, ignore_errors=True)
 
     def _load_with(self, value) -> Settings:
@@ -614,10 +614,10 @@ class HistoryOverrideTrustTests(unittest.TestCase):
         from beatstamp import certificate
         text, _color = certificate._level_line(self.entry)
         self.assertEqual(text, _('UNCONFIRMED — root signed with a key outside '
-                                 'the BeatTime list, signature not binding'))
+                                 'the Sigelith list, signature not binding'))
         text, _color = certificate._level_line(self.entry, key_override=self.pub)
         self.assertEqual(text, _('ANCHORED — the week root is preserved outside '
-                                 'BeatTime'))
+                                 'Sigelith'))
         self.assertEqual(
             certificate._signature_text(self.entry, key_override=self.pub),
             _('Ed25519 — root signed with YOUR OWN key from the settings '

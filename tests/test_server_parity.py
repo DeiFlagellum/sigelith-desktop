@@ -1,7 +1,7 @@
 """
 Zgodnosc z serwerem BeatTime — jedno zrodlo prawdy dla dwoch implementacji.
 
-BeatStamp mieszka w monorepo BeatTime (katalog desktop/), wiec zamiast ufac,
+Sigelith Desktop mieszka w monorepo BeatTime (katalog desktop/), wiec zamiast ufac,
 ze ktos przepisze zmiane w obu miejscach, porownujemy je wprost:
 
 * keys.RETIRED_KEYS  <->  apps/tsa/signing.py: RETIRED_KEYS
@@ -12,7 +12,8 @@ Gdy desktop/ zostanie skopiowany poza monorepo, testy sa POMIJANE, a nie
 oblewane. Druga strona pilnuje tego samego w apps/tsa/tests.py
 (DesktopKeyMirrorTests).
 
-Opcjonalnie, z BEATSTAMP_LIVE=1, test na zywo sprawdza, ze produkcja podpisuje
+Opcjonalnie, z SIGELITH_LIVE=1 (dawniej BEATSTAMP_LIVE=1), test na zywo sprawdza,
+ze produkcja podpisuje
 kluczem z keys.CURRENT_KEYS (aktualnego klucza nie ma w repozytorium serwera
 — serwer wyprowadza go z env).
 """
@@ -155,12 +156,15 @@ class BeatCoreParityTests(unittest.TestCase):
             self.assertEqual(getattr(beatcore, name), getattr(self.server, name), name)
 
 
-@unittest.skipUnless(os.environ.get('BEATSTAMP_LIVE') == '1',
-                     'test na żywo — uruchom z BEATSTAMP_LIVE=1')
+@unittest.skipUnless('1' in (os.environ.get('SIGELITH_LIVE'),
+                             os.environ.get('BEATSTAMP_LIVE')),
+                     'test na żywo — uruchom z SIGELITH_LIVE=1')
 class LiveCurrentKeyTests(unittest.TestCase):
     """Produkcja podpisuje kluczem z keys.CURRENT_KEYS — i podpis sie zgadza."""
 
-    URL = 'https://beattime.live/api/proof/root/latest'
+    # Adres domyslny programu (sigelith.org) — ta sama instancja co
+    # beattime.live, wiec ten sam klucz.
+    URL = 'https://sigelith.org/api/proof/root/latest'
 
     def test_production_signs_with_a_current_key(self):
         import requests

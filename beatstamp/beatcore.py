@@ -111,7 +111,34 @@ def local_str(dt: datetime | None, fmt: str | None = None) -> str:
     """Czas lokalny uzytkownika, po ludzku: '12.09.2026, 09:10:42'."""
     if dt is None:
         return '—'
-    return _as_utc(dt).astimezone().strftime(fmt or DATETIME_FORMAT)
+    try:
+        return _as_utc(dt).astimezone().strftime(fmt or DATETIME_FORMAT)
+    except (OSError, OverflowError, ValueError):
+        # Windows nie przelicza na czas lokalny dat sprzed 1970 i bardzo
+        # odleglych (OSError 22). Z pliku albo z serwera moze przyjsc kazda —
+        # pokazujemy wtedy UTC zamiast okna bledu przy kazdym odswiezeniu.
+        return _as_utc(dt).strftime(fmt or DATETIME_FORMAT) + ' UTC'
+
+
+def utc_offset_label(dt: datetime | None = None) -> str:
+    """Przesuniecie czasu lokalnego wzgledem UTC: 'UTC+2', 'UTC-3:30', 'UTC'.
+
+    Liczone dla KONKRETNEJ chwili, bo czas letni zmienia je dwa razy w roku:
+    stempel z lipca ma w Polsce UTC+2, a z grudnia UTC+1.
+    """
+    moment = _as_utc(dt) if dt is not None else datetime.now(timezone.utc)
+    offset = moment.astimezone().utcoffset() or timedelta(0)
+    minutes = int(offset.total_seconds() // 60)
+    if minutes == 0:
+        return 'UTC'
+    sign = '+' if minutes > 0 else '-'
+    hours, rest = divmod(abs(minutes), 60)
+    return f'UTC{sign}{hours}' + (f':{rest:02d}' if rest else '')
+
+
+def zone_suffix(dt: datetime | None) -> str:
+    """' (UTC+2)' do dopisania za czasem lokalnym; '' gdy brak chwili."""
+    return f' ({utc_offset_label(dt)})' if dt is not None else ''
 
 
 def utc_str(dt: datetime | None) -> str:

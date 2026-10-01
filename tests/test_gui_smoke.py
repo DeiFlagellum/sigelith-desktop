@@ -29,7 +29,7 @@ os.environ.setdefault('QT_QPA_PLATFORM', 'offscreen')
 
 from PySide6.QtGui import QAction  # noqa: E402
 from PySide6.QtWidgets import (  # noqa: E402
-    QApplication, QCheckBox, QComboBox, QLineEdit, QPushButton,
+    QApplication, QCheckBox, QComboBox, QHBoxLayout, QLineEdit, QPushButton,
 )
 
 from beatstamp import i18n  # noqa: E402
@@ -103,7 +103,7 @@ class CollectPathsTests(unittest.TestCase):
 
 
 def _rogue_public_key() -> str:
-    """Poprawny klucz Ed25519 (base64), ktorego nie ma na liscie BeatTime."""
+    """Poprawny klucz Ed25519 (base64), ktorego nie ma na liscie Sigelith."""
     import base64
     from cryptography.hazmat.primitives import serialization
     from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
@@ -127,11 +127,11 @@ class MainWindowTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls._tmp = tempfile.TemporaryDirectory()
-        # `BEATSTAMP_DATA_DIR` wskazuje katalog danych WPROST; `LOCALAPPDATA`
+        # `SIGELITH_DATA_DIR` wskazuje katalog danych WPROST; `LOCALAPPDATA`
         # zostaje podmienione osobno, zeby nic w tescie nie siegnelo do STAREJ
         # lokalizacji prawdziwego uzytkownika (patrz `config.app_data_dir`
         # i `config.legacy_app_data_dir`).
-        os.environ['BEATSTAMP_DATA_DIR'] = cls._tmp.name
+        os.environ['SIGELITH_DATA_DIR'] = cls._tmp.name
         os.environ['LOCALAPPDATA'] = cls._tmp.name
         # Znacznik "juz zmigrowano": bez niego okno odklada na petle zdarzen
         # modalne okienko o przeniesieniu historii z TVS. W tescie petla
@@ -154,10 +154,12 @@ class MainWindowTests(unittest.TestCase):
         _app.processEvents()
         cls._tmp.cleanup()
 
-    def test_three_tabs_are_named_in_the_interface_language(self):
+    def test_five_tabs_are_named_in_the_interface_language(self):
+        # Handover (3.0) jest OSTATNIA: indeksy 0-3 sa zaszyte w oknie glownym.
         tabs = [self.window.tabs.tabText(i) for i in range(self.window.tabs.count())]
         self.assertEqual(
-            tabs, [_('Stamping'), _('Verification'), _('History')])
+            tabs, [_('Stamping'), _('Verification'), _('History'), _('Witnesses'),
+                   _('Handover')])
 
     def test_every_tab_has_a_tooltip(self):
         for i in range(self.window.tabs.count()):
@@ -329,29 +331,40 @@ class MainWindowTests(unittest.TestCase):
         finally:
             dialog.deleteLater()
 
-    def test_the_licences_button_uses_a_window_in_a_store_install(self):
-        """W wersji przenosnej otwieramy katalog w Eksploratorze, w wydaniu
-        ze Sklepu — wlasne okno. Rozjazd tutaj objawia sie u uzytkownika
-        jako przycisk, ktory „nic nie robi"."""
+    def test_the_licences_button_always_opens_the_window(self):
+        """Od 2.2 okno licencji jest wspolne dla obu wydan: spis skladnikow
+        z licencja i zastosowaniem plus pelne teksty. Katalog w Eksploratorze
+        jest przyciskiem W OKNIE — i tylko w wersji przenosnej, bo w wydaniu
+        ze Sklepu Eksplorator pokazalby odmowe dostepu."""
         from unittest import mock
 
         from beatstamp.ui import dialogs
 
-        with mock.patch.object(dialogs, 'is_packaged', return_value=False), \
-                mock.patch.object(dialogs, 'open_licenses_dir',
-                                  return_value=True) as opener, \
-                mock.patch.object(dialogs, 'LicensesDialog') as window:
-            dialogs.show_licenses(self.window)
-        opener.assert_called_once()
-        window.assert_not_called()
+        for packaged in (False, True):
+            with mock.patch.object(dialogs, 'is_packaged', return_value=packaged), \
+                    mock.patch.object(dialogs, 'open_licenses_dir',
+                                      return_value=True) as opener, \
+                    mock.patch.object(dialogs, 'LicensesDialog') as window:
+                dialogs.show_licenses(self.window)
+            opener.assert_not_called()
+            window.assert_called_once()
 
-        with mock.patch.object(dialogs, 'is_packaged', return_value=True), \
-                mock.patch.object(dialogs, 'open_licenses_dir',
-                                  return_value=True) as opener, \
-                mock.patch.object(dialogs, 'LicensesDialog') as window:
-            dialogs.show_licenses(self.window)
-        opener.assert_not_called()
-        window.assert_called_once()
+    def test_the_licences_window_lists_components_with_their_purpose(self):
+        from PySide6.QtWidgets import QTableWidget
+
+        from beatstamp.ui.dialogs import LicensesDialog
+
+        dialog = LicensesDialog(self.window)
+        try:
+            table = dialog.findChild(QTableWidget)
+            titles = [table.item(r, 0).text() for r in range(table.rowCount())]
+            self.assertTrue(any(t.startswith('Qt ') for t in titles))
+            for row in range(table.rowCount()):
+                self.assertTrue(table.item(row, 1).text(), titles[row])
+                self.assertTrue(table.item(row, 2).text(),
+                                f'skladnik bez opisu zastosowania: {titles[row]}')
+        finally:
+            dialog.deleteLater()
 
     # --- Katalog danych -----------------------------------------------------
 
@@ -377,8 +390,8 @@ class MainWindowTests(unittest.TestCase):
 
         with tempfile.TemporaryDirectory() as tmp:
             target = Path(tmp) / 'jeszcze-nie-ma'
-            saved = os.environ.get('BEATSTAMP_DATA_DIR')
-            os.environ['BEATSTAMP_DATA_DIR'] = str(target)
+            saved = os.environ.get('SIGELITH_DATA_DIR')
+            os.environ['SIGELITH_DATA_DIR'] = str(target)
             opened = []
             real_open = dialogs.QDesktopServices.openUrl
             dialogs.QDesktopServices.openUrl = staticmethod(
@@ -388,9 +401,9 @@ class MainWindowTests(unittest.TestCase):
             finally:
                 dialogs.QDesktopServices.openUrl = real_open
                 if saved is None:
-                    os.environ.pop('BEATSTAMP_DATA_DIR', None)
+                    os.environ.pop('SIGELITH_DATA_DIR', None)
                 else:
-                    os.environ['BEATSTAMP_DATA_DIR'] = saved
+                    os.environ['SIGELITH_DATA_DIR'] = saved
 
             self.assertTrue(target.is_dir(), 'katalog musi powstac przed otwarciem')
             self.assertEqual(len(opened), 1)
@@ -572,17 +585,17 @@ class MainWindowTests(unittest.TestCase):
     def test_the_history_writes_to_the_new_folder_after_a_move(self):
         """`History` zapamietuje sciezke przy tworzeniu — trzeba ja odswiezyc."""
         with tempfile.TemporaryDirectory() as tmp:
-            saved = os.environ.get('BEATSTAMP_DATA_DIR')
-            os.environ['BEATSTAMP_DATA_DIR'] = tmp
+            saved = os.environ.get('SIGELITH_DATA_DIR')
+            os.environ['SIGELITH_DATA_DIR'] = tmp
             try:
                 self.window._adopt_data_dir()
                 self.assertEqual(self.window.history.path,
                                  Path(tmp) / 'history.json')
             finally:
                 if saved is None:
-                    os.environ.pop('BEATSTAMP_DATA_DIR', None)
+                    os.environ.pop('SIGELITH_DATA_DIR', None)
                 else:
-                    os.environ['BEATSTAMP_DATA_DIR'] = saved
+                    os.environ['SIGELITH_DATA_DIR'] = saved
                 self.window._adopt_data_dir()
         self.window.statusBar().clearMessage()
 
@@ -600,7 +613,7 @@ class MainWindowTests(unittest.TestCase):
             self.assertEqual(dialog.data_dir_field.text(), str(app_data_dir()))
             self.assertTrue(dialog.data_dir_field.isReadOnly())
             self.assertTrue(dialog.data_dir_change.toolTip())
-            # W tym tescie katalog narzuca `BEATSTAMP_DATA_DIR`, wiec przycisk
+            # W tym tescie katalog narzuca `SIGELITH_DATA_DIR`, wiec przycisk
             # musi byc WYLACZONY: inaczej program powiedzialby „katalog
             # zmieniony", a pisal dalej w starym miejscu.
             self.assertFalse(dialog.data_dir_change.isEnabled())
@@ -705,7 +718,7 @@ class MainWindowTests(unittest.TestCase):
             self.assertTrue(window.status_connection.text().startswith('⚠'))
             self.assertIn(
                 _('YOUR OWN public key is set — besides the built-in list of '
-                  'BeatTime keys the application also accepts signatures made '
+                  'Sigelith keys the application also accepts signatures made '
                   'with that key.'),
                 window.status_connection.toolTip())
         finally:
@@ -721,7 +734,7 @@ class MainWindowTests(unittest.TestCase):
                                                  expected_digest=DIGEST))
         self.assertIn(_('The proof needs refreshing'), window.verify_title.text())
         self.assertEqual(window.verify_badge.text(), _('Retired key'))
-        self.assertIn(_('BeatTime key RETIRED — the proof needs refreshing'),
+        self.assertIn(_('Sigelith key RETIRED — the proof needs refreshing'),
                       window.verify_checks.text())
         self.assertIn(
             _('Refresh the proof online (History -> Refresh statuses, F5) to '
@@ -730,7 +743,7 @@ class MainWindowTests(unittest.TestCase):
 
         window._on_verified(proof.verify_payload(LIVE_PAYLOAD, expected_digest=DIGEST))
         self.assertTrue(window.verify_title.text().startswith(_('Confirmed')))
-        self.assertIn(_('BeatTime key from the list built into the application'),
+        self.assertIn(_('Sigelith key from the list built into the application'),
                       window.verify_checks.text())
 
     def test_retired_key_bundle_is_shown_as_needing_refresh(self):
@@ -744,7 +757,7 @@ class MainWindowTests(unittest.TestCase):
         self.assertIn(_('The proof needs refreshing'),
                       self.window.verify_title.text())
         self.assertEqual(self.window.verify_badge.text(), _('Retired key'))
-        self.assertIn(_('BeatTime key RETIRED — the proof needs refreshing'),
+        self.assertIn(_('Sigelith key RETIRED — the proof needs refreshing'),
                       self.window.verify_checks.text())
 
     def test_rejected_proof_disables_pdf_and_bundle(self):
@@ -797,7 +810,7 @@ class MainWindowTests(unittest.TestCase):
                 _('Refresh the proof online (History -> Refresh statuses, F5) '
                   'to fetch a signature made with the current key.'),
                 self.window.result_description.text())
-            self.assertIn(_('BeatTime key RETIRED — the proof needs refreshing'),
+            self.assertIn(_('Sigelith key RETIRED — the proof needs refreshing'),
                           self.window.result_checks.text())
         finally:
             self.window._enable_result_buttons(False)
@@ -926,6 +939,138 @@ class MainWindowTests(unittest.TestCase):
         self.assertIsNone(dialog.validate())
         dialog.deleteLater()
 
+    # --- 2.2: uwagi z testow uzytkownika ------------------------------------
+
+    def _stamped(self, note: str = ''):
+        from test_core import DIGEST, LIVE_PAYLOAD
+        from beatstamp import proof, workers
+        from beatstamp.history import entry_from_verification
+        result = proof.verify_payload(LIVE_PAYLOAD, expected_digest=DIGEST)
+        entry = entry_from_verification(result, file_name='umowa.pdf', note=note)
+        return workers.BatchOutcome([workers.StampOutcome(entry, result, True)], [])
+
+    def test_the_note_is_written_after_stamping_not_before(self):
+        """Uzytkownik przeciaga plik OD RAZU, a notatke chce dopisac potem.
+
+        Do 2.1 pole notatki trzeba bylo wypelnic przed przeciagnieciem pliku
+        — kto o tym nie wiedzial, nie mial jak dopisac notatki do stempla.
+        """
+        window = self.window
+        saved_entries = list(window.history.entries)
+        try:
+            window.current_entry = None
+            window._current_batch = []
+            window._show_note_for_current()
+            self.assertFalse(window.note_input.isEnabled(),
+                             'notatka bez stempla nie ma do czego trafic')
+            window._on_stamped(self._stamped())
+            self.assertTrue(window.note_input.isEnabled())
+            window.note_input.setText('umowa z klientem')
+            window._save_note_to_current()
+            from test_core import DIGEST
+            self.assertEqual(window.history.find(DIGEST).note, 'umowa z klientem')
+        finally:
+            window.history.entries = saved_entries
+            window.current_entry = None
+            window._current_batch = []
+            window._refresh_history_view()
+            window._enable_result_buttons(False)
+
+    def test_the_certificate_name_carries_file_time_and_beat(self):
+        from unittest import mock
+        from test_core import DIGEST, LIVE_PAYLOAD
+        from beatstamp import naming, proof
+        from beatstamp.history import entry_from_verification
+        entry = entry_from_verification(
+            proof.verify_payload(LIVE_PAYLOAD, expected_digest=DIGEST),
+            file_name='Umowa najmu.pdf')
+        with mock.patch.object(self.window, '_choose_save_path',
+                               return_value=None) as choose:
+            self.window._write_certificate(entry)
+        proposed = choose.call_args.args[1]
+        self.assertEqual(proposed, naming.certificate_name(entry))
+        self.assertTrue(proposed.startswith('Umowa najmu_'))
+        self.assertIn(entry.beat, proposed)
+        self.assertIn(naming.stamp_moment_text(entry.utc), proposed)
+
+    def test_the_proposed_name_never_points_at_an_existing_file(self):
+        from unittest import mock
+        window = self.window
+        folder = Path(self._tmp.name) / 'certy'
+        folder.mkdir(exist_ok=True)
+        (folder / 'a_beattime.pdf').write_bytes(b'1')
+        saved = window.settings.last_directory
+        window.settings.last_directory = str(folder)
+        try:
+            with mock.patch('beatstamp.ui.main_window.QFileDialog.getSaveFileName',
+                            return_value=('', '')) as dialog:
+                window._choose_save_path('t', 'a_beattime.pdf', '*.pdf')
+            self.assertTrue(dialog.call_args.args[2].endswith('a_beattime (2).pdf'))
+        finally:
+            window.settings.last_directory = saved
+
+    def test_help_pages_open_in_the_interface_language(self):
+        """Do 2.1 „Jak to dziala" prowadzilo na strone angielska."""
+        urls = [a.data() for a in self.window.findChildren(QAction)
+                if isinstance(a.data(), str) and a.data().startswith('https://sigelith.org')]
+        self.assertIn('https://sigelith.org/pl/proof/', urls)
+        self.assertIn('https://sigelith.org/pl/evidence/', urls)
+        # Strony jednojezyczne maja jeden adres.
+        self.assertIn('https://sigelith.org/checkpoints/', urls)
+        # Manifest nosi tytul „The BeatTime Manifesto" i ma PL oraz EN.
+        self.assertIn('https://sigelith.org/pl/manifesto/', urls)
+        every = [a.data() for a in self.window.findChildren(QAction)
+                 if isinstance(a.data(), str)]
+        self.assertEqual([u for u in every if 'beattime.live' in u], [],
+                         'menu prowadzi pod sigelith.org — ta sama instancja')
+
+    def test_the_clock_shows_local_time_and_utc(self):
+        """Do 2.1 obok @beat stal tylko czas UTC — w Polsce „spozniony" o 2 h."""
+        from beatstamp import beatcore
+        clock = self.window.clock
+        clock._tick()
+        self.assertIn(beatcore.utc_offset_label(), clock.local_text())
+        self.assertIn('UTC', clock.utc_text())
+
+    def test_a_narrow_header_never_cuts_the_clock(self):
+        """Uwaga z testow 2.2.0: przy minimalnej szerokosci okna Qt obcinal
+        koncowke zegara i poczatek pastylki swiadkow. Skracac sie maja
+        podpis i pastylka (wielokropkiem), zegar nigdy."""
+        header = self.window._header
+        clock = self.window.clock
+        self.window.witness_button.setText('Dziennik sprawdzony · punkt kontrolny #2')
+        # Okno ma minimum 980 px, czyli naglowek ok. 944 px; 820 to zapas.
+        for width in (1100, 944, 820):
+            header.resize(width, 90)
+            header.layout().setGeometry(header.rect())
+            self.assertGreaterEqual(clock.width(), clock.sizeHint().width(), width)
+            self.assertLessEqual(clock.geometry().right(), header.width())
+        shown = self.window.witness_button.text()
+        self.assertTrue(shown.endswith('#2') or '…' not in shown, shown)
+
+    def test_badges_measure_their_own_text(self):
+        """Plakietka nie moze byc wezsza niz jej tekst z marginesami."""
+        from PySide6.QtGui import QFontMetrics
+        badge = self.window.verify_badge
+        for text in ('Zakotwiczony', 'Zweryfikowano offline', 'W'):
+            badge.show_state('ok', text)
+            width = QFontMetrics(badge.font()).horizontalAdvance(text)
+            self.assertGreaterEqual(badge.sizeHint().width(),
+                                    width + 2 * badge.PAD_X)
+
+    def test_the_verification_buttons_are_spaced_like_the_history_ones(self):
+        layouts = []
+        for button in (self.window.verify_pdf_button, self.window.button_pdf,
+                       self.window.history_buttons['pdf']):
+            parent_layout = None
+            for layout in button.parentWidget().findChildren(QHBoxLayout):
+                if layout.indexOf(button) >= 0:
+                    parent_layout = layout
+            self.assertIsNotNone(parent_layout)
+            layouts.append(parent_layout.spacing())
+        self.assertEqual(len(set(layouts)), 1, layouts)
+        self.assertGreaterEqual(layouts[0], 8)
+
 
 class DataDirDialogTests(unittest.TestCase):
     """Zmiana katalogu danych: kopia, zapamietanie i droga wyjscia z blokady.
@@ -945,8 +1090,8 @@ class DataDirDialogTests(unittest.TestCase):
         self.old.mkdir()
         (self.old / 'history.json').write_text('[]', encoding='utf-8')
         self._saved = {key: os.environ.get(key)
-                       for key in ('BEATSTAMP_DATA_DIR', 'LOCALAPPDATA')}
-        os.environ['BEATSTAMP_DATA_DIR'] = str(self.old)
+                       for key in ('SIGELITH_DATA_DIR', 'LOCALAPPDATA')}
+        os.environ['SIGELITH_DATA_DIR'] = str(self.old)
         # Wskaznik wyboru trafia pod `%LOCALAPPDATA%` — w tescie do katalogu
         # tymczasowego, zeby nie ruszyc prawdziwego wyboru wlasciciela maszyny.
         os.environ['LOCALAPPDATA'] = str(self.dir / 'AppData')
@@ -1004,7 +1149,7 @@ class DataDirDialogTests(unittest.TestCase):
                                return_value=str(self.new)):
             chosen = self.dialogs.choose_data_dir()
 
-        self.assertEqual(chosen, self.new / 'BeatStamp')
+        self.assertEqual(chosen, self.new / 'Sigelith')
 
     def test_settings_change_the_folder_from_end_to_end(self):
         """Ustawienia -> Dane -> „Zmień…": wybor, kopia, zapamietanie, nowa sciezka."""
@@ -1016,7 +1161,7 @@ class DataDirDialogTests(unittest.TestCase):
 
         # Bez zmiennej srodowiskowej — inaczej przycisk jest (slusznie)
         # wylaczony, bo katalog narzuca uruchomienie, a nie uzytkownik.
-        os.environ.pop('BEATSTAMP_DATA_DIR', None)
+        os.environ.pop('SIGELITH_DATA_DIR', None)
         config.remember_data_dir(self.old)
         dialog = SettingsDialog(Settings())
         try:
@@ -1027,7 +1172,7 @@ class DataDirDialogTests(unittest.TestCase):
                 with mock.patch.object(self.dialogs, 'QMessageBox'):
                     dialog.data_dir_change.click()
 
-            target = self.new / 'BeatStamp'
+            target = self.new / 'Sigelith'
             self.assertEqual(dialog.data_dir_field.text(), str(target))
             self.assertEqual(config.stored_data_dir(), target)
             self.assertEqual((target / 'history.json').read_text(encoding='utf-8'), '[]')
@@ -1130,7 +1275,7 @@ class HistoryTooltipTests(unittest.TestCase):
         from beatstamp.ui.widgets import plain_tooltip
         tip = self._tooltip(entry, COL_LEVEL)
         self.assertEqual(tip, plain_tooltip(_(
-            'The week root was signed with a BeatTime key that has been\n'
+            'The week root was signed with a Sigelith key that has been\n'
             'retired — such a signature is no longer a proof, so the level\n'
             'stays "Recorded".\n\n'
             'Refresh statuses (F5) to fetch a signature made with the current '
@@ -1247,13 +1392,13 @@ class TaskLifetimeTests(unittest.TestCase):
 
         class FailingTask(workers.Task):
             def work(self):
-                raise ApiError('Brak połączenia z beattime.live.')
+                raise ApiError('Brak połączenia z sigelith.org.')
 
         task = FailingTask()
         task.signals.failed.connect(problems.append)
         workers.launch(self.pool, task)
         self.assertTrue(self._drain(lambda: bool(problems)))
-        self.assertEqual(problems[0], 'Brak połączenia z beattime.live.')
+        self.assertEqual(problems[0], 'Brak połączenia z sigelith.org.')
 
 
 class CertificateTests(unittest.TestCase):

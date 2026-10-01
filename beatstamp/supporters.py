@@ -1,5 +1,5 @@
 """
-Lista podziekowan: pobranie z beattime.live, walidacja i pamiec podreczna.
+Lista podziekowan: pobranie z serwera (sigelith.org), walidacja i pamiec podreczna.
 
 Kontrakt endpointu `GET /api/supporters/thanks` pilnuje po stronie serwera
 `apps/support/tests_desktop_contract.py`:
@@ -8,7 +8,7 @@ Kontrakt endpointu `GET /api/supporters/thanks` pilnuje po stronie serwera
 
 Trzy zasady, ktore ten modul egzekwuje po stronie aplikacji.
 
-**Odpowiedz serwera to DANE NIEZAUFANE.** BeatStamp jest zainstalowany
+**Odpowiedz serwera to DANE NIEZAUFANE.** Sigelith Desktop jest zainstalowany
 u ludzi i nie aktualizuje sie razem z serwerem, wiec musi przezyc kazda
 odpowiedz: obca (DNS, proxy, firma z inspekcja TLS), zepsuta (blad wdrozenia)
 i zlosliwa. Sprawdzamy wiec KSZTALT (typy pol, wersje kontraktu), tniemy
@@ -203,7 +203,7 @@ def parse(payload: object, *, fetched_at: float | None = None) -> ThanksList:
                          'format.'))
     if version != CONTRACT_VERSION:
         raise ApiError(_(
-            'This version of BeatStamp cannot read the list of supporters '
+            'This version of Sigelith Desktop cannot read the list of supporters '
             '(the server speaks version %(version)s). A newer version of the '
             'application can.') % {'version': version})
     names, truncated = _clean_names(payload.get('names'))

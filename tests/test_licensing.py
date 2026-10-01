@@ -24,7 +24,7 @@ Siedem awarii, ktorych nie widzi zaden inny test:
   nikt nie wola o to, czego juz nie ma;
 * **biblioteka bez wlasnego pliku.** reportlab, requests, urllib3, idna
   i PySocks nie maja w paczce ani jednego pliku — ich kod lezy w archiwum
-  wewnatrz `BeatStamp.exe`. Kontrola po nazwach plikow widziala komplet
+  wewnatrz `SigelithDesktop.exe`. Kontrola po nazwach plikow widziala komplet
   i nie zauwazala, ze paczka rozpowszechnia kod BSD/MIT/Apache bez noty;
 * **nota FALSZYWA zamiast brakujacej.** Lapacz `Qt6*.dll -> qt (LGPL)`
   oglaszal kazdy nowy modul Qt jako LGPL, takze taki, ktory jest dostepny
@@ -41,8 +41,8 @@ zrodel z tym, co pokazuje okno „O programie", dziala zawsze.
 
 CO JEST „PACZKA"
 
-`licenses.built_packages()` zwraca katalog `dist/BeatStamp`, katalog
-`dist/msix` ORAZ gotowy plik `dist/BeatStamp-*.msix` — bo do Sklepu jedzie
+`licenses.built_packages()` zwraca katalog `dist/SigelithDesktop`, katalog
+`dist/msix` ORAZ gotowy plik `dist/SigelithDesktop-*.msix` — bo do Sklepu jedzie
 archiwum, a nie katalog, z ktorego je zlozono. Testy czytajace pliki PE
 przez `pefile` dzialaja tylko na katalogach (`PACKAGE_DIRS`): zawartosc
 archiwum jest sprawdzana na poziomie listy plikow, a jej zgodnosc
@@ -194,8 +194,8 @@ class EveryFileHasALicenceTests(unittest.TestCase):
 
     def test_files_go_to_the_component_they_belong_to(self):
         cases = {
-            'BeatStamp.exe': ('beatstamp', 'pyinstaller'),
-            '_internal/PIL/_imaging.cp312-win_amd64.pyd': ('pillow',),
+            'SigelithDesktop.exe': ('beatstamp', 'pyinstaller'),
+            '_internal/PIL/_imaging.cp314-win_amd64.pyd': ('pillow',),
             '_internal/PySide6/Qt6Core.dll': ('qt',),
             '_internal/PySide6/Qt6Pdf.dll': ('qt', 'pdfium'),
             '_internal/PySide6/QtCore.pyd': ('pyside6',),
@@ -216,7 +216,7 @@ class EveryFileHasALicenceTests(unittest.TestCase):
 
 
 class WhatIsInsideTheExecutableTests(unittest.TestCase):
-    """`BeatStamp.exe` to archiwum — i jego zawartosc tez ma licencje.
+    """`SigelithDesktop.exe` to archiwum — i jego zawartosc tez ma licencje.
 
     Najwiekszy plik paczki (5,7 MB) przez dlugi czas byl opisany jako „nasz
     kod plus program rozruchowy PyInstallera". W srodku lezalo 619 modulow,
@@ -234,7 +234,7 @@ class WhatIsInsideTheExecutableTests(unittest.TestCase):
             with self.subTest(package=package.name):
                 self.assertEqual(
                     report.unassigned_modules, [],
-                    'te pakiety leza w archiwum wewnatrz BeatStamp.exe '
+                    'te pakiety leza w archiwum wewnatrz SigelithDesktop.exe '
                     'i nie opisuje ich zaden skladnik — dopisz je do '
                     'PYZ_COMPONENTS w tools/licenses.py: '
                     + ', '.join(report.unassigned_modules[:10]))
@@ -254,7 +254,7 @@ class WhatIsInsideTheExecutableTests(unittest.TestCase):
                 with self.subTest(package=package.name, component=key):
                     self.assertIn(
                         licenses.EXECUTABLE, report.assigned.get(key, []),
-                        f'{key} lezy w archiwum wewnatrz BeatStamp.exe, ale '
+                        f'{key} lezy w archiwum wewnatrz SigelithDesktop.exe, ale '
                         f'nota nie wymienia tego pliku przy tym skladniku')
 
     @unittest.skipUnless(PACKAGES, 'brak zbudowanej paczki — uruchom .\\build.ps1')
@@ -328,15 +328,16 @@ class UnknownFilesAreStoppedNotLabelledTests(unittest.TestCase):
 class DeclaredVersionsMatchTheBinariesTests(unittest.TestCase):
     """Wersja w nocie ma pochodzic z PLIKU, a nie z pamieci.
 
-    `_rust.pyd` niesie WKOMPILOWANY OpenSSL 3.5.1, a nota przez dlugi czas
-    deklarowala jeden OpenSSL w wersji 3.0.16 — tej z wydania CPythona.
-    Zdanie w dokumencie prawnym bylo nieprawdziwe, a druga biblioteka
-    Apache-2.0 jechala bez wymaganej atrybucji. Podbicie cryptography
+    `_rust.pyd` niesie WKOMPILOWANY OpenSSL (dzis 4.0.2, inny niz 3.5.7
+    z wydania CPythona 3.14.7), a nota przez dlugi czas deklarowala jeden
+    OpenSSL — w wersji 3.0.16, tej z wydania CPythona 3.12. Zdanie
+    w dokumencie prawnym bylo nieprawdziwe, a druga biblioteka Apache-2.0
+    jechala bez wymaganej atrybucji. Podbicie cryptography albo Pythona
     zmienia te wersje po cichu; ten test zglosi to sam.
     """
 
     #: `OPENSSL_VERSION_TEXT`, czyli baner wkompilowany w kazde wydanie
-    #: OpenSSL-a: „OpenSSL 3.0.16 11 Feb 2025". Data w tym wzorcu nie jest
+    #: OpenSSL-a: „OpenSSL 3.5.7 9 Jun 2026". Data w tym wzorcu nie jest
     #: ozdoba — bez niej lapiemy takze zwykle zdania z dokumentacji
     #: (`_hashlib.pyd` ma w sobie „OpenSSL 3.0.0 and newer it returns..."),
     #: czyli pliki, ktore zadnego OpenSSL-a nie niosa.
@@ -420,6 +421,15 @@ class TheShippedArchiveIsTheAuditedOneTests(unittest.TestCase):
                     'jedno z nich jest starsze niz drugie')
 
 
+def _named_by_allowed() -> dict[str, set[str]]:
+    """Plik (maly litery) -> nazwy wykluczonych bibliotek, ktore WOLNO mu wymieniac."""
+    allowed: dict[str, set[str]] = {}
+    for item in licenses.EXCLUDED:
+        for name in item.named_by:
+            allowed.setdefault(name.lower(), set()).add(Path(item.pattern).stem.lower())
+    return allowed
+
+
 class NothingNeedsWhatWeRemovedTests(unittest.TestCase):
     """Dowod, ze usuniecie bylo bezpieczne — z tablic importow, nie z zalozenia.
 
@@ -440,11 +450,14 @@ class NothingNeedsWhatWeRemovedTests(unittest.TestCase):
 
         removed = {licenses.normalise(item.pattern).lower()
                    for item in licenses.EXCLUDED if '/' not in item.pattern}
+        allowed = _named_by_allowed()
         for package in PACKAGE_DIRS:
             for relpath in licenses.package_files(package):
                 if not relpath.lower().endswith(('.dll', '.pyd', '.exe')):
                     continue
-                needed = set(_imports(package / relpath)) & removed
+                own = allowed.get(Path(relpath).name.lower(), set())
+                needed = {name for name in set(_imports(package / relpath)) & removed
+                          if Path(name).stem not in own}
                 with self.subTest(package=package.name, file=relpath):
                     self.assertEqual(
                         needed, set(),
@@ -471,12 +484,14 @@ class NothingNeedsWhatWeRemovedTests(unittest.TestCase):
         removed = {Path(item.pattern).stem.lower()
                    for item in licenses.EXCLUDED
                    if '/' not in item.pattern and '*' not in item.pattern}
+        allowed = _named_by_allowed()
         for package in PACKAGE_DIRS:
             for relpath in licenses.package_files(package):
                 if not relpath.lower().endswith(('.dll', '.pyd', '.exe')):
                     continue
                 blob = (package / relpath).read_bytes()
-                named = {name for name in removed
+                own = allowed.get(Path(relpath).name.lower(), set())
+                named = {name for name in removed - own
                          if name.encode('ascii') in blob
                          or name.encode('utf-16-le') in blob}
                 with self.subTest(package=package.name, file=relpath):
@@ -520,7 +535,7 @@ class NoticeMatchesThePackageTests(unittest.TestCase):
     """`NOTICE` jest generowany — wiec musi zgadzac sie z tym, co w paczce."""
 
     #: Noty skladamy z paczki PROGRAMU. Paczka MSIX to ta sama zawartosc plus
-    #: manifest i logo — nasze wlasne pliki, opisane w spisie przy BeatStampie.
+    #: manifest i logo — nasze wlasne pliki, opisane w spisie przy Sigelith Desktop.
     PACKAGE = licenses.PACKAGE_DIRS[0]
 
     def test_the_notice_file_exists(self):
@@ -762,12 +777,18 @@ class TheAboutWindowSaysWhatItMustTests(unittest.TestCase):
         """FTL prosi o JEDNO konkretne zdanie w dokumentacji programu.
 
         Zgodnosc z LGPL Qt nie zdejmuje obowiazkow z licencji kodu, ktory
-        Qt wkompilowuje w siebie — a FreeType siedzi w `Qt6Gui.dll`
-        i `Qt6Pdf.dll`.
+        Qt wkompilowuje w siebie — a FreeType siedzi w `Qt6Gui.dll`.
         """
         text = ' '.join(self._about_text().split())
         self.assertIn('The FreeType Project', text)
-        self.assertIn('copyright (c) 2025 The FreeType Project', text)
+        # Rok z noty Qt w tools/licenses.py (z niej powstaje NOTICE): rok
+        # wydania FreeType, ktore Qt naprawde wkompilowal. Okno ma mowic to
+        # samo — do 2026-09-27 zostalo przy 2025 z Qt 6.9, gdy NOTICE juz
+        # mowilo 2026 (Qt 6.11.2, FreeType 2.14.3).
+        year = re.search(r'copyright \(c\) (\d{4}) The FreeType Project',
+                         licenses.COMPONENTS['qt'].note)
+        self.assertIsNotNone(year, 'nota Qt w tools/licenses.py bez zdania FreeType')
+        self.assertIn(f'copyright (c) {year.group(1)} The FreeType Project', text)
 
     def test_it_does_not_promise_swapping_files_in_a_store_install(self):
         """Zdanie o podmianie bibliotek jest prawda TYLKO w wersji

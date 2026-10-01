@@ -3,7 +3,6 @@ from __future__ import annotations
 
 import json
 import logging
-import os
 from dataclasses import replace
 from datetime import datetime
 from pathlib import Path
@@ -12,6 +11,7 @@ from PySide6.QtCore import Qt, QTimer
 from PySide6.QtGui import QDesktopServices, QGuiApplication
 from PySide6.QtCore import QUrl
 from PySide6.QtWidgets import (
+    QButtonGroup,
     QCheckBox,
     QComboBox,
     QDialog,
@@ -19,44 +19,53 @@ from PySide6.QtWidgets import (
     QDoubleSpinBox,
     QFileDialog,
     QFormLayout,
+    QFrame,
     QGroupBox,
     QHBoxLayout,
+    QHeaderView,
     QLabel,
     QLineEdit,
     QListWidget,
     QMessageBox,
     QPlainTextEdit,
     QPushButton,
+    QRadioButton,
+    QScrollArea,
     QSpinBox,
+    QTableWidget,
+    QTableWidgetItem,
     QTabWidget,
     QVBoxLayout,
     QWidget,
 )
 
-from .. import __version__, keys, supporters, workers
+from .. import __app_name__, __version__, keys, supporters, workers
 from ..i18n import _, datetime_format, format_iso_date, language_choices
 from ..config import (
-    DATA_DIR_ENV,
     DEFAULT_BASE_URL,
     DEFAULT_TOR_PROXY,
     IMPRESSUM_URL,
-    ONION_BASE_URL,
-    PRIVACY_POLICY_URL,
     PYSIDE_SOURCE_URL,
     QT_SOURCE_URL,
+    SITE_BASE,
     Settings,
     WriteProblem,
     app_data_dir,
     copy_data_to,
     data_dir_for_choice,
+    default_handover_downloads,
+    forced_data_dir,
     is_inside_onedrive,
     is_packaged,
     log_path,
+    privacy_policy_url,
     probe_write,
     remember_data_dir,
     resource_path,
 )
-from .widgets import plain_tooltip
+from ..i18n import current_language, ltr
+from . import icons
+from .widgets import fit_to_screen, plain_tooltip
 
 log = logging.getLogger(__name__)
 
@@ -121,12 +130,15 @@ def show_licenses(parent: QWidget | None = None) -> bool:
 
     Teksty sa w paczce w obu wypadkach — tego wymaga LGPLv3 par. 4(c).
     Rzecz w tym, zeby dalo sie do nich dojsc, a nie tylko zeby lezaly.
+
+    Od 2.2 w OBU wydaniach pokazujemy wlasne okno: spis skladnikow z licencja
+    i z tym, do czego kazdy sluzy, plus pelne teksty. Katalog w Eksploratorze
+    zostaje jako przycisk w tym oknie — tylko w wersji przenosnej, bo tam
+    naprawde da sie go otworzyc.
     """
-    if is_packaged():
-        dialog = LicensesDialog(parent)
-        dialog.exec()
-        return True
-    return open_licenses_dir()
+    dialog = LicensesDialog(parent)
+    dialog.exec()
+    return True
 
 
 def open_data_dir() -> bool:
@@ -197,12 +209,12 @@ def choose_data_dir(parent: QWidget | None = None,
     """Okno wyboru folderu. Zwraca KATALOG DANYCH albo `None` (rezygnacja).
 
     Uzytkownik wskazuje miejsce, a `config.data_dir_for_choice` dokłada
-    podkatalog `BeatStamp` — dzieki temu wskazanie `D:\\` nie wysypuje
+    podkatalog `Sigelith` — dzieki temu wskazanie `D:\\` nie wysypuje
     plikow programu do korzenia dysku.
     """
     base = start if start is not None else app_data_dir().parent
     directory = QFileDialog.getExistingDirectory(
-        parent, _('Choose a folder for BeatStamp data'), str(base))
+        parent, _('Choose a folder for Sigelith Desktop data'), str(base))
     if not directory:
         return None
     return data_dir_for_choice(Path(directory))
@@ -314,7 +326,7 @@ class DataDirProblemDialog(QDialog):
 
         self._settings_button = QPushButton(_('Windows protection settings…'))
         self._settings_button.setToolTip(_('Opens Windows Security, where '
-                                           'BeatStamp can be allowed to write '
+                                           'Sigelith Desktop can be allowed to write '
                                            'to protected folders.'))
         self._settings_button.clicked.connect(
             lambda: open_windows_protection_settings())
@@ -364,7 +376,7 @@ class DataDirProblemDialog(QDialog):
             self.chosen = self._problem.directory
             QMessageBox.information(
                 self, _('Data folder'),
-                _('BeatStamp can write to this folder again:') +
+                _('Sigelith Desktop can write to this folder again:') +
                 f'\n\n{self._problem.directory}')
             self.accept()
             return
@@ -391,15 +403,22 @@ class SettingsDialog(QDialog):
 
     def __init__(self, settings: Settings, parent: QWidget | None = None):
         super().__init__(parent)
-        self.setWindowTitle(_('Settings — BeatStamp'))
-        self.setMinimumWidth(560)
+        self.setWindowTitle(_('Settings — Sigelith Desktop'))
+        # 2.2: piec zakladek z ikonami i dluzsze opcje (tryb, kopie u osob
+        # trzecich) — przy 560 px nazwy zakladek i opcji byly uciete.
+        self.setMinimumWidth(820)
         self._settings = settings
 
         tabs = QTabWidget()
         tabs.addTab(self._connection_tab(), _('Connection'))
+        tabs.addTab(self._witness_tab(), _('Witnesses'))
         tabs.addTab(self._trust_tab(), _('Trust'))
         tabs.addTab(self._behaviour_tab(), _('Behaviour'))
+        tabs.addTab(self._handover_tab(), _('Handover'))
         tabs.addTab(self._data_tab(), _('Data'))
+        for index, name in enumerate(('wifi', 'people', 'key', 'sliders', 'file-earmark-lock',
+                                      'folder')):
+            icons.apply_tab(tabs, index, name)
 
         buttons = QDialogButtonBox(
             QDialogButtonBox.Save | QDialogButtonBox.Cancel | QDialogButtonBox.RestoreDefaults)
@@ -423,7 +442,7 @@ class SettingsDialog(QDialog):
 
         self.base_url = QLineEdit(self._settings.base_url)
         self.base_url.setToolTip(
-            _('Address of the BeatTime server. It must start with https://\n'
+            _('Address of the Sigelith server. It must start with https://\n'
               'Default value: %(default)s\n\n'
               'Change it only if you use your own instance.')
             % {'default': DEFAULT_BASE_URL})
@@ -432,7 +451,7 @@ class SettingsDialog(QDialog):
         self.use_tor = QCheckBox(_('Connect through the Tor network (.onion service)'))
         self.use_tor.setChecked(self._settings.use_tor)
         self.use_tor.setToolTip(_(
-            'Routes traffic through a local Tor proxy to the BeatTime hidden '
+            'Routes traffic through a local Tor proxy to the Sigelith hidden '
             'service.\n\n'
             'What for: the server does not learn your IP address, so stamps\n'
             'cannot be tied to you through the connection. The digest itself\n'
@@ -440,7 +459,8 @@ class SettingsDialog(QDialog):
             'Requires a running Tor Browser or tor service on this computer.'))
         form.addRow('', self.use_tor)
 
-        onion = QLabel(ONION_BASE_URL)
+        # Adres pobrany z serwisu (onion.py), a bez niego wbudowany.
+        onion = QLabel(self._settings.onion_base_url)
         onion.setObjectName('mono')
         onion.setTextInteractionFlags(Qt.TextSelectableByMouse)
         onion.setWordWrap(True)
@@ -470,14 +490,77 @@ class SettingsDialog(QDialog):
         self._sync_tor_fields(self.use_tor.isChecked())
         return page
 
+    def _witness_tab(self) -> QWidget:
+        """Jak aplikacja sprawdza dziennik i dowody (witness.py)."""
+        page = QWidget()
+        layout = QVBoxLayout(page)
+        layout.setSpacing(10)
+
+        explain = QLabel(_(
+            'While Sigelith Desktop is open it checks the public Sigelith log by itself: '
+            'every new signed checkpoint, the chain between them and the copies '
+            'kept by third parties. Choose how it checks YOUR proofs.'))
+        explain.setWordWrap(True)
+        explain.setObjectName('hint')
+        layout.addWidget(explain)
+
+        self.mode_private = QRadioButton(_('Private — keep a copy of the whole public '
+                                           'log (recommended)'))
+        self.mode_private.setToolTip(_(
+            'Sigelith Desktop downloads the whole public log (only digests, which are public '
+            'anyway)\nand computes every proof itself. The server never learns which '
+            'entries\nare yours — not when statuses are refreshed and not when you '
+            'check a file.'))
+        self.mode_fast = QRadioButton(_('Fast — ask the server about each of my '
+                                        'digests'))
+        self.mode_fast.setToolTip(_(
+            'Less data to download, but every refresh and every check tells the '
+            'server\nwhich digest you are interested in.'))
+        group = QButtonGroup(page)
+        group.addButton(self.mode_private)
+        group.addButton(self.mode_fast)
+        (self.mode_fast if self._settings.witness_mode == 'fast'
+         else self.mode_private).setChecked(True)
+        layout.addWidget(self.mode_private)
+        layout.addWidget(self.mode_fast)
+
+        stamping = QLabel(_('Stamping always sends the digest of the file — that is '
+                            'its only purpose. The file itself never leaves this '
+                            'computer.'))
+        stamping.setWordWrap(True)
+        stamping.setObjectName('faint')
+        layout.addWidget(stamping)
+        layout.addSpacing(6)
+
+        self.background = QCheckBox(_('Check the log and refresh the proofs while the '
+                                      'program is open'))
+        self.background.setChecked(self._settings.background_checks)
+        self.background.setToolTip(_(
+            'At start and every 15 minutes. No notifications — the result is shown '
+            'in the\nWitnesses tab and in the History, and nothing happens while the '
+            'program is closed.'))
+        layout.addWidget(self.background)
+
+        self.third_party = QCheckBox(_('Compare with copies kept by third parties '
+                                       '(GitHub, Internet Archive, Zenodo, '
+                                       'mempool.space)'))
+        self.third_party.setChecked(self._settings.third_party_checks)
+        self.third_party.setToolTip(_(
+            'Those services learn only that someone downloads public Sigelith '
+            'files —\nnothing about your documents. Without this, the witnesses '
+            'compare Sigelith\nonly with itself.'))
+        layout.addWidget(self.third_party)
+        layout.addStretch(1)
+        return page
+
     def _trust_tab(self) -> QWidget:
         page = QWidget()
         layout = QVBoxLayout(page)
 
         explain = QLabel(_(
-            'BeatTime signs weekly Merkle roots with an Ed25519 key. The '
+            'Sigelith signs weekly Merkle roots with an Ed25519 key. The '
             'application checks that signature <b>locally</b> and compares the '
-            'key with the <b>built-in list of BeatTime keys</b> — never with '
+            'key with the <b>built-in list of Sigelith keys</b> — never with '
             'whatever the server sends.<br><br>'
             'Without that, the signature alone would prove nothing: a fake '
             'server would send its own key together with a matching signature '
@@ -488,7 +571,7 @@ class SettingsDialog(QDialog):
         explain.setObjectName('hint')
         layout.addWidget(explain)
 
-        builtin = QGroupBox(_('Built-in BeatTime keys'))
+        builtin = QGroupBox(_('Built-in Sigelith keys'))
         builtin_layout = QVBoxLayout(builtin)
         lines = [_('<b>current</b> since %(date)s: '
                    '<span style="font-family:monospace">%(key)s</span>')
@@ -508,7 +591,7 @@ class SettingsDialog(QDialog):
         key_list.setWordWrap(True)
         key_list.setToolTip(_(
             'The key history shipped with this version of the program.\n'
-            'Public list: beattime.live/spec/#keys'))
+            'Public list: sigelith.org/spec/#keys'))
         builtin_layout.addWidget(key_list)
         layout.addWidget(builtin)
 
@@ -520,8 +603,8 @@ class SettingsDialog(QDialog):
         self.pinned_key.setPlaceholderText(_('built-in list of keys'))
         self.pinned_key.setToolTip(_(
             'An additional Ed25519 public key in base64 (32 bytes).\n\n'
-            'Leave it empty — the program knows the BeatTime keys itself.\n'
-            'Fill it in only when BeatTime announces a new key before a new\n'
+            'Leave it empty — the program knows the Sigelith keys itself.\n'
+            'Fill it in only when Sigelith announces a new key before a new\n'
             'version of the program is released — and only with a value\n'
             'confirmed from an independent source. A retired key cannot be\n'
             'entered.'))
@@ -582,13 +665,37 @@ class SettingsDialog(QDialog):
             'request.'))
         form.addRow('', self.auto_verify)
 
-        self.name_after_source = QCheckBox(
-            _('Name certificates after the source file'))
+        self.name_after_source = QCheckBox(_('the name of the source file'))
         self.name_after_source.setChecked(self._settings.name_cert_after_source)
         self.name_after_source.setToolTip(_(
-            'The certificate gets the name "document_beattime.pdf" instead of\n'
-            'asking for it every time.'))
-        form.addRow('', self.name_after_source)
+            'The certificate and the .beatproof proof are named after the stamped '
+            'file.'))
+        self.name_moment = QCheckBox(_('the date and time of the stamp (your local '
+                                       'time)'))
+        self.name_moment.setChecked(self._settings.cert_name_moment)
+        self.name_moment.setToolTip(_(
+            'Sorting the folder by name then sorts it by time, and two versions of '
+            'one\ndocument never get the same name.'))
+        self.name_beat = QCheckBox(_('the @beat time of the stamp'))
+        self.name_beat.setChecked(self._settings.cert_name_beat)
+        self.name_beat.setToolTip(_('The same moment in @beat — the same everywhere '
+                                    'in the world.'))
+        self.name_preview = QLabel()
+        self.name_preview.setObjectName('mono')
+        self.name_preview.setToolTip(_('This is how the next certificate will be named. '
+                                       'If a file of that name already exists, '
+                                       'Sigelith Desktop adds "(2)" — it never proposes to '
+                                       'overwrite it.'))
+        for box in (self.name_after_source, self.name_moment, self.name_beat):
+            box.toggled.connect(self._update_name_preview)
+        names = QVBoxLayout()
+        names.setSpacing(4)
+        names.addWidget(self.name_after_source)
+        names.addWidget(self.name_moment)
+        names.addWidget(self.name_beat)
+        names.addWidget(self.name_preview)
+        form.addRow(_('File names:'), names)
+        self._update_name_preview()
 
         self.confirm_overwrite = QCheckBox(
             _('Ask before overwriting an existing file'))
@@ -607,10 +714,86 @@ class SettingsDialog(QDialog):
         self.history_limit.setToolTip(_(
             'Upper ceiling on the number of entries in the local history. Above\n'
             'it the OLDEST entries are removed. 0 = no limit.\n\n'
-            'The proof itself is in the public BeatTime register — removing an\n'
+            'The proof itself is in the public Sigelith register — removing an\n'
             'entry from the local history does not delete the stamp.'))
         form.addRow(_('History limit:'), self.history_limit)
         return page
+
+    def _handover_tab(self) -> QWidget:
+        """Sigelith Handover: folder wymiany, folder na otwarte przesylki i
+        atestacja karty (HANDOVER_SPEC.md §3.6 — wlasciciel moze ja wylaczyc)."""
+        page = QWidget()
+        layout = QVBoxLayout(page)
+        layout.setSpacing(10)
+
+        explain = QLabel(_(
+            'Packages travel between the two of you — the Sigelith server stores no files '
+            'and no messages. A shared folder only makes the exchange automatic.'))
+        explain.setWordWrap(True)
+        explain.setObjectName('hint')
+        layout.addWidget(explain)
+
+        form = QFormLayout()
+        form.setLabelAlignment(Qt.AlignRight)
+
+        self.exchange_field = QLineEdit(self._settings.handover_exchange_dir)
+        self.exchange_field.setReadOnly(True)
+        self.exchange_field.setObjectName('mono')
+        self.exchange_field.setPlaceholderText(_('none — you send the files yourself'))
+        self.exchange_field.setToolTip(_(
+            'A folder you share with the other person (OneDrive, Dropbox, Google Drive,\n'
+            'Syncthing). Packages and answers in it are encrypted to their recipient and\n'
+            'picked up automatically while the program is open.'))
+        exchange_choose = QPushButton(_('Choose…'))
+        exchange_choose.setToolTip(self.exchange_field.toolTip())
+        exchange_choose.clicked.connect(
+            lambda: self._pick_folder(self.exchange_field, _('Choose the exchange folder')))
+        self.exchange_clear = QPushButton(_('Stop using it'))
+        self.exchange_clear.setToolTip(_('Go back to sending the files yourself (e-mail, '
+                                         'messenger, USB stick). Nothing is deleted.'))
+        self.exchange_clear.clicked.connect(self.exchange_field.clear)
+        row = QHBoxLayout()
+        row.addWidget(self.exchange_field, 1)
+        row.addWidget(exchange_choose)
+        row.addWidget(self.exchange_clear)
+        form.addRow(_('Exchange folder:'), row)
+
+        self.downloads_field = QLineEdit(self._settings.handover_downloads_dir)
+        self.downloads_field.setReadOnly(True)
+        self.downloads_field.setObjectName('mono')
+        self.downloads_field.setPlaceholderText(str(default_handover_downloads()))
+        self.downloads_field.setToolTip(_(
+            'Where the files of an opened package are saved. Each package gets its own\n'
+            'folder, and the files are marked as coming from the internet.'))
+        downloads_choose = QPushButton(_('Choose…'))
+        downloads_choose.setToolTip(self.downloads_field.toolTip())
+        downloads_choose.clicked.connect(
+            lambda: self._pick_folder(self.downloads_field, _('Where to save the files')))
+        downloads_default = QPushButton(_('Default'))
+        downloads_default.setToolTip(plain_tooltip(str(default_handover_downloads())))
+        downloads_default.clicked.connect(self.downloads_field.clear)
+        row = QHBoxLayout()
+        row.addWidget(self.downloads_field, 1)
+        row.addWidget(downloads_choose)
+        row.addWidget(downloads_default)
+        form.addRow(_('Opened packages:'), row)
+        layout.addLayout(form)
+
+        self.attestation = QCheckBox(_('Attach the hardware attestation (TPM) of my card to my '
+                                       'card file and to evidence packages'))
+        self.attestation.setChecked(self._settings.handover_attestation)
+        self.attestation.setToolTip(_(
+            'The attestation proves that the signing key of your card lives in the TPM chip\n'
+            'of this computer and is used only after Windows Hello. It names the maker and\n'
+            'model of the TPM. Without it, the card only declares Windows Hello.'))
+        layout.addWidget(self.attestation)
+        layout.addStretch(1)
+        return page
+
+    def _pick_folder(self, field: QLineEdit, title: str) -> None:
+        folder = QFileDialog.getExistingDirectory(self, title, field.text() or str(Path.home()))
+        if folder:
+            field.setText(str(Path(folder)))
 
     def _data_tab(self) -> QWidget:
         """Gdzie leza dane i jak to zmienic.
@@ -626,8 +809,8 @@ class SettingsDialog(QDialog):
         layout = QVBoxLayout(page)
 
         explain = QLabel(_(
-            'BeatStamp keeps the stamp history, the settings and the event log '
-            'in one folder. The proofs themselves live in the public BeatTime '
+            'Sigelith Desktop keeps the stamp history, the settings and the event log '
+            'in one folder. The proofs themselves live in the public Sigelith '
             'register, but the history is the only record of WHAT you stamped '
             'and when — it exists nowhere else.'))
         explain.setWordWrap(True)
@@ -660,15 +843,29 @@ class SettingsDialog(QDialog):
         note.setObjectName('hint')
         layout.addWidget(note)
 
+        # Sigelith Backup (ten sam wydawca) czyta ten folder i zachowuje dokladne
+        # bajty ostemplowanych dokumentow — kontrakt: ROZWOJ.md, „Kontrakt dla
+        # programow kopii zapasowych". Bez odnosnika do czasu rezerwacji w Sklepie.
+        backup = QLabel(_(
+            'The history limit (Behaviour tab) removes the oldest entries from the history; '
+            'a backup keeps them. Sigelith Backup (coming soon to Microsoft Store) can back '
+            'up this folder together with the exact bytes of every stamped document — it only '
+            'reads here and never changes anything.'))
+        backup.setWordWrap(True)
+        backup.setObjectName('hint')
+        layout.addWidget(backup)
+
         # Zmienna srodowiskowa ma pierwszenstwo przed wyborem uzytkownika
         # (`config.resolved_data_dir`). Gdyby przycisk dzialal mimo niej,
         # uzytkownik zobaczylby komunikat „katalog zmieniony", a program
-        # pisalby dalej w poprzednim miejscu.
-        if (os.environ.get(DATA_DIR_ENV) or '').strip():
+        # pisalby dalej w poprzednim miejscu. Nazwa w komunikacie to ta
+        # zmienna, ktora NAPRAWDE zadzialala (nowa albo dawna z BeatStampa).
+        forced_name, forced_value = forced_data_dir()
+        if forced_value:
             self.data_dir_change.setEnabled(False)
             forced = QLabel(_('The folder is set for this run by the '
                               '%(name)s environment variable, so it cannot be '
-                              'changed here.') % {'name': DATA_DIR_ENV})
+                              'changed here.') % {'name': forced_name})
             forced.setWordWrap(True)
             forced.setObjectName('hint')
             layout.addWidget(forced)
@@ -679,6 +876,18 @@ class SettingsDialog(QDialog):
     def _change_data_dir(self) -> None:
         if switch_data_dir_interactively(self):
             self.data_dir_field.setText(str(app_data_dir()))
+
+    def _update_name_preview(self) -> None:
+        from types import SimpleNamespace
+        from .. import naming
+        sample = SimpleNamespace(file_name=_('Contract') + '.pdf',
+                                 utc='2026-09-12T10:10:38.559217Z', beat='@424.05',
+                                 digest='4b84f845f6a58f69d5db18d6f196f272')
+        # Nazwa pliku to jeden ciag „od lewej" — po arabsku bez izolacji
+        # czesci rozjezdzaly sie w odwrotnej kolejnosci.
+        self.name_preview.setText(ltr(naming.certificate_name(
+            sample, source=self.name_after_source.isChecked(),
+            moment=self.name_moment.isChecked(), beat=self.name_beat.isChecked())))
 
     def _sync_tor_fields(self, enabled: bool) -> None:
         self.tor_proxy.setEnabled(enabled)
@@ -695,8 +904,17 @@ class SettingsDialog(QDialog):
         self.theme.setCurrentIndex(max(0, self.theme.findData(defaults.theme)))
         self.auto_verify.setChecked(defaults.auto_verify_after_stamp)
         self.name_after_source.setChecked(defaults.name_cert_after_source)
+        self.name_moment.setChecked(defaults.cert_name_moment)
+        self.name_beat.setChecked(defaults.cert_name_beat)
+        self.mode_private.setChecked(defaults.witness_mode == 'private')
+        self.mode_fast.setChecked(defaults.witness_mode == 'fast')
+        self.background.setChecked(defaults.background_checks)
+        self.third_party.setChecked(defaults.third_party_checks)
         self.confirm_overwrite.setChecked(defaults.confirm_overwrite)
         self.history_limit.setValue(defaults.history_limit)
+        self.exchange_field.setText(defaults.handover_exchange_dir)
+        self.downloads_field.setText(defaults.handover_downloads_dir)
+        self.attestation.setChecked(defaults.handover_attestation)
 
     # --- Wynik ---
 
@@ -719,11 +937,11 @@ class SettingsDialog(QDialog):
                     _('An Ed25519 public key is 32 bytes written in canonical '
                       'base64 — 44 characters ending with "=".<br><br>'
                       'Leave the field empty to use the built-in list of '
-                      'BeatTime keys (recommended).'))
+                      'Sigelith keys (recommended).'))
         info = keys.retired_info(key)
         if info is not None:
             return (_('Retired key'),
-                    _('This BeatTime key was retired on %(date)s and cannot be '
+                    _('This Sigelith key was retired on %(date)s and cannot be '
                       'accepted — a signature made with it is no longer a '
                       'proof.<br><br>'
                       'Leave the field empty to use the built-in list of keys.')
@@ -749,8 +967,16 @@ class SettingsDialog(QDialog):
             theme=str(self.theme.currentData()),
             auto_verify_after_stamp=self.auto_verify.isChecked(),
             name_cert_after_source=self.name_after_source.isChecked(),
+            cert_name_moment=self.name_moment.isChecked(),
+            cert_name_beat=self.name_beat.isChecked(),
+            verification_mode='fast' if self.mode_fast.isChecked() else 'private',
+            background_checks=self.background.isChecked(),
+            third_party_checks=self.third_party.isChecked(),
             confirm_overwrite=self.confirm_overwrite.isChecked(),
             history_limit=int(self.history_limit.value()),
+            handover_exchange_dir=self.exchange_field.text().strip(),
+            handover_downloads_dir=self.downloads_field.text().strip(),
+            handover_attestation=self.attestation.isChecked(),
         )
 
 
@@ -793,16 +1019,16 @@ class AboutDialog(QDialog):
 
     def __init__(self, parent: QWidget | None = None):
         super().__init__(parent)
-        self.setWindowTitle(_('About — BeatStamp'))
+        self.setWindowTitle(_('About — Sigelith Desktop'))
         self.setMinimumWidth(560)
 
-        title = QLabel(f'<b style="font-size:14pt">BeatStamp {__version__}</b>')
+        title = QLabel(f'<b style="font-size:14pt">{__app_name__} {__version__}</b>')
         subtitle = QLabel(_('@beat timestamps for local files'))
         subtitle.setObjectName('hint')
 
         body = QLabel(_(
             '<p>Registers the SHA-256 digest of a document in the public, '
-            'append-only <b>BeatTime</b> register, giving proof that the file '
+            'append-only <b>Sigelith</b> register, giving proof that the file '
             'existed at a given moment and has not been changed since.</p>'
 
             '<p><b>The document never leaves this computer.</b> Only the '
@@ -823,20 +1049,23 @@ class AboutDialog(QDialog):
             'time and integrity.</p>'
 
             '<p>Verification is possible <b>without this application</b>: at '
-            'beattime.live/proof, from a <code>.beatproof</code> file with any '
+            'sigelith.org/proof, from a <code>.beatproof</code> file with any '
             'tool that computes SHA-256 and Ed25519, or from an <code>.ots</code> '
             'file with an OpenTimestamps client.</p>'))
         body.setWordWrap(True)
         body.setTextFormat(Qt.RichText)
 
-        # Poprzednik tego programu. Jedno zdanie, bez ocen: TimeVaultSecure
-        # jest wczesniejszym produktem TEGO SAMEGO autora, a BeatStamp
-        # przejmuje jego historie — ktos, kto widzi w programie wpisy
+        # Poprzednicy tego programu. Bez ocen: do wersji 2.2 ten sam program
+        # nazywal sie BeatStamp (kto aktualizuje, widzi nowa nazwe i nowy
+        # folder danych — ma wiedziec, ze to ten sam program), a
+        # TimeVaultSecure jest wczesniejszym produktem TEGO SAMEGO autora,
+        # ktorego historie program przejmuje — ktos, kto widzi wpisy
         # oznaczone „archiwum TVS", ma prawo wiedziec, skad sie tam wziely.
         lineage = QLabel(_(
+            'Until version 2.2 this program was called BeatStamp. '
             'TimeVaultSecure (timevaultsecure.com) is an earlier product by '
-            'the same author, and BeatStamp carries over the history it left '
-            'behind.'))
+            'the same author, and Sigelith Desktop carries over the history it '
+            'left behind.'))
         lineage.setObjectName('hint')
         lineage.setWordWrap(True)
 
@@ -868,20 +1097,27 @@ class AboutDialog(QDialog):
                 'same version.')
 
         third_party = QLabel(_(
-            '<p><b>Third-party software.</b> BeatStamp uses the <b>Qt</b> and '
+            '<p><b>Third-party software.</b> Sigelith Desktop uses the <b>Qt</b> and '
             '<b>PySide6</b> libraries (copyright (C) The Qt Company Ltd. and '
             'other contributors) under the <b>GNU Lesser General Public '
             'License, version 3</b>. %(relinking)s</p>'
 
             '<p>Qt itself contains third-party code, among others FreeType: '
-            'portions of this software are copyright (c) 2025 The FreeType '
+            'portions of this software are copyright (c) 2026 The FreeType '
             'Project (https://freetype.org), all rights reserved. The notices '
             'of the other components are delivered with the program.</p>'
+
+            '<p>The typefaces <b>Inter</b> (copyright (c) 2016 The Inter Project '
+            'Authors) and <b>JetBrains Mono</b> (copyright 2020 The JetBrains '
+            'Mono Project Authors) are used under the <b>SIL Open Font License '
+            '1.1</b>; subsets of them are embedded in the PDF certificates. The '
+            'icons are <b>Bootstrap Icons</b> (copyright (c) 2019-2024 The '
+            'Bootstrap Authors), used under the <b>MIT License</b>.</p>'
 
             '<p>The full licence texts — including the GNU GPL and the GNU '
             'LGPL — and the list of every file in this package with its '
             'licence are delivered together with the program, and the button '
-            'below opens them. The rest of BeatStamp is published under the '
+            'below opens them. The rest of Sigelith Desktop is published under the '
             'Apache License 2.0.</p>') % {'relinking': relinking})
         third_party.setWordWrap(True)
         third_party.setTextFormat(Qt.RichText)
@@ -893,15 +1129,16 @@ class AboutDialog(QDialog):
         sources.addStretch(1)
 
         notices = QPushButton(_('Licences and notices'))
+        icons.apply(notices, 'file-earmark-text')
         notices.setToolTip(_(
             'Shows the full licence texts delivered with the program:\n'
             '%(path)s') % {'path': licenses_dir()})
         notices.clicked.connect(lambda: show_licenses(self))
 
         links = QHBoxLayout()
-        for text, url in (('beattime.live', 'https://beattime.live'),
-                          (_('API documentation'), 'https://beattime.live/docs/'),
-                          (_('Public register'), 'https://beattime.live/proof/')):
+        for text, url in (('sigelith.org', f'{SITE_BASE}/'),
+                          (_('API documentation'), f'{SITE_BASE}/docs/'),
+                          (_('Public register'), f'{SITE_BASE}/proof/')):
             links.addWidget(link_button(text, url))
         links.addStretch(1)
 
@@ -911,7 +1148,7 @@ class AboutDialog(QDialog):
         # informacji o wydawcy; brak ich w tym oknie wygladalby na przemilczenie.
         legal = QHBoxLayout()
         for text, url in ((_('Legal notice (Impressum)'), IMPRESSUM_URL),
-                          (_('Privacy policy'), PRIVACY_POLICY_URL)):
+                          (_('Privacy policy'), privacy_policy_url(current_language()))):
             legal.addWidget(link_button(text, url))
         legal.addStretch(1)
 
@@ -923,25 +1160,45 @@ class AboutDialog(QDialog):
         buttons.button(QDialogButtonBox.Close).setText(_('Close'))
         buttons.rejected.connect(self.reject)
 
+        # Tresc w przewijanym obszarze, przyciski pod nim. Tresc potrzebuje
+        # 870-980 px wysokosci, a Qt otwiera okno dialogowe na najwyzej 2/3
+        # ekranu — bez przewijania dolne akapity (licencja!) byly uciete
+        # w polowie linii w kazdym jezyku (audyt 2026-09-27).
+        content = QWidget()
+        content.setObjectName('scrollBody')
+        inner = QVBoxLayout(content)
+        inner.setContentsMargins(0, 0, 8, 0)
+        inner.addWidget(title)
+        inner.addWidget(subtitle)
+        inner.addSpacing(8)
+        inner.addWidget(body)
+        inner.addWidget(lineage)
+        inner.addLayout(links)
+        inner.addSpacing(8)
+        inner.addWidget(third_party)
+        inner.addLayout(sources)
+        inner.addLayout(legal)
+        inner.addSpacing(6)
+        inner.addWidget(notices)
+        inner.addWidget(folder)
+        inner.addStretch(1)
+        scroll = QScrollArea()
+        scroll.setWidgetResizable(True)
+        scroll.setFrameShape(QFrame.NoFrame)
+        scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        scroll.setWidget(content)
+
         layout = QVBoxLayout(self)
-        layout.addWidget(title)
-        layout.addWidget(subtitle)
-        layout.addSpacing(8)
-        layout.addWidget(body)
-        layout.addWidget(lineage)
-        layout.addLayout(links)
-        layout.addSpacing(8)
-        layout.addWidget(third_party)
-        layout.addLayout(sources)
-        layout.addLayout(legal)
-        layout.addSpacing(6)
-        layout.addWidget(notices)
-        layout.addWidget(folder)
+        layout.addWidget(scroll, 1)
         layout.addWidget(buttons)
+        width = 680
+        needed = (inner.heightForWidth(width - 40) if inner.hasHeightForWidth()
+                  else content.sizeHint().height())
+        fit_to_screen(self, width, needed + buttons.sizeHint().height() + 48)
 
 
 class ThanksDialog(QDialog):
-    """Podziekowanie dla osob, ktore wsparly BeatTime i zgodzily sie na nazwe.
+    """Podziekowanie dla osob, ktore wsparly Sigelith i zgodzily sie na nazwe.
 
     Co to okno robi inaczej niz reszta programu:
 
@@ -971,7 +1228,7 @@ class ThanksDialog(QDialog):
 
     def __init__(self, client, pool, parent: QWidget | None = None):
         super().__init__(parent)
-        self.setWindowTitle(_('Thank you — BeatStamp'))
+        self.setWindowTitle(_('Thank you — Sigelith Desktop'))
         self.setMinimumWidth(460)
         self._client = client
         self._pool = pool
@@ -979,7 +1236,7 @@ class ThanksDialog(QDialog):
         self._shown: supporters.ThanksList | None = None
 
         title = QLabel(f'<b style="font-size:14pt">{_("Thank you")}</b>')
-        subtitle = QLabel(_('People who support BeatTime and agreed to be '
+        subtitle = QLabel(_('People who support Sigelith and agreed to be '
                             'named here'))
         subtitle.setObjectName('hint')
         subtitle.setWordWrap(True)
@@ -990,8 +1247,8 @@ class ThanksDialog(QDialog):
         note.setWordWrap(True)
 
         source = QLabel(_(
-            'The names come from a public list on beattime.live. Everyone on '
-            'it asked to be named and can withdraw at any time, so BeatStamp '
+            'The names come from a public list on sigelith.org. Everyone on '
+            'it asked to be named and can withdraw at any time, so Sigelith Desktop '
             'reloads the list at least once a day and keeps no copy older '
             'than that.'))
         source.setObjectName('faint')
@@ -1002,7 +1259,7 @@ class ThanksDialog(QDialog):
         self.names.setFocusPolicy(Qt.NoFocus)
         self.names.setMinimumHeight(180)
         self.names.setToolTip(plain_tooltip(_(
-            'The list is downloaded from beattime.live — it is not part of '
+            'The list is downloaded from sigelith.org — it is not part of '
             'the installed program.')))
 
         self.status = QLabel()
@@ -1013,7 +1270,7 @@ class ThanksDialog(QDialog):
         self.status.setTextFormat(Qt.PlainText)
 
         self.refresh = QPushButton(_('Refresh'))
-        self.refresh.setToolTip(_('Downloads the list from beattime.live again'))
+        self.refresh.setToolTip(_('Downloads the list from sigelith.org again'))
         self.refresh.clicked.connect(lambda: self._fetch(force=True))
 
         # Zegar pilnujacy, zeby okno nie zostalo na zawsze w stanie
@@ -1149,75 +1406,102 @@ def _server_moment(iso: str) -> str:
     return moment.strftime(datetime_format())
 
 
-class DetailsDialog(QDialog):
-    """Pełne dane techniczne dowodu — dla kogos, kto chce sprawdzić recznie."""
-
-    def __init__(self, title: str, data: dict, parent: QWidget | None = None):
-        super().__init__(parent)
-        self.setWindowTitle(f'{title} — BeatStamp')
-        self.resize(720, 560)
-
-        hint = QLabel(_(
-            'The complete proof data in JSON. The <b>.beatproof</b> export '
-            'writes the same values — you can check them with your own tool.'))
-        hint.setWordWrap(True)
-        hint.setObjectName('hint')
-
-        view = QPlainTextEdit()
-        view.setObjectName('mono')
-        view.setReadOnly(True)
-        view.setPlainText(json.dumps(data, indent=2, ensure_ascii=False))
-        view.setLineWrapMode(QPlainTextEdit.NoWrap)
-
-        copy = QPushButton(_('Copy everything'))
-        copy.setToolTip(_('Copies the whole JSON document to the clipboard'))
-        copy.clicked.connect(lambda: QGuiApplication.clipboard().setText(view.toPlainText()))
-
-        buttons = QDialogButtonBox(QDialogButtonBox.Close)
-        buttons.button(QDialogButtonBox.Close).setText(_('Close'))
-        buttons.rejected.connect(self.reject)
-
-        row = QHBoxLayout()
-        row.addWidget(copy)
-        row.addStretch(1)
-        row.addWidget(buttons)
-
-        layout = QVBoxLayout(self)
-        layout.addWidget(hint)
-        layout.addWidget(view, 1)
-        layout.addLayout(row)
-
-
 class LicensesDialog(QDialog):
-    """Teksty licencji czytane we wlasnym oknie.
+    """Licencje i noty: spis skladnikow i pelne teksty licencji.
 
-    Potrzebne tylko w wydaniu ze Sklepu — patrz `show_licenses`. Okno nie
-    ma wlasnej kopii niczego: czyta te same pliki, ktore leza w paczce obok
-    programu, wiec nie da sie ich rozjechac.
+    Okno nie ma wlasnej kopii niczego: spis czyta z pliku NOTICE, a teksty
+    z plikow, ktore leza w paczce obok programu — nie da sie ich rozjechac.
+    Z kodu pochodzi tylko zdanie „do czego to sluzy" (`licensing.PURPOSES`).
     """
 
     def __init__(self, parent: QWidget | None = None):
         super().__init__(parent)
-        self.setWindowTitle(_('Licences and notices — BeatStamp'))
-        self.resize(900, 620)
+        from .. import licensing
+        self.setWindowTitle(_('Licences and notices — Sigelith Desktop'))
+        fit_to_screen(self, 1000, 680)
 
         directory = licenses_dir()
+        self._directory = directory
+        self._components = licensing.load(directory)
+
+        intro = QLabel(_(
+            'Sigelith Desktop is built from open-source components. Each one is listed '
+            'with its licence and with what it does in this program. The full '
+            'licence texts are delivered with the program — in the second tab — '
+            'and the file NOTICE lists every file of the package with its '
+            'licence.'))
+        intro.setWordWrap(True)
+        intro.setObjectName('hint')
+
+        # --- Zakladka 1: skladniki ---------------------------------------------
+        self._table = QTableWidget(len(self._components), 3)
+        self._table.setHorizontalHeaderLabels(
+            [_('Component'), _('Licence'), _('What it does in Sigelith Desktop')])
+        self._table.verticalHeader().setVisible(False)
+        self._table.setEditTriggers(QTableWidget.NoEditTriggers)
+        self._table.setSelectionBehavior(QTableWidget.SelectRows)
+        self._table.setSelectionMode(QTableWidget.SingleSelection)
+        self._table.setWordWrap(False)
+        self._table.setTextElideMode(Qt.ElideRight)
+        self._table.verticalHeader().setDefaultSectionSize(32)
+        self._table.setShowGrid(False)
+        self._table.setAlternatingRowColors(True)
+        header = self._table.horizontalHeader()
+        header.setSectionResizeMode(0, QHeaderView.Interactive)
+        header.setSectionResizeMode(1, QHeaderView.Interactive)
+        header.setSectionResizeMode(2, QHeaderView.Stretch)
+        self._table.setColumnWidth(0, 300)
+        self._table.setColumnWidth(1, 210)
+        for row, component in enumerate(self._components):
+            for column, text in enumerate((component.title, component.license,
+                                           licensing.purpose(component))):
+                item = QTableWidgetItem(text)
+                item.setToolTip(plain_tooltip(text))
+                self._table.setItem(row, column, item)
+        self._table.itemSelectionChanged.connect(self._component_selected)
+
+        self._detail = QLabel()
+        self._detail.setWordWrap(True)
+        self._detail.setTextFormat(Qt.RichText)
+        self._detail.setTextInteractionFlags(Qt.TextSelectableByMouse
+                                             | Qt.LinksAccessibleByMouse)
+        self._detail.setOpenExternalLinks(True)
+        self._detail.setAlignment(Qt.AlignTop | Qt.AlignLeft)
+        self._detail_box = QFrame()
+        self._detail_box.setObjectName('cardMuted')
+        box = QVBoxLayout(self._detail_box)
+        box.setContentsMargins(14, 12, 14, 12)
+        box.addWidget(self._detail)
+        self._text_buttons = QHBoxLayout()
+        self._text_buttons.setSpacing(8)
+        box.addLayout(self._text_buttons)
+
+        components_page = QWidget()
+        cl = QVBoxLayout(components_page)
+        cl.setContentsMargins(0, 8, 0, 0)
+        cl.addWidget(self._table, 3)
+        cl.addWidget(self._detail_box, 2)
+
+        # --- Zakladka 2: pelne teksty ------------------------------------------
         # NOTICE i LICENSE na gorze: jeden mowi, na czym stoi program,
         # drugi — na jakiej licencji jest wydany. Reszta alfabetycznie.
-        first = ['NOTICE', 'LICENSE']
-        names = [name for name in first if (directory / name).is_file()]
-        names += sorted(path.name for path in directory.glob('*.txt'))
-
-        self._directory = directory
+        # Ze zrodel NOTICE i LICENSE leza pietro wyzej niz `licenses/`.
+        self._paths: dict[str, Path] = {}
+        for name in ('NOTICE', 'LICENSE'):
+            for candidate in (directory / name, directory.parent / name):
+                if candidate.is_file():
+                    self._paths[name] = candidate
+                    break
+        for path in sorted(directory.glob('*.txt')):
+            self._paths[path.name] = path
+        names = list(self._paths)
         self._files = QListWidget()
         self._files.addItems(names)
-        self._files.setMaximumWidth(260)
-
+        self._files.setMaximumWidth(280)
         self._view = QPlainTextEdit()
         self._view.setObjectName('mono')
         self._view.setReadOnly(True)
         self._view.setLineWrapMode(QPlainTextEdit.NoWrap)
-
         self._files.currentTextChanged.connect(self._show)
         if names:
             self._files.setCurrentRow(0)
@@ -1225,6 +1509,15 @@ class LicensesDialog(QDialog):
             self._view.setPlainText(
                 _('The licence texts are missing from this installation: '
                   '%(path)s') % {'path': directory})
+        texts_page = QWidget()
+        tl = QHBoxLayout(texts_page)
+        tl.setContentsMargins(0, 8, 0, 0)
+        tl.addWidget(self._files)
+        tl.addWidget(self._view, 1)
+
+        self._tabs = QTabWidget()
+        self._tabs.addTab(components_page, _('Components'))
+        self._tabs.addTab(texts_page, _('Full licence texts'))
 
         location = QLabel(str(directory))
         location.setObjectName('faint')
@@ -1233,22 +1526,73 @@ class LicensesDialog(QDialog):
         buttons = QDialogButtonBox(QDialogButtonBox.Close)
         buttons.button(QDialogButtonBox.Close).setText(_('Close'))
         buttons.rejected.connect(self.reject)
-
-        columns = QHBoxLayout()
-        columns.addWidget(self._files)
-        columns.addWidget(self._view, 1)
+        row = QHBoxLayout()
+        row.addWidget(location, 1)
+        # W wydaniu ze Sklepu katalog lezy w WindowsApps i Eksplorator pokaze
+        # odmowe dostepu — przycisk jest tylko w wersji przenosnej.
+        if not is_packaged():
+            folder = QPushButton(_('Open the folder'))
+            icons.apply(folder, 'folder2-open')
+            folder.setToolTip(_('Opens the folder with the licence files in the '
+                                'file manager'))
+            folder.clicked.connect(lambda: open_licenses_dir())
+            row.addWidget(folder)
+        row.addWidget(buttons)
 
         layout = QVBoxLayout(self)
-        layout.addLayout(columns, 1)
-        layout.addWidget(location)
-        layout.addWidget(buttons)
+        layout.addWidget(intro)
+        layout.addWidget(self._tabs, 1)
+        layout.addLayout(row)
+        if self._components:
+            self._table.selectRow(0)
+
+    def _component_selected(self) -> None:
+        from html import escape
+        rows = self._table.selectionModel().selectedRows()
+        if not rows:
+            return
+        component = self._components[rows[0].row()]
+        from .. import licensing
+        parts = [f'<b style="font-size:11pt">{escape(component.title)}</b>',
+                 f'<span style="color:#8a93a1">{escape(licensing.purpose(component))}</span>',
+                 f'{escape(_("Licence"))}: <b>{escape(component.license)}</b>']
+        if component.copyright:
+            parts.append(escape(component.copyright))
+        if component.homepage.startswith('https://'):
+            parts.append(f'<a href="{escape(component.homepage)}">'
+                         f'{escape(component.homepage)}</a>')
+        if component.source:
+            source = escape(component.source)
+            parts.append(f'{escape(_("Source code"))}: ' + (
+                f'<a href="{source}">{source}</a>' if component.source.startswith('https://')
+                and ' ' not in component.source else source))
+        if component.note:
+            parts.append(f'<span style="color:#8a93a1">{escape(component.note)}</span>')
+        self._detail.setText('<br>'.join(parts))
+        while self._text_buttons.count():
+            item = self._text_buttons.takeAt(0)
+            if item.widget() is not None:
+                item.widget().deleteLater()
+        for name in component.texts:
+            button = QPushButton(_('Read %(name)s') % {'name': name})
+            icons.apply(button, 'file-earmark-text')
+            button.setToolTip(_('Shows the full text of this licence'))
+            button.clicked.connect(lambda checked=False, n=name: self._open_text(n))
+            self._text_buttons.addWidget(button)
+        self._text_buttons.addStretch(1)
+
+    def _open_text(self, name: str) -> None:
+        matches = self._files.findItems(name, Qt.MatchExactly)
+        if matches:
+            self._files.setCurrentItem(matches[0])
+            self._tabs.setCurrentIndex(1)
 
     def _show(self, name: str) -> None:
         if not name:
             return
         try:
-            text = (self._directory / name).read_text(encoding='utf-8',
-                                                      errors='replace')
+            path = getattr(self, '_paths', {}).get(name, self._directory / name)
+            text = path.read_text(encoding='utf-8', errors='replace')
         except OSError as problem:
             log.error('nie udało się odczytać %s: %s', name, problem)
             text = _('This file could not be read: %(name)s') % {'name': name}
@@ -1261,7 +1605,7 @@ class LogDialog(QDialog):
 
     def __init__(self, parent: QWidget | None = None):
         super().__init__(parent)
-        self.setWindowTitle(_('Event log — BeatStamp'))
+        self.setWindowTitle(_('Event log — Sigelith Desktop'))
         self.resize(820, 520)
 
         path = log_path()
@@ -1290,3 +1634,8 @@ class LogDialog(QDialog):
         layout.addWidget(location)
         layout.addWidget(view, 1)
         layout.addWidget(buttons)
+
+
+# Okno szczegolow mieszka od 2.2 w `details.py`; nazwa zostaje tutaj, bo
+# z tego modulu importuja ja okno glowne i testy.
+from .details import DetailsDialog  # noqa: E402,F401

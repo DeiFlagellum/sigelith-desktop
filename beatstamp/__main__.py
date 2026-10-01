@@ -15,9 +15,10 @@ import sys
 import traceback
 from pathlib import Path
 
-from . import __version__, selftest
-from .i18n import _, current_language, set_language
+from . import __app_name__, __version__, selftest
+from .i18n import _, current_language, is_rtl, set_language
 from .config import (
+    CRASH_LOG_NAME,
     MigrationReport,
     Settings,
     app_data_dir,
@@ -57,6 +58,32 @@ def setup_logging() -> None:
     # urllib3 na poziomie DEBUG wypisuje pelne adresy zapytan — czyli takze
     # skroty dokumentow uzytkownika. Do dziennika trafiaja tylko ostrzezenia.
     logging.getLogger('urllib3').setLevel(logging.WARNING)
+
+
+#: Plik, do ktorego `faulthandler` wypisze stos WSZYSTKICH watkow, gdy proces
+#: padnie na poziomie C (Qt, sterownik, pamiec). Wersja okienkowa nie ma
+#: konsoli ani stderr, wiec bez tego awaria natywna nie zostawiala sladu —
+#: ani w dzienniku, ani nigdzie indziej. Obiekt trzymamy do konca procesu.
+_CRASH_FILE = None
+CRASH_FILE_MAX_BYTES = 256 * 1024
+
+
+def enable_crash_dump(log: logging.Logger) -> None:
+    global _CRASH_FILE
+    import faulthandler
+    from datetime import datetime
+    try:
+        path = log_path().with_name(CRASH_LOG_NAME)
+        if path.is_file() and path.stat().st_size > CRASH_FILE_MAX_BYTES:
+            path.replace(path.with_name(Path(CRASH_LOG_NAME).stem + '.1.log'))
+        handle = open(path, 'a', encoding='utf-8')
+        handle.write(f'--- start {datetime.now().isoformat(timespec="seconds")} '
+                     f'{__app_name__} {__version__} pid {os.getpid()} ---\n')
+        handle.flush()
+        faulthandler.enable(file=handle, all_threads=True)
+        _CRASH_FILE = handle
+    except (OSError, RuntimeError, ValueError) as e:
+        log.info('zrzut awaryjny niedostepny: %s', e)
 
 
 def _log_environment(log: logging.Logger) -> None:
@@ -109,7 +136,7 @@ def install_excepthook(app) -> None:
         try:
             box = QMessageBox()
             box.setIcon(QMessageBox.Critical)
-            box.setWindowTitle(_('Application error — BeatStamp'))
+            box.setWindowTitle(_('Application error — Sigelith Desktop'))
             box.setText(_('An unexpected error occurred.'))
             box.setInformativeText(
                 _('The application will try to carry on. The details were '
@@ -165,7 +192,7 @@ def _install_qt_translations(app) -> None:
 def main() -> int:
     setup_logging()
     log = logging.getLogger('beatstamp')
-    log.info('--- start BeatStamp %s (python %s) ---', __version__,
+    log.info('--- start %s %s (python %s) ---', __app_name__, __version__,
              sys.version.split()[0])
 
     # Jezyk ustawiamy PRZED czymkolwiek, co produkuje tekst dla czlowieka —
@@ -182,14 +209,7 @@ def main() -> int:
     # `tools/verify_exe.py`, czyli trzeci krok `build.ps1`.
     if selftest.requested(sys.argv[1:]):
         return selftest.main()
-
-    # Przeprowadzka danych ze starych lokalizacji (`%LOCALAPPDATA%\BeatStamp`
-    # i `Dokumenty\BeatStamp`) MUSI wyprzedzic pierwszy odczyt ustawien
-    # i historii — inaczej program wczytalby pusty komplet z nowej lokalizacji,
-    # a przy pierwszym zapisie utrwalil go na miejscu danych, ktore dopiero
-    # czekaja na przeniesienie.
-    migration = migrate_legacy_data()
-    _log_migration(log, migration)
+    enable_crash_dump(log)
 
     # Skalowanie na ekranach HiDPI. Qt 6 wlacza je samo, ale zaokraglenie w
     # gore przy skali 125%/150% daje rozmyte krawedzie — `PassThrough` zostawia
@@ -200,23 +220,55 @@ def main() -> int:
     QGuiApplication.setHighDpiScaleFactorRoundingPolicy(
         Qt.HighDpiScaleFactorRoundingPolicy.PassThrough)
 
-    from PySide6.QtWidgets import QApplication
+    from PySide6.QtWidgets import QApplication, QMessageBox
+    from .instance import SingleInstance, split_arguments
     from .ui import theme
     from .ui.main_window import MainWindow
 
     app = QApplication(sys.argv)
-    app.setApplicationName('BeatStamp')
-    app.setApplicationDisplayName('BeatStamp')
+    # Nazwa wyswietlana konczy KAZDY tytul okna (Qt dokleja ja do tytulow,
+    # ktore sie nia nie koncza) — patrz `ui/main_window`. Program nie uzywa
+    # QSettings ani QStandardPaths, wiec nazwy aplikacji i organizacji nie
+    # decyduja o zadnej sciezce danych.
+    app.setApplicationName(__app_name__)
+    app.setApplicationDisplayName(__app_name__)
     app.setApplicationVersion(__version__)
-    app.setOrganizationName('BeatTime')
-    app.setDesktopFileName('beatstamp')
+    app.setOrganizationName('Sigelith')
+    app.setDesktopFileName('sigelith-desktop')
     install_excepthook(app)
+
+    # Jedna kopia na katalog danych — PRZED przeprowadzka i przed pierwszym
+    # odczytem danych: druga kopia nie moze ruszyc katalogu, na ktorym
+    # pracuje pierwsza (patrz `instance.py`).
+    files, handover = split_arguments(sys.argv[1:])
+    instance = SingleInstance(app_data_dir())
+    if not instance.acquire():
+        if instance.forward(files, handover=handover):
+            log.info('%s juz dziala — przekazane pliki: %s, do Handover: %s, koniec tej kopii',
+                     __app_name__, len(files), len(handover))
+        else:
+            QMessageBox.information(None, __app_name__, _(
+                'Sigelith Desktop is already running. Switch to its window — '
+                'a second copy would work on the same data folder.'))
+        return 0
+
+    # Przeprowadzka danych ze starych lokalizacji z czasow BeatStampa
+    # (`%USERPROFILE%\BeatStamp`, `Dokumenty\BeatStamp`, `%LOCALAPPDATA%\BeatStamp`
+    # — `config.legacy_locations`) MUSI wyprzedzic pierwszy odczyt ustawien
+    # i historii — inaczej program wczytalby pusty komplet z nowej lokalizacji,
+    # a przy pierwszym zapisie utrwalil go na miejscu danych, ktore dopiero
+    # czekaja na przeniesienie.
+    migration = migrate_legacy_data()
+    _log_migration(log, migration)
 
     settings = Settings.load()
     # Jawny wybor z Ustawien ma pierwszenstwo przed jezykiem systemu.
     log.info('jezyk interfejsu (ustawienia %r): %s', settings.language,
              set_language(settings.language))
     _install_qt_translations(app)
+    # Arabski: cale okno od prawej do lewej (menu, uklady, tabele).
+    if is_rtl():
+        app.setLayoutDirection(Qt.RightToLeft)
     theme.apply_theme(app, settings.theme)
 
     window = MainWindow(settings, migration=migration)
@@ -224,14 +276,30 @@ def main() -> int:
     window.show()
 
     # Pliki podane w wierszu polecen (takze przez „Otworz za pomoca" w
-    # Eksploratorze) trafiaja od razu do stemplowania.
-    files = [Path(a) for a in sys.argv[1:] if Path(a).is_file()]
+    # Eksploratorze) trafiaja od razu do stemplowania — poza plikami Handover,
+    # ktore otwiera zakladka Handover (`open_paths`).
+    from PySide6.QtCore import QTimer
     if files:
-        from PySide6.QtCore import QTimer
-        QTimer.singleShot(400, lambda: window.stamp_files(files))
+        QTimer.singleShot(400, lambda: window.open_paths([Path(f) for f in files]))
+    # `--handover <plik>` (np. „Przekaz…” w Sigelith Backup): okno wysylki Handover.
+    if handover:
+        QTimer.singleShot(600, lambda: window.handover_send(handover))
+    # ...a pliki z KOLEJNYCH uruchomien przekazuje druga kopia.
+    instance.activated.connect(window.activate_from_other_instance)
+    instance.handover_requested.connect(window.handover_send)
 
     code = app.exec()
     log.info('--- koniec (kod %s) ---', code)
+    if window.abandoned_workers or window.pool.activeThreadCount():
+        # Watek w tle wisi na zapytaniu, ktorego nie da sie przerwac. Bez tego
+        # proces zostawal w pamieci niewidoczny, az zapytanie skonczy sie
+        # samo (71 s w pomiarze 2026-09-27). Ustawienia, historia i stan
+        # swiadka sa juz zapisane (zapis atomowy), wiec niczego nie tracimy.
+        log.warning('koniec bez czekania na watek roboczy')
+        instance.release()
+        logging.shutdown()
+        os._exit(code)
+    instance.release()
     return code
 
 

@@ -1,5 +1,5 @@
 """
-Generuje komplet logo dla paczki MSIX z jednego pliku `beatstamp.ico`.
+Generuje komplet logo dla paczki MSIX z jednego wzorca `beatstamp-icon.png`.
 
 Po co osobny skrypt zamiast wrzucenia gotowych plikow do repozytorium:
 Microsoft Store wymaga kilkudziesieciu wariantow TEGO SAMEGO obrazka
@@ -16,13 +16,11 @@ URUCHOMIENIE (z katalogu `desktop/`):
 Wynik: `packaging/Assets/*.png`. Skrypt wywoluje tez `build_msix.ps1`, wiec
 zwykle nie trzeba uruchamiac go osobno.
 
-OGRANICZENIE, ktore trzeba znac: najwiekszy obraz w `beatstamp.ico` ma
-256x256 pikseli. Najwieksze warianty kafelkow (np. `Square310x310` w skali
-400%, czyli 1240 px) sa z niego POWIEKSZANE i beda miekkie. Skrypt wypisuje
-ostrzezenie przy kazdym takim pliku. To nie blokuje ani zbudowania paczki,
-ani zgloszenia do Sklepu — duze kafelki sa opcjonalne i wiekszosc
-uzytkownikow nigdy ich nie zobaczy — ale jesli ikona ma kiedys powstac
-w wyzszej rozdzielczosci, wystarczy podmienic zrodlo i uruchomic to ponownie.
+ZRODLO: wzorzec 2048 px rysuje `make_icon.py` (on robi tez `beatstamp.ico`),
+wiec kafelki i ikona programu nie moga sie rozjechac. Do 2026-09-27 zrodlem
+byl sam `beatstamp.ico` z najwiekszym obrazem 256 px i duze kafelki
+(`Square310x310` w skali 400%, grafika 819 px) powstawaly przez POWIEKSZENIE.
+Ostrzezenie o powiekszaniu zostaje na wypadek mniejszego wzorca.
 """
 from __future__ import annotations
 
@@ -37,7 +35,7 @@ except ImportError:                                    # pragma: no cover
                      '  .venv\\Scripts\\python.exe -m pip install -r requirements-dev.txt')
 
 HERE = Path(__file__).resolve().parent
-SOURCE_ICON = HERE.parent / 'beatstamp.ico'
+SOURCE = HERE / 'beatstamp-icon.png'
 ASSETS = HERE / 'Assets'
 
 #: Skale interfejsu, ktore Windows potrafi wybrac dla kafelkow. 100% to
@@ -69,15 +67,13 @@ TILE_FILL = 0.66
 
 
 def load_source() -> Image.Image:
-    """Najwiekszy obraz z pliku .ico, jako RGBA."""
-    if not SOURCE_ICON.is_file():
-        raise SystemExit(f'Brak pliku zrodlowego: {SOURCE_ICON}')
-    with Image.open(SOURCE_ICON) as ico:
-        # `Image.open` na .ico daje najmniejszy obraz. Rozmiar wybieramy sami.
-        largest = max(ico.ico.sizes())
-        ico.size = largest
-        image = ico.convert('RGBA')
-    print(f'zrodlo: {SOURCE_ICON.name}, najwiekszy obraz {largest[0]}x{largest[1]}')
+    """Wzorzec ikony jako RGBA."""
+    if not SOURCE.is_file():
+        raise SystemExit(f'Brak wzorca: {SOURCE}\n'
+                         '  .venv\\Scripts\\python.exe packaging\\make_icon.py')
+    with Image.open(SOURCE) as master:
+        image = master.convert('RGBA')
+    print(f'zrodlo: {SOURCE.name}, {image.width}x{image.height}')
     return image
 
 
@@ -142,8 +138,7 @@ def main() -> int:
     if upscaled_count:
         print(f'UWAGA: {upscaled_count} wariantow powstalo przez POWIEKSZENIE obrazu '
               f'{source_side}x{source_side} — beda miekkie.\n'
-              '       Zeby to poprawic, potrzebna jest ikona w wyzszej '
-              'rozdzielczosci (zrodlo: beatstamp.ico).')
+              '       Wzorzec rysuje packaging\\make_icon.py (MASTER_SIZE).')
     return 0
 
 

@@ -20,7 +20,7 @@ z ktorego korzysta `beatstamp.spec` przy wykluczeniach.
 „W paczce" znaczy takze „w srodku `.exe`". Nazwy plikow na dysku nie
 wymieniaja reportlaba, requests, urllib3, idny ani PySocks — te biblioteki
 nie maja tu wlasnego pliku, ich kod jest skompilowany w archiwum wewnatrz
-`BeatStamp.exe`. Nota, ktora ich nie wymienia, jest nieprawdziwa, a BSD i MIT
+`SigelithDesktop.exe`. Nota, ktora ich nie wymienia, jest nieprawdziwa, a BSD i MIT
 wymagaja odtworzenia noty wlasnie w redystrybucji BINARNEJ. Dlatego audyt
 czyta takze to archiwum, a pakiet, ktorego nie opisuje zaden skladnik,
 przerywa generowanie tak samo jak nieprzypisany plik.
@@ -49,6 +49,10 @@ NOTICE = ROOT / 'NOTICE'
 
 #: Szerokosc lamania. Plik czytaja ludzie w Notatniku i w oknie „O programie".
 WIDTH = 78
+
+#: Nazwa katalogu wersji przenosnej (`dist/SigelithDesktop`) — tak, jak ja
+#: widzi uzytkownik po rozpakowaniu.
+PACKAGE_FOLDER = licenses.PACKAGE_DIRS[0].name
 
 
 def _rule(character: str = '-') -> str:
@@ -121,27 +125,27 @@ def build(package: Path) -> str:
     version = licenses.app_version()
     own = licenses.COMPONENTS['beatstamp']
     lines: list[str] = [
-        'BeatStamp',
+        own.name,
         own.copyright,
         '',
     ]
     lines += _wrap(
-        'This file lists every file of the released BeatStamp package, and '
-        'every library compiled into BeatStamp.exe, with the license it is '
+        'This file lists every file of the released Sigelith Desktop package, and '
+        f'every library compiled into {licenses.EXECUTABLE}, with the license it is '
         'distributed under. It is generated from the built package by '
         'tools/make_notice.py; do not edit it by hand.')
     lines += ['']
     lines += _wrap(
-        'BeatStamp.exe is not one program in one license. It is the '
+        f'{licenses.EXECUTABLE} is not one program in one license. It is the '
         'PyInstaller bootloader with an archive appended to it, and that '
         'archive holds this program together with its Python dependencies. '
         'Libraries that have no file of their own in the package -- ReportLab, '
-        'requests, urllib3, idna, PySocks -- live there, and BeatStamp.exe is '
+        f'requests, urllib3, idna, PySocks -- live there, and {licenses.EXECUTABLE} is '
         'listed among the files of every component whose code is inside it.')
     legal_prefix = licenses.LEGAL_DIR_IN_PACKAGE + '/'
     counted = [path for path in report.files
                if not path.startswith(legal_prefix)]
-    lines += ['', f'Package:  BeatStamp {version}',
+    lines += ['', f'Package:  {own.name} {version}',
               f'Files:    {len(counted)} (plus the legal documents listed at '
               f'the end)',
               f'Modules:  {len(report.modules)} top-level packages inside '
@@ -150,19 +154,20 @@ def build(package: Path) -> str:
     # --- Zrodla bibliotek LGPL ---
     lines += [_rule('='), 'SOURCES OF THE LGPL LIBRARIES', _rule('='), '']
     lines += _wrap(
-        'BeatStamp uses Qt and PySide6 as shared libraries under the GNU '
+        f'{own.name} uses Qt and PySide6 as shared libraries under the GNU '
         'Lesser General Public License, version 3. That license requires the '
         'source code of the libraries themselves to be available. The exact '
         'versions used to build this package are:')
-    lines += ['', '  Qt 6.9.1', f'    {licenses.QT_SOURCE_URL}',
-              '', '  PySide6 / Shiboken6 6.9.1',
+    lines += ['', f'  Qt {licenses.COMPONENTS["qt"].version}',
+              f'    {licenses.QT_SOURCE_URL}',
+              '', f'  PySide6 / Shiboken6 {licenses.COMPONENTS["pyside6"].version}',
               f'    {licenses.PYSIDE_SOURCE_URL}', '']
     lines += _wrap(
         'Written offer, valid for at least three years from the date this '
-        'copy of BeatStamp was distributed: on request, Adam Koch will supply '
+        f'copy of {own.name} was distributed: on request, Adam Koch will supply '
         'to anyone who has this program a complete machine-readable copy of '
         'the source code of the above libraries, and of this version of '
-        'BeatStamp itself in the form needed to relink it against them, for '
+        f'{own.name} itself in the form needed to relink it against them, for '
         'no more than the cost of the distribution. Write to '
         f'{licenses.WRITTEN_OFFER_CONTACT}.')
     lines += ['']
@@ -175,8 +180,9 @@ def build(package: Path) -> str:
         'the same:')
     lines += ['']
     lines += _wrap(
-        'Portable installation (the BeatStamp folder with BeatStamp.exe in '
-        'it). The libraries sit in the _internal directory next to the '
+        f'Portable installation (the {PACKAGE_FOLDER} folder with '
+        f'{licenses.EXECUTABLE} in it). The libraries sit in the _internal '
+        'directory next to the '
         'executable. Replace the corresponding files with your own build of '
         'the same version; nothing else has to be done.', indent='  ')
     lines += ['']
@@ -189,7 +195,7 @@ def build(package: Path) -> str:
         'otherwise. Use the portable release of the same version instead: it '
         'is the same program, built from the same source, with the libraries '
         'in a directory you own. Ask for it with the written offer above, or '
-        'take it from the address of the BeatStamp source given under this '
+        f'take it from the address of the {own.name} source given under this '
         'program in the component list below.', indent='  ')
     lines += ['']
     lines += _wrap(
@@ -274,7 +280,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument('--print', dest='to_stdout', action='store_true',
                         help='wypisuje tresc i nic nie zapisuje')
     parser.add_argument('--package', type=Path, default=None,
-                        help='katalog gotowej paczki (domyslnie dist/BeatStamp)')
+                        help='katalog gotowej paczki (domyslnie dist/SigelithDesktop)')
     args = parser.parse_args(argv)
 
     package = args.package
@@ -286,7 +292,7 @@ def main(argv: list[str] | None = None) -> int:
             return 2
         package = available[0]
     if not licenses.is_package(package):
-        print(f'To nie wyglada na paczke BeatStampa: {package}', file=sys.stderr)
+        print(f'To nie wyglada na paczke Sigelith Desktop: {package}', file=sys.stderr)
         return 2
 
     content = build(package)

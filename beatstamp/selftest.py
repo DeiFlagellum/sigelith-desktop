@@ -1,5 +1,5 @@
 """
-Samokontrola SPAKOWANEJ aplikacji — `BeatStamp.exe --selftest`.
+Samokontrola SPAKOWANEJ aplikacji — `SigelithDesktop.exe --selftest`.
 
 Po co to istnieje. Testy jednostkowe dzialaja na kodzie ZRODLOWYM, wiec cala
 klasa usterek pakowania jest dla nich niewidoczna z definicji: wykluczony
@@ -20,13 +20,13 @@ Tego nie da sie sprawdzic z zewnatrz — sprawdzenie musi biec WEWNATRZ
 zbudowanej aplikacji, bo pytanie brzmi „czy TA paczka ma wszystko". Dlatego
 jest to przelacznik samego programu, a nie osobne narzedzie.
 
-Wyniki ida do dziennika (`beatstamp.log` w katalogu danych) i do kodu wyjscia:
+Wyniki ida do dziennika (`sigelith.log` w katalogu danych) i do kodu wyjscia:
 0 — komplet, 1 — cokolwiek nie przeszlo. Wersja skompilowana jest programem
 okienkowym i nie ma dokad pisac na konsoli, wiec dziennik jest jedynym
 kanalem, ktory dziala tak samo ze zrodel i z paczki.
 
-    BeatStamp.exe --selftest             # pelna, z siecia
-    BeatStamp.exe --selftest --offline   # tylko to, co lokalne
+    SigelithDesktop.exe --selftest             # pelna, z siecia
+    SigelithDesktop.exe --selftest --offline   # tylko to, co lokalne
 
 NAZWY FLAG
 
@@ -52,6 +52,8 @@ OFFLINE_FLAG = '--offline'
 FLAGS = (FLAG, '--samokontrola')
 OFFLINE_FLAGS = (OFFLINE_FLAG, '--bez-sieci')
 
+# Nazwa loggera idzie za nazwa pakietu (`beatstamp`) i jest czytana przez
+# `tools/verify_exe.py` — zmienia sie razem z pakietem, nie z marka.
 log = logging.getLogger('beatstamp.samokontrola')
 
 #: Napis uzywany jako probka tlumaczenia. Musi istniec w KAZDYM katalogu —
@@ -78,15 +80,31 @@ def _check_resources() -> str:
     icon = resource_path('beatstamp.ico')
     if not icon.is_file():
         raise Failure(f'brak ikony aplikacji: {icon}')
+    # Czcionki: bez nich certyfikat PDF wraca do czcionek bazowych i gubi
+    # polskie litery — dokladnie ta usterka, ktora 2.2 naprawia.
+    from . import fonts
+    missing = [name for name in fonts.UI_FILES + fonts.MONO_FILES
+               if not fonts.font_path(name).is_file()]
+    if missing:
+        raise Failure(f'brak czcionek w paczce: {missing}')
+    # Ikony: plik jest, ALE musi sie tez dac narysowac — bez wtyczki SVG Qt
+    # (`imageformats/qsvg.dll`) interfejs zostalby bez ikon, bez bledu.
+    from PySide6.QtWidgets import QApplication
+    from .ui import icons
+    app = QApplication.instance() or QApplication([])
+    _unused = app
+    if icons.pixmap('fingerprint', '#ff5c39', 24).isNull():
+        raise Failure('ikony SVG nie daja sie narysowac (brak wtyczki qsvg?)')
     return f'magazyn CA {os.path.getsize(bundle) // 1024} kB, ikona na miejscu'
 
 
 def _check_languages() -> str:
-    """Wszystkie trzy jezyki paczki — nie tylko ten, z ktorym akurat wystartowano.
+    """Wszystkie jezyki paczki (`i18n.SUPPORTED`) — nie tylko ten, z ktorym
+    akurat wystartowano.
 
     Angielski jest jezykiem ZRODLOWYM: `msgid` sa po angielsku, wiec nie ma
-    wlasnego katalogu i poprawnym wynikiem jest napis NIEZMIENIONY. Polski
-    i niemiecki musza dac cos innego — katalog, ktory nie trafil do paczki,
+    wlasnego katalogu i poprawnym wynikiem jest napis NIEZMIENIONY. Kazdy
+    inny jezyk musi dac cos innego — katalog, ktory nie trafil do paczki,
     degraduje sie po cichu do angielskiego i to jest dokladnie ta awaria,
     ktorej szukamy.
     """
@@ -95,7 +113,7 @@ def _check_languages() -> str:
     results = []
     previous = i18n.current_language()
     try:
-        for code in ('en', 'pl', 'de'):
+        for code in i18n.SUPPORTED:
             active = i18n.set_language(code)
             if active != code:
                 raise Failure(f'jezyk {code}: katalogu nie da sie wczytac '
@@ -183,6 +201,110 @@ def _check_certificate() -> str:
     return f'{len(data) // 1024} kB'
 
 
+def _check_handover() -> str:
+    """Sigelith Handover: pelny obieg protokolu w pamieci, DPAPI i Windows Hello.
+
+    Obieg (podpis P-256, koperta HPKE ML-KEM-768 + X25519, szyfrowanie
+    AES-GCM-STREAM, kontener ZIP, odpowiedz) idzie przez `cryptography`
+    z rozszerzeniem w Rust, a DPAPI i Windows Hello — przez ctypes do bibliotek
+    systemu. Brak ktoregokolwiek wychodzi dopiero w zbudowanej paczce, przy
+    pierwszej przesylce. Klucze sa jednorazowe i programowe: kontrola nie
+    otwiera okna PIN-u, nie laczy sie z siecia i niczego nie zapisuje.
+    """
+    import hashlib
+    import io
+    import os
+    from datetime import datetime, timezone
+
+    from .handover import answer as A, identity as I, package as P, primitives as X
+    from .handover import tpm_roots, transport as T
+
+    now = datetime.now(timezone.utc).replace(microsecond=0)
+    sides = []
+    for _side in ('nadawca', 'odbiorca'):
+        signer = I.SoftwareSigner(storage='software')
+        enc = X.EncKey.generate()
+        card = I.make_card(signer, enc.public_bytes, now)
+        sides.append((signer, enc, card, I.read_card(card)))
+    (s_sig, _s_enc, s_card, _s_info), (r_sig, r_enc, r_card, r_info) = sides
+    content = b'Sigelith Handover selftest'
+    ct = io.BytesIO()
+    out = P.create_offer(signer=s_sig, sender_card=s_card, recipient_card=r_card,
+                         files=[P.InputFile('selftest.txt', content, 'text/plain')],
+                         ciphertext_out=ct, created=now)
+    ciphertext = ct.getvalue()
+    package = io.BytesIO()
+    T.write_package_file(package, r_info.enc_key, out.offer, io.BytesIO(ciphertext),
+                         out.info.ciphertext_size)
+    package.seek(0)
+    offer_raw, _size = T.read_package_file(package, [r_enc])
+    offer = P.read_offer(offer_raw)
+    a, _preview = P.open_offer(offer, r_enc, r_info)
+    answer = A.make_answer(r_sig, offer, 'accept', log_now=now,
+                           ciphertext_sha256=hashlib.sha256(ciphertext).digest())
+    if not A.read_answer(answer, offer).accepted:
+        raise Failure('obieg Handover: podpisana akceptacja nie przechodzi weryfikacji')
+    container = io.BytesIO()
+    P.decrypt_package(offer, a, out.parts.b, io.BytesIO(ciphertext), container)
+    _manifest, files = P.container_files(container.getvalue())
+    if files != [content]:
+        raise Failure('obieg Handover: po odszyfrowaniu inna tresc niz wyslana')
+    # Plik dowodu wady (§11.3): zapis strumieniowy i odczyt z powrotem.
+    from .handover import evidence as E
+    defect = io.BytesIO()
+    E.write_defect(defect, offer=out.offer, part_a=a, part_b=out.parts.b,
+                   ciphertext=io.BytesIO(ciphertext), size=len(ciphertext))
+    if E.Defect(defect.getvalue()).verify().verdict != 'not-defective':
+        raise Failure('dowod wady: dobra paczka nie przechodzi jako bez wady')
+    detail = (f'obieg protokolu OK, dowod wady OK, korzen TPM '
+              f'{tpm_roots.MICROSOFT_TPM_ROOT_2014_SHA256[:12]}…')
+    if sys.platform != 'win32':
+        return detail + ' (DPAPI i Windows Hello sa tylko w Windows)'
+
+    from .handover_app import dpapi, winhello
+    secret = os.urandom(32)
+    if dpapi.unprotect(dpapi.protect(secret, 'selftest'), 'selftest') != secret:
+        raise Failure('DPAPI: sekret po odszyfrowaniu inny niz zapisany')
+    try:
+        dpapi.unprotect(dpapi.protect(secret, 'selftest'), 'selftest-inny-cel')
+    except dpapi.DpapiError:
+        pass
+    else:
+        raise Failure('DPAPI: blob odszyfrowal sie z innym celem (entropia nie dziala)')
+    # Sama biblioteka, bez pytania o PIN: wersja API i obecnosc Windows Hello.
+    return (f'{detail}, DPAPI OK, webauthn.dll API {winhello.api_version()}, '
+            f'Windows Hello {"jest" if winhello.available() else "nieskonfigurowane"}')
+
+
+def _check_handover_report() -> str:
+    """Raport PDF dla bieglego (ui/handover_report.py): QTextDocument -> QPdfWriter.
+
+    Modul raportu jest importowany dopiero po kliknieciu „Zapisz raport PDF",
+    a PDF/A wymaga osadzenia czcionek — obie rzeczy wychodza dopiero
+    w zbudowanej paczce. Tekst w trzech pismach: lacinka, CJK, arabski.
+    """
+    import tempfile
+    from pathlib import Path
+
+    from PySide6.QtGui import QGuiApplication
+
+    from . import fonts
+    from .ui import handover_report as R
+
+    _app = QGuiApplication.instance() or QGuiApplication(sys.argv[:1])
+    fonts.register_qt_fonts()
+    with tempfile.TemporaryDirectory() as tmp:
+        target = Path(tmp) / 'raport.pdf'
+        R.write_pdf(R._page('Sigelith', '<h1>Sigelith Handover</h1>'
+                            '<p>Übergabe — 受諾 — القبول</p>'), target, title='selftest')
+        data = target.read_bytes()
+    if not data.startswith(b'%PDF') or b'pdfaid:part' not in data:
+        raise Failure('raport PDF: brak naglowka %PDF albo znacznika PDF/A')
+    if b'/FontFile2' not in data:
+        raise Failure('raport PDF: czcionki nie zostaly osadzone')
+    return f'{len(data) // 1024} kB, PDF/A, czcionki osadzone'
+
+
 def _check_thanks() -> str:
     """Okno podziekowan: pobranie listy z produkcji i jej kontrola."""
     from . import supporters
@@ -202,6 +324,8 @@ LOCAL_CHECKS = (
     ('katalogi tlumaczen', _check_languages),
     ('katalog danych', _check_data_dir),
     ('certyfikat PDF', _check_certificate),
+    ('Sigelith Handover', _check_handover),
+    ('raport PDF dla bieglego', _check_handover_report),
 )
 NETWORK_CHECKS = (
     ('lista podziekowan', _check_thanks),

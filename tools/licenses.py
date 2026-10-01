@@ -1,5 +1,5 @@
 """
-Spis tego, co naprawde lezy w paczce BeatStampa — i na jakiej licencji.
+Spis tego, co naprawde lezy w paczce Sigelith Desktop — i na jakiej licencji.
 
 JEDNO ZRODLO PRAWDY
 
@@ -29,13 +29,13 @@ najostrzejsze wymagania (LGPL Qt, GPL programu rozruchowego).
 PLIK TO NIE ZAWSZE SKLADNIK
 
 Przez dlugi czas ten modul patrzyl WYLACZNIE na nazwy plikow na dysku —
-i dlatego oglaszal caly `BeatStamp.exe` jako „nasz kod plus program
+i dlatego oglaszal caly `SigelithDesktop.exe` jako „nasz kod plus program
 rozruchowy". To bylo nieprawda: w `.exe` siedzi archiwum PYZ, a w nim
 kilkaset modulow cudzego kodu (reportlab, requests, urllib3, idna,
 PySocks, PIL, cryptography, certifi...). Kazdy z nich ma wlasny wymog noty
 w redystrybucji BINARNEJ, a redystrybucja binarna to wlasnie ten plik.
 Dlatego `audit()` czyta takze zawartosc PYZ (`pyz_packages`) i przypisuje
-`BeatStamp.exe` do skladnikow, ktorych kod naprawde w nim lezy. Pakiet
+`SigelithDesktop.exe` do skladnikow, ktorych kod naprawde w nim lezy. Pakiet
 najwyzszego poziomu, ktorego nie zna `PYZ_COMPONENTS`, przerywa generowanie
 not tak samo jak nieprzypisany plik.
 
@@ -72,7 +72,9 @@ ROOT = Path(__file__).resolve().parent.parent
 #: Katalogi z gotowymi paczkami. Pierwszy to wynik `build.ps1`, drugi to
 #: kopia robocza dla MSIX (`packaging/build_msix.ps1`) — ta druga trafia do
 #: Sklepu, wiec musi przechodzic dokladnie te same kontrole.
-PACKAGE_DIRS = (ROOT / 'dist' / 'BeatStamp', ROOT / 'dist' / 'msix')
+#: Od 3.0.0 `dist/SigelithDesktop` — paczka `dist/BeatStamp` z 2.x to inny
+#: program (inna nazwa pliku `.exe`) i nie jest tu brana pod uwage.
+PACKAGE_DIRS = (ROOT / 'dist' / 'SigelithDesktop', ROOT / 'dist' / 'msix')
 
 #: Nazwa wstecznie zgodna — `beatstamp.spec` i starsze skrypty czytaja
 #: `PACKAGES` jako katalogi.
@@ -83,7 +85,7 @@ PACKAGES = PACKAGE_DIRS
 #: `MakeAppx` (albo odwrotnie) rozjezdza jedno z drugim i zaden test
 #: patrzacy tylko na katalog tego nie zobaczy.
 MSIX_DIR = ROOT / 'dist'
-MSIX_PATTERN = 'BeatStamp-*.msix'
+MSIX_PATTERN = 'SigelithDesktop-*.msix'
 
 #: Katalog z pelnymi tekstami licencji w repozytorium.
 LICENSES_DIR = ROOT / 'licenses'
@@ -99,21 +101,26 @@ LEGAL_DIR_IN_PACKAGE = '_internal/licenses'
 #: dolaczyc zrodla, albo wskazac miejsce, z ktorego kazdy moze je pobrac,
 #: albo zlozyc TRWALA PISEMNA OFERTE ich wydania. Robimy jedno i drugie —
 #: adres moze kiedys zniknac, oferta nie.
-QT_SOURCE_URL = ('https://download.qt.io/archive/qt/6.9/6.9.1/single/'
-                 'qt-everywhere-src-6.9.1.tar.xz')
+QT_SOURCE_URL = ('https://download.qt.io/archive/qt/6.11/6.11.2/single/'
+                 'qt-everywhere-src-6.11.2.tar.xz')
 PYSIDE_SOURCE_URL = ('https://download.qt.io/official_releases/QtForPython/'
-                     'pyside6/PySide6-6.9.1-src/'
-                     'pyside-setup-everywhere-src-6.9.1.tar.xz')
+                     'pyside6/PySide6-6.11.2-src/'
+                     'pyside-setup-everywhere-src-6.11.2.tar.xz')
 WRITTEN_OFFER_CONTACT = 'kontakt@advena-partners.com'
 
-#: Adres publicznego repozytorium BeatStampa. PUSTY, dopoki repozytorium nie
+#: Adres publicznego repozytorium programu. PUSTY, dopoki repozytorium nie
 #: istnieje — i to jest swiadome. Zmyslony albo „tymczasowy" adres w pliku
 #: not jest gorszy niz jego brak: czytelnik, ktory go nie znajdzie, traci
 #: jedyna sciezke do zrodel, a LGPLv3 par. 4(d)(0) opiera sie wlasnie na
 #: dostepnosci kodu aplikacji. Dopoki jest pusty, te sciezke niesie TRWALA
 #: PISEMNA OFERTA — dlatego oferta w `NOTICE` obejmuje takze kod aplikacji,
 #: a nie tylko zrodla Qt i PySide6.
-BEATSTAMP_SOURCE_URL = 'https://github.com/DeiFlagellum/beatstamp'
+APP_SOURCE_URL = 'https://github.com/DeiFlagellum/sigelith-desktop'
+# 2026-09-27 (Sigelith Desktop): docelowa nazwa repozytorium. Do dzis
+# repozytorium nazywa sie DeiFlagellum/beatstamp — TODO: przemianowac je na
+# GitHubie PRZED wydaniem 3.0.0 (GitHub przekierowuje potem stara nazwe na
+# nowa, odwrotnie nie). Do tego czasu ten adres nie istnieje, a NOTICE
+# wydany z nim prowadzilby donikad — patrz uwaga wyzej o zmyslonym adresie.
 # Publiczne repozytorium zalozone 2026-09-24 (migawka wydania, jeden commit
 # na wersje). Do tego dnia pole bylo puste SWIADOMIE: zmyslony adres w
 # pliku not jest gorszy niz jego brak, bo obietnica dostepu do zrodel
@@ -145,22 +152,22 @@ class Component:
 
 COMPONENTS: dict[str, Component] = {
     'beatstamp': Component(
-        name='BeatStamp',
+        name='Sigelith Desktop',
         version='',                       # uzupelniane z `beatstamp.__version__`
         spdx='Apache-2.0',
         copyright='Copyright 2026 Adam Koch',
-        homepage='https://beattime.live',
+        homepage='https://sigelith.org',
         texts=('Apache-2.0.txt',),
-        source=(f'{BEATSTAMP_SOURCE_URL}'
-                if BEATSTAMP_SOURCE_URL else
+        source=(f'{APP_SOURCE_URL}'
+                if APP_SOURCE_URL else
                 'The source code of this program is in the desktop/ directory '
-                'of the BeatTime source tree. Until the public address of '
+                'of the Sigelith source tree. Until the public address of '
                 'that repository is published, the written offer in the '
                 '"Sources of the LGPL libraries" section covers it: on '
                 'request, Adam Koch will supply the complete source of this '
                 'version of the program, in the form needed to relink it '
                 'against your own build of Qt and PySide6.'),
-        note='When BeatStamp is installed from the Microsoft Store, the '
+        note='When Sigelith Desktop is installed from the Microsoft Store, the '
              'package additionally contains its MSIX manifest, the '
              'application logos generated from the program icon and the '
              'compiled .pri resources. Those files are part of this program '
@@ -168,25 +175,37 @@ COMPONENTS: dict[str, Component] = {
     ),
     'pyinstaller': Component(
         name='PyInstaller bootloader and runtime modules',
-        version='6.14.2',
-        spdx='GPL-2.0-or-later WITH Bootloader-exception',
+        version='6.22.3',
+        # COPYING.txt 6.22.3 mowi wprost, ze haki uruchomieniowe i moduly
+        # `_pyi_rth_utils`/`pyi_splash` sa na Apache-2.0. Haki (`pyi_rth_*`,
+        # w CArchive) i `_pyi_rth_utils` (w PYZ) leza w archiwum wewnatrz
+        # `SigelithDesktop.exe`; `pyi_splash` nie. Sam GPL z wyjatkiem opisywal
+        # tylko program rozruchowy i `PyInstaller/loader`.
+        spdx='GPL-2.0-or-later WITH Bootloader-exception AND Apache-2.0',
         copyright='Copyright (c) 2010-2023, PyInstaller Development Team; '
                   'Copyright (c) 2005-2009, Giovanni Bajo; '
                   'based on previous work copyright (c) 2002 '
                   'McMillan Enterprises, Inc.',
         homepage='https://pyinstaller.org/',
-        texts=('PyInstaller-bootloader.txt', 'GPL-2.0.txt'),
+        texts=('PyInstaller-bootloader.txt', 'GPL-2.0.txt', 'Apache-2.0.txt'),
         source='https://github.com/pyinstaller/pyinstaller',
-        note='BeatStamp.exe is the PyInstaller bootloader with an archive '
+        note='SigelithDesktop.exe is the PyInstaller bootloader with an archive '
              'appended to it. The archive holds this program, its Python '
              'dependencies and a few PyInstaller runtime modules; everything '
              'that is inside it is listed under its own component in this '
-             'file, with BeatStamp.exe named among that component\'s files. '
-             'The bootloader is licensed under the GNU GPL v2 or later WITH '
-             'the bootloader exception, which expressly permits linking or '
-             'embedding the compiled bootloader into programs under other '
-             'licenses, including proprietary ones. The exception does not '
-             'extend the GPL to the rest of BeatStamp.exe.',
+             'file, with SigelithDesktop.exe named among that component\'s files. '
+             'The bootloader and its loader modules are licensed under the '
+             'GNU GPL v2 or later WITH the bootloader exception, which '
+             'expressly permits linking or embedding the compiled bootloader '
+             'into programs under other licenses, including proprietary ones. '
+             'The exception does not extend the GPL to the rest of '
+             'SigelithDesktop.exe. The run-time hooks in the archive '
+             '(pyi_rth_inspect, pyi_rth_pkgutil, pyi_rth_multiprocessing and '
+             'pyi_rth_pyside6, '
+             'and pyi_rth_cryptography_openssl from pyinstaller-hooks-contrib '
+             '2026.7) and the run-time module _pyi_rth_utils are licensed '
+             'under the Apache License 2.0, as PyInstaller-bootloader.txt '
+             'and the license of pyinstaller-hooks-contrib say.',
     ),
     'qt': Component(
         name='Qt',
@@ -194,33 +213,53 @@ COMPONENTS: dict[str, Component] = {
         # `LegalCopyright`). LGPLv3 par. 4(c) mowi o dolaczeniu noty
         # copyright BIBLIOTEKI, a nie noty przez nas zredagowanej — rok,
         # ktorego w zasobie nie ma, byl dopisany, nie przepisany.
-        version='6.9.1',
+        version='6.11.2',
         spdx='LGPL-3.0-only',
         copyright='Copyright (C) The Qt Company Ltd. and other contributors.',
         homepage='https://www.qt.io/',
-        texts=('LGPL-3.0.txt', 'GPL-3.0.txt', 'Qt-third-party.txt'),
+        # Apache-2.0 (definicje typow MIME z Apache Tika, Emoji Segmenter)
+        # i MPL-2.0 (Public Suffix List) — kod wkompilowany w Qt6Core,
+        # Qt6Gui i Qt6Network 6.11.2; szczegoly w Qt-third-party.txt.
+        texts=('LGPL-3.0.txt', 'GPL-3.0.txt', 'Qt-third-party.txt',
+               'Apache-2.0.txt', 'MPL-2.0.txt'),
         source=f'{QT_SOURCE_URL} (the complete source of the exact version '
                f'used here). A written offer to supply that source is in the '
                f'"Sources of the LGPL libraries" section of this file.',
+        # Lista z binarek 6.11.2 (napisy, stale, uruchomione funkcje Qt),
+        # wersje i noty z qt_attribution.json tego wydania. Rok FreeType
+        # z wydania, ktore Qt naprawde zawiera: 2.14.3, noty do 2026.
         note='Qt is used as a shared library and is not modified. How to '
              'relink the program against your own build of Qt depends on how '
              'this copy was installed; see the "Relinking against your own '
              'build of Qt" section above. Qt vendors and compiles in '
-             'third-party code of its own -- PCRE2, FreeType, HarfBuzz, '
-             'libpng, zlib, libjpeg-turbo, libtiff, libwebp, OpenJPEG and ICU '
-             'were found in the binaries of this package. Complying with the '
-             'LGPL does not discharge their own notice requirements, so their '
-             'copyright notices and license texts are in '
-             'Qt-third-party.txt next to this file. The FreeType License asks '
-             'for this sentence: "Portions of this software are copyright (c) '
-             '2025 The FreeType Project (https://freetype.org). All rights '
-             'reserved."',
+             'third-party code of its own. Found in the Qt 6.11.2 binaries of '
+             'this package were, among others, PCRE2, zlib, '
+             'double-conversion, TinyCBOR, Unicode data (UCD and CLDR) and '
+             'the Apache Tika MIME '
+             'type definitions in Qt6Core.dll; FreeType, HarfBuzz, libpng, '
+             'MD4C and the Emoji Segmenter in Qt6Gui.dll; the Public Suffix '
+             'List in Qt6Network.dll; libjpeg-turbo, libtiff and libwebp in '
+             'the image format plugins. Complying with the LGPL does not '
+             'discharge their own notice requirements, so the complete list, '
+             'with the file each one was found in, their copyright notices '
+             'and their license texts, is in Qt-third-party.txt next to this '
+             'file. The FreeType License asks for this sentence: "Portions of '
+             'this software are copyright (c) 2026 The FreeType Project '
+             '(https://freetype.org). All rights reserved." The IJG License '
+             'of libjpeg-turbo asks for this one: "This software is based in '
+             'part on the work of the Independent JPEG Group."',
     ),
+    # PySide6 i Shiboken6: DLL-e i .pyd NIE maja zasobu wersji (brak
+    # `LegalCopyright`, sprawdzone w 6.11.2). Jedyna nota w paczce to
+    # naglowek `# Copyright (C) 2022 The Qt Company Ltd.` — w modulach
+    # PySide6.support z archiwum PYZ i w kodzie Pythona wkompilowanym
+    # w shiboken6.abi3.dll. Rok 2025 pochodzil z plikow, ktorych w paczce
+    # nie ma.
     'pyside6': Component(
         name='PySide6 (Qt for Python)',
-        version='6.9.1',
+        version='6.11.2',
         spdx='LGPL-3.0-only',
-        copyright='Copyright (C) 2025 The Qt Company Ltd.',
+        copyright='Copyright (C) 2022 The Qt Company Ltd.',
         homepage='https://doc.qt.io/qtforpython/',
         texts=('LGPL-3.0.txt', 'GPL-3.0.txt'),
         source=f'{PYSIDE_SOURCE_URL} (the complete source of the exact version '
@@ -229,9 +268,9 @@ COMPONENTS: dict[str, Component] = {
     ),
     'shiboken6': Component(
         name='Shiboken6',
-        version='6.9.1',
+        version='6.11.2',
         spdx='LGPL-3.0-only',
-        copyright='Copyright (C) 2025 The Qt Company Ltd.',
+        copyright='Copyright (C) 2022 The Qt Company Ltd.',
         homepage='https://doc.qt.io/qtforpython/shiboken6/',
         texts=('LGPL-3.0.txt', 'GPL-3.0.txt'),
         source=f'{PYSIDE_SOURCE_URL} (Shiboken6 is part of the PySide6 source '
@@ -239,16 +278,19 @@ COMPONENTS: dict[str, Component] = {
     ),
     'pdfium': Component(
         name='PDFium',
-        version='as shipped inside Qt 6.9.1 (Qt6Pdf)',
+        version='as shipped inside Qt 6.11.2 (Qt6Pdf)',
         spdx='BSD-3-Clause AND Apache-2.0',
         copyright='Copyright 2014 The PDFium Authors. All rights reserved.',
         homepage='https://pdfium.googlesource.com/pdfium/',
         texts=('PDFium.txt',),
         source=f'{QT_SOURCE_URL} (PDFium is vendored in the Qt source tree, '
                f'under qtwebengine/src/3rdparty).',
+        # Od 2026-09-27 Qt6Pdf.dll i qpdf.dll sa wykluczone (UNUSED); skladnik
+        # zostaje, zeby regula dla Qt6Pdf.dll i PDFium.txt mialy wlasciciela.
         note='Qt6Pdf.dll is built from PDFium and carries its third-party '
-             'notices. It is in the package because the Qt image plugin '
-             'qpdf.dll depends on it.',
+             'notices. The Qt image plugin qpdf.dll depends on it; both are '
+             'removed from the package (see "Deliberately not in this '
+             'package").',
     ),
     'mesa': Component(
         name='Mesa 3D (llvmpipe software OpenGL) with LLVM',
@@ -269,18 +311,39 @@ COMPONENTS: dict[str, Component] = {
     ),
     'cpython': Component(
         name='Python (CPython)',
-        version='3.12.10',
+        version='3.14.7',
         spdx='PSF-2.0',
-        copyright='Copyright (c) 2001-2025 Python Software Foundation. '
-                  'All Rights Reserved.',
+        # Doslownie `sys.copyright` z python314.dll (ci sami wlasciciele
+        # i lata co zasob `LegalCopyright`). Od 3.13/3.14 PSF podaje tylko
+        # rok poczatkowy: LICENSE.txt tego wydania wymaga zachowania noty
+        # „Copyright (c) 2001 Python Software Foundation; All Rights Reserved".
+        copyright='Copyright (c) 2001 Python Software Foundation. All Rights '
+                  'Reserved. Copyright (c) 2000 BeOpen.com. All Rights '
+                  'Reserved. Copyright (c) 1995-2001 Corporation for National '
+                  'Research Initiatives. All Rights Reserved. Copyright (c) '
+                  '1991-1995 Stichting Mathematisch Centrum, Amsterdam. All '
+                  'Rights Reserved.',
         homepage='https://www.python.org/',
-        texts=('Python-PSF.txt',),
-        source='https://www.python.org/downloads/release/python-31210/',
-        note='The CPython distribution incorporates third-party code (among '
-             'others Expat, libffi, bzip2, XZ Utils/liblzma and libmpdec). '
-             'Their notices are in the Python license text shipped next to '
-             'this file; the extension modules built from them are listed '
-             'above under this component.',
+        # Python-PSF.txt to LICENSE.txt wydania dla Windows (doslownie);
+        # Python-third-party.txt — noty kodu wkompilowanego w pliki z tej
+        # paczki, ktorych LICENSE.txt nie niesie (Expat, libmpdec, mimalloc,
+        # HACL*...), z dokumentacji tego samego wydania.
+        texts=('Python-PSF.txt', 'Python-third-party.txt'),
+        source='https://www.python.org/downloads/release/python-3147/',
+        note='Python-PSF.txt is the license file of the Windows build of '
+             'CPython 3.14.7. Besides the Python license it carries the '
+             'notices of bzip2 (_bz2.pyd) and libffi (libffi-8.dll), the '
+             'license of OpenSSL and the terms for the Microsoft '
+             'Distributable Code. The release compiles in more third-party '
+             'code than that file names -- Expat (pyexpat.pyd), libmpdec '
+             '(_decimal.pyd), mimalloc, HACL*, zlib-ng, the Mersenne Twister '
+             'and the Unicode Character Database (python314.dll), among '
+             'others -- and the standard library in SigelithDesktop.exe includes '
+             'modules with notices of their own (http.cookies, xmlrpc.client, '
+             'asyncio). Those notices, taken from the documentation of the '
+             'same release, are in Python-third-party.txt. _lzma.pyd '
+             'contains liblzma from XZ Utils 5.2.5, which is in the public '
+             'domain.',
     ),
     # OpenSSL jest w tej paczce DWA RAZY, w dwoch roznych wersjach: jeden
     # przychodzi z wydania CPythona jako osobne biblioteki, drugi jest
@@ -288,11 +351,18 @@ COMPONENTS: dict[str, Component] = {
     # opisujacy „OpenSSL 3.0.16" byl wiec zdaniem nieprawdziwym o polowie
     # paczki — a Apache-2.0 par. 4 wymaga atrybucji dla KAZDEJ
     # rozpowszechnianej kopii.
+    #
+    # Lata z zasobu `LegalCopyright` libcrypto-3.dll/libssl-3.dll 3.5.7
+    # („Copyright 1998-2026 The OpenSSL Authors") i z README.md wydan
+    # openssl-3.5.7 oraz openssl-4.0.2 (obie: „Copyright (c) 1998-2026 The
+    # OpenSSL Project Authors", „Copyright (c) 1995-1998 Eric A. Young, Tim
+    # J. Hudson"). `_rust.pyd` nie niesie zadnej noty copyright, tylko baner
+    # wersji — stad README jako zrodlo dla drugiej kopii.
     'openssl': Component(
         name='OpenSSL',
-        version='3.0.16 (the build shipped with CPython 3.12.10)',
+        version='3.5.7 (the build shipped with CPython 3.14.7)',
         spdx='Apache-2.0',
-        copyright='Copyright 1998-2025 The OpenSSL Project Authors. '
+        copyright='Copyright 1998-2026 The OpenSSL Project Authors. '
                   'Copyright (c) 1995-1998 Eric A. Young, Tim J. Hudson. '
                   'All rights reserved.',
         homepage='https://www.openssl.org/',
@@ -305,9 +375,9 @@ COMPONENTS: dict[str, Component] = {
     ),
     'openssl-cryptography': Component(
         name='OpenSSL',
-        version='3.5.1 (statically linked into the cryptography wheel)',
+        version='4.0.2 (statically linked into the cryptography wheel)',
         spdx='Apache-2.0',
-        copyright='Copyright 1998-2025 The OpenSSL Project Authors. '
+        copyright='Copyright 1998-2026 The OpenSSL Project Authors. '
                   'Copyright (c) 1995-1998 Eric A. Young, Tim J. Hudson. '
                   'All rights reserved.',
         homepage='https://www.openssl.org/',
@@ -315,7 +385,7 @@ COMPONENTS: dict[str, Component] = {
         source='https://github.com/openssl/openssl',
         note='A second, different build of OpenSSL. It is not a file of its '
              'own: it is compiled into _rust.pyd, which carries the version '
-             'string "OpenSSL 3.5.1 1 Jul 2025" and the OpenSSL assembler '
+             'string "OpenSSL 4.0.2 25 Aug 2026" and the OpenSSL assembler '
              'routines, and which imports neither libcrypto-3.dll nor '
              'libssl-3.dll. Attribution required by section 4 of the Apache '
              'License 2.0: this product includes software developed by the '
@@ -325,7 +395,7 @@ COMPONENTS: dict[str, Component] = {
     ),
     'libffi': Component(
         name='libffi',
-        version='as shipped with CPython 3.12.10 (libffi-8.dll)',
+        version='as shipped with CPython 3.14.7 (libffi-8.dll)',
         spdx='MIT',
         copyright='Copyright (c) 1996-2022 Anthony Green, Red Hat, Inc and '
                   'others.',
@@ -340,15 +410,21 @@ COMPONENTS: dict[str, Component] = {
         spdx='MIT-CMU',
         copyright='Copyright (c) 1997-2011 by Secret Labs AB; '
                   'Copyright (c) 1995-2011 by Fredrik Lundh and contributors; '
-                  'Copyright (c) 2010-2025 by Jeffrey A. Clark and '
+                  # Tak jak w LICENSE kola 12.3.0 („© 2010 by Jeffrey 'Alex'
+                  # Clark") — nota przepisana, nie zredagowana.
+                  "Copyright (c) 2010 by Jeffrey 'Alex' Clark and "
                   'contributors.',
         homepage='https://python-pillow.github.io/',
         texts=('Pillow.txt',),
+        # FreeType siedzi w `_imagingft`, ktorego PyInstaller nie zbiera
+        # (reportlab nie importuje ImageFont) — nie ma go w paczce ani
+        # w buildzie 3.12, ani w 3.14; nota twierdzila inaczej.
         note='Pillow is in the package because reportlab.lib.utils imports it '
-             'unconditionally; BeatStamp itself draws the QR code as vectors. '
-             'The binary modules statically link libtiff, libjpeg-turbo, '
-             'zlib-ng, OpenJPEG, libwebp, Little CMS and FreeType; the '
-             'notices of all of them are in the license text named above, '
+             'unconditionally; Sigelith Desktop itself draws the QR code as vectors. '
+             'The binary modules in this package statically link libtiff, '
+             'libjpeg-turbo, zlib-ng, OpenJPEG, libwebp and Little CMS '
+             '(Pillow\'s FreeType module, _imagingft, is not in the package); '
+             'the notices of all of them are in the license text named above, '
              'which is the LICENSE file of the Pillow wheel verbatim. The '
              'AVIF module, which would have added the AOMedia AV1 encoder and '
              'dav1d on top of that, is removed from the package (see '
@@ -359,39 +435,41 @@ COMPONENTS: dict[str, Component] = {
     ),
     'reportlab': Component(
         name='ReportLab PDF Toolkit',
-        version='4.4.2',
+        version='4.4.10',
         spdx='BSD-3-Clause',
         copyright='Copyright (c) 2000-2024, ReportLab Inc. All rights '
                   'reserved.',
         homepage='https://www.reportlab.com/',
         texts=('reportlab.txt',),
-        source='https://pypi.org/project/reportlab/4.4.2/',
-        note='BeatStamp draws the PDF certificate with reportlab. The library '
+        source='https://pypi.org/project/reportlab/4.4.10/',
+        note='Sigelith Desktop draws the PDF certificate with reportlab. The library '
              'is not a file of its own in this package: its 159 modules are '
-             'compiled into the archive inside BeatStamp.exe.',
+             'compiled into the archive inside SigelithDesktop.exe.',
     ),
     'requests': Component(
         name='requests',
-        version='2.32.4',
+        version='2.34.2',
         spdx='Apache-2.0',
-        copyright='Copyright Kenneth Reitz and the requests contributors.',
+        # Doslownie z pliku NOTICE w dist-info kola 2.34.2 (Apache-2.0
+        # par. 4(d)); ten sam tekst jest w requests-NOTICE.txt.
+        copyright='Copyright 2019 Kenneth Reitz',
         homepage='https://requests.readthedocs.io/',
         texts=('Apache-2.0.txt', 'requests-NOTICE.txt'),
-        source='https://pypi.org/project/requests/2.32.4/',
+        source='https://pypi.org/project/requests/2.34.2/',
         note='Section 4 of the Apache License 2.0 requires this attribution '
              'notice to travel with every copy of the work, including the '
-             'copy compiled into BeatStamp.exe.',
+             'copy compiled into SigelithDesktop.exe.',
     ),
     'urllib3': Component(
         name='urllib3',
-        version='2.5.0',
+        version='2.8.0',
         spdx='MIT',
         copyright='Copyright (c) 2008-2020 Andrey Petrov and contributors.',
         homepage='https://urllib3.readthedocs.io/',
         texts=('urllib3.txt',),
-        source='https://pypi.org/project/urllib3/2.5.0/',
+        source='https://pypi.org/project/urllib3/2.8.0/',
         note='The HTTP transport under requests. Compiled into '
-             'BeatStamp.exe.',
+             'SigelithDesktop.exe.',
     ),
     'idna': Component(
         name='idna',
@@ -403,7 +481,7 @@ COMPONENTS: dict[str, Component] = {
         texts=('idna.txt',),
         source='https://pypi.org/project/idna/3.20/',
         note='Internationalised domain names for requests. Compiled into '
-             'BeatStamp.exe.',
+             'SigelithDesktop.exe.',
     ),
     'pysocks': Component(
         name='PySocks',
@@ -413,31 +491,42 @@ COMPONENTS: dict[str, Component] = {
         homepage='https://github.com/Anorov/PySocks',
         texts=('PySocks.txt',),
         source='https://pypi.org/project/PySocks/1.7.1/',
-        note='The SOCKS5 proxy support that requests uses when BeatStamp '
-             'talks to the register over Tor. Compiled into BeatStamp.exe.',
+        note='The SOCKS5 proxy support that requests uses when Sigelith Desktop '
+             'talks to the register over Tor. Compiled into SigelithDesktop.exe.',
     ),
     'cryptography': Component(
         name='cryptography',
-        version='45.0.5',
+        version='50.0.1',
         spdx='Apache-2.0 OR BSD-3-Clause',
         copyright='Copyright (c) Individual contributors.',
         homepage='https://cryptography.io/',
         texts=('Apache-2.0.txt', 'cryptography-rust-crates.txt'),
         note='The package also carries its own license files at '
-             '_internal/cryptography-45.0.5.dist-info/licenses/. Its binary '
-             'module _rust.pyd is a statically linked Rust binary: the crates '
-             'compiled into it, with their versions and licenses, are listed '
-             'in cryptography-rust-crates.txt next to this file, and the '
-             'OpenSSL build inside it is a separate component above.',
+             '_internal/cryptography-50.0.1.dist-info/licenses/, and the '
+             'software bills of materials of the wheel at sboms/ next to '
+             'them. Its binary module _rust.pyd is a statically linked Rust '
+             'binary: the crates compiled into it, with their versions and '
+             'licenses, are listed in cryptography-rust-crates.txt next to '
+             'this file, and the OpenSSL build inside it is a separate '
+             'component above.',
     ),
+    # Na Windows (MSVC, x64) setup.py cffi kompiluje do `_cffi_backend.pyd`
+    # WLASNA kopie libffi 2.00-beta z src/c/libffi_x86_x64 — modul nie
+    # importuje zadnego libffi, a kod z win64.obj z sdist 2.1.1 lezy w nim
+    # bajt w bajt. Noty tej kopii (MIT, Red Hat i inni) sa w cffi-libffi.txt.
     'cffi': Component(
         name='cffi',
         version='2.1.1',
-        spdx='MIT-0',
+        spdx='MIT-0 AND MIT',
         copyright='Copyright (c) 2012-2025 Armin Rigo, Maciej Fijalkowski and '
                   'contributors.',
         homepage='https://cffi.readthedocs.io/',
-        texts=('cffi.txt',),
+        texts=('cffi.txt', 'cffi-libffi.txt'),
+        note='cffi itself is under the MIT No Attribution license. Its binary '
+             'module _cffi_backend.pyd also contains the copy of libffi that '
+             'cffi carries for Windows builds; the copyright notices and the '
+             'MIT license of that code are in cffi-libffi.txt next to this '
+             'file.',
     ),
     'charset-normalizer': Component(
         name='charset-normalizer',
@@ -449,7 +538,7 @@ COMPONENTS: dict[str, Component] = {
     ),
     'certifi': Component(
         name='certifi (Mozilla CA bundle)',
-        version='2025.07.14',
+        version='2026.07.22',
         spdx='MPL-2.0',
         copyright='Copyright (c) 2013 Kenneth Reitz. The bundled list of root '
                   'certificates is maintained by the Mozilla Foundation.',
@@ -460,6 +549,51 @@ COMPONENTS: dict[str, Component] = {
         # w postaci wykonywalnej (MPL par. 3.2), bo jego kod lezy w PYZ.
         texts=('certifi.txt', 'MPL-2.0.txt'),
         source='https://github.com/certifi/python-certifi',
+    ),
+    # Czcionki (od 2.2). Interfejs i certyfikat PDF: bazowe czcionki PDF nie
+    # maja polskich liter, a certyfikat z kwadratami zamiast „ą" nie jest
+    # dokumentem, ktory ktos komus wreczy.
+    'inter': Component(
+        name='Inter (typeface)',
+        version='4.1',
+        spdx='OFL-1.1',
+        copyright='Copyright (c) 2016 The Inter Project Authors '
+                  '(https://github.com/rsms/inter)',
+        homepage='https://rsms.me/inter/',
+        texts=('OFL-1.1-Inter.txt',),
+        source='https://github.com/rsms/inter/releases/tag/v4.1',
+        note='Four static TrueType weights (Regular, Medium, SemiBold, Bold), '
+             'unmodified. They set the text of the interface, and subsets of '
+             'them are embedded in every PDF certificate the program issues. '
+             'The SIL Open Font License 1.1 permits bundling the fonts with '
+             'software and embedding them in documents; they are not sold on '
+             'their own.',
+    ),
+    'jetbrains-mono': Component(
+        name='JetBrains Mono (typeface)',
+        version='2.304',
+        spdx='OFL-1.1',
+        copyright='Copyright 2020 The JetBrains Mono Project Authors '
+                  '(https://github.com/JetBrains/JetBrainsMono)',
+        homepage='https://www.jetbrains.com/lp/mono/',
+        texts=('OFL-1.1-JetBrainsMono.txt',),
+        source='https://github.com/JetBrains/JetBrainsMono/releases/tag/v2.304',
+        note='Three static TrueType weights (Regular, Medium, Bold), unmodified. '
+             'They set the digests, the clock and the technical data, and subsets '
+             'of them are embedded in the PDF certificates. Licensed under the '
+             'SIL Open Font License 1.1.',
+    ),
+    'bootstrap-icons': Component(
+        name='Bootstrap Icons',
+        version='1.13.1',
+        spdx='MIT',
+        copyright='Copyright (c) 2019-2024 The Bootstrap Authors',
+        homepage='https://icons.getbootstrap.com/',
+        texts=('Bootstrap-Icons-MIT.txt',),
+        source='https://github.com/twbs/icons/releases/tag/v1.13.1',
+        note='A selection of the SVG icons, unmodified. Sigelith Desktop recolours them '
+             'at run time to the colours of the theme (the fill "currentColor" is '
+             'replaced before drawing); the files themselves stay as released.',
     ),
     'msvc': Component(
         name='Microsoft Visual C++ runtime',
@@ -502,6 +636,11 @@ class Excluded:
     #: budujacej, a nie w przypietej zaleznosci; 'unused' — dziala, wolno go
     #: wydac, ale nic go nie uzywa, a niesie wlasny lancuch not.
     kind: str = 'gpl'
+    #: Pliki, ktore WOLNO zostawic, choc wymieniaja te biblioteke z nazwy —
+    #: laduja ja tylko na wyrazne zadanie, ktorego program nie sklada.
+    #: Kazdy wpis ma uzasadnienie przy wykluczeniu; test
+    #: `NothingNeedsWhatWeRemovedTests` przepuszcza TYLKO te pary.
+    named_by: tuple = ()
 
 
 #: Moduly Qt dostepne WYLACZNIE na GPLv3 albo komercyjnie. Reszta Qt, ktorej
@@ -514,7 +653,7 @@ class Excluded:
 GPL_ONLY = (
     Excluded('Qt6VirtualKeyboard.dll', 'Qt Virtual Keyboard',
              'available only under GPLv3 or a commercial Qt license '
-             '(an on-screen keyboard; nothing in BeatStamp uses it)'),
+             '(an on-screen keyboard; nothing in Sigelith Desktop uses it)'),
     Excluded('qtvirtualkeyboardplugin.dll', 'Qt Virtual Keyboard',
              'the platform input context plugin of Qt Virtual Keyboard; '
              'same license as the module itself'),
@@ -579,7 +718,7 @@ ORPHANS = (
 #: ten modul w `try/except ImportError` i bez niego po prostu oglasza brak
 #: obslugi AVIF.
 UNUSED = (
-    # Wzorzec, a nie pelna nazwa: `_avif.cp312-win_amd64.pyd` przestaloby
+    # Wzorzec, a nie pelna nazwa: `_avif.cp314-win_amd64.pyd` przestaloby
     # pasowac przy pierwszej zmianie wersji Pythona, plik wrocilby do paczki
     # i zaden test by tego nie zauwazyl — bo regula `_internal/PIL/**`
     # przypisalaby go grzecznie do Pillow.
@@ -588,6 +727,49 @@ UNUSED = (
              'with their own BSD and patent-license notices, for a format '
              'this program never reads or writes',
              kind='unused'),
+    # 2026-09-27 (diagnostyka przed Sklepem): ~25 MB, ktorych program nigdy
+    # nie laduje — sprawdzone uruchomieniem kazdej funkcji na zywym procesie.
+    # Qt6Gui i wtyczki okien Windows maja NAZWE `opengl32sw` jako zapasowa
+    # implementacje OpenGL — siegaja po nia tylko przy tworzeniu kontekstu
+    # OpenGL, a program rysuje wylacznie rastrowo (Qt Widgets).
+    Excluded('opengl32sw.dll', 'Mesa llvmpipe (software OpenGL)',
+             'loaded only when a program creates an OpenGL context on a machine '
+             'without a GPU driver; Sigelith Desktop draws only with Qt Widgets '
+             '(raster) and never creates one',
+             kind='unused',
+             named_by=('Qt6Gui.dll', 'qwindows.dll', 'qdirect2d.dll', 'qoffscreen.dll',
+                       'qminimal.dll')),
+    Excluded('Qt6Pdf.dll', 'Qt PDF (PDFium)',
+             'only the qpdf image-format plugin links it; Sigelith Desktop never reads '
+             'PDF files — the certificate is written by reportlab',
+             kind='unused'),
+    # „qpdf" w Qt6Gui.dll to jego WLASNY zapis PDF (qpdf.cpp, QPdfEngine,
+    # QPdfWriter) — nie wtyczka do czytania PDF, ktora Qt znajduje po
+    # metadanych w katalogu imageformats tylko przy odczycie takiego obrazu.
+    Excluded('qpdf.dll', 'Qt PDF image-format plugin',
+             'lets Qt open PDF pages as images, which Sigelith Desktop never does',
+             kind='unused', named_by=('Qt6Gui.dll',)),
+    # Python 3.14: Zstandard z biblioteki standardowej (`compression.zstd`,
+    # w srodku statycznie zlinkowany libzstd). Wciagaja go `shutil`,
+    # `zipfile` i `tarfile` — kazdy w `try/except ImportError`, wiec bez
+    # pliku po prostu oglaszaja brak zstd. Program niczego w zstd nie
+    # pakuje ani nie rozpakowuje: kopie zstd z Internet Archive sa celowo
+    # „nieczytelne" (witness.py, `_compare_copy`).
+    #
+    # Nazwe `_zstd` nosza trzy pliki, zaden jej nie laduje (sprawdzone na
+    # paczce 3.14.7): `SigelithDesktop.exe` — spis archiwum PYZ wymienia modul
+    # `compression.zstd._zstdfile` (czysty Python; caly pakiet
+    # `compression.zstd` importuja shutil, zipfile i tarfile tylko w
+    # try/except ImportError); `python314.dll` — `_zstd` to pozycja
+    # `sys.stdlib_module_names`, obok `_tkinter` i `_zoneinfo`, ktorych
+    # w paczce tez nie ma; `libcrypto-3.dll` — eksporty OpenSSL-a `BIO_f_zstd`,
+    # `COMP_zstd` i `COMP_zstd_oneshot`, jego wlasne API, nie modul Pythona.
+    Excluded('_zstd.pyd', 'Zstandard (compression.zstd)',
+             'the standard library imports it only inside try/except '
+             'ImportError (shutil, zipfile, tarfile); Sigelith Desktop never '
+             'compresses or decompresses zstd data',
+             kind='unused',
+             named_by=('SigelithDesktop.exe', 'python314.dll', 'libcrypto-3.dll')),
 )
 
 #: OpenSSL, ktory PyInstaller znalazl w `C:\\Windows\\System32` maszyny
@@ -596,10 +778,10 @@ UNUSED = (
 #: ZAWARTOSC WYDANIA ZALEZY OD TEGO, CO KTOS MA ZAINSTALOWANE — na tej
 #: maszynie byl to OpenSSL 3.4.1, na innej nie bedzie go wcale.
 #:
-#: Do niczego nie sluzyly: zaden plik w paczce ich nie importuje (BeatStamp
+#: Do niczego nie sluzyly: zaden plik w paczce ich nie importuje (program
 #: nie uzywa `QtNetwork`, a HTTPS idzie przez `requests` i `_ssl`, czyli
-#: przez OpenSSL 3.0.16 z wydania CPythona, ktory zostaje). Na Windows Qt
-#: i tak uzywa Schannela.
+#: przez OpenSSL 3.5.7 z wydania CPythona 3.14.7, ktory zostaje). Na Windows
+#: Qt i tak uzywa Schannela.
 MACHINE_LOCAL = (
     Excluded('libcrypto-3-x64.dll', 'OpenSSL for QtNetwork',
              'picked up from the build machine system directory, not from a '
@@ -608,6 +790,21 @@ MACHINE_LOCAL = (
     Excluded('libssl-3-x64.dll', 'OpenSSL for QtNetwork',
              'picked up from the build machine system directory, not from a '
              'pinned dependency; nothing in the package links against it',
+             kind='machine'),
+    # Universal CRT z katalogu JDK na PATH maszyny budujacej (2026-09-27).
+    # Windows 10 i 11 maja UCRT jako czesc systemu (paczka wymaga 10.0.19045+),
+    # a kopia z paczki ladowala sie OBOK systemowej (ucrtbase 10.0.22621 z JDK
+    # i ta z System32 w jednym procesie).
+    # Program rozruchowy PyInstallera ma w sobie `%ls\ucrtbase.dll`: bierze
+    # UCRT z paczki TYLKO gdy tam jest, inaczej systemowy.
+    Excluded('ucrtbase.dll', 'Universal C Runtime',
+             'picked up from a JDK directory on the build machine PATH; Windows '
+             '10 and 11 ship the Universal CRT as part of the system',
+             kind='machine',
+             named_by=('SigelithDesktop.exe',)),
+    Excluded('api-ms-win-*.dll', 'Universal C Runtime API sets',
+             'picked up from a JDK directory on the build machine PATH; the '
+             'system resolves these API sets itself on Windows 10 and 11',
              kind='machine'),
 )
 
@@ -672,12 +869,15 @@ def _named(prefix: str, names: tuple[str, ...], keys: tuple[str, ...]
 #:
 #: Skladnikow moze byc kilka: `_ssl.pyd` to modul CPythona zlinkowany
 #: z OpenSSL-em, a `_rust.pyd` to cryptography ORAZ wkompilowany w nia
-#: OpenSSL 3.5.1. Nota, ktora wymienia tylko jedna z tych licencji, jest
+#: OpenSSL 4.0.2. Nota, ktora wymienia tylko jedna z tych licencji, jest
 #: niepelna dokladnie tam, gdzie to boli.
 RULES: tuple[tuple[str, tuple[str, ...]], ...] = (
-    ('BeatStamp.exe', ('beatstamp', 'pyinstaller')),
+    ('SigelithDesktop.exe', ('beatstamp', 'pyinstaller')),
     ('_internal/beatstamp.ico', ('beatstamp',)),
     ('_internal/locale/**', ('beatstamp',)),
+    ('_internal/fonts/Inter-*.ttf', ('inter',)),
+    ('_internal/fonts/JetBrainsMono-*.ttf', ('jetbrains-mono',)),
+    ('_internal/icons/*.svg', ('bootstrap-icons',)),
     (f'{LEGAL_DIR_IN_PACKAGE}/**', ('beatstamp',)),
 
     # Dodatki, ktore dokłada dopiero pakowanie MSIX (`dist/msix`): manifest,
@@ -717,7 +917,7 @@ RULES: tuple[tuple[str, tuple[str, ...]], ...] = (
     ('_internal/PIL/**', ('pillow',)),
     ('_internal/charset_normalizer/**', ('charset-normalizer',)),
     # PRZED ogolna regula cryptography: `_rust.pyd` niesie WKOMPILOWANY
-    # OpenSSL 3.5.1, inny niz ten z wydania CPythona.
+    # OpenSSL 4.0.2, inny niz ten z wydania CPythona.
     ('_internal/cryptography/hazmat/bindings/_rust.pyd',
      ('cryptography', 'openssl-cryptography')),
     ('_internal/cryptography/**', ('cryptography',)),
@@ -733,7 +933,7 @@ RULES: tuple[tuple[str, tuple[str, ...]], ...] = (
     ('_internal/_hashlib.pyd', ('cpython', 'openssl')),
     ('_internal/_ctypes.pyd', ('cpython', 'libffi')),
     ('_internal/python3.dll', ('cpython',)),
-    ('_internal/python312.dll', ('cpython',)),
+    ('_internal/python314.dll', ('cpython',)),
     ('_internal/base_library.zip', ('cpython',)),
     *_named('_internal/', CPYTHON_MODULES, ('cpython',)),
 
@@ -809,10 +1009,10 @@ def components_for(path: object) -> tuple[str, ...]:
     return ()
 
 
-# --- Co lezy WEWNATRZ `BeatStamp.exe` ---------------------------------------
+# --- Co lezy WEWNATRZ `SigelithDesktop.exe` ---------------------------------------
 
 #: Nazwa pliku wykonywalnego — i jednoczesnie archiwum z reszta programu.
-EXECUTABLE = 'BeatStamp.exe'
+EXECUTABLE = 'SigelithDesktop.exe'
 
 #: Pakiet najwyzszego poziomu z archiwum PYZ -> skladniki. Stdlib nie jest
 #: tu wymieniona z nazwy: rozpoznaje ja `sys.stdlib_module_names` i caly
@@ -838,7 +1038,7 @@ PYZ_COMPONENTS: dict[str, tuple[str, ...]] = {
 
 
 def pyz_packages(read_exe) -> list[str]:
-    """Pakiety najwyzszego poziomu z archiwum PYZ w `BeatStamp.exe`.
+    """Pakiety najwyzszego poziomu z archiwum PYZ w `SigelithDesktop.exe`.
 
     Czyta GOTOWY plik, nie `requirements.txt` i nie liste importow z kodu.
     Powod jest ten sam co przy calym module: liczy sie to, co uzytkownik
@@ -847,7 +1047,7 @@ def pyz_packages(read_exe) -> list[str]:
     a kazda z tych licencji wymaga noty takze w postaci binarnej.
 
     `read_exe` to funkcja bez argumentow, ktora zwraca zawartosc
-    `BeatStamp.exe` w bajtach — dzieki temu ta sama droga dziala dla paczki
+    `SigelithDesktop.exe` w bajtach — dzieki temu ta sama droga dziala dla paczki
     w katalogu i dla archiwum `.msix`.
     """
     import tempfile
@@ -857,7 +1057,7 @@ def pyz_packages(read_exe) -> list[str]:
     # sam modul ma dac sie zaimportowac wszedzie.
     from PyInstaller.archive.readers import CArchiveReader, ZlibArchiveReader
 
-    with tempfile.TemporaryDirectory(prefix='beatstamp-pyz-') as workdir:
+    with tempfile.TemporaryDirectory(prefix='sigelith-pyz-') as workdir:
         exe = Path(workdir) / EXECUTABLE
         exe.write_bytes(read_exe())
         archive = CArchiveReader(str(exe))
@@ -902,7 +1102,7 @@ class Audit:
 
 
 def is_package(path: Path) -> bool:
-    """Czy to jest gotowa paczka BeatStampa — katalog albo plik `.msix`."""
+    """Czy to jest gotowa paczka Sigelith Desktop — katalog albo plik `.msix`."""
     if path.is_dir():
         return (path / EXECUTABLE).is_file()
     if path.is_file() and path.suffix.lower() == '.msix':
@@ -918,7 +1118,7 @@ def is_package(path: Path) -> bool:
 def package_files(package: Path) -> list[str]:
     """Wszystkie pliki paczki, sciezkami wzglednymi, posortowane.
 
-    Paczka to katalog `dist/BeatStamp` albo `dist/msix` — albo gotowy plik
+    Paczka to katalog `dist/SigelithDesktop` albo `dist/msix` — albo gotowy plik
     `.msix`, czyli ten artefakt, ktory NAPRAWDE trafia do Sklepu. Katalog
     i archiwum moga sie rozjechac (przepakowanie jednego bez drugiego),
     a kontrola, ktora oglada tylko katalog, tego nie zobaczy.
@@ -947,8 +1147,8 @@ def audit(package: Path) -> Audit:
     """Przeglada paczke: co zakazane, co bez licencji, co do jakiego skladnika.
 
     Dwa przejscia, bo paczka ma dwa pietra. Pierwsze to pliki na dysku.
-    Drugie to zawartosc `BeatStamp.exe`: kazdy pakiet z archiwum PYZ
-    dopisuje `BeatStamp.exe` do listy plikow swojego skladnika, wiec nota
+    Drugie to zawartosc `SigelithDesktop.exe`: kazdy pakiet z archiwum PYZ
+    dopisuje `SigelithDesktop.exe` do listy plikow swojego skladnika, wiec nota
     przy reportlabie czy requests wskazuje plik, w ktorym ten kod naprawde
     lezy — zamiast przemilczec go dlatego, ze nie ma wlasnej nazwy.
     """
@@ -985,7 +1185,7 @@ def audit(package: Path) -> Audit:
 
 
 def app_version() -> str:
-    """Wersja BeatStampa, czytana Z PLIKU, bez importu pakietu.
+    """Wersja programu, czytana Z PLIKU, bez importu pakietu.
 
     `tools/` musi dzialac takze tam, gdzie PySide6 nie jest zainstalowane
     (a `import beatstamp` w kazdej chwili moze przestac byc niewinny).

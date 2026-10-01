@@ -28,7 +28,7 @@ from pathlib import Path
 
 from PySide6.QtCore import QObject, QRunnable, Signal
 
-from . import bundle, hashing, history, keys, proof, supporters
+from . import bundle, fileproof, hashing, history, keys, onion, proof, supporters, witness
 from .api import ApiError, BeatTimeClient
 from .hashing import HashCancelled, HashError
 from .i18n import _
@@ -110,7 +110,12 @@ def _release(key: int) -> None:
     _RUNNING.pop(key, None)
 
 
-def launch(pool, task: Task) -> Task:
+#: Priorytety w puli: czynnosc uzytkownika wyprzedza w kolejce prace w tle.
+PRIORITY_BACKGROUND = 0
+PRIORITY_USER = 10
+
+
+def launch(pool, task: Task, priority: int = PRIORITY_BACKGROUND) -> Task:
     """Uruchamia zadanie w puli, pilnujac jego czasu zycia.
 
     Referencje zwalniamy dopiero po sygnale `done`, który zawsze przychodzi
@@ -129,7 +134,7 @@ def launch(pool, task: Task) -> Task:
     key = id(task)
     _RUNNING[key] = task
     task.signals.done.connect(partial(_release, key))
-    pool.start(task)
+    pool.start(task, priority)
     return task
 
 
@@ -166,7 +171,7 @@ class BundleOutcome:
 
 
 class StampFilesTask(Task):
-    """Liczy skróty wskazanych plików i rejestruje je w BeatTime.
+    """Liczy skróty wskazanych plików i rejestruje je w Sigelith.
 
     Pliki ida po kolei jednym polaczeniem HTTP — nie rownolegle. Serwer
     limituje stemplowanie do 20 zapytań na minutę na adres IP, więc rownoleglosc
@@ -175,12 +180,17 @@ class StampFilesTask(Task):
     """
 
     def __init__(self, paths: list[Path], client: BeatTimeClient,
-                 note: str = '', key_override: str = ''):
+                 note: str = '', key_override: str = '',
+                 witness_state: 'witness.WitnessState | None' = None):
         super().__init__()
         self.paths = list(paths)
         self.client = client
         self.note = note
         self.key_override = key_override
+        # Migawka stanu swiadka: przy ponownym stemplu starego dokumentu
+        # serwer oddaje jego checkpoint — sciezke sprawdzamy wzgledem pliku
+        # checkpointu, ktory aplikacja sama zweryfikowala.
+        self.witness_state = witness_state
 
     def work(self) -> BatchOutcome:
         successes: list[StampOutcome] = []
@@ -204,14 +214,16 @@ class StampFilesTask(Task):
                     break
 
                 self.signals.message.emit(
-                    prefix + _('Registering in BeatTime: %(name)s') % {'name': path.name})
+                    prefix + _('Registering in Sigelith: %(name)s') % {'name': path.name})
                 self.signals.progress.emit(
-                    0, 0, prefix + _('Connecting to beattime.live…'))
+                    0, 0, prefix + _('Connecting to sigelith.org…'))
                 payload, created = self.client.stamp(file_digest.digest)
 
                 result = proof.verify_payload(
                     payload, expected_digest=file_digest.digest,
                     key_override=self.key_override)
+                if self.witness_state is not None:
+                    witness.enrich_from_payload(result, self.witness_state, payload)
                 entry = history.entry_from_verification(
                     result, file_name=path.name, file_path=str(path),
                     file_size=file_digest.size, note=self.note)
@@ -234,18 +246,32 @@ class VerifyDigestTask(Task):
 
     def __init__(self, digest: str, client: BeatTimeClient,
                  key_override: str = '',
-                 file_path: Path | None = None):
+                 file_path: Path | None = None, *,
+                 mode: str = witness.MODE_FAST,
+                 witness_state: 'witness.WitnessState | None' = None,
+                 mirror: 'witness.LogMirror | None' = None):
         super().__init__()
         self.digest = digest
         self.client = client
         self.key_override = key_override
         self.file_path = file_path
+        self.mode = mode
+        self.witness_state = witness_state
+        self.mirror = mirror
 
     def work(self) -> proof.VerificationResult:
-        self.signals.message.emit(_('Querying the BeatTime register…'))
-        payload = self.client.verify(self.digest)
-        return proof.verify_payload(payload, expected_digest=self.digest,
-                                    key_override=self.key_override)
+        state = self.witness_state or witness.WitnessState()
+        if self.mode == witness.MODE_PRIVATE and self.mirror is not None:
+            # Tryb prywatny: skrot szukamy w NASZEJ kopii dziennika — serwer
+            # nie dowiaduje sie, jaki plik sprawdzamy.
+            self.signals.message.emit(_('Checking against your copy of the public '
+                                        'log…'))
+            return witness.verify_private(self.client, self.digest, state,
+                                          self.mirror, key_override=self.key_override,
+                                          cancelled=lambda: self.cancelled)
+        self.signals.message.emit(_('Querying the Sigelith register…'))
+        return witness.verify_fast(self.client, self.digest, state,
+                                   key_override=self.key_override)
 
 
 class HashFileTask(Task):
@@ -277,11 +303,18 @@ class RefreshEntriesTask(Task):
     """
 
     def __init__(self, entries: list[history.Entry], client: BeatTimeClient,
-                 key_override: str = ''):
+                 key_override: str = '', *, mode: str = witness.MODE_FAST,
+                 witness_state: 'witness.WitnessState | None' = None,
+                 mirror: 'witness.LogMirror | None' = None, quiet: bool = False):
         super().__init__()
         self.entries = list(entries)
         self.client = client
         self.key_override = key_override
+        self.mode = mode
+        self.witness_state = witness_state
+        self.mirror = mirror
+        # Odswiezanie w tle (co kwadrans) nie pokazuje paska postepu.
+        self.quiet = quiet
 
     def _needs_refresh(self, entry: history.Entry) -> bool:
         """Czy wpis moze sie jeszcze zmienic.
@@ -294,8 +327,24 @@ class RefreshEntriesTask(Task):
             return False
         if entry.level != proof.Level.ANCHORED.value:
             return True
-        return bool(entry.root_signature) and not keys.is_trusted(
-            entry.public_key, self.key_override)
+        if bool(entry.root_signature) and not keys.is_trusted(
+                entry.public_key, self.key_override):
+            return True
+        return self._waits_for_checkpoint(entry)
+
+    def _waits_for_checkpoint(self, entry: history.Entry) -> bool:
+        """Zakotwiczony wpis bez sciezki do checkpointu, ktory JUZ go obejmuje.
+
+        Dowod dojrzewa dalej niz do kotwicy: checkpoint dzienny wiaze wpis
+        z blokiem Bitcoina i z kopiami u osob trzecich. Pytamy tylko wtedy,
+        gdy sprawdzony checkpoint jest pozniejszy niz wpis — wczesniej nie
+        ma czego dociagac, a kazde zapytanie w trybie szybkim zdradza skrot.
+        """
+        if self.witness_state is None or (entry.checkpoint or {}).get('verified'):
+            return False
+        latest = self.witness_state.latest
+        stamp = history.beatcore.parse_iso_utc(entry.utc)
+        return bool(latest and latest.utc_dt and stamp and latest.utc_dt > stamp)
 
     def work(self) -> list[history.Entry]:
         pending = [e for e in self.entries if self._needs_refresh(e)]
@@ -306,20 +355,35 @@ class RefreshEntriesTask(Task):
                 'Every entry is already anchored — there is nothing to refresh.'))
             return updated
 
+        state = self.witness_state or witness.WitnessState()
+        private = self.mode == witness.MODE_PRIVATE and self.mirror is not None
+        week_cache: dict = {}
+        synced: list = [False]
         for index, entry in enumerate(pending, start=1):
             if self.cancelled:
                 break
-            self.signals.progress.emit(
-                index, total,
-                _('Refreshing %(index)s of %(total)s…') % {'index': index,
-                                                           'total': total})
+            if not self.quiet:
+                self.signals.progress.emit(
+                    index, total,
+                    _('Refreshing %(index)s of %(total)s…') % {'index': index,
+                                                               'total': total})
             try:
-                payload = self.client.verify(entry.digest)
+                if private:
+                    result = witness.verify_private(
+                        self.client, entry.digest, state, self.mirror,
+                        key_override=self.key_override, week_cache=week_cache,
+                        synced=synced, cancelled=lambda: self.cancelled)
+                else:
+                    result = witness.verify_fast(self.client, entry.digest, state,
+                                                 key_override=self.key_override)
             except ApiError as e:
                 log.info('odświeżanie %s: %s', entry.short_digest, e)
                 continue
-            result = proof.verify_payload(payload, expected_digest=entry.digest,
-                                          key_override=self.key_override)
+            except ValueError as e:
+                # Przepisana historia dziennika — alarm podnosi swiadek, tu
+                # tylko nie udajemy, ze wpis sie odswiezyl.
+                log.warning('odświeżanie %s: %s', entry.short_digest, e)
+                continue
             if not result.found:
                 continue
             fresh = history.entry_from_verification(
@@ -328,9 +392,44 @@ class RefreshEntriesTask(Task):
             if (fresh.level != entry.level or fresh.ots_status != entry.ots_status
                     or fresh.public_key != entry.public_key
                     or fresh.root_signature != entry.root_signature
-                    or fresh.verified_ok != entry.verified_ok):
+                    or fresh.verified_ok != entry.verified_ok
+                    or fresh.checkpoint != entry.checkpoint
+                    or fresh.time_bounds != entry.time_bounds):
                 updated.append(fresh)
         return updated
+
+
+class WitnessRefreshTask(Task):
+    """Jeden przebieg swiadka (`witness.refresh`) na KOPII stanu.
+
+    Zadanie zmienia kopie; watek GUI podmienia stan i zapisuje go po
+    powrocie. Dzieki temu okno nigdy nie czyta stanu, ktory w tej samej
+    chwili zmienia watek roboczy.
+    """
+
+    def __init__(self, client: BeatTimeClient, store: 'witness.WitnessStore',
+                 state: 'witness.WitnessState', mirror: 'witness.LogMirror | None', *,
+                 mode: str = witness.MODE_PRIVATE, key_override: str = '',
+                 third_party: bool = True):
+        super().__init__()
+        self.client = client
+        self.store = store
+        self.state = state.copy()
+        self.mirror = mirror
+        self.mode = mode
+        self.key_override = key_override
+        self.third_party = third_party
+
+    def work(self):
+        # Przerwane, zanim doszlo do glosu (np. czeka w kolejce za czynnoscia
+        # uzytkownika) — nie zaczynamy nawet pierwszego zapytania.
+        if self.cancelled:
+            return self.state, witness.RefreshReport()
+        report = witness.refresh(
+            self.client, self.store, self.state, self.mirror, mode=self.mode,
+            override=self.key_override, third_party=self.third_party,
+            cancelled=lambda: self.cancelled)
+        return self.state, report
 
 
 class CheckBundleTask(Task):
@@ -348,6 +447,7 @@ class CheckBundleTask(Task):
             _('Loading proof: %(name)s') % {'name': self.bundle_path.name})
         data = bundle.load(self.bundle_path)
         document_digest = ''
+        document_size = None
         if self.document is not None:
             self.signals.message.emit(
                 _('Computing the document digest: %(name)s')
@@ -359,13 +459,34 @@ class CheckBundleTask(Task):
                     _('Computing SHA-256: %(name)s') % {'name': self.document.name}),
                 cancelled=lambda: self.cancelled,
             ).digest
-        check = bundle.check(data, document_digest=document_digest,
-                             key_override=self.key_override)
+            document_size = self.document.stat().st_size
+        if data.get('format') == fileproof.FORMAT:  # plik z kopii Sigelith Backup (3.0+)
+            check = fileproof.check(data, document_digest=document_digest,
+                                    document_size=document_size,
+                                    key_override=self.key_override)
+        else:
+            check = bundle.check(data, document_digest=document_digest,
+                                 key_override=self.key_override)
         return BundleOutcome(self.bundle_path, check, data)
 
 
+class OnionRefreshTask(Task):
+    """Biezacy adres .onion z `/api/onion/` (onion.discover) — tylko w trybie Tor.
+
+    Wynik: `http://<adres>.onion` albo None (Tor nie dziala, brak sieci,
+    niepoprawna odpowiedz) — wtedy program zostaje przy dotychczasowym adresie.
+    """
+
+    def __init__(self, settings):
+        super().__init__()
+        self._settings = settings
+
+    def work(self):
+        return onion.discover(self._settings)
+
+
 class ClockSyncTask(Task):
-    """Mierzy dryf zegara systemowego względem serwera BeatTime.
+    """Mierzy dryf zegara systemowego względem serwera Sigelith.
 
     Znaczenie praktyczne: aplikacja pokazuje zegar @beat liczony LOKALNIE.
     Zle ustawiony zegar systemowy sprawilby, ze uzytkownik widzi inny beat niż
@@ -390,12 +511,12 @@ class ServerCertificateTask(Task):
         self.client = client
 
     def work(self) -> bytes:
-        self.signals.message.emit(_('Downloading the certificate from beattime.live…'))
+        self.signals.message.emit(_('Downloading the certificate from sigelith.org…'))
         return self.client.certificate_pdf(self.digest)
 
 
 class HealthTask(Task):
-    """Stan usługi BeatTime: baza, cache, dryf zegara serwera względem NTP."""
+    """Stan usługi Sigelith: baza, cache, dryf zegara serwera względem NTP."""
 
     def __init__(self, client: BeatTimeClient):
         super().__init__()

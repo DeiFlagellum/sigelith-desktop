@@ -9,7 +9,7 @@ jest dokladnie ta klasa problemow, ktora psuje buildy po roku przerwy.
 
 Ten modul jest wiec wspolna podstawa dla `extract_messages.py`
 (kod -> `.pot` -> `.po`) i `compile_catalogs.py` (`.po` -> `.mo`).
-Obsluguje to, czego BeatStamp uzywa: napisy zwykle, liczby mnogie
+Obsluguje to, czego program uzywa: napisy zwykle, liczby mnogie
 (`msgid_plural` / `msgstr[n]`), znacznik `fuzzy` i wpisy przestarzale.
 """
 from __future__ import annotations

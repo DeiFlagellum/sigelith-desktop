@@ -1,15 +1,51 @@
-# BeatStamp
+# Sigelith Desktop
 
-A Windows desktop client for the public **proof-of-existence** log run at
-[beattime.live](https://beattime.live). It gives a file a timestamp you can
-later use to show that the document existed at a given moment and has not
-changed since.
+A Windows desktop client for [Sigelith](https://sigelith.org), the public
+**proof-of-existence** log. It gives a file a timestamp you can later use to
+show that the document existed at a given moment and has not changed since.
 
 **Your file never leaves the computer.** The only thing that goes out is the
 64-character SHA-256 hash computed locally — not the name, not the contents,
 not the size.
 
+<a href="https://apps.microsoft.com/detail/9n5xk65gtf33?mode=direct"><img src="https://get.microsoft.com/images/en-us%20dark.svg" width="200" alt="Download from the Microsoft Store"></a>
+
+**Free in the [Microsoft Store](https://apps.microsoft.com/detail/9n5xk65gtf33)** (Windows 10 22H2 or Windows 11, 64-bit) — the Store version updates itself. From the command line: `winget install --id 9N5XK65GTF33 --source msstore`. Or build it from source (below).
+
 ---
+
+## Formerly BeatStamp
+
+On **2026-09-27** this program was renamed from **BeatStamp** to
+**Sigelith Desktop** (version 3.0.1). The proof-of-existence infrastructure it
+talks to — the public log, its signed checkpoints, the certificates and the
+verification API — was first published as "BeatTime proof" at
+[beattime.live](https://beattime.live) and is now called **Sigelith**, at
+[sigelith.org](https://sigelith.org). The time notation is written simply
+`.beat` (@beat, 1000 beats a day); BeatTime survives only as the store names
+of the two clock apps on Google Play.
+
+What that means in practice:
+
+- **Nothing about existing proofs changes.** sigelith.org and beattime.live are
+  served by one system, with one log and one signing key, and beattime.live
+  keeps working. Every proof issued under the name BeatTime keeps verifying.
+- **File formats are unchanged.** Proof files still use the `.beatproof`
+  extension and the `beatproof-v1` format; the identifiers inside signed data
+  (`beattime-proof-v1`, `beattime-entry-v1`, `beattime-checkpoint-v1`) keep
+  their names, because they are part of what is signed. Proofs saved by
+  BeatStamp open and verify in Sigelith Desktop.
+- **Your data comes along.** On first start the program copies your history,
+  settings and witness state from `%USERPROFILE%\BeatStamp` to
+  `%USERPROFILE%\Sigelith`. The old folder is left untouched (with a short
+  note saying where the data went), so you can delete it yourself once you are
+  sure everything is in the new place.
+- The public repository of weekly log releases is now
+  [DeiFlagellum/sigelith-log](https://github.com/DeiFlagellum/sigelith-log)
+  (the old name redirects).
+
+The naming history is documented at
+[sigelith.org/spec/#naming](https://sigelith.org/spec/#naming).
 
 ## What a timestamp here proves — and what it does not
 
@@ -33,6 +69,32 @@ in three steps the app shows honestly rather than rounding up to "verified":
    [OpenTimestamps](https://opentimestamps.org) and against an independent bank
    reference. From then on the timestamp no longer rests on anyone's word.
 
+Since 2.2 the app shows the whole **journey of a proof**: recorded → inside a
+signed **checkpoint** of the global log → week signed → Bitcoin → bank →
+**independent copies** of that checkpoint at GitHub, the Internet Archive and
+Zenodo. While the app is open, proofs mature by themselves (every 15 minutes,
+no notifications).
+
+## The app as a witness of the log
+
+A single proof shows that your hash is in a signed tree. It does not show that
+Sigelith presents the *same* history to everybody. So Sigelith Desktop audits
+the public log itself, in the background:
+
+- it downloads every signed **checkpoint** as raw bytes and checks its Ed25519
+  signature, its key and the `prev` chain back to checkpoint #1;
+- it checks the **RFC 9162 consistency proof** between checkpoints — nothing
+  removed, nothing rewritten — and in private mode recomputes every checkpoint
+  root from its own copy of the whole log;
+- it compares checkpoints byte for byte with the **copies kept by third
+  parties** (immutable GitHub releases, the Internet Archive, Zenodo) and the
+  Bitcoin block named in each checkpoint with an **independent block explorer**.
+
+Two different signed files under one checkpoint number, a checkpoint that does
+not extend the previous one, or a signed third-party copy that differs, raise an
+alarm, and the conflicting files are kept as evidence. The format is specified in
+[`LOG.md`](https://sigelith.org/spec/).
+
 ## Verifying without trusting the server
 
 This is the point of the program, so it does the checking itself rather than
@@ -53,34 +115,80 @@ asking the server whether everything is fine:
 The server that issues these proofs is not open source. That is precisely why
 the client is: the proof is designed so that you do not have to believe either
 of them. Everything above can be recomputed from public data — the weekly
-roots are on [beattime.live/proof](https://beattime.live/proof/), and the
-format is specified at [beattime.live/spec](https://beattime.live/spec/).
+roots are on [sigelith.org/proof](https://sigelith.org/proof/), and the
+format is specified at [sigelith.org/spec](https://sigelith.org/spec/).
+
+## Sigelith Handover — proof of delivery
+
+Send files so that the recipient confirms receipt with their own key, held by
+Windows Hello, and the moment of delivery is recorded in the public log. The
+encrypted package travels between the two of you — by e-mail, a messenger, a
+USB stick or a shared folder. Sigelith's server stores no files, messages or
+accounts; it only stamps 32-byte digests.
+
+- The recipient's signed acceptance takes effect only when the sender records
+  the missing key part in the log before the acceptance's deadline — that
+  moment is the delivery, and from then on the recipient can open the files.
+- The evidence package (`.sigelith-evidence.zip`) can be checked by anyone,
+  in this app or at
+  [sigelith.org/handover/verify/](https://sigelith.org/handover/verify/), in
+  the browser, without trusting Sigelith. For a reader without a verifier the
+  app saves a PDF report with every check and how to repeat it.
+- A package that does not open the way it was offered gives the recipient a
+  defect proof (`.sigelith-defect.zip`) that anyone can recompute; a false
+  claim fails the same computation.
+
+It proves that the recipient's key accepted the package and when it became
+readable — not that anyone read it, and not who stands behind a key. It is not
+a formal service of documents under any particular law; what it weighs in a
+dispute is for a court to decide. Formats, verification rules, the threat
+analysis and the test vectors (`tests/vectors/handover-v1.json`) are in
+[`docs/HANDOVER_SPEC.md`](docs/HANDOVER_SPEC.md) — `sigelith-handover-v1`.
 
 ## Privacy
 
-No account, no telemetry, no analytics, no advertising identifiers. The app
-talks to one host, and only to send a hash and read back a proof. Your history
-is a local file you can read, copy or delete.
+No account, no telemetry, no analytics, no advertising identifiers. Your
+history is a local file you can read, copy or delete.
+
+- **Private mode (default)** keeps a copy of the whole public log (hashes only,
+  which are public anyway) and computes every proof locally. Refreshing your
+  history or checking someone else's file does not tell the server which hash
+  you care about. **Fast mode** asks the server about each hash instead.
+- Stamping sends the hash of the file — that is its only purpose. The file
+  itself never leaves your computer.
+- The witness checks fetch **public Sigelith files** from GitHub, the Internet
+  Archive and Zenodo, and **Bitcoin block headers** from mempool.space or
+  blockstream.info. Nothing about your documents is sent. This can be turned
+  off in Settings → Witnesses.
 
 ## Install
 
-Windows 10 or 11, 64-bit. Download the release, unpack it, run `BeatStamp.exe`
-— there is no installer and nothing is written outside your user profile.
+Windows 10 or 11, 64-bit. Download the release, unpack it, run
+`SigelithDesktop.exe` — there is no installer and nothing is written outside
+your user profile.
 
-Your data lives in `%USERPROFILE%\BeatStamp` (history, settings, log). That
+Your data lives in `%USERPROFILE%\Sigelith` (history, settings, log). That
 location is deliberate: `Documents` is protected by Windows ransomware
 protection, which blocks unknown programs from writing there, and a program
 that stores evidence cannot depend on whether Windows feels like trusting the
-build you downloaded today.
+build you downloaded today. Data from an earlier BeatStamp installation
+(`%USERPROFILE%\BeatStamp`) is copied over on first start.
 
 ## Run and build from source
 
+Python 3.14.7 or newer (earlier 3.14 releases for Windows ship OpenSSL 3.0,
+which is out of support):
+
 ```powershell
-py -3.12 -m venv .venv
+py -3.14 -m venv .venv
 .\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
 python beatstamp_main.py
 ```
+
+The Python package is still called `beatstamp` — renaming it is a separate
+step; the program name, the executable and everything you see are Sigelith
+Desktop.
 
 Build a standalone package (PyInstaller, one directory):
 
@@ -89,7 +197,7 @@ pip install -r requirements-dev.txt
 .\build.ps1
 ```
 
-Tests (465 of them, no network required):
+Tests (657 of them, no network required):
 
 ```powershell
 python -m unittest discover -s tests
@@ -98,25 +206,37 @@ python -m unittest discover -s tests
 A built copy can check itself:
 
 ```
-BeatStamp.exe --selftest --offline
+SigelithDesktop.exe --selftest --offline
 ```
 
 Earlier versions used Polish flag names. `--samokontrola` and `--bez-sieci`
 still work and always will: once a program is published, its command-line
 flags are a public interface, and quietly dropping one breaks somebody's
-script for no good reason.
+script for no good reason. For the same reason the environment variable
+`BEATSTAMP_DATA_DIR` (portable data folder) is still honoured next to the new
+`SIGELITH_DATA_DIR`.
 
 ## Interface languages
 
-English, Polish and German. The app follows the system language and can be
-switched in Settings.
+The same eleven languages as the Sigelith website and the mobile app
+(*BeatTime: Universal Clock* on Google Play): English, Polish, German, Spanish, French, Russian,
+Turkish, Japanese, Korean, Simplified Chinese and Arabic (the window is
+mirrored right-to-left). On first start the app follows the Windows display
+language, falling back to English; it can be switched in Settings.
+
+The PDF certificate is issued in the interface language. Japanese, Korean and
+Chinese certificates use a Windows system font (Yu Gothic, Malgun Gothic,
+Microsoft YaHei), embedded as a subset of the characters used. Arabic
+certificates are issued in English: the PDF library cannot shape Arabic
+letters, and a certificate must not print them broken.
 
 ## Coming from TimeVaultSecure?
 
 TimeVaultSecure (timevaultsecure.com) is an earlier product by the same
-author, and BeatStamp takes over the history it left behind. Your old entries
-are imported and kept, but they are labelled **TVS archive** and they stay at
-that level — they are not silently promoted to look like the new proofs.
+author, and Sigelith Desktop takes over the history it left behind. Your old
+entries are imported and kept, but they are labelled **TVS archive** and they
+stay at that level — they are not silently promoted to look like the new
+proofs.
 
 The reason is in the old design: that client's proof rested on trusting the
 server's answer, and its `signature` field was a concatenation that nothing
@@ -143,10 +263,12 @@ it ever reappears in a package.
 ## Reporting a problem
 
 Security issues: see
-[beattime.live/.well-known/security.txt](https://beattime.live/.well-known/security.txt).
+[sigelith.org/.well-known/security.txt](https://sigelith.org/.well-known/security.txt).
 Anything else: open an issue here.
 
 ---
 
-BeatStamp is the desktop side of [BeatTime](https://beattime.live) — universal
-`.beat` time, 1000 beats a day, anchored to UTC, with no timezones.
+Sigelith Desktop is the desktop side of [Sigelith](https://sigelith.org) —
+public, verifiable proof that a file existed at a point in time. Times are
+shown in [`.beat` time](https://sigelith.org/swatch-internet-time/) as well: 1000 beats a
+day, anchored to UTC, with no timezones.

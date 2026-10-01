@@ -27,10 +27,12 @@ Naprawia bezposrednio dwie wady poprzednika:
    mimo ze katalog nadrzedny istnieje — patrz `looks_protected`.
 
 Dane uzytkownika ida wiec POZA `AppData` i POZA katalogi chronione: na
-Windows do `%USERPROFILE%\\BeatStamp` (patrz `_default_data_dir`). Ta sama
-lokalizacja obowiazuje w wersji ze Sklepu, w zwyklym `.exe` i w uruchomieniu
-ze zrodel: dzieki temu instalacja ze Sklepu na maszynie, gdzie wczesniej
-chodzil zwykly `.exe`, widzi te sama historie.
+Windows do `%USERPROFILE%\\Sigelith` (patrz `_default_data_dir`; do 2.2.0,
+jeszcze jako BeatStamp, byl to `%USERPROFILE%\\BeatStamp` — dane stamtad
+kopiuje jednorazowo `migrate_legacy_data`). Ta sama lokalizacja obowiazuje
+w wersji ze Sklepu, w zwyklym `.exe` i w uruchomieniu ze zrodel: dzieki temu
+instalacja ze Sklepu na maszynie, gdzie wczesniej chodzil zwykly `.exe`,
+widzi te sama historie.
 
 Obietnica z punktu 2 zostaje w mocy: skróty dokumentow nie moga same wedrowac
 miedzy maszynami. Korzen profilu nie jest objety ani OneDrive Known Folder
@@ -53,18 +55,38 @@ import time
 from dataclasses import asdict, dataclass, field, fields
 from pathlib import Path
 
-from . import __app_name__, keys
+from . import keys
 from .i18n import _
+from .onion import is_v3_url
 
 log = logging.getLogger(__name__)
 
 # --- Katalogi ---------------------------------------------------------------
 
+#: Nazwa katalogu danych (`%USERPROFILE%\Sigelith`) i katalogu aplikacji
+#: w `%LOCALAPPDATA%` — od 3.0.0, czyli od zmiany nazwy programu na Sigelith
+#: Desktop (2026-09-27). Celowo krotka i BEZ „Desktop": to katalog danych
+#: uzytkownika, ktory przezywa program i jego kolejne nazwy.
+DATA_DIR_NAME = 'Sigelith'
+
+#: Nazwa katalogow z czasow BeatStampa (do 2.2.0). Sluzy WYLACZNIE do
+#: odnalezienia starych danych i starego wskaznika — program nic tam nie
+#: zapisuje poza notatka `PRZENIESIONO.txt` i nigdy niczego stamtad nie kasuje.
+LEGACY_DIR_NAME = 'BeatStamp'
+
 #: Zmienna srodowiskowa wskazujaca katalog danych WPROST — pelna sciezka do
 #: samego katalogu, nie do jego rodzica. Ma pierwszenstwo przed wszystkim.
 #: Uzywaja jej: testy, `tools/verify_exe.py` i kazdy, kto chce trzymac dane
 #: obok programu (wersja przenosna na pendrive).
-DATA_DIR_ENV = 'BEATSTAMP_DATA_DIR'
+DATA_DIR_ENV = 'SIGELITH_DATA_DIR'
+
+#: Ta sama zmienna pod nazwa z czasow BeatStampa. Honorowana dalej — skrypt
+#: albo skrot z wersja przenosna, ktory ja ustawia, nie moze po aktualizacji
+#: po cichu zaczac pisac gdzie indziej. Nowa nazwa ma pierwszenstwo.
+LEGACY_DATA_DIR_ENV = 'BEATSTAMP_DATA_DIR'
+
+#: Kolejnosc sprawdzania: pierwsza NIEPUSTA zmienna rozstrzyga.
+DATA_DIR_ENVS = (DATA_DIR_ENV, LEGACY_DATA_DIR_ENV)
 
 #: Plik ze SCIEZKA do katalogu danych wybranego przez uzytkownika (Ustawienia
 #: -> „Katalog danych" albo okno po zablokowanym zapisie). Nie moze lezec
@@ -72,13 +94,18 @@ DATA_DIR_ENV = 'BEATSTAMP_DATA_DIR'
 #: zanim wiadomo, gdzie on jest. Nie moze tez lezec w `settings.json` z tego
 #: samego powodu: `settings.json` jest wewnatrz katalogu danych.
 #:
-#: Miejsce: `%LOCALAPPDATA%\BeatStamp` (`legacy_app_data_dir`) — jedyny katalog,
+#: Miejsce: `%LOCALAPPDATA%\Sigelith` (`app_local_dir`) — jedyny katalog,
 #: ktory na Windows jest jednoczesnie wlasny dla aplikacji i POZA domyslna
 #: lista folderow chronionych przez ochrone przed ransomware, czyli zapisywalny
 #: dokladnie wtedy, gdy katalog danych zapisywalny nie jest. Paczka MSIX go
 #: wirtualizuje i skasuje przy odinstalowaniu — to akceptowalna strata:
 #: znika sam WSKAZNIK, a nie dane, i przy nastepnym starcie obowiazuje
-#: lokalizacja domyslna (albo `BEATSTAMP_DATA_DIR`).
+#: lokalizacja domyslna (albo `SIGELITH_DATA_DIR`).
+#:
+#: Wybor zapisany przez BeatStampa lezy w `%LOCALAPPDATA%\BeatStamp`
+#: (`legacy_location_file`) i jest dalej CZYTANY, dopoki nowego wskaznika nie
+#: ma — uzytkownik, ktory przeniosl dane na inny dysk, nie wraca po
+#: aktualizacji do pustej lokalizacji domyslnej.
 LOCATION_FILE = 'katalog-danych.json'
 
 #: Nazwa pliku probnego, ktorym sprawdzamy, czy w katalogu da sie ZAPISAC.
@@ -198,10 +225,46 @@ def is_inside_onedrive(path: Path) -> bool:
     return any(_is_inside(path, root) for root in _onedrive_roots())
 
 
+def forced_data_dir() -> tuple[str, str]:
+    """(nazwa zmiennej, wartosc) katalogu narzuconego z zewnatrz albo ('', '').
+
+    Rozstrzyga pierwsza NIEPUSTA zmienna z `DATA_DIR_ENVS` — `SIGELITH_DATA_DIR`
+    przed `BEATSTAMP_DATA_DIR`. Wartosc jest zwracana surowa (takze wzgledna):
+    o jej przyjeciu decyduje `resolved_data_dir`, a o pominieciu przeprowadzki
+    `migrate_legacy_data` — tak samo jak dotad dla jednej zmiennej.
+    """
+    for name in DATA_DIR_ENVS:
+        value = (os.environ.get(name) or '').strip()
+        if value:
+            return name, value
+    return '', ''
+
+
+def _local_base() -> Path:
+    """Katalog aplikacji lokalnych systemu (`%LOCALAPPDATA%` i odpowiedniki)."""
+    if sys.platform == 'win32':
+        base = os.environ.get('LOCALAPPDATA') or os.path.expanduser('~')
+    elif sys.platform == 'darwin':
+        base = os.path.expanduser('~/Library/Application Support')
+    else:
+        base = os.environ.get('XDG_DATA_HOME') or os.path.expanduser('~/.local/share')
+    return Path(base)
+
+
+def app_local_dir() -> Path:
+    """`%LOCALAPPDATA%\\Sigelith` — miejsce wskaznika `LOCATION_FILE`.
+
+    Na macOS i Linuksie jest to zarazem lokalizacja domyslna danych
+    (`_default_data_dir`). Katalogu NIE tworzymy przy samym pytaniu o sciezke.
+    """
+    return _local_base() / DATA_DIR_NAME
+
+
 def _default_data_dir() -> Path:
     """Domyslna lokalizacja danych — bez tworzenia czegokolwiek.
 
-    Windows: `%USERPROFILE%\\BeatStamp`, czyli `C:\\Users\\<kto>\\BeatStamp`.
+    Windows: `%USERPROFILE%\\Sigelith`, czyli `C:\\Users\\<kto>\\Sigelith`
+    (do 2.2.0: `%USERPROFILE%\\BeatStamp` — ta sama logika, inna nazwa).
     Cztery warunki naraz, ktorych nie spelnia zadne inne miejsce:
 
     * **Poza lista folderow chronionych.** Ochrona przed ransomware
@@ -213,7 +276,7 @@ def _default_data_dir() -> Path:
       bo pelnozaufana aplikacja z paczki pisze w pozostalych czesciach
       `%USERPROFILE%` bez wirtualizacji i bez dodatkowych uprawnien.
     * **Widoczne.** Uzytkownik wchodzi do swojego profilu i widzi folder
-      `BeatStamp` — dowody da sie skopiowac na inny komputer w calosci,
+      `Sigelith` — dowody da sie skopiowac na inny komputer w calosci,
       bez szukania.
     * **Poza chmura.** OneDrive Known Folder Move obejmuje Pulpit, Dokumenty
       i Obrazy; korzen profilu zostawia w spokoju.
@@ -223,19 +286,24 @@ def _default_data_dir() -> Path:
     celowo BEZ kropki na poczatku — folder ma byc widoczny, bo to jedyny
     sposob, zeby uzytkownik sam znalazl swoje dowody.
 
-    macOS i Linux zostaja przy dotychczasowej lokalizacji: MSIX tam nie
-    istnieje, ochrony przed ransomware tez nie ma, wiec nie ma czego
-    naprawiac, a przeprowadzka kosztowalaby uzytkownikow tych systemow bez
-    zadnego zysku.
+    macOS i Linux zostaja w katalogu aplikacji systemu (`app_local_dir`):
+    MSIX tam nie istnieje, ochrony przed ransomware tez nie ma, wiec nie ma
+    czego naprawiac. Zmienila sie tylko NAZWA katalogu (3.0.0) — dane
+    z `.../BeatStamp` kopiuje jednorazowo `migrate_legacy_data`.
     """
     if sys.platform == 'win32':
         profile = os.environ.get('USERPROFILE') or os.path.expanduser('~')
-        return Path(profile) / __app_name__
-    return legacy_app_data_dir()
+        return Path(profile) / DATA_DIR_NAME
+    return app_local_dir()
 
 
 def location_file() -> Path:
     """Plik ze sciezka wybrana przez uzytkownika. Patrz `LOCATION_FILE`."""
+    return app_local_dir() / LOCATION_FILE
+
+
+def legacy_location_file() -> Path:
+    """Wskaznik zapisany przez BeatStampa (do 2.2.0) — tylko do odczytu."""
     return legacy_app_data_dir() / LOCATION_FILE
 
 
@@ -245,8 +313,19 @@ def stored_data_dir() -> Path | None:
     Kazdy blad — brak pliku, uszkodzony JSON, sciezka wzgledna, pusty napis —
     znaczy „nie ma wyboru" i sprowadza program do lokalizacji domyslnej.
     Wskaznik nie moze byc powodem, dla ktorego program sie nie uruchamia.
+
+    Gdy nowego wskaznika NIE MA, czytamy wybor zapisany przez BeatStampa
+    (`legacy_location_file`). Nowy wskaznik — takze pusty, zapisany przy
+    powrocie do lokalizacji domyslnej — ma zawsze pierwszenstwo; starego
+    pliku nie zmieniamy nigdy.
     """
     path = location_file()
+    try:
+        exists = path.is_file()
+    except OSError:
+        exists = False
+    if not exists:
+        path = legacy_location_file()
     try:
         raw = json.loads(path.read_text(encoding='utf-8'))
     except (OSError, ValueError):
@@ -273,6 +352,14 @@ def remember_data_dir(path: Path | None) -> bool:
     try:
         if path is None:
             target.unlink(missing_ok=True)
+            # Wybor BeatStampa w starym miejscu wrocilby przy nastepnym
+            # odczycie (`stored_data_dir`). Starego pliku nie ruszamy —
+            # przyslaniamy go jawnie pustym wyborem.
+            if legacy_location_file().is_file():
+                write_atomic(target, json.dumps({
+                    'katalog': '',
+                    'zapisano_utc': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
+                }, indent=2, ensure_ascii=False).encode('utf-8'))
             return True
         write_atomic(target, json.dumps({
             'katalog': str(path),
@@ -287,7 +374,8 @@ def remember_data_dir(path: Path | None) -> bool:
 def resolved_data_dir() -> Path:
     """Katalog danych — sama sciezka, BEZ tworzenia katalogu.
 
-    Kolejnosc: zmienna `BEATSTAMP_DATA_DIR` (wskazuje katalog wprost), potem
+    Kolejnosc: zmienna `SIGELITH_DATA_DIR` albo — zapasowo — dawna
+    `BEATSTAMP_DATA_DIR` (wskazuje katalog wprost, `forced_data_dir`), potem
     wybor zapamietany przez uzytkownika (`LOCATION_FILE`), potem lokalizacja
     domyslna dla systemu.
 
@@ -301,13 +389,13 @@ def resolved_data_dir() -> Path:
     uruchomil program, wiec historia rozsypywalaby sie po dysku. Przyjecie
     takiej wartosci przywrocilby usterke, ktora ten plik naprawia.
     """
-    override = (os.environ.get(DATA_DIR_ENV) or '').strip()
+    name, override = forced_data_dir()
     if override:
         path = Path(override).expanduser()
         if path.is_absolute():
             return path
         log.warning('%s musi byc sciezka bezwzgledna — pomijam wartosc %r',
-                    DATA_DIR_ENV, override)
+                    name, override)
     chosen = stored_data_dir()
     if chosen is not None:
         return chosen
@@ -317,21 +405,30 @@ def resolved_data_dir() -> Path:
 def legacy_app_data_dir() -> Path:
     """PIERWSZA stara lokalizacja danych (`%LOCALAPPDATA%\\BeatStamp`).
 
-    Zrodlo przeprowadzki (`migrate_legacy_data`) i miejsce wskaznika
-    `LOCATION_FILE`. Katalogu celowo NIE tworzymy przy samym pytaniu o
-    sciezke: sprawdzenie „czy jest co przenosic" nie ma prawa zostawic po
-    sobie pustego katalogu w miejscu, ktore wlasnie opuszczamy.
+    Zrodlo przeprowadzki (`migrate_legacy_data`) i miejsce STAREGO wskaznika
+    (`legacy_location_file`). Katalogu celowo NIE tworzymy przy samym
+    pytaniu o sciezke: sprawdzenie „czy jest co przenosic" nie ma prawa
+    zostawic po sobie pustego katalogu w miejscu, ktore wlasnie opuszczamy.
 
-    Na macOS i Linuksie jest to ta sama sciezka co domyslna — przeprowadzka
-    konczy sie tam natychmiast, w pierwszym warunku.
+    Na macOS i Linuksie byla to lokalizacja domyslna BeatStampa — tam jest
+    jedynym zrodlem przeprowadzki do `.../Sigelith`.
     """
-    if sys.platform == 'win32':
-        base = os.environ.get('LOCALAPPDATA') or os.path.expanduser('~')
-    elif sys.platform == 'darwin':
-        base = os.path.expanduser('~/Library/Application Support')
-    else:
-        base = os.environ.get('XDG_DATA_HOME') or os.path.expanduser('~/.local/share')
-    return Path(base) / __app_name__
+    return _local_base() / LEGACY_DIR_NAME
+
+
+def legacy_profile_data_dir() -> Path | None:
+    """TRZECIA stara lokalizacja (`%USERPROFILE%\\BeatStamp`) albo `None`.
+
+    Domyslna lokalizacja BeatStampa 2.2.0 — ta sama logika co dzisiejszy
+    `%USERPROFILE%\\Sigelith`, tylko pod stara nazwa programu. U kazdego,
+    kto uzywal wersji 2.2, leza tu PRAWDZIWE dane (historia, ustawienia,
+    stan swiadka), wiec to pelnoprawne, NAJSWIEZSZE zrodlo przeprowadzki.
+    Poza Windows nie istniala (tam domyslny byl `legacy_app_data_dir`).
+    """
+    if sys.platform != 'win32':
+        return None
+    profile = os.environ.get('USERPROFILE') or os.path.expanduser('~')
+    return Path(profile) / LEGACY_DIR_NAME
 
 
 def legacy_documents_data_dir() -> Path | None:
@@ -350,7 +447,7 @@ def legacy_documents_data_dir() -> Path | None:
     if sys.platform != 'win32':
         return None
     documents = _windows_documents_dir()
-    return None if documents is None else documents / __app_name__
+    return None if documents is None else documents / LEGACY_DIR_NAME
 
 
 def data_dir_for_choice(chosen: Path) -> Path:
@@ -359,12 +456,40 @@ def data_dir_for_choice(chosen: Path) -> Path:
     Uzytkownik wskazuje MIEJSCE (na przyklad `D:\\Dane`), a nie katalog
     aplikacji. Wysypanie `history.json`, `settings.json` i dziennika wprost
     do wskazanego folderu byloby niegrzeczne w katalogu z wlasnymi plikami
-    i szkodliwe w korzeniu dysku, wiec dokladamy podkatalog `BeatStamp` —
-    chyba ze uzytkownik wskazal juz katalog o tej nazwie (czyli najczesciej
-    poprzedni katalog danych przeniesiony recznie).
+    i szkodliwe w korzeniu dysku, wiec dokladamy podkatalog `Sigelith` —
+    chyba ze uzytkownik wskazal juz katalog danych (`Sigelith` albo dawny
+    `BeatStamp`, czyli najczesciej poprzedni katalog przeniesiony recznie).
     """
     chosen = Path(chosen)
-    return chosen if chosen.name == __app_name__ else chosen / __app_name__
+    if chosen.name in (DATA_DIR_NAME, LEGACY_DIR_NAME):
+        return chosen
+    return chosen / DATA_DIR_NAME
+
+
+def _reject_constant(name: str):
+    raise ValueError(f'non-finite number in JSON: {name}')
+
+
+def _finite_float(text: str) -> float:
+    value = float(text)
+    if value != value or value in (float('inf'), float('-inf')):
+        raise ValueError(f'non-finite number in JSON: {text[:20]}')
+    return value
+
+
+def json_loads(text):
+    """`json.loads` bez NaN/Infinity i bez przepelnienia stosu — wszystko jako ValueError.
+
+    `Infinity` albo `1e999` w polu liczbowym dawaly OverflowError przy `int()`,
+    a gleboko zagniezdzona tablica — RecursionError. Oba spoza (OSError,
+    ValueError), ktore lapia loadery, wiec jeden zepsuty plik (ustawienia,
+    historia, stan swiadka, .beatproof) albo odpowiedz serwera wywracaly
+    program zamiast skonczyc sie komunikatem (fuzzing 2026-09-27).
+    """
+    try:
+        return json.loads(text, parse_constant=_reject_constant, parse_float=_finite_float)
+    except RecursionError as e:
+        raise ValueError('JSON nested too deeply') from e
 
 
 def app_data_dir() -> Path:
@@ -405,8 +530,26 @@ def settings_path() -> Path:
     return app_data_dir() / 'settings.json'
 
 
+def handover_dir() -> Path:
+    """Stan Sigelith Handover: karty, kontakty, przesylki (handover_app/store.py)."""
+    return app_data_dir() / 'handover'
+
+
+def default_handover_downloads() -> Path:
+    """Pliki z otwartych przesylek, gdy uzytkownik nie wybral innego folderu."""
+    return Path.home() / 'Downloads' / 'Sigelith'
+
+
+#: Dziennik zdarzen w katalogu danych. Do 2.2.0 `beatstamp.log` — dziennika
+#: przeprowadzka nie przenosi (`MIGRATED_NAMES`), wiec stara nazwa nie ma tu
+#: czego szukac; stary plik zostaje w starym katalogu.
+LOG_NAME = 'sigelith.log'
+#: Zrzut awaryjny `faulthandler` (`__main__.enable_crash_dump`) obok dziennika.
+CRASH_LOG_NAME = 'sigelith-crash.log'
+
+
 def log_path() -> Path:
-    return app_data_dir() / 'beatstamp.log'
+    return app_data_dir() / LOG_NAME
 
 
 # --- Zapis atomowy ----------------------------------------------------------
@@ -486,7 +629,7 @@ class WriteProblem:
 
     @property
     def title(self) -> str:
-        return _('BeatStamp cannot save data')
+        return _('Sigelith Desktop cannot save data')
 
     @property
     def message(self) -> str:
@@ -500,7 +643,7 @@ class WriteProblem:
                 'applications it already knows write to folders such as '
                 'Documents, Pictures or Videos — a newly installed program is '
                 'not one of them yet.\n\n'
-                'There are two ways out: allow BeatStamp in the Windows '
+                'There are two ways out: allow Sigelith Desktop in the Windows '
                 'ransomware protection settings, or pick another folder for '
                 'the data. Nothing is deleted either way — whatever is already '
                 'in the old folder stays there.') % {'path': self.directory}
@@ -567,10 +710,12 @@ def probe_write(directory: Path | None = None) -> WriteProblem | None:
 #: wykonana, zanim cokolwiek skopiowala.
 MIGRATION_MARKER = '.przeniesiono-z-appdata'
 DOCUMENTS_MARKER = '.przeniesiono-z-dokumentow'
+#: Przeprowadzka `%USERPROFILE%\BeatStamp` -> `%USERPROFILE%\Sigelith` (3.0.0).
+BEATSTAMP_MARKER = '.przeniesiono-z-beatstamp'
 
 #: Wszystkie znaczniki przeprowadzek — do przeniesienia razem z danymi
 #: (`_carry_over_markers`).
-MARKERS = (MIGRATION_MARKER, DOCUMENTS_MARKER)
+MARKERS = (MIGRATION_MARKER, DOCUMENTS_MARKER, BEATSTAMP_MARKER)
 
 #: Sufiks nazwy dla pliku, ktory NIE nadpisal istniejacego (`_unique_aside`).
 #: Tez wlasny dla kazdego zrodla — nazwa `history.json.z-appdata-…` przy pliku
@@ -578,6 +723,7 @@ MARKERS = (MIGRATION_MARKER, DOCUMENTS_MARKER)
 #: dwoch historii to jedyna informacja, ktora pozwala je rozroznic.
 ASIDE_APPDATA = 'z-appdata'
 ASIDE_DOCUMENTS = 'z-dokumentow'
+ASIDE_BEATSTAMP = 'z-beatstamp'
 ASIDE_PREVIOUS = 'z-poprzedniego'
 
 #: Pliki przenoszone ze starej lokalizacji. Dziennika NIE przenosimy: nowy
@@ -588,6 +734,17 @@ MIGRATED_NAMES = ('history.json', 'settings.json', '.tvs-zaimportowano')
 #: slad po danych, ktorych nie dalo sie wczytac — zostawienie ich w katalogu
 #: kasowanym razem z paczka byloby strata bez odwolania.
 MIGRATED_GLOBS = ('historia.uszkodzona-*.json',)
+
+#: Podkatalog przenoszony CALY (od 3.0.0): stan swiadka, sprawdzone pliki
+#: checkpointow, kopia dziennika i — przede wszystkim — `witness/evidence/`,
+#: czyli material dowodowy po alarmie, ktorego nie wolno zgubic z oczu.
+#: Bez niego swiadek w nowym katalogu zaczynalby od zera: bez przypietej
+#: historii checkpointow i bez alarmow wykrytych przez BeatStampa.
+#: Pliki tymczasowe zapisu atomowego (`*.tmp`) zostaja.
+#: `handover/` (od 3.0): moje karty i kontakty oraz przesylki w toku. Sekrety
+#: sa tam jako bloby DPAPI — przeniesione na INNE konto Windows nie otworza
+#: sie, ale przesylki i kontakty zostaja widoczne, a nie znikaja.
+MIGRATED_TREES = ('witness', 'handover')
 
 #: Informacja zostawiana w starym katalogu — dla kogos, kto tam zajrzy.
 FORWARDING_NOTE = 'PRZENIESIONO.txt'
@@ -625,7 +782,11 @@ class MigrationReport:
         """Jedno zdanie na pasek stanu. Puste = nie ma o czym mowic."""
         if not self.changed:
             return ''
-        parts = [(_('BeatStamp data has been moved to: %(path)s')
+        # Kazde zrodlo przeprowadzki to dane z czasow BeatStampa, wiec zdanie
+        # mowi od razu o zmianie nazwy — uzytkownik po aktualizacji widzi
+        # nowy program i nowy folder, a nie wie, ze to ten sam.
+        parts = [(_('BeatStamp is now Sigelith Desktop — your data has been '
+                    'moved to: %(path)s')
                   if self.copied else _('Data folder: %(path)s'))
                  % {'path': self.target}]
         if self.kept_aside:
@@ -648,12 +809,23 @@ def _unique_aside(target: Path, name: str, tag: str) -> Path:
 
 
 def _migration_sources(source: Path) -> list[str]:
+    """Sciezki WZGLEDNE (`/`) plikow do skopiowania ze zrodla."""
     names = list(MIGRATED_NAMES)
     for pattern in MIGRATED_GLOBS:
         try:
             names.extend(sorted(p.name for p in source.glob(pattern) if p.is_file()))
         except OSError as e:
             log.warning('przeprowadzka — nie udało się przejrzeć %s: %s', source, e)
+    for tree in MIGRATED_TREES:
+        try:
+            root = source / tree
+            if root.is_dir():
+                names.extend(sorted(p.relative_to(source).as_posix()
+                                    for p in root.rglob('*')
+                                    if p.is_file() and p.suffix != '.tmp'))
+        except OSError as e:
+            log.warning('przeprowadzka — nie udało się przejrzeć %s: %s',
+                        source / tree, e)
     return list(dict.fromkeys(names))          # bez powtorzen, kolejnosc zachowana
 
 
@@ -663,7 +835,8 @@ def _write_forwarding_note(source: Path, target: Path) -> None:
         return
     try:
         note.write_text(
-            _('BeatStamp data (stamp history, settings) has been moved to:\n\n'
+            _('Sigelith Desktop (formerly BeatStamp) has moved its data (stamp '
+              'history, settings) to:\n\n'
               '    %(path)s\n\n'
               'This folder is no longer in use. The files were kept here as a '
               'copy — you can delete them once you are sure everything is in '
@@ -676,13 +849,13 @@ def _write_forwarding_note(source: Path, target: Path) -> None:
 def _carry_over_markers(source: Path, target: Path, own: str | None) -> None:
     """Przenosi znaczniki INNYCH przeprowadzek razem z danymi.
 
-    Bez tego kroku lancuch `AppData -> Dokumenty -> profil` produkowalby
-    duplikaty: dane z `AppData` sa juz scalone w `Dokumenty\\BeatStamp`
-    (swiadczy o tym lezacy tam znacznik), wiec po skopiowaniu ich do profilu
-    przeprowadzka z `AppData` powinna od razu uznac sie za wykonana. Gdyby
-    znacznik nie powedrowal, STARSZA historia z `AppData` wrocilaby obok
-    nowszej jako `history.json.z-appdata-<czas>` — bez straty danych, ale
-    z falszywym wrazeniem, ze cos sie rozdwoilo.
+    Bez tego kroku lancuch `AppData -> Dokumenty -> profil\\BeatStamp ->
+    profil\\Sigelith` produkowalby duplikaty: dane z `AppData` sa juz scalone
+    w `Dokumenty\\BeatStamp` (swiadczy o tym lezacy tam znacznik), wiec po
+    skopiowaniu ich dalej przeprowadzka z `AppData` powinna od razu uznac sie
+    za wykonana. Gdyby znacznik nie powedrowal, STARSZA historia z `AppData`
+    wrocilaby obok nowszej jako `history.json.z-appdata-<czas>` — bez straty
+    danych, ale z falszywym wrazeniem, ze cos sie rozdwoilo.
 
     Kazde niepowodzenie jest tu nieszkodliwe: brak znacznika oznacza co
     najwyzej jedno zbedne przejscie przy nastepnym starcie.
@@ -737,14 +910,21 @@ def _copy_data(source: Path, target: Path, tag: str,
     return ok
 
 
-def _migrate_one(source: Path, target: Path, marker_name: str, tag: str,
-                 report: MigrationReport) -> bool:
-    """Przeprowadzka z JEDNEGO zrodla. Zwraca, czy jest zamknieta znacznikiem."""
+def _same_dir(first: Path, second: Path) -> bool:
     try:
-        same = target.resolve() == source.resolve()
+        return first.resolve() == second.resolve()
     except OSError:
-        same = target == source
-    if same:
+        return first == second
+
+
+def _migrate_one(source: Path, target: Path, marker_name: str, tag: str,
+                 report: MigrationReport, *, skip: bool = False) -> bool:
+    """Przeprowadzka z JEDNEGO zrodla. Zwraca, czy jest zamknieta znacznikiem.
+
+    `skip` = zrodlo nie dotyczy tego katalogu docelowego: zapisujemy sam
+    znacznik („nie ma stad czego brac") i niczego nie kopiujemy.
+    """
+    if _same_dir(target, source):
         return True
 
     marker = target / marker_name
@@ -758,7 +938,7 @@ def _migrate_one(source: Path, target: Path, marker_name: str, tag: str,
         has_source = source.is_dir()
     except OSError:
         has_source = False
-    if not has_source:
+    if not has_source or skip:
         # Swieza instalacja: nie ma czego przenosic. Znacznik i tak zapisujemy,
         # zeby kolejne starty nie szukaly tego katalogu bez potrzeby.
         return _mark_migrated(marker, source)
@@ -778,9 +958,18 @@ def legacy_locations() -> list[tuple[Path, str, str]]:
     Kolejnosc jest znaczaca i idzie od NAJSWIEZSZEJ. Przy scalaniu wygrywa
     ten plik, ktory trafi na miejsce pierwszy (drugi laduje obok, bo
     `_copy_data` niczego nie nadpisuje) — a najswiezsza historia jest tam,
-    gdzie program pisal ostatnio, czyli w Dokumentach.
+    gdzie program pisal ostatnio: `%USERPROFILE%\\BeatStamp` (2.2.0), przed
+    nim Dokumenty, na koncu `AppData`.
+
+    Zrodlo `%USERPROFILE%\\BeatStamp` idzie pierwsze takze z drugiego powodu:
+    lezace tam znaczniki poprzednich przeprowadzek wedruja razem z danymi
+    (`_carry_over_markers`), wiec Dokumenty i `AppData`, juz raz scalone
+    w wersji 2.2, nie sa czytane drugi raz.
     """
     locations: list[tuple[Path, str, str]] = []
+    profile = legacy_profile_data_dir()
+    if profile is not None:
+        locations.append((profile, BEATSTAMP_MARKER, ASIDE_BEATSTAMP))
     documents = legacy_documents_data_dir()
     if documents is not None:
         locations.append((documents, DOCUMENTS_MARKER, ASIDE_DOCUMENTS))
@@ -802,11 +991,7 @@ def copy_data_to(target: Path) -> MigrationReport:
     source = resolved_data_dir()
     target = Path(target)
     report = MigrationReport(target=target)
-    try:
-        same = target.resolve() == source.resolve()
-    except OSError:
-        same = target == source
-    if same:
+    if _same_dir(target, source):
         report.done = True
         return report
     try:
@@ -828,11 +1013,19 @@ def copy_data_to(target: Path) -> MigrationReport:
 def migrate_legacy_data() -> MigrationReport:
     """Jednorazowo kopiuje dane ze STARYCH lokalizacji do biezacej.
 
-    Zrodla sa dwa (`legacy_locations`), bo dwa razy byly lokalizacja domyslna:
-    `%LOCALAPPDATA%\\BeatStamp` (kasowany przy odinstalowaniu paczki MSIX)
-    i `Dokumenty\\BeatStamp` (blokowany przez ochrone przed ransomware).
-    Uzytkownik moze miec dane w obu — i musi zobaczyc je razem, w jednym
-    komplecie.
+    Zrodla sa trzy (`legacy_locations`), bo trzy razy byly lokalizacja
+    domyslna: `%LOCALAPPDATA%\\BeatStamp` (kasowany przy odinstalowaniu paczki
+    MSIX), `Dokumenty\\BeatStamp` (blokowany przez ochrone przed ransomware)
+    i `%USERPROFILE%\\BeatStamp` (BeatStamp 2.2.0 — przed zmiana nazwy
+    programu na Sigelith Desktop). Uzytkownik moze miec dane w kazdym z nich
+    — i musi zobaczyc je razem, w jednym komplecie.
+
+    `%USERPROFILE%\\BeatStamp` dotyczy WYLACZNIE lokalizacji domyslnej. Katalog
+    wybrany przez uzytkownika (wskaznik `LOCATION_FILE`, takze zapisany przez
+    BeatStampa) dostal swoje dane wlasnie stamtad — przy zmianie katalogu
+    w wersji 2.2 (`copy_data_to`) — a potem juz tylko tam pisal. Ponowne
+    kopiowanie przynioslo by same starsze wersje „obok"; zapisujemy wiec sam
+    znacznik, ktory przy kolejnej zmianie katalogu wedruje razem z danymi.
 
     Zasady, ktorych ta funkcja pilnuje:
 
@@ -859,23 +1052,27 @@ def migrate_legacy_data() -> MigrationReport:
     target = app_data_dir()
     report = MigrationReport(target=target)
 
-    # Katalog narzucony z zewnatrz = katalog IZOLOWANY. `BEATSTAMP_DATA_DIR`
-    # uzywaja wersja przenosna z pendrive'a, testy i `tools/verify_exe.py`,
-    # a w kazdym z tych przypadkow „wciagnij tu historie z tej maszyny" jest
-    # dokladnym przeciwienstwem tego, o co chodzilo: pendrive zabralby cudze
-    # dane, a weryfikacja wydania mieszalaby swoj stempel probny z prawdziwa
-    # historia osoby skladajacej paczke. Wybor uzytkownika zapisany we
-    # wskazniku (`LOCATION_FILE`) takiego skutku nie ma — tam przeprowadzka
-    # jest wlasnie tym, czego uzytkownik oczekuje.
-    if (os.environ.get(DATA_DIR_ENV) or '').strip():
-        log.info('przeprowadzka pominieta: katalog danych narzucony przez %s',
-                 DATA_DIR_ENV)
+    # Katalog narzucony z zewnatrz = katalog IZOLOWANY. `SIGELITH_DATA_DIR`
+    # (i dawna `BEATSTAMP_DATA_DIR`) uzywaja wersja przenosna z pendrive'a,
+    # testy i `tools/verify_exe.py`, a w kazdym z tych przypadkow „wciagnij
+    # tu historie z tej maszyny" jest dokladnym przeciwienstwem tego, o co
+    # chodzilo: pendrive zabralby cudze dane, a weryfikacja wydania
+    # mieszalaby swoj stempel probny z prawdziwa historia osoby skladajacej
+    # paczke. Wybor uzytkownika zapisany we wskazniku (`LOCATION_FILE`)
+    # takiego skutku nie ma — tam przeprowadzka jest wlasnie tym, czego
+    # uzytkownik oczekuje.
+    name, forced = forced_data_dir()
+    if forced:
+        log.info('przeprowadzka pominieta: katalog danych narzucony przez %s', name)
         report.done = True
         return report
 
+    at_default = _same_dir(target, _default_data_dir())
     done = True
     for source, marker_name, tag in legacy_locations():
-        done = _migrate_one(source, target, marker_name, tag, report) and done
+        skip = marker_name == BEATSTAMP_MARKER and not at_default
+        done = _migrate_one(source, target, marker_name, tag, report,
+                            skip=skip) and done
     report.done = done
     return report
 
@@ -894,7 +1091,24 @@ def _mark_migrated(marker: Path, source: Path) -> bool:
 
 # --- Ustawienia -------------------------------------------------------------
 
-DEFAULT_BASE_URL = 'https://beattime.live'
+#: Adres API Sigelith. sigelith.org i beattime.live obsluguje TA SAMA
+#: instancja (jedna baza, jeden dziennik, jeden klucz Ed25519), a kazda
+#: sciezka API jest pod obiema domenami taka sama — beattime.live dziala
+#: dalej na zawsze, ale od 3.0.0 program mowi do sigelith.org.
+DEFAULT_BASE_URL = 'https://sigelith.org'
+
+#: Domyslne adresy API z poprzednich wersji. `settings.json` zapisuje KAZDE
+#: pole, takze domyslne, wiec u kazdego uzytkownika BeatStampa lezy tam
+#: `"base_url": "https://beattime.live"` — nie jako wybor, tylko jako
+#: utrwalona wartosc domyslna. `Settings.load` zamienia ja na biezaca
+#: (tak samo jak stary klucz fabryczny w `pinned_public_key`); kazdy INNY
+#: adres, np. wlasna instancja, zostaje nietkniety.
+LEGACY_DEFAULT_BASE_URLS = frozenset({'https://beattime.live'})
+
+#: Usluga ukryta Tor — adres WBUDOWANY, awaryjny. Biezacy program pobiera
+#: sam z `/api/onion/` i zapamietuje w `Settings.onion_url` (onion.py), wiec
+#: zmiana adresu .onion nie wymaga nowego wydania. Ten prowadzi do tej samej
+#: instancji co sigelith.org i beattime.live i zostaje wlaczony na stale.
 ONION_BASE_URL = 'http://beattimep6dfropwazgaluos7xsxxmyjeat2ddb73dxxvvbsejmp4hqd.onion'
 DEFAULT_TOR_PROXY = 'socks5h://127.0.0.1:9050'
 
@@ -910,11 +1124,91 @@ DEFAULT_TOR_PROXY = 'socks5h://127.0.0.1:9050'
 #   aplikacji. Gdyby adres szedl z ustawien, wpisanie wlasnego serwera (pole
 #   dla testow i dla wersji rozwojowej) podmienialoby impressum na cudze —
 #   albo prowadzilo donikad.
-# * **Staly prefiks `/de/`.** Obie strony istnieja WYLACZNIE po niemiecku
+# * **Staly prefiks `/de/`.** Oryginaly istnieja WYLACZNIE po niemiecku
 #   (`apps/web/views._german_only`), bo to niemiecki obowiazek prawny;
-#   podstawienie prefiksu jezyka interfejsu dawaloby 404.
-IMPRESSUM_URL = 'https://beattime.live/de/impressum/'
-PRIVACY_POLICY_URL = 'https://beattime.live/de/datenschutz/'
+#   podstawienie prefiksu jezyka interfejsu dawaloby 404. Jedyny inny adres
+#   to angielskie tlumaczenie polityki (`/privacy/`, bez prefiksu jezyka) —
+#   `privacy_policy_url` nizej.
+#
+# Od 3.0.0 pod sigelith.org — te same sciezki, ta sama instancja i ten sam
+# wydawca (Adam Koch, Hagen) co pod beattime.live.
+IMPRESSUM_URL = 'https://sigelith.org/de/impressum/'
+PRIVACY_POLICY_URL = 'https://sigelith.org/de/datenschutz/'
+PRIVACY_POLICY_URL_EN = 'https://sigelith.org/privacy/'
+
+
+def privacy_policy_url(language: str = 'en') -> str:
+    """Polityka prywatnosci w wersji, ktora uzytkownik przeczyta.
+
+    Interfejs niemiecki dostaje oryginal, kazdy inny — tlumaczenie angielskie
+    (od 2026-09-27): wersji polskiej czy japonskiej nie ma, a angielska jest
+    dla wiekszosci czytelnikow blizsza niz niemiecka. Na jej poczatku stoi,
+    ze wiazacy jest oryginal, z odnosnikiem do niego.
+    """
+    return PRIVACY_POLICY_URL if (language or '').lower() == 'de' else PRIVACY_POLICY_URL_EN
+
+# Strony serwisu, ktore istnieja w wersjach jezykowych (`config/urls.py`
+# serwera: `i18n_patterns`, angielski BEZ prefiksu). Pozostale — `/spec/`,
+# `/checkpoints/`, `/open-source/`, `/docs/` — sa jednojezyczne i maja jeden
+# adres; prefiks jezyka dawalby tam 404. Od 3.0.0 pod sigelith.org: ta sama
+# instancja co beattime.live, wiec kazda sciezka dziala pod obiema domenami.
+SITE_BASE = 'https://sigelith.org'
+LOCALIZED_PAGES = frozenset({'', 'apps', 'proof', 'evidence', 'quickstart',
+                             'swatch-internet-time', 'capsule', 'manifesto'})
+#: Strony, ktorych oryginal jest w jednym jezyku, a reszta to tlumaczenie
+#: albo przekierowanie. Manifest: oryginal PL, tlumaczenie EN; `/de/manifesto/`
+#: przekierowuje na EN.
+PAGE_LANGUAGES = {'manifesto': frozenset({'pl', 'en'})}
+#: Kod jezyka aplikacji -> prefiks jezyka na stronie (gdy sie roznia).
+SITE_LANGUAGE_PREFIX = {'zh': 'zh-hans'}
+
+
+def site_url(path: str, language: str = 'en') -> str:
+    """Adres strony serwisu w jezyku interfejsu, jesli taka wersja jest.
+
+    `path` bez ukosnikow na brzegach, z opcjonalnym zapytaniem:
+    `site_url('proof?h=...', 'pl')` -> `https://sigelith.org/pl/proof/?h=...`.
+    """
+    page, _sep, query = str(path or '').strip('/').partition('?')
+    page = page.strip('/')
+    first = page.split('/', 1)[0]
+    language = (language or 'en').lower()
+    # Katalog aplikacji to `zh`; strona ma chinski uproszczony pod `/zh-hans/`.
+    language = SITE_LANGUAGE_PREFIX.get(language, language)
+    allowed = PAGE_LANGUAGES.get(first)
+    prefix = ''
+    if first in LOCALIZED_PAGES and language != 'en' and (
+            allowed is None or language in allowed):
+        prefix = f'/{language}'
+    url = f'{SITE_BASE}{prefix}/{page}/' if page else f'{SITE_BASE}{prefix}/'
+    return f'{url}?{query}' if query else url
+
+
+#: Publiczna strona weryfikacji skrotu — JEDYNE miejsce, w ktorym zapisany jest
+#: jej adres. Z niego biora: kod QR i tekst certyfikatu PDF
+#: (`certificate.py`), odnosnik wpisu historii (`history.Entry.verify_url`)
+#: i przycisk „Sprawdz w przegladarce" (`verify_url(..., language)`).
+#:
+#: OSTATECZNA sciezka (decyzja wlasciciela 2026-09-27): `/proof/?h=<skrot>`
+#: pod sigelith.org. Te sama sciezke drukuje od 2026-09-27 certyfikat PDF
+#: serwera (apps/tsa/cert.py), wiec i tak musi dzialac zawsze — kod QR na
+#: wydrukowanym certyfikacie ma dzialac latami. Nie zmieniac.
+VERIFY_URL = 'https://sigelith.org/proof/?h='
+
+
+def verify_url(digest: str, language: str = '') -> str:
+    """Adres weryfikacji skrotu na stronie Sigelith.
+
+    Bez `language` — adres KANONICZNY, bez prefiksu jezyka: trafia do kodu
+    QR i na certyfikat, ktory czyta kazdy, w dowolnym jezyku. Z `language` —
+    ta sama strona w jezyku interfejsu (`site_url`), dla przycisku w oknie.
+    """
+    digest = str(digest or '')
+    if not language:
+        return VERIFY_URL + digest
+    page, _sep, query = VERIFY_URL.partition('?')
+    page = page.split('://', 1)[-1].partition('/')[2]
+    return site_url(f'{page.strip("/")}?{query}{digest}', language)
 
 # Zrodla bibliotek, z ktorych korzystamy na LGPLv3 (Qt i PySide6). Paragraf 4
 # tej licencji wymaga czterech rzeczy naraz i kazda z nich jest w oknie
@@ -930,11 +1224,11 @@ PRIVACY_POLICY_URL = 'https://beattime.live/de/datenschutz/'
 # oferta nie. Wersje sa tu wpisane wprost, bo zmiana wersji Qt MUSI byc
 # widoczna jako zmiana w tym pliku; zgodnosci z `tools/licenses.py` (skad
 # bierze je generator not) pilnuje `tests/test_licensing.py`.
-QT_SOURCE_URL = ('https://download.qt.io/archive/qt/6.9/6.9.1/single/'
-                 'qt-everywhere-src-6.9.1.tar.xz')
+QT_SOURCE_URL = ('https://download.qt.io/archive/qt/6.11/6.11.2/single/'
+                 'qt-everywhere-src-6.11.2.tar.xz')
 PYSIDE_SOURCE_URL = ('https://download.qt.io/official_releases/QtForPython/'
-                     'pyside6/PySide6-6.9.1-src/'
-                     'pyside-setup-everywhere-src-6.9.1.tar.xz')
+                     'pyside6/PySide6-6.11.2-src/'
+                     'pyside-setup-everywhere-src-6.11.2.tar.xz')
 
 # Adresy, pod ktorymi moze nasluchiwac LOKALNY Tor.
 LOOPBACK_HOSTS = frozenset({'127.0.0.1', 'localhost', '::1', '[::1]'})
@@ -953,20 +1247,38 @@ class Settings:
     base_url: str = DEFAULT_BASE_URL
     use_tor: bool = False
     tor_proxy: str = DEFAULT_TOR_PROXY
+    # Adres .onion pobrany z /api/onion/ (onion.py) i chwila ostatniego
+    # UDANEGO sprawdzenia (ISO 8601 UTC). Puste = wbudowany ONION_BASE_URL.
+    onion_url: str = ''
+    onion_checked: str = ''
     timeout_seconds: float = 15.0
 
     # --- Zaufanie ---
     # OPCJONALNY wlasny klucz (zaawansowane). Pusty = wbudowana historia
-    # kluczy BeatTime z keys.py — i to jest ustawienie zalecane. Wlasny klucz
-    # jest uznawany OBOK listy (np. gdy BeatTime ogłosi rotacje, zanim wyjdzie
+    # kluczy Sigelith z keys.py — i to jest ustawienie zalecane. Wlasny klucz
+    # jest uznawany OBOK listy (np. gdy Sigelith ogłosi rotacje, zanim wyjdzie
     # nowa wersja programu) i jest stale widoczny na pasku stanu. Wylaczyc
     # sprawdzanie klucza sie nie da. Nazwa pola zostaje dla zgodnosci
     # z istniejacymi plikami settings.json.
     pinned_public_key: str = ''
 
+    # --- Swiadkowie (2.2) ---
+    # 'private' — kopia calego dziennika, serwer nie wie, ktore wpisy sa
+    # nasze; 'fast' — pytanie o kazdy skrot osobno (witness.py).
+    verification_mode: str = 'private'
+    # Sprawdzanie dziennika i dojrzewania dowodow, gdy okno jest otwarte.
+    background_checks: bool = True
+    # Kopie u osob trzecich (GitHub, Internet Archive, Zenodo) i blok
+    # Bitcoina u niezaleznego eksploratora.
+    third_party_checks: bool = True
+
     # --- Zachowanie ---
     auto_verify_after_stamp: bool = True
+    # Czesci nazwy zapisywanego certyfikatu i dowodu (`naming.py`). Pierwsze
+    # pole ma stara nazwe, zeby ustawienie z 2.1 dzialalo dalej.
     name_cert_after_source: bool = True
+    cert_name_moment: bool = True
+    cert_name_beat: bool = True
     confirm_overwrite: bool = True
     theme: str = 'auto'              # auto | light | dark
     # Jezyk interfejsu: 'auto' (jak system) albo kod z `i18n.SUPPORTED`.
@@ -975,6 +1287,16 @@ class Settings:
     language: str = 'auto'           # auto | pl | en | de
     last_directory: str = ''
     history_limit: int = 5000        # gorny sufit wpisow; 0 = bez limitu
+
+    # --- Sigelith Handover (3.0) ---
+    # Folder wymiany (OneDrive, Dropbox, Syncthing...): paczki i odpowiedzi
+    # zapieczetowane do adresata, odbierane automatycznie. Pusty = pliki
+    # zapisuje i otwiera uzytkownik (HANDOVER_SPEC.md §10.3).
+    handover_exchange_dir: str = ''
+    # Folder na pliki z otwartych przesylek. Pusty = Pobrane\Sigelith.
+    handover_downloads_dir: str = ''
+    # Atestacja TPM karty w pliku karty i w dowodzie (§3.6). Mozna wylaczyc.
+    handover_attestation: bool = True
 
     # --- Okno ---
     window_geometry: str = ''        # base64 z QByteArray
@@ -990,7 +1312,7 @@ class Settings:
         if not path.exists():
             return cls()
         try:
-            raw = json.loads(path.read_text(encoding='utf-8'))
+            raw = json_loads(path.read_text(encoding='utf-8'))
         except (OSError, ValueError):
             return cls()
         if not isinstance(raw, dict):
@@ -1010,7 +1332,7 @@ class Settings:
                     kwargs[key] = float(value)
                 else:
                     kwargs[key] = str(value)
-            except (TypeError, ValueError):
+            except (TypeError, ValueError, OverflowError):
                 continue
         # Migracja z wersji, w ktorej to pole bylo JEDYNYM przypietym kluczem
         # z wartoscia fabryczna. Stary klucz fabryczny i klucze wycofane nie
@@ -1030,7 +1352,19 @@ class Settings:
                     not isinstance(raw_key, str) or raw_key.strip() not in quiet):
                 log.warning('ustawienia: pominięto nieprawidłowy klucz publiczny '
                             'w settings.json (pole pinned_public_key)')
+        # Utrwalona wartosc domyslna z BeatStampa (beattime.live) to nie wybor
+        # uzytkownika — patrz `LEGACY_DEFAULT_BASE_URLS`. Przy nastepnym
+        # zapisie trafi tu juz sigelith.org.
+        if 'base_url' in kwargs and kwargs['base_url'].strip().rstrip('/').lower() \
+                in LEGACY_DEFAULT_BASE_URLS:
+            kwargs['base_url'] = DEFAULT_BASE_URL
         return cls(**kwargs)
+
+    @property
+    def witness_mode(self) -> str:
+        """Tryb sprawdzania: 'private' albo 'fast' (zla wartosc = prywatny)."""
+        return self.verification_mode if self.verification_mode in (
+            'private', 'fast') else 'private'
 
     @property
     def key_override(self) -> str:
@@ -1057,9 +1391,19 @@ class Settings:
     # --- Pochodne ---
 
     @property
+    def onion_base_url(self) -> str:
+        """Adres uslugi .onion: pobrany z serwisu, a bez niego wbudowany.
+
+        Zapamietany adres przyjmujemy tylko jako poprawny adres v3 — plik
+        ustawien recznie popsuty albo z innej wersji nie przestawi ruchu Tor
+        w nieznane miejsce.
+        """
+        return self.onion_url if is_v3_url(self.onion_url) else ONION_BASE_URL
+
+    @property
     def effective_base_url(self) -> str:
         """Adres, pod który faktycznie ida zapytania."""
-        return ONION_BASE_URL if self.use_tor else self.base_url.rstrip('/')
+        return self.onion_base_url if self.use_tor else self.base_url.rstrip('/')
 
     @property
     def tor_proxy_is_local(self) -> bool:

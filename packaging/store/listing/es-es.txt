@@ -1,0 +1,73 @@
+# Sigelith Desktop — es-es
+
+## Short description
+Sella archivos sin subirlos, verifica cualquier prueba sin conexión, vigila a los testigos independientes del registro público y entrega archivos con prueba de entrega. Gratis, sin cuenta y de código abierto.
+
+## Description
+Sigelith Desktop demuestra que un archivo existía en un momento dado, y el archivo nunca sale de tu ordenador.
+
+Sellar archivos
+Arrastra archivos a la ventana. La app calcula el hash SHA-256 de cada archivo en tu ordenador y envía al registro público de Sigelith solo ese hash. Obtienes un certificado PDF y una prueba sin conexión .beatproof.
+
+Verificar sin confiar en nosotros
+Suelta cualquier archivo para ver si se selló y cuándo. La app comprueba por sí misma la ruta de inclusión y la firma, con claves integradas en el programa. En el modo privado guarda su propia copia del registro público, así que el servidor nunca sabe qué archivo compruebas.
+
+Testigos
+Mientras funciona, la app audita el registro por sí misma: puntos de control firmados, la cadena entre ellos, copias en GitHub, Internet Archive y Zenodo, y los bloques de Bitcoin que nombran. Cualquier discrepancia genera una alarma.
+
+Entrega archivos con prueba de entrega
+El destinatario confirma la recepción con su propia clave (Windows Hello) y el momento de la entrega queda anotado en el registro público. El envío viaja entre vosotros; el servidor de Sigelith no guarda nada.
+Para quien no tenga un verificador (asesoría jurídica, peritos, un tribunal): abre la prueba con «Comprobar una prueba…» y guarda un informe PDF, con cada comprobación en palabras e instrucciones para comprobarlo de forma independiente.
+Si un envío no se abre tal como se ofreció, la aceptación del destinatario no surte efecto. La aplicación lo indica y guarda una prueba del defecto que cualquiera puede recalcular.
+
+Privado por defecto
+El modo privado guarda una copia de todo el registro público (solo hashes, que de todos modos son públicos), así que actualizar una prueba nunca le dice al servidor cuál es la tuya.
+
+Qué demuestra un sello de tiempo
+Un sello de tiempo muestra que un archivo con exactamente estos bytes existía, a más tardar, en el momento registrado. No muestra quién creó el archivo ni qué significa. La prueba está ligada a esos bytes exactos. Una copia guardada de nuevo por un editor o recomprimida por una app de mensajería tiene otro hash: conserva el original junto con su certificado.
+
+Sigelith Desktop es gratuito y de código abierto (Apache-2.0). Sin cuenta, sin anuncios, sin telemetría.
+Disponible en inglés, polaco, alemán, español, francés, ruso, turco, japonés, coreano, chino y árabe.
+
+## What's new in this version
+• Comprueba pruebas de tiempo de archivos individuales de Sigelith Backup (archivos .sigelith-proof): la prueba muestra que un archivo estaba en una copia sellada en ese momento, sin revelar los demás archivos.
+• Al hacer doble clic en un archivo .beatproof o .sigelith-proof, la app se abre en la pestaña Verificación: un archivo de prueba nunca se sella por error.
+• Sigelith Backup puede entregar un archivo de la copia directamente a Sigelith Handover.
+
+## Product features
+Sella cualquier archivo sin subirlo: solo se registra su resumen SHA-256
+Certificado PDF y prueba .beatproof verificable sin conexión para cada archivo
+Sella muchos archivos o carpetas enteras a la vez
+Verifica archivos y pruebas sin conexión, con claves integradas en la aplicación
+Modo privado: tu propia copia del registro público, para que nadie sepa qué compruebas
+Testigos integrados: puntos de control firmados, copias independientes y anclajes en Bitcoin
+Prueba de entrega firmada con la clave del destinatario y Windows Hello
+Los envíos cifrados viajan por correo, mensajería, memoria USB o una carpeta compartida
+Paquete de pruebas e informe PDF para asesoría jurídica, peritos y tribunales
+Historial de cada sello con el estado de su prueba
+Modo Tor opcional
+Gratis: sin cuenta, sin anuncios, sin telemetría
+Código abierto (Apache-2.0)
+En 11 idiomas
+
+## Screenshots and captions
+01-stamp.png: Sellar archivos: solo el resumen SHA-256 sale de tu ordenador.
+02-history.png: Historial: cada sello con el estado de su prueba.
+03-witnesses.png: Testigos: lo que la app confirmó por sí misma en el registro público.
+04-handover.png: Handover: envía archivos, recíbelos y conserva las pruebas.
+05-evidence.png: Comprobación de pruebas: el veredicto y cada verificación, en tu idioma.
+
+## Additional system requirements (recommended hardware)
+Windows 10 (22H2) o Windows 11, 64 bits. Handover funciona mejor con Windows Hello.
+
+## Keywords (up to 7)
+sello de tiempo
+marca de tiempo
+prueba de existencia
+SHA-256
+evidencia digital
+prueba de entrega
+hash de archivo
+
+## Copyright and trademark info
+© 2026 Adam Koch

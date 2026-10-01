@@ -1,0 +1,5849 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Sigelith Desktop\n"
+"POT-Creation-Date: 2026-09-30 18:54+0200\n"
+"Language: zh\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: beatstamp/ui/widgets.py:1063
+msgid " (not synchronised)"
+msgstr "（未同步）"
+
+#: beatstamp/certificate.py:407
+msgid " · confirmation no. %(ref)s"
+msgstr " · 确认号 %(ref)s"
+
+#: beatstamp/certificate.py:368
+msgid " — .ots file for independent verification: sigelith.org/api/proof/ots/%(week)s"
+msgstr "——用于独立验证的 .ots 文件：sigelith.org/api/proof/ots/%(week)s"
+
+#: beatstamp/proof.py:229
+msgid " — a different root, not accepted"
+msgstr "——针对的是另一个根，不予接受"
+
+#: beatstamp/hashing.py:151
+msgid "\"%(name)s\" is a folder, not a file."
+msgstr "“%(name)s”是文件夹，不是文件。"
+
+#: beatstamp/hashing.py:97
+msgid "\"%(name)s\" is not a file."
+msgstr "“%(name)s”不是文件。"
+
+#: beatstamp/ui/details.py:251
+msgid "#%(n)s — path NOT confirmed"
+msgstr "#%(n)s——路径未获确认"
+
+#: beatstamp/ui/details.py:250
+msgid "#%(n)s — path checked by Sigelith Desktop"
+msgstr "#%(n)s——路径已由 Sigelith Desktop 核验"
+
+#: beatstamp/certificate.py:666
+msgid "#%(n)s — the path of this entry to its signed root was checked by Sigelith Desktop (file hash %(hash)s)"
+msgstr "#%(n)s——Sigelith Desktop 已核验此条目到其签名根的路径（文件哈希值 %(hash)s）"
+
+#: beatstamp/certificate.py:669
+msgid "#%(n)s — the path of this entry was NOT confirmed"
+msgstr "#%(n)s——此条目的路径未获确认"
+
+#: beatstamp/ui/main_window.py:1778
+msgid "%(count)s anchored"
+msgstr "已锚定 %(count)s 个"
+
+#: beatstamp/plural.py:84
+msgid "%(count)s character"
+msgid_plural "%(count)s characters"
+msgstr[0] "%(count)s 个字符"
+
+#: beatstamp/plural.py:72
+msgid "%(count)s entry"
+msgid_plural "%(count)s entries"
+msgstr[0] "%(count)s 个条目"
+
+#: beatstamp/plural.py:78
+msgid "%(count)s file"
+msgid_plural "%(count)s files"
+msgstr[0] "%(count)s 个文件"
+
+#: beatstamp/ui/main_window.py:1784
+msgid "%(count)s from the TVS archive"
+msgstr "%(count)s 个来自 TVS 存档"
+
+#: beatstamp/plural.py:96
+msgid "%(count)s minute"
+msgid_plural "%(count)s minutes"
+msgstr[0] "%(count)s 分钟"
+
+#: beatstamp/plural.py:90
+msgid "%(count)s step"
+msgid_plural "%(count)s steps"
+msgstr[0] "%(count)s 步"
+
+#: beatstamp/ui/main_window.py:1782
+msgid "%(count)s with independent copies"
+msgstr "%(count)s 个有独立副本"
+
+#: beatstamp/ui/main_window.py:2058
+msgid "%(entries)s exported"
+msgstr "已导出 %(entries)s"
+
+#: beatstamp/ui/main_window.py:2020
+msgid "%(entries)s matured in the background."
+msgstr "%(entries)s 的证明已在后台进一步完善。"
+
+#: beatstamp/ui/main_window.py:1994
+msgid "%(entries)s removed from the history."
+msgstr "已从历史记录中移除 %(entries)s。"
+
+#: beatstamp/ui/main_window.py:1156
+msgid "%(files)s could not be stamped:<br><br>%(list)s"
+msgstr "%(files)s 未能盖戳：<br><br>%(list)s"
+
+#: beatstamp/ui/main_window.py:1108
+msgid "%(files)s queued"
+msgstr "%(files)s 已排队"
+
+#: beatstamp/api.py:697
+msgid "%(host)s answered with error %(code)s."
+msgstr "%(host)s 返回了错误 %(code)s。"
+
+#: beatstamp/api.py:683
+msgid "%(host)s redirected to an unencrypted address — rejected."
+msgstr "%(host)s 重定向到了未加密的地址——已拒绝。"
+
+#: beatstamp/api.py:687
+msgid "%(host)s redirected too many times."
+msgstr "%(host)s 重定向次数过多。"
+
+#: beatstamp/ui/witness_panel.py:538
+msgid "%(inside)s of %(all)s inside a signed checkpoint · %(pinned)s kept by independent parties"
+msgstr "%(all)s 个中有 %(inside)s 个已在签名检查点内 · %(pinned)s 个由独立方留存"
+
+#: beatstamp/ui/witness_panel.py:429
+msgid "%(kind)s · signature and key ✓ · chain from #1 ✓ · consistency ✓ · issued %(when)s"
+msgstr "%(kind)s · 签名与密钥 ✓ · 自 #1 起的链 ✓ · 一致性 ✓ · 签发：%(when)s"
+
+#: beatstamp/ui/handover_dialogs.py:55
+msgid "%(n)s B"
+msgstr "%(n)s B"
+
+#: beatstamp/ui/handover_dialogs.py:60
+msgid "%(n)s GB"
+msgstr "%(n)s GB"
+
+#: beatstamp/ui/handover_dialogs.py:59
+msgid "%(n)s MB"
+msgstr "%(n)s MB"
+
+#: beatstamp/ui/witness_panel.py:47
+msgid "%(n)s days ago"
+msgstr "%(n)s 天前"
+
+#: beatstamp/ui/witness_panel.py:46
+msgid "%(n)s h ago"
+msgstr "%(n)s 小时前"
+
+#: beatstamp/ui/handover_dialogs.py:57
+msgid "%(n)s kB"
+msgstr "%(n)s KB"
+
+#: beatstamp/ui/witness_panel.py:44
+msgid "%(n)s min ago"
+msgstr "%(n)s 分钟前"
+
+#: beatstamp/ui/witness_panel.py:472
+msgid "%(n)s weeks"
+msgstr "%(n)s 周"
+
+#: beatstamp/ui/witness_panel.py:512
+msgid "%(name)s did not answer — checked %(when)s; Sigelith Desktop tries again every 3 h"
+msgstr "%(name)s 没有响应——上次检查：%(when)s；Sigelith Desktop 每 3 小时重试一次"
+
+#: beatstamp/ui/witness_panel.py:608
+msgid "%(ok)s of %(all)s checks OK"
+msgstr "%(all)s 项检查中 %(ok)s 项正常"
+
+#: beatstamp/certificate.py:655
+msgid "%(steps)s to the week root"
+msgstr "距周根 %(steps)s"
+
+#: beatstamp/ui/handover_controller.py:329
+msgid "%(title)s — the files are saved in:"
+msgstr "%(title)s — 文件已保存到："
+
+#: beatstamp/ui/handover_dialogs.py:821
+msgid "%(what)s: the log proof was not accepted (%(code)s)"
+msgstr "%(what)s：日志证明未被认可（%(code)s）"
+
+#: beatstamp/ui/main_window.py:841
+msgid "&File"
+msgstr "文件(&F)"
+
+#: beatstamp/ui/main_window.py:867
+msgid "&Tools"
+msgstr "工具(&T)"
+
+#: beatstamp/ui/main_window.py:1185
+msgid "(%(count)s files in this batch)"
+msgstr "（本批共 %(count)s 个文件）"
+
+#: beatstamp/ui/handover_controller.py:330
+#: beatstamp/ui/handover_dialogs.py:380
+#: beatstamp/ui/handover_dialogs.py:520
+msgid "(no title)"
+msgstr "（无标题）"
+
+#: beatstamp/ui/dialogs.py:467
+msgid ".onion address:"
+msgstr ".onion 地址："
+
+#: beatstamp/ui/main_window.py:1717
+msgid ".ots proof saved"
+msgstr ".ots 证明已保存"
+
+#: beatstamp/bundle.py:131
+msgid "1) Compute the SHA-256 of the document and compare it with \"digest\". 2) Fold \"inclusion_proof\" from the leaf SHA-256(0x00||digest), computing SHA-256(0x01||left||right) at every step — the result must equal \"week_root\". 3) Check the Ed25519 signature \"root_signature\" over the text \"beattime-proof-v1|<week>|<week_root>\" with the key \"public_key\". 4) Compare \"public_key\" with the current Sigelith key: %(key)s — the key history (including retired keys, whose signature is no longer binding): https://sigelith.org/spec/#keys. 5) The signature covers the week, not the exact moment: \"utc\" (and \"beat\") must lie within the ISO week \"week\". What is confirmed is that the document existed no later than the end of that week; the exact time is given by the Sigelith register."
+msgstr "1) 计算文档的 SHA-256，并与 \"digest\" 比较。2) 从叶子 SHA-256(0x00||digest) 开始折叠 \"inclusion_proof\"，每一步计算 SHA-256(0x01||left||right)——结果必须等于 \"week_root\"。3) 用密钥 \"public_key\" 检查对文本 \"beattime-proof-v1|<week>|<week_root>\" 所做的 Ed25519 签名 \"root_signature\"。4) 将 \"public_key\" 与当前的 Sigelith 密钥比较：%(key)s——密钥历史（包括已停用的密钥，其签名不再具有约束力）：https://sigelith.org/spec/#keys。5) 签名覆盖的是整周，而不是确切时刻：\"utc\"（以及 \"beat\"）必须落在 ISO 周 \"week\" 之内。得到确认的是：该文档最迟在该周结束时已经存在；确切时间由 Sigelith 登记簿给出。"
+
+#: beatstamp/bundle.py:149
+msgid "6) \"checkpoint.file\" is the exact signed checkpoint of the whole Sigelith log (beattime-checkpoint-v1): check its Ed25519 signature over \"beattime-checkpoint-v1|\" + the file without \"sig\", and that SHA-256 of the file equals \"checkpoint.hash\". 7) The leaf of this entry is SHA-256(0x00 || \"beattime-entry-v1|<seq>|<digest>|<utc with six fraction digits>Z\"); fold \"checkpoint.audit_path\" with \"leaf_index\" and \"tree_size\" (RFC 9162) — the result must equal \"root\" in the file. 8) Compare the file with an independent copy: https://github.com/DeiFlagellum/sigelith-log/releases, the Internet Archive or Zenodo."
+msgstr "6) \"checkpoint.file\" 是整个 Sigelith 日志的确切签名检查点（beattime-checkpoint-v1）：检查其 Ed25519 签名（签名对象为 \"beattime-checkpoint-v1|\" + 去掉 \"sig\" 的文件），并检查该文件的 SHA-256 等于 \"checkpoint.hash\"。7) 此条目的叶子为 SHA-256(0x00 || \"beattime-entry-v1|<seq>|<digest>|<utc，带六位小数>Z\")；用 \"leaf_index\" 和 \"tree_size\" 折叠 \"checkpoint.audit_path\"（RFC 9162）——结果必须等于文件中的 \"root\"。8) 将该文件与独立副本比较：https://github.com/DeiFlagellum/sigelith-log/releases、Internet Archive 或 Zenodo。"
+
+#: beatstamp/ui/main_window.py:1899
+msgid "<b>%(entries)s</b> from the old TVS client were added to the history.<br><br>They are marked as an <b>archive</b>: their former \"signature\" is a concatenation of a time and a digest that cannot be verified. To get a proof that can be checked independently, stamp those files again — Sigelith will write a new entry and the old one will stay in the history."
+msgstr "已将旧版 TVS 客户端的 <b>%(entries)s</b> 添加到历史记录。<br><br>它们被标记为<b>存档</b>：其原来的“签名”只是时间与摘要的拼接，无法验证。要获得可独立核验的证明，请为这些文件重新盖戳——Sigelith 会写入一个新条目，旧条目仍保留在历史记录中。"
+
+#: beatstamp/ui/main_window.py:2026
+msgid "<b>%(entries)s</b> updated — the proofs have matured."
+msgstr "已更新 <b>%(entries)s</b>——证明已进一步完善。"
+
+#: beatstamp/ui/main_window.py:1662
+msgid "<b>%(name)s</b> was saved."
+msgstr "<b>%(name)s</b> 已保存。"
+
+#: beatstamp/ui/main_window.py:1640
+msgid "<b>%(name)s</b> was saved.<br><br>The root of this week is signed with a <b>retired</b> key, so the recipient will not accept this proof. Refresh the statuses (History -> Refresh statuses, F5) and export the proof again — it will get a signature made with the current Sigelith key."
+msgstr "<b>%(name)s</b> 已保存。<br><br>该周的根是用<b>已停用</b>的密钥签名的，因此接收方不会接受此证明。请刷新状态（历史记录 → 刷新状态，F5），然后重新导出证明——它将获得用当前 Sigelith 密钥制作的签名。"
+
+#: beatstamp/ui/main_window.py:1649
+msgid "<b>%(name)s</b> was saved.<br><br>The week is still running, so the proof contains no root signature and <b>cannot be verified offline for now</b>. Export it again once the week has closed (the coming Monday, 00:00 UTC) — then it will be complete."
+msgstr "<b>%(name)s</b> 已保存。<br><br>该周尚未结束，因此证明中没有根签名，<b>暂时无法离线验证</b>。请在该周结束后（即将到来的周一 00:00 UTC）重新导出——届时证明就完整了。"
+
+#: beatstamp/ui/main_window.py:1718
+msgid "<b>%(name)s</b> was saved.<br><br>You can check it with an OpenTimestamps client:<br><code>ots verify %(command)s</code><br><br>That verification goes through the Bitcoin chain — entirely outside Sigelith and outside this application."
+msgstr "<b>%(name)s</b> 已保存。<br><br>你可以用 OpenTimestamps 客户端核验它：<br><code>ots verify %(command)s</code><br><br>这项验证通过 Bitcoin 区块链进行——完全独立于 Sigelith 和本应用。"
+
+#: beatstamp/certificate.py:717
+msgid "<b>Entry from the archive of the old TVS client.</b> Its former \"signature\" is a concatenation of a time and a digest that cannot be verified. Stamp the file again in Sigelith Desktop to get a proof that can be checked independently."
+msgstr "<b>来自旧版 TVS 客户端存档的条目。</b>其原来的“签名”只是时间与摘要的拼接，无法验证。请在 Sigelith Desktop 中为该文件重新盖戳，以获得可独立核验的证明。"
+
+#: beatstamp/certificate.py:705
+msgid "<b>The proof did not pass the local check.</b> "
+msgstr "<b>证明未通过本地检查。</b>"
+
+#: beatstamp/certificate.py:724
+msgid "<b>The proof is not closed yet.</b> The Ed25519 signature, the Bitcoin attestation (OpenTimestamps) and the bank anchor are added <i>after the current week closes</i> (the coming Monday, 00:00 UTC). Issue the certificate again after that date — the fields will fill in. <b>The timestamp itself will no longer change.</b>"
+msgstr "<b>证明尚未完结。</b>Ed25519 签名、Bitcoin 认证（OpenTimestamps）和银行锚定会在<i>本周结束后</i>（即将到来的周一 00:00 UTC）添加。请在该日期之后重新签发证书——这些字段会被填上。<b>时间戳本身不会再改变。</b>"
+
+#: beatstamp/certificate.py:693
+msgid "<b>The proof needs refreshing.</b> The root of this week was signed with a Sigelith key retired on %(when)s — such a signature is no longer binding. Sigelith has re-signed every published root with the current key: refresh the proof in Sigelith Desktop (History -> Refresh statuses) and issue the certificate again. <b>The timestamp itself does not change.</b>"
+msgstr "<b>证明需要刷新。</b>该周的根是用一把已于 %(when)s 停用的 Sigelith 密钥签名的——这样的签名不再具有约束力。Sigelith 已用当前密钥重新签署了所有已发布的根：请在 Sigelith Desktop 中刷新证明（历史记录 → 刷新状态），然后重新签发证书。<b>时间戳本身不会改变。</b>"
+
+#: beatstamp/ui/dialogs.py:576
+msgid "<b>current</b> since %(date)s: <span style=\"font-family:monospace\">%(key)s</span>"
+msgstr "<b>当前</b>，自 %(date)s 起：<span style=\"font-family:monospace\">%(key)s</span>"
+
+#: beatstamp/ui/dialogs.py:1099
+msgid "<p><b>Third-party software.</b> Sigelith Desktop uses the <b>Qt</b> and <b>PySide6</b> libraries (copyright (C) The Qt Company Ltd. and other contributors) under the <b>GNU Lesser General Public License, version 3</b>. %(relinking)s</p><p>Qt itself contains third-party code, among others FreeType: portions of this software are copyright (c) 2026 The FreeType Project (https://freetype.org), all rights reserved. The notices of the other components are delivered with the program.</p><p>The typefaces <b>Inter</b> (copyright (c) 2016 The Inter Project Authors) and <b>JetBrains Mono</b> (copyright 2020 The JetBrains Mono Project Authors) are used under the <b>SIL Open Font License 1.1</b>; subsets of them are embedded in the PDF certificates. The icons are <b>Bootstrap Icons</b> (copyright (c) 2019-2024 The Bootstrap Authors), used under the <b>MIT License</b>.</p><p>The full licence texts — including the GNU GPL and the GNU LGPL — and the list of every file in this package with its licence are delivered together with the program, and the button below opens them. The rest of Sigelith Desktop is published under the Apache License 2.0.</p>"
+msgstr "<p><b>第三方软件。</b>Sigelith Desktop 依据 <b>GNU Lesser General Public License 第 3 版</b>使用 <b>Qt</b> 和 <b>PySide6</b> 库（copyright (C) The Qt Company Ltd. 及其他贡献者）。%(relinking)s</p><p>Qt 本身包含第三方代码，其中包括 FreeType：portions of this software are copyright (c) 2026 The FreeType Project (https://freetype.org), all rights reserved. 其他组件的声明随程序一同提供。</p><p>字体 <b>Inter</b>（copyright (c) 2016 The Inter Project Authors）和 <b>JetBrains Mono</b>（copyright 2020 The JetBrains Mono Project Authors）依据 <b>SIL Open Font License 1.1</b> 使用，其子集嵌入在 PDF 证书中。图标采用 <b>Bootstrap Icons</b>（copyright (c) 2019-2024 The Bootstrap Authors），依据 <b>MIT License</b> 使用。</p><p>完整的许可证文本（包括 GNU GPL 和 GNU LGPL），以及本软件包中每个文件及其许可证的清单，均随程序一同提供，点击下方按钮即可打开。Sigelith Desktop 的其余部分依据 Apache License 2.0 发布。</p>"
+
+#: beatstamp/ui/dialogs.py:1029
+msgid "<p>Registers the SHA-256 digest of a document in the public, append-only <b>Sigelith</b> register, giving proof that the file existed at a given moment and has not been changed since.</p><p><b>The document never leaves this computer.</b> Only the 64-character digest goes to the network — the content, or even the file name, cannot be recovered from it.</p><p><b>How the proof matures</b><br>1. <b>Recorded</b> — the digest reaches the register, the timestamp is already final.<br>2. <b>Signed</b> — after the week closes (Monday 00:00 UTC) the Merkle root is frozen and signed with an Ed25519 key.<br>3. <b>Anchored</b> — the root goes into the Bitcoin chain (OpenTimestamps) and is confirmed by an independent bank transfer.</p><p><b>What the proof does NOT attest:</b> the authorship of the document or the truth of its content. It attests only existence in time and integrity.</p><p>Verification is possible <b>without this application</b>: at sigelith.org/proof, from a <code>.beatproof</code> file with any tool that computes SHA-256 and Ed25519, or from an <code>.ots</code> file with an OpenTimestamps client.</p>"
+msgstr "<p>将文档的 SHA-256 摘要登记到公开、只可追加的 <b>Sigelith</b> 登记簿中，从而证明该文件在某一时刻已经存在，并且此后未被改动。</p><p><b>文档从不离开这台电脑。</b>只有 64 个字符的摘要会发送到网络——从摘要无法还原出内容，甚至无法还原出文件名。</p><p><b>证明如何逐步完善</b><br>1. <b>已记录</b>——摘要进入登记簿，时间戳即已确定。<br>2. <b>已签名</b>——该周结束后（周一 00:00 UTC），Merkle 根被冻结，并用 Ed25519 密钥签名。<br>3. <b>已锚定</b>——根被写入 Bitcoin 区块链（OpenTimestamps），并由一笔独立的银行转账确认。</p><p><b>证明不能证实的是：</b>文档的作者身份或其内容的真实性。它只证实文档在某一时间已经存在，以及文档的完整性。</p><p>验证<b>无需本应用</b>即可进行：在 sigelith.org/proof 上；用 <code>.beatproof</code> 文件，借助任何能计算 SHA-256 和 Ed25519 的工具；或用 <code>.ots</code> 文件，借助 OpenTimestamps 客户端。</p>"
+
+#: beatstamp/history.py:466
+#: beatstamp/ui/details.py:164
+msgid "@beat time"
+msgstr "@beat 时间"
+
+#: beatstamp/ui/widgets.py:976
+msgid ""
+"@beat time: the day split into 1000 beats (1 beat = 86.4 s),\n"
+"anchored in UTC. @000 is UTC midnight, @500 — UTC noon.\n"
+"No time zones: @523 means the same all over the world."
+msgstr ""
+"@beat 时间：一天分为 1000 个 beat（1 beat = 86.4 秒），\n"
+"以 UTC 为基准。@000 是 UTC 午夜，@500 是 UTC 正午。\n"
+"没有时区：@523 在全世界都指同一时刻。"
+
+#: beatstamp/ui/main_window.py:270
+msgid "@beat timestamps %(version)s — Sigelith Desktop"
+msgstr "@beat 时间戳 %(version)s — Sigelith Desktop"
+
+#: beatstamp/ui/dialogs.py:1026
+msgid "@beat timestamps for local files"
+msgstr "为本地文件加盖 @beat 时间戳"
+
+#: beatstamp/ui/handover_dialogs.py:602
+msgid "A .sigelith-answer file."
+msgstr "一个 .sigelith-answer 文件。"
+
+#: beatstamp/ui/main_window.py:858
+msgid "A .sigelith-handover file someone sent you"
+msgstr "别人发给你的 .sigelith-handover 文件"
+
+#: beatstamp/ui/details.py:168
+msgid ""
+"A Bitcoin block named in the last checkpoint issued BEFORE this entry.\n"
+"That checkpoint could not exist before the block was mined,\n"
+"and the entry came after the checkpoint."
+msgstr ""
+"在此条目之前签发的最后一个检查点中所指明的 Bitcoin 区块。\n"
+"该区块被挖出之前，这个检查点不可能存在，\n"
+"而此条目出现在该检查点之后。"
+
+#: beatstamp/ui/main_window.py:1351
+msgid "A SHA-256 digest is exactly <b>64 hexadecimal characters</b> (digits 0-9 and letters a-f).<br><br>%(typed)s were entered."
+msgstr "SHA-256 摘要恰好是 <b>64 个十六进制字符</b>（数字 0-9 和字母 a-f）。<br><br>当前输入了 %(typed)s。"
+
+#: beatstamp/ui/main_window.py:2524
+msgid "A background task is still running. Close the program and stop it?"
+msgstr "后台任务仍在运行。要关闭程序并停止该任务吗？"
+
+#: beatstamp/ui/journey.py:114
+msgid "A bank transfer with the week root follows within a few days."
+msgstr "几天之内会有一笔附带周根的银行转账。"
+
+#: beatstamp/licensing.py:137
+msgid "A binding the cryptography library is built on."
+msgstr "cryptography 库所依赖的底层绑定。"
+
+#: beatstamp/ui/journey.py:122
+msgid "A checkpoint containing this entry is kept, byte for byte, by parties that Sigelith does not control. Sigelith Desktop compared the copies itself."
+msgstr "包含此条目的检查点已由 Sigelith 无法控制的各方逐字节留存。Sigelith Desktop 亲自比对了这些副本。"
+
+#: beatstamp/ui/handover_dialogs.py:268
+msgid "A courtesy only — the recipient identifies you by your card, not by this name."
+msgstr "仅为礼貌——接收方凭你的卡片识别你，而不是凭这个名字。"
+
+#: beatstamp/ui/handover_report.py:324
+msgid "A defect proof settles whether the package was what the sender offered: anyone can recompute it, and a false claim fails the same computation."
+msgstr "缺陷证明可以判定交付件是否就是发送方所提议的：任何人都能重新计算，虚假的主张会在同样的计算中失败。"
+
+#: beatstamp/ui/main_window.py:530
+msgid "A description visible only to you"
+msgstr "仅你自己可见的说明"
+
+#: beatstamp/api.py:750
+msgid "A digest must be exactly 64 hexadecimal characters (SHA-256)."
+msgstr "摘要必须恰好为 64 个十六进制字符（SHA-256）。"
+
+#: beatstamp/ui/journey.py:106
+msgid "A few hours after the week closes the root reaches a Bitcoin block."
+msgstr "该周结束几小时后，根会进入一个 Bitcoin 区块。"
+
+#: beatstamp/handover_tasks.py:79
+msgid "A file name is not allowed — rename the file and try again."
+msgstr "不允许使用这个文件名——请重命名文件后重试。"
+
+#: beatstamp/config.py:794
+msgid "A file of that name was already there, so the version from the old location was saved next to it as: %(names)s"
+msgstr "那里已有同名文件，因此旧位置的版本另存在其旁边，名为：%(names)s"
+
+#: beatstamp/ui/handover_dialogs.py:294
+msgid "A folder I choose — I send the file myself"
+msgstr "我选择的文件夹——文件由我自己发送"
+
+#: beatstamp/ui/dialogs.py:743
+msgid ""
+"A folder you share with the other person (OneDrive, Dropbox, Google Drive,\n"
+"Syncthing). Packages and answers in it are encrypted to their recipient and\n"
+"picked up automatically while the program is open."
+msgstr ""
+"与对方共享的文件夹（OneDrive、Dropbox、Google 云端硬盘、\n"
+"Syncthing）。其中的交付件和答复已为各自的接收方加密，\n"
+"程序打开期间会被自动取回。"
+
+#: beatstamp/ui/handover_panel.py:293
+msgid "A folder you share with the other person (OneDrive, Dropbox, Google Drive, Syncthing). Packages and answers in it are picked up automatically."
+msgstr "与对方共享的文件夹（OneDrive、Dropbox、Google 云端硬盘、Syncthing）。进入其中的交付件和答复会被自动取回。"
+
+#: beatstamp/ui/main_window.py:1093
+msgid "A large number of files"
+msgstr "文件数量较多"
+
+#: beatstamp/ui/handover_controller.py:157
+msgid "A new card"
+msgstr "新卡片"
+
+#: beatstamp/ui/handover_panel.py:201
+msgid "A new key in Windows Hello and a card with its public part. Windows Hello asks twice."
+msgstr "Windows Hello 中的新密钥，以及载有其公开部分的卡片。Windows Hello 会询问两次。"
+
+#: beatstamp/ui/handover_controller.py:635
+msgid "A package is defective"
+msgstr "交付件有缺陷"
+
+#: beatstamp/ui/handover_controller.py:624
+msgid "A package is open: %(title)s"
+msgstr "交付件已打开：%(title)s"
+
+#: beatstamp/ui/main_window.py:751
+msgid ""
+"A proof MATURES: a stamp from this week gets its signature once the\n"
+"week closes, and the Bitcoin attestation a few hours later.\n"
+"While the program is open this happens by itself every 15 minutes;\n"
+"this button does it right now. (F5)"
+msgstr ""
+"证明会逐步完善：本周的戳记在该周结束后获得签名，\n"
+"几小时后再获得 Bitcoin 认证。\n"
+"程序打开期间，这一过程每 15 分钟自动进行一次；\n"
+"此按钮则立即执行。（F5）"
+
+#: beatstamp/handover_tasks.py:57
+#: beatstamp/handover_tasks.py:66
+msgid "A protected key of Sigelith Handover cannot be read on this Windows account."
+msgstr "在此 Windows 账户下无法读取 Sigelith Handover 的受保护密钥。"
+
+#: beatstamp/ui/witness_panel.py:263
+msgid ""
+"A quarterly version of the complete log in Zenodo (CERN), with a DOI.\n"
+"Sigelith Desktop compares the checkpoint files from the record."
+msgstr ""
+"完整日志的季度版本，存放于 Zenodo（CERN），附有 DOI。\n"
+"Sigelith Desktop 会比对该记录中的检查点文件。"
+
+#: beatstamp/ui/main_window.py:920
+msgid "A record of errors — useful when reporting a problem"
+msgstr "错误记录——报告问题时很有用"
+
+#: beatstamp/ui/handover_dialogs.py:187
+msgid "A short note inside the signed binding record."
+msgstr "写在已签名绑定记录中的简短备注。"
+
+#: beatstamp/ui/main_window.py:2523
+msgid "A task is running"
+msgstr "有任务正在运行"
+
+#: beatstamp/ui/dialogs.py:1244
+msgid "A thank-you at our discretion — not an entitlement and not something a payment buys."
+msgstr "这是我们自行决定的致谢——不是一项权利，也不是付款可以换来的。"
+
+#: beatstamp/ui/witness_panel.py:553
+msgid "ALARM — the log does not add up"
+msgstr "警报——日志对不上"
+
+#: beatstamp/certificate.py:295
+msgid "ANCHORED — the week root is preserved outside Sigelith"
+msgstr "已锚定——周根已保存在 Sigelith 之外"
+
+#: beatstamp/ui/dialogs.py:449
+msgid "API address:"
+msgstr "API 地址："
+
+#: beatstamp/ui/dialogs.py:1140
+msgid "API documentation"
+msgstr "API 文档"
+
+#: beatstamp/ui/main_window.py:888
+msgid "About"
+msgstr "关于"
+
+#: beatstamp/ui/dialogs.py:1022
+msgid "About — Sigelith Desktop"
+msgstr "关于 — Sigelith Desktop"
+
+#: beatstamp/ui/handover_dialogs.py:446
+msgid "Accept with Windows Hello"
+msgstr "用 Windows Hello 接受"
+
+#: beatstamp/ui/handover_dialogs.py:768
+msgid "Acceptance"
+msgstr "接受"
+
+#: beatstamp/ui/handover_dialogs.py:670
+#: beatstamp/ui/handover_report.py:215
+msgid "Acceptance recorded in the log"
+msgstr "接受已记录到日志"
+
+#: beatstamp/ui/handover_report.py:217
+msgid "Acceptance valid until"
+msgstr "接受有效期至"
+
+#: beatstamp/ui/handover_panel.py:59
+msgid "Accepted — waiting for the key part"
+msgstr "已接受——等待密钥部分"
+
+#: beatstamp/ui/handover_dialogs.py:333
+msgid "Add a contact first."
+msgstr "请先添加联系人。"
+
+#: beatstamp/ui/handover_panel.py:221
+msgid "Add a contact from a card file…"
+msgstr "从卡片文件添加联系人…"
+
+#: beatstamp/ui/main_window.py:514
+msgid "Add a note to this stamp — e.g. \"client contract, signed version\""
+msgstr "为此戳记添加备注——例如“客户合同，已签署版本”"
+
+#: beatstamp/ui/details.py:201
+msgid "Add a note — visible only on this computer"
+msgstr "添加备注——仅在这台电脑上可见"
+
+#: beatstamp/ui/handover_dialogs.py:246
+msgid "Add files…"
+msgstr "添加文件…"
+
+#: beatstamp/ui/handover_controller.py:238
+msgid "Add the recipient first: load their card file and record how you verified it."
+msgstr "请先添加接收方：载入其卡片文件，并记录你是如何核实的。"
+
+#: beatstamp/ui/dialogs.py:445
+msgid ""
+"Address of the Sigelith server. It must start with https://\n"
+"Default value: %(default)s\n"
+"\n"
+"Change it only if you use your own instance."
+msgstr ""
+"Sigelith 服务器的地址。必须以 https:// 开头\n"
+"默认值：%(default)s\n"
+"\n"
+"仅当你使用自己的实例时才需更改。"
+
+#: beatstamp/ui/dialogs.py:471
+msgid ""
+"Address of the local SOCKS proxy. Default: %(default)s\n"
+"\n"
+"Tor Browser usually listens on port 9150, and the system tor\n"
+"service on 9050. The socks5h prefix means the .onion name is\n"
+"resolved by the Tor network, not by your computer (otherwise\n"
+"the address would leak to your internet provider)."
+msgstr ""
+"本地 SOCKS 代理的地址。默认值：%(default)s\n"
+"\n"
+"Tor Browser 通常监听 9150 端口，系统的 tor\n"
+"服务则监听 9050 端口。socks5h 前缀表示 .onion 名称\n"
+"由 Tor 网络解析，而不是由你的电脑解析（否则\n"
+"该地址会泄露给你的网络服务提供商）。"
+
+#: beatstamp/ui/handover_dialogs.py:282
+msgid "After an acceptance, how long this application has to publish the key part. Keep it open now and then."
+msgstr "接受之后，本应用发布密钥部分的期限。请时常打开本应用。"
+
+#: beatstamp/ui/dialogs.py:662
+msgid ""
+"After the digest is registered the application immediately checks\n"
+"the inclusion path and the signature — locally, without another request."
+msgstr ""
+"摘要登记后，应用会立即检查\n"
+"包含路径和签名——在本地进行，无需再次请求。"
+
+#: beatstamp/ui/main_window.py:2152
+msgid "Alarm"
+msgstr "警报"
+
+#: beatstamp/ui/handover_dialogs.py:830
+#: beatstamp/ui/handover_dialogs.py:967
+#: beatstamp/ui/handover_report.py:273
+#: beatstamp/ui/handover_report.py:321
+msgid "All checks"
+msgstr "全部检查"
+
+#: beatstamp/ui/main_window.py:743
+msgid "All levels"
+msgstr "所有级别"
+
+#: beatstamp/proof.py:402
+msgid "An @beat time was given without a UTC date — such a time cannot be checked."
+msgstr "给出了 @beat 时间，却没有 UTC 日期——这样的时间无法核验。"
+
+#: beatstamp/ui/dialogs.py:937
+msgid "An Ed25519 public key is 32 bytes written in canonical base64 — 44 characters ending with \"=\".<br><br>Leave the field empty to use the built-in list of Sigelith keys (recommended)."
+msgstr "Ed25519 公钥是以规范 base64 写出的 32 个字节——共 44 个字符，以“=”结尾。<br><br>将此字段留空即可使用内置的 Sigelith 密钥列表（推荐）。"
+
+#: beatstamp/ui/dialogs.py:604
+msgid ""
+"An additional Ed25519 public key in base64 (32 bytes).\n"
+"\n"
+"Leave it empty — the program knows the Sigelith keys itself.\n"
+"Fill it in only when Sigelith announces a new key before a new\n"
+"version of the program is released — and only with a value\n"
+"confirmed from an independent source. A retired key cannot be\n"
+"entered."
+msgstr ""
+"一个额外的 Ed25519 公钥，base64 格式（32 字节）。\n"
+"\n"
+"请留空——程序本身就知道 Sigelith 的密钥。\n"
+"仅当 Sigelith 在新版程序发布之前\n"
+"宣布了新密钥时才需填写——而且只能填写\n"
+"经独立来源确认的值。已停用的密钥\n"
+"无法输入。"
+
+#: beatstamp/licensing.py:128
+msgid "An image library that ReportLab needs."
+msgstr "ReportLab 所需的图像库。"
+
+#: beatstamp/__main__.py:140
+msgid "An unexpected error occurred."
+msgstr "发生了意外错误。"
+
+#: beatstamp/workers.py:87
+msgid "An unexpected error occurred. The details were written to the log (Help -> Show event log)."
+msgstr "发生了意外错误。详细信息已写入日志（帮助 → 显示事件日志）。"
+
+#: beatstamp/ui/history_model.py:48
+msgid "Anchor"
+msgstr "锚定"
+
+#: beatstamp/proof.py:106
+msgid "Anchored"
+msgstr "已锚定"
+
+#: beatstamp/ui/handover_dialogs.py:443
+msgid "Answer by %(when)s. Nothing is sent anywhere until you decide."
+msgstr "请在 %(when)s 之前答复。在你作出决定之前，不会发送任何内容。"
+
+#: beatstamp/ui/handover_controller.py:366
+msgid "Answer saved"
+msgstr "答复已保存"
+
+#: beatstamp/ui/handover_controller.py:347
+msgid "Answer sent"
+msgstr "答复已发送"
+
+#: beatstamp/ui/handover_dialogs.py:679
+#: beatstamp/ui/handover_dialogs.py:703
+msgid "Answer signed by the recipient"
+msgstr "接收方签署的答复"
+
+#: beatstamp/ui/handover_controller.py:600
+msgid "Answers processed from the exchange folder: %(n)s"
+msgstr "已从交换文件夹处理的答复：%(n)s"
+
+#: beatstamp/ui/handover_controller.py:468
+msgid "Anyone can check it at sigelith.org/handover/verify/ or in Sigelith Desktop (Verify evidence…)."
+msgstr "任何人都可以在 sigelith.org/handover/verify/ 或 Sigelith Desktop（“验证证据…”）中检查它。"
+
+#: beatstamp/__main__.py:139
+msgid "Application error — Sigelith Desktop"
+msgstr "应用错误 — Sigelith Desktop"
+
+#: beatstamp/ui/dialogs.py:701
+msgid "Ask before overwriting an existing file"
+msgstr "覆盖现有文件前先询问"
+
+#: beatstamp/ui/main_window.py:2320
+msgid "Asking the Sigelith server about its database, cache and clock"
+msgstr "正在向 Sigelith 服务器查询其数据库、缓存和时钟"
+
+#: beatstamp/ui/dialogs.py:538
+msgid ""
+"At start and every 15 minutes. No notifications — the result is shown in the\n"
+"Witnesses tab and in the History, and nothing happens while the program is closed."
+msgstr ""
+"启动时以及每 15 分钟一次。没有通知——结果显示在\n"
+"“见证者”标签页和历史记录中；程序关闭时不会进行任何操作。"
+
+#: beatstamp/ui/dialogs.py:782
+msgid "Attach the hardware attestation (TPM) of my card to my card file and to evidence packages"
+msgstr "将我卡片的硬件证明（TPM）附加到我的卡片文件和证据包中"
+
+#: beatstamp/ui/details.py:242
+#: beatstamp/ui/journey.py:110
+#: beatstamp/ui/witness_panel.py:252
+msgid "Bank"
+msgstr "银行"
+
+#: beatstamp/certificate.py:663
+msgid "Bank anchor"
+msgstr "银行锚定"
+
+#: beatstamp/ui/history_model.py:231
+msgid "Bank anchor: %(details)s"
+msgstr "银行锚定：%(details)s"
+
+#: beatstamp/config.py:788
+msgid "BeatStamp is now Sigelith Desktop — your data has been moved to: %(path)s"
+msgstr "BeatStamp 已更名为 Sigelith Desktop——数据已移至：%(path)s"
+
+#: beatstamp/ui/dialogs.py:416
+msgid "Behaviour"
+msgstr "行为"
+
+#: beatstamp/ui/main_window.py:2416
+msgid "Besides the built-in list of Sigelith keys, the application will now also accept signatures made with <b>the key you entered</b>.<br><br>Whoever gave you that key can sign any \"proof\" with it. The status bar will keep reminding you. To go back to the built-in list alone, clear the field in Settings -> Trust."
+msgstr "除内置的 Sigelith 密钥列表外，应用现在还会接受用<b>你输入的密钥</b>制作的签名。<br><br>给你这把密钥的人可以用它签署任何“证明”。状态栏会持续提醒你。若要恢复为仅使用内置列表，请在“设置 → 信任”中清空该字段。"
+
+#: beatstamp/ui/handover_dialogs.py:678
+#: beatstamp/ui/handover_dialogs.py:701
+msgid "Binding of the recipient's card"
+msgstr "接收方卡片的绑定"
+
+#: beatstamp/ui/handover_dialogs.py:772
+msgid "Binding record"
+msgstr "绑定记录"
+
+#: beatstamp/ui/handover_dialogs.py:672
+msgid "Binding recorded before the offer"
+msgstr "绑定在提议之前已记录"
+
+#: beatstamp/history.py:475
+msgid "Bitcoin block"
+msgstr "Bitcoin 区块"
+
+#: beatstamp/certificate.py:365
+msgid "Bitcoin block %(height)s"
+msgstr "Bitcoin 区块 %(height)s"
+
+#: beatstamp/ui/journey.py:149
+msgid "Bitcoin block %(height)s from checkpoint #%(n)s"
+msgstr "检查点 #%(n)s 中的 Bitcoin 区块 %(height)s"
+
+#: beatstamp/certificate.py:432
+msgid "Bitcoin block %(height)s named in checkpoint #%(n)s"
+msgstr "检查点 #%(n)s 中所指明的 Bitcoin 区块 %(height)s"
+
+#: beatstamp/proof.py:218
+msgid "Bitcoin — block %(height)s"
+msgstr "Bitcoin — 区块 %(height)s"
+
+#: beatstamp/ui/witness_panel.py:221
+msgid ""
+"Both conflicting signed files are kept there. Together they are a\n"
+"cryptographic proof — keep a copy somewhere safe."
+msgstr ""
+"两个相互矛盾的签名文件都保存在那里。两者合在一起构成\n"
+"密码学证据——请在安全的地方保留一份副本。"
+
+#: beatstamp/ui/main_window.py:695
+msgid "Builds a certificate for the checked digest"
+msgstr "为已核验的摘要生成证书"
+
+#: beatstamp/ui/main_window.py:575
+msgid ""
+"Builds the certificate on this computer — it works without the internet too.\n"
+"It contains the digest, the time, the week root and a QR code for verification."
+msgstr ""
+"在这台电脑上生成证书——无需联网也能使用。\n"
+"证书包含摘要、时间、周根以及用于验证的二维码。"
+
+#: beatstamp/ui/dialogs.py:574
+msgid "Built-in Sigelith keys"
+msgstr "内置的 Sigelith 密钥"
+
+#: beatstamp/ui/main_window.py:2042
+msgid "CSV sheet for Excel (*.csv);;JSON file (*.json)"
+msgstr "Excel 用 CSV 表格 (*.csv);;JSON 文件 (*.json)"
+
+#: beatstamp/ui/dialogs.py:426
+#: beatstamp/ui/handover_controller.py:422
+#: beatstamp/ui/handover_controller.py:458
+#: beatstamp/ui/handover_dialogs.py:131
+#: beatstamp/ui/handover_dialogs.py:199
+#: beatstamp/ui/handover_dialogs.py:309
+#: beatstamp/ui/handover_dialogs.py:606
+msgid "Cancel"
+msgstr "取消"
+
+#: beatstamp/ui/handover_dialogs.py:150
+#: beatstamp/ui/handover_panel.py:220
+msgid "Card fingerprint"
+msgstr "卡片指纹"
+
+#: beatstamp/ui/handover_controller.py:190
+msgid "Card saved"
+msgstr "卡片已保存"
+
+#: beatstamp/ui/handover_dialogs.py:676
+#: beatstamp/ui/handover_dialogs.py:699
+msgid "Cards of both parties"
+msgstr "双方的卡片"
+
+#: beatstamp/certificate.py:745
+msgid "Certificate issued %(utc)s (%(beat)s) by Sigelith Desktop %(version)s · sigelith.org"
+msgstr "证书由 Sigelith Desktop %(version)s 于 %(utc)s（%(beat)s）签发 · sigelith.org"
+
+#: beatstamp/ui/main_window.py:1610
+msgid "Certificate saved"
+msgstr "证书已保存"
+
+#: beatstamp/ui/dialogs.py:830
+msgid "Change…"
+msgstr "更改…"
+
+#: beatstamp/ui/handover_panel.py:178
+msgid "Check a Sigelith Handover evidence package or defect proof (.zip) — yours or someone else's."
+msgstr "检查 Sigelith Handover 证据包或缺陷证明（.zip）——你自己的或他人的。"
+
+#: beatstamp/ui/main_window.py:349
+msgid "Check a file, a SHA-256 digest or a .beatproof proof"
+msgstr "核验文件、SHA-256 摘要或 .beatproof 证明"
+
+#: beatstamp/ui/main_window.py:849
+msgid "Check a stand-alone proof — without the network"
+msgstr "核验独立证明文件——无需联网"
+
+#: beatstamp/ui/dialogs.py:334
+msgid "Check again"
+msgstr "再次检查"
+
+#: beatstamp/ui/main_window.py:660
+msgid "Check digest"
+msgstr "核对摘要"
+
+#: beatstamp/ui/main_window.py:587
+#: beatstamp/ui/main_window.py:1742
+#: beatstamp/ui/main_window.py:1936
+msgid "Check in the browser"
+msgstr "在浏览器中核对"
+
+#: beatstamp/ui/handover_panel.py:298
+#: beatstamp/ui/witness_panel.py:172
+msgid "Check now"
+msgstr "立即检查"
+
+#: beatstamp/ui/main_window.py:1383
+msgid "Check that the digest was pasted in full."
+msgstr "请检查摘要是否已完整粘贴。"
+
+#: beatstamp/ui/dialogs.py:535
+msgid "Check the log and refresh the proofs while the program is open"
+msgstr "程序打开期间检查日志并刷新证明"
+
+#: beatstamp/ui/main_window.py:875
+msgid "Check the service status"
+msgstr "检查服务状态"
+
+#: beatstamp/ui/main_window.py:878
+msgid "Check the witnesses now"
+msgstr "立即检查见证者"
+
+#: beatstamp/bundle.py:264
+msgid "Check this digest in the register (Verification tab -> Check digest) and export the proof again — it will get a signature made with the current key."
+msgstr "请在登记簿中核对此摘要（“验证”标签页 → “核对摘要”），然后重新导出证明——它将获得用当前密钥制作的签名。"
+
+#: beatstamp/ui/main_window.py:634
+msgid "Check whether a document already has a timestamp — and whether the proof is consistent. Verification records nothing and changes nothing."
+msgstr "检查文档是否已有时间戳，以及证明是否一致。验证不会记录任何内容，也不会更改任何内容。"
+
+#: beatstamp/ui/main_window.py:846
+msgid "Check whether a file already has a stamp"
+msgstr "检查文件是否已有戳记"
+
+#: beatstamp/ui/main_window.py:870
+msgid "Check whether the proofs have matured"
+msgstr "检查证明是否已进一步完善"
+
+#: beatstamp/ui/details.py:262
+msgid "Checked"
+msgstr "核验方式"
+
+#: beatstamp/workers.py:267
+msgid "Checking against your copy of the public log…"
+msgstr "正在与你的公开日志副本比对…"
+
+#: beatstamp/ui/handover_controller.py:379
+msgid "Checking the answer…"
+msgstr "正在检查答复…"
+
+#: beatstamp/ui/handover_controller.py:489
+msgid "Checking the defect proof…"
+msgstr "正在检查缺陷证明…"
+
+#: beatstamp/ui/handover_controller.py:506
+msgid "Checking the evidence…"
+msgstr "正在检查证据…"
+
+#: beatstamp/ui/handover_controller.py:585
+msgid "Checking the exchange folder…"
+msgstr "正在检查交换文件夹…"
+
+#: beatstamp/ui/main_window.py:1338
+msgid "Checking the first of %(count)s files — verification works on one file at a time."
+msgstr "正在核验 %(count)s 个文件中的第一个——验证一次只处理一个文件。"
+
+#: beatstamp/ui/witness_panel.py:360
+msgid "Checking the log…"
+msgstr "正在检查日志…"
+
+#: beatstamp/ui/handover_controller.py:276
+msgid "Checking the package…"
+msgstr "正在检查交付件…"
+
+#: beatstamp/ui/main_window.py:1455
+msgid "Checking the proof…"
+msgstr "正在检查证明…"
+
+#: beatstamp/ui/main_window.py:2109
+#: beatstamp/ui/witness_panel.py:387
+msgid "Checking the public log…"
+msgstr "正在检查公开日志…"
+
+#: beatstamp/ui/main_window.py:2319
+#: beatstamp/ui/main_window.py:2323
+#: beatstamp/workers.py:526
+msgid "Checking the service status…"
+msgstr "正在检查服务状态…"
+
+#: beatstamp/ui/journey.py:70
+#: beatstamp/ui/journey.py:74
+#: beatstamp/ui/journey.py:78
+msgid "Checkpoint"
+msgstr "检查点"
+
+#: beatstamp/ui/witness_panel.py:436
+msgid "Checkpoint archive"
+msgstr "检查点存档"
+
+#: beatstamp/ui/witness_panel.py:242
+msgid "Checkpoints"
+msgstr "检查点"
+
+#: beatstamp/ui/main_window.py:880
+msgid "Checkpoints, their chain and the independent copies"
+msgstr "检查点、检查点链及独立副本"
+
+#: beatstamp/ui/main_window.py:671
+msgid ""
+"Checks a stand-alone proof file. The verification happens\n"
+"entirely locally — without connecting to anything."
+msgstr ""
+"核验独立证明文件。验证完全在本地\n"
+"进行——不连接任何地方。"
+
+#: beatstamp/licensing.py:135
+msgid "Checks the Ed25519 signatures of the week roots and of the log checkpoints."
+msgstr "检查周根和日志检查点的 Ed25519 签名。"
+
+#: beatstamp/ui/main_window.py:662
+msgid ""
+"Checks this digest and the answer locally: the inclusion path, the root\n"
+"signature, the identity of the key and the path to the signed checkpoint.\n"
+"In private mode the server is not even told which digest you check."
+msgstr ""
+"在本地检查此摘要及服务器的回应：包含路径、根\n"
+"签名、密钥身份以及到签名检查点的路径。\n"
+"在隐私模式下，服务器甚至不会得知你核对的是哪个摘要。"
+
+#: beatstamp/ui/handover_panel.py:164
+msgid "Choose a contact and files; the package is encrypted to the contact's card."
+msgstr "选择联系人和文件；交付件将针对联系人的卡片加密。"
+
+#: beatstamp/handover_tasks.py:74
+msgid "Choose a contact first."
+msgstr "请先选择联系人。"
+
+#: beatstamp/ui/main_window.py:1328
+msgid "Choose a file to check"
+msgstr "选择要核验的文件"
+
+#: beatstamp/ui/dialogs.py:217
+msgid "Choose a folder for Sigelith Desktop data"
+msgstr "为 Sigelith Desktop 数据选择文件夹"
+
+#: beatstamp/ui/main_window.py:1429
+msgid "Choose a proof file"
+msgstr "选择证明文件"
+
+#: beatstamp/handover_tasks.py:76
+#: beatstamp/ui/handover_dialogs.py:335
+msgid "Choose at least one file."
+msgstr "请至少选择一个文件。"
+
+#: beatstamp/ui/handover_dialogs.py:327
+msgid "Choose files to send"
+msgstr "选择要发送的文件"
+
+#: beatstamp/ui/main_window.py:843
+#: beatstamp/ui/main_window.py:1079
+msgid "Choose files to stamp"
+msgstr "选择要盖戳的文件"
+
+#: beatstamp/ui/main_window.py:1448
+msgid "Choose the document"
+msgstr "选择文档"
+
+#: beatstamp/ui/dialogs.py:750
+#: beatstamp/ui/handover_controller.py:567
+msgid "Choose the exchange folder"
+msgstr "选择交换文件夹"
+
+#: beatstamp/ui/handover_panel.py:292
+msgid "Choose the exchange folder…"
+msgstr "选择交换文件夹…"
+
+#: beatstamp/ui/handover_dialogs.py:247
+msgid "Choose the files to send."
+msgstr "选择要发送的文件。"
+
+#: beatstamp/ui/dialogs.py:747
+#: beatstamp/ui/dialogs.py:768
+msgid "Choose…"
+msgstr "选择…"
+
+#: beatstamp/ui/dialogs.py:615
+msgid "Clears your own key — verification then uses only the keys shipped with this version of the program"
+msgstr "清除你自己的密钥——之后验证只使用此版本程序自带的密钥"
+
+#: beatstamp/ui/main_window.py:2315
+msgid "Clock synchronised"
+msgstr "时钟已同步"
+
+#: beatstamp/ui/main_window.py:2309
+msgid "Clock synchronised (difference %(offset)s s, round trip %(rtt)s ms)."
+msgstr "时钟已同步（偏差 %(offset)s 秒，往返 %(rtt)s 毫秒）。"
+
+#: beatstamp/ui/details.py:310
+#: beatstamp/ui/dialogs.py:339
+#: beatstamp/ui/dialogs.py:1160
+#: beatstamp/ui/dialogs.py:1287
+#: beatstamp/ui/dialogs.py:1527
+#: beatstamp/ui/dialogs.py:1630
+#: beatstamp/ui/handover_controller.py:339
+#: beatstamp/ui/handover_dialogs.py:490
+#: beatstamp/ui/handover_dialogs.py:571
+#: beatstamp/ui/handover_dialogs.py:848
+#: beatstamp/ui/handover_dialogs.py:974
+#: beatstamp/ui/main_window.py:1671
+msgid "Close"
+msgstr "关闭"
+
+#: beatstamp/ui/handover_dialogs.py:491
+#: beatstamp/ui/handover_dialogs.py:572
+#: beatstamp/ui/handover_dialogs.py:849
+#: beatstamp/ui/handover_dialogs.py:975
+msgid "Close this window."
+msgstr "关闭此窗口。"
+
+#: beatstamp/ui/handover_controller.py:430
+msgid "Collecting the log proofs…"
+msgstr "正在收集日志证明…"
+
+#: beatstamp/ui/dialogs.py:657
+msgid "Colour theme. The change takes effect at once."
+msgstr "配色主题。更改立即生效。"
+
+#: beatstamp/ui/witness_panel.py:287
+msgid "Coming up — it happens by itself"
+msgstr "即将发生——自动进行"
+
+#: beatstamp/ui/handover_dialogs.py:154
+msgid "Compare it with the person — in person, or at least the first four groups aloud on a call. A card from an e-mail alone proves only who controls that mailbox."
+msgstr "请与本人核对——当面核对，或至少在通话中读出前四组。仅通过电子邮件收到的卡片，只能证明谁控制着那个邮箱。"
+
+#: beatstamp/ui/dialogs.py:544
+msgid "Compare with copies kept by third parties (GitHub, Internet Archive, Zenodo, mempool.space)"
+msgstr "与第三方保存的副本比对（GitHub、Internet Archive、Zenodo、mempool.space）"
+
+#: beatstamp/ui/dialogs.py:1439
+msgid "Component"
+msgstr "组件"
+
+#: beatstamp/ui/dialogs.py:1519
+msgid "Components"
+msgstr "组件"
+
+#: beatstamp/ui/handover_report.py:144
+msgid "Compute the SHA-256 of the file and compare it with the value above. On Windows:"
+msgstr "计算该文件的 SHA-256，并与上面的值比较。在 Windows 上："
+
+#: beatstamp/workers.py:210
+#: beatstamp/workers.py:289
+#: beatstamp/workers.py:459
+msgid "Computing SHA-256: %(name)s"
+msgstr "正在计算 SHA-256：%(name)s"
+
+#: beatstamp/ui/main_window.py:1344
+#: beatstamp/workers.py:206
+msgid "Computing digest: %(name)s"
+msgstr "正在计算摘要：%(name)s"
+
+#: beatstamp/workers.py:453
+msgid "Computing the document digest: %(name)s"
+msgstr "正在计算文档摘要：%(name)s"
+
+#: beatstamp/ui/main_window.py:1405
+msgid "Confirmed"
+msgstr "已确认"
+
+#: beatstamp/certificate.py:638
+msgid "Confirmed by signature"
+msgstr "经签名确认"
+
+#: beatstamp/ui/handover_report.py:241
+msgid "Confirmed outside Sigelith"
+msgstr "在 Sigelith 之外的确认"
+
+#: beatstamp/ui/dialogs.py:451
+msgid "Connect through the Tor network (.onion service)"
+msgstr "通过 Tor 网络连接（.onion 服务）"
+
+#: beatstamp/workers.py:219
+msgid "Connecting to sigelith.org…"
+msgstr "正在连接 sigelith.org…"
+
+#: beatstamp/ui/dialogs.py:413
+msgid "Connection"
+msgstr "连接"
+
+#: beatstamp/ui/main_window.py:885
+msgid "Connection, witnesses, trust, behaviour"
+msgstr "连接、见证者、信任、行为"
+
+#: beatstamp/licensing.py:117
+msgid "Connects the Python code of the program to Qt."
+msgstr "将程序的 Python 代码连接到 Qt。"
+
+#: beatstamp/ui/handover_panel.py:233
+msgid "Contacts"
+msgstr "联系人"
+
+#: beatstamp/ui/handover_controller.py:197
+msgid "Contacts are bound with your own card — create it first."
+msgstr "联系人要用你自己的卡片来绑定——请先创建你的卡片。"
+
+#: beatstamp/ui/handover_dialogs.py:963
+#: beatstamp/ui/handover_report.py:320
+msgid "Content: %(value)s"
+msgstr "内容：%(value)s"
+
+#: beatstamp/ui/dialogs.py:883
+msgid "Contract"
+msgstr "合同"
+
+#: beatstamp/ui/widgets.py:987
+msgid "Coordinated Universal Time — the time the register counts in"
+msgstr "协调世界时——登记簿所使用的时间"
+
+#: beatstamp/ui/widgets.py:1098
+#: beatstamp/ui/widgets.py:1124
+msgid "Copied"
+msgstr "已复制"
+
+#: beatstamp/ui/journey.py:128
+msgid "Copies at GitHub and in the Internet Archive follow every week, in Zenodo every quarter."
+msgstr "GitHub 和 Internet Archive 上的副本每周跟进，Zenodo 上的每季度跟进。"
+
+#: beatstamp/ui/widgets.py:1093
+msgid "Copies the contents to the clipboard"
+msgstr "将内容复制到剪贴板"
+
+#: beatstamp/ui/main_window.py:801
+msgid "Copies the full SHA-256 digest to the clipboard"
+msgstr "将完整的 SHA-256 摘要复制到剪贴板"
+
+#: beatstamp/ui/details.py:305
+msgid "Copies the whole JSON document to the clipboard"
+msgstr "将整个 JSON 文档复制到剪贴板"
+
+#: beatstamp/ui/widgets.py:1091
+#: beatstamp/ui/widgets.py:1098
+msgid "Copy"
+msgstr "复制"
+
+#: beatstamp/ui/main_window.py:800
+msgid "Copy digest"
+msgstr "复制摘要"
+
+#: beatstamp/ui/details.py:303
+msgid "Copy everything"
+msgstr "全部复制"
+
+#: beatstamp/ui/main_window.py:1932
+msgid "Copy the SHA-256 digest"
+msgstr "复制 SHA-256 摘要"
+
+#: beatstamp/ui/handover_dialogs.py:464
+msgid "Copy the answer text"
+msgstr "复制答复文本"
+
+#: beatstamp/ui/handover_panel.py:329
+msgid "Create a new card"
+msgstr "创建新卡片"
+
+#: beatstamp/ui/handover_controller.py:158
+msgid "Create a new card? The current one will be archived; packages sent to it can still be opened here."
+msgstr "要创建新卡片吗？当前卡片将被归档；发往它的交付件仍可在这里打开。"
+
+#: beatstamp/ui/handover_panel.py:199
+#: beatstamp/ui/handover_panel.py:329
+msgid "Create my card"
+msgstr "创建我的卡片"
+
+#: beatstamp/ui/handover_dialogs.py:130
+msgid "Create the card"
+msgstr "创建卡片"
+
+#: beatstamp/handover_tasks.py:64
+msgid "Create your Sigelith card first."
+msgstr "请先创建你的 Sigelith 卡片。"
+
+#: beatstamp/ui/handover_controller.py:196
+msgid "Create your card first"
+msgstr "请先创建你的卡片"
+
+#: beatstamp/ui/handover_controller.py:167
+msgid "Creating your card…"
+msgstr "正在创建你的卡片…"
+
+#: beatstamp/ui/dialogs.py:653
+msgid "Dark"
+msgstr "深色"
+
+#: beatstamp/ui/dialogs.py:418
+msgid "Data"
+msgstr "数据"
+
+#: beatstamp/ui/dialogs.py:270
+#: beatstamp/ui/dialogs.py:378
+msgid "Data folder"
+msgstr "数据文件夹"
+
+#: beatstamp/config.py:790
+#: beatstamp/ui/main_window.py:1822
+msgid "Data folder: %(path)s"
+msgstr "数据文件夹：%(path)s"
+
+#: beatstamp/ui/handover_dialogs.py:707
+msgid "Data format"
+msgstr "数据格式"
+
+#: beatstamp/ui/handover_dialogs.py:285
+msgid "Days to answer"
+msgstr "答复期限（天）"
+
+#: beatstamp/ui/handover_dialogs.py:286
+msgid "Days to complete after an acceptance"
+msgstr "接受后完成期限（天）"
+
+#: beatstamp/ui/handover_dialogs.py:274
+msgid "Deadlines"
+msgstr "期限"
+
+#: beatstamp/ui/handover_dialogs.py:455
+msgid "Decide later. Without an answer the offer simply expires."
+msgstr "稍后决定。如不答复，提议会自动过期。"
+
+#: beatstamp/ui/dialogs.py:772
+msgid "Default"
+msgstr "默认"
+
+#: beatstamp/ui/handover_dialogs.py:932
+msgid "Defect check — Sigelith Desktop"
+msgstr "缺陷检查 — Sigelith Desktop"
+
+#: beatstamp/ui/handover_controller.py:451
+#: beatstamp/ui/handover_dialogs.py:691
+msgid "Defect proof"
+msgstr "缺陷证明"
+
+#: beatstamp/ui/handover_controller.py:468
+msgid "Defect proof saved"
+msgstr "缺陷证明已保存"
+
+#: beatstamp/ui/handover_controller.py:464
+msgid "Defect proofs (*.zip)"
+msgstr "缺陷证明 (*.zip)"
+
+#: beatstamp/ui/handover_panel.py:63
+msgid "Defective package"
+msgstr "有缺陷的交付件"
+
+#: beatstamp/ui/handover_controller.py:385
+#: beatstamp/ui/handover_dialogs.py:646
+#: beatstamp/ui/handover_panel.py:70
+msgid "Delivered"
+msgstr "已交付"
+
+#: beatstamp/ui/handover_panel.py:399
+msgid "Delivered %(when)s"
+msgstr "已于 %(when)s 交付"
+
+#: beatstamp/ui/handover_dialogs.py:523
+msgid "Delivered %(when)s — the key part is in the public log."
+msgstr "已于 %(when)s 交付——密钥部分已在公开日志中。"
+
+#: beatstamp/ui/handover_controller.py:632
+msgid "Delivered: %(title)s"
+msgstr "已交付：%(title)s"
+
+#: beatstamp/ui/handover_controller.py:386
+msgid "Delivered: the key part is in the public log (%(when)s). Save the evidence package now? Sigelith keeps no copy."
+msgstr "已交付：密钥部分已在公开日志中（%(when)s）。现在保存证据包吗？Sigelith 不保存任何副本。"
+
+#: beatstamp/ui/main_window.py:591
+#: beatstamp/ui/main_window.py:705
+#: beatstamp/ui/main_window.py:796
+#: beatstamp/ui/main_window.py:1938
+msgid "Details…"
+msgstr "详细信息…"
+
+#: beatstamp/ui/details.py:125
+msgid "Digest %(short)s…"
+msgstr "摘要 %(short)s…"
+
+#: beatstamp/ui/main_window.py:1962
+msgid "Digest copied to the clipboard."
+msgstr "摘要已复制到剪贴板。"
+
+#: beatstamp/ui/handover_report.py:268
+msgid "Disclosed content"
+msgstr "披露的内容"
+
+#: beatstamp/ui/handover_dialogs.py:675
+msgid "Disclosed content matches the package"
+msgstr "披露的内容与交付物一致"
+
+#: beatstamp/ui/handover_controller.py:494
+msgid "Do you also have the other party's copy of the same handover? It settles the case where the recipient signed two different answers."
+msgstr "你是否也有同一次交付中另一方的副本？它可用于判断接收方签署了两个不同答复的情况。"
+
+#: beatstamp/ui/main_window.py:1438
+msgid "Do you also want to point to the <b>document</b> this proof is about?<br><br>Without the document we check only whether the proof itself is consistent. With the document we additionally check whether the proof really is about <i>this</i> file and whether the file has been changed."
+msgstr "是否还要指定此证明所涉及的<b>文档</b>？<br><br>不指定文档时，我们只检查证明本身是否一致。指定文档后，我们还会检查该证明是否确实针对<i>这个</i>文件，以及文件是否被改动过。"
+
+#: beatstamp/certificate.py:621
+#: beatstamp/ui/details.py:189
+msgid "Document"
+msgstr "文档"
+
+#: beatstamp/ui/history_model.py:44
+msgid "Document digest — the only information that reached the register"
+msgstr "文档摘要——唯一到达登记簿的信息"
+
+#: beatstamp/ui/history_model.py:43
+msgid "Document name. It was never sent to the server"
+msgstr "文档名称。它从未发送到服务器"
+
+#: beatstamp/ui/main_window.py:1139
+msgid "Done — %(files)s stamped."
+msgstr "完成——已为 %(files)s 盖戳。"
+
+#: beatstamp/ui/main_window.py:1140
+msgid "Done — the file has a timestamp."
+msgstr "完成——该文件已有时间戳。"
+
+#: beatstamp/ui/main_window.py:700
+msgid "Download the .ots proof"
+msgstr "下载 .ots 证明"
+
+#: beatstamp/ui/dialogs.py:1377
+msgid "Downloaded: %(when)s"
+msgstr "下载时间：%(when)s"
+
+#: beatstamp/ui/main_window.py:2109
+msgid "Downloading new checkpoints and checking the signature, the chain, consistency and the independent copies"
+msgstr "正在下载新的检查点，并检查签名、链、一致性和独立副本"
+
+#: beatstamp/ui/main_window.py:1702
+#: beatstamp/workers.py:564
+msgid "Downloading the .ots proof for %(week)s…"
+msgstr "正在下载 %(week)s 的 .ots 证明…"
+
+#: beatstamp/workers.py:514
+msgid "Downloading the certificate from sigelith.org…"
+msgstr "正在从 sigelith.org 下载证书…"
+
+#: beatstamp/ui/witness_panel.py:174
+msgid ""
+"Downloads new checkpoints and checks them right away: the signature,\n"
+"the chain of files, consistency with the previous one and the copies\n"
+"kept by third parties. (F8)"
+msgstr ""
+"下载新的检查点并立即检查：签名、\n"
+"文件链、与上一个检查点的一致性，以及\n"
+"第三方保存的副本。（F8）"
+
+#: beatstamp/ui/dialogs.py:1273
+msgid "Downloads the list from sigelith.org again"
+msgstr "重新从 sigelith.org 下载名单"
+
+#: beatstamp/ui/main_window.py:641
+msgid "Drag a file here to check it"
+msgstr "将文件拖到此处进行核验"
+
+#: beatstamp/ui/main_window.py:686
+msgid "Drag a file in, paste a digest, or load a .beatproof file."
+msgstr "拖入文件、粘贴摘要，或载入 .beatproof 文件。"
+
+#: beatstamp/ui/main_window.py:565
+msgid "Drag a file into the area above to give it a timestamp."
+msgstr "将文件拖入上方区域，为其加盖时间戳。"
+
+#: beatstamp/ui/main_window.py:132
+msgid "Drag files here"
+msgstr "将文件拖到此处"
+
+#: beatstamp/ui/widgets.py:778
+msgid ""
+"Drag files here, or click to pick them from disk.\n"
+"You can drop several files at once — a whole folder too.\n"
+"\n"
+"Files are NOT sent anywhere: only their 64-character\n"
+"SHA-256 digest, computed on this computer, goes to the network."
+msgstr ""
+"将文件拖到此处，或点击从磁盘中选择。\n"
+"可以一次拖入多个文件，也可以拖入整个文件夹。\n"
+"\n"
+"文件不会被发送到任何地方：只有在这台电脑上计算出的\n"
+"64 个字符的 SHA-256 摘要会发送到网络。"
+
+#: beatstamp/licensing.py:129
+msgid "Draws the PDF certificate and its QR code."
+msgstr "绘制 PDF 证书及其二维码。"
+
+#: beatstamp/ui/witness_panel.py:247
+msgid ""
+"Each checkpoint names a Bitcoin block — so it could not have been\n"
+"issued before that block. Sigelith Desktop asks an independent explorer\n"
+"(mempool.space, blockstream.info) whether that block really exists."
+msgstr ""
+"每个检查点都指明一个 Bitcoin 区块——因此它不可能早于\n"
+"该区块签发。Sigelith Desktop 会向独立的区块浏览器\n"
+"（mempool.space、blockstream.info）询问该区块是否真实存在。"
+
+#: beatstamp/certificate.py:329
+msgid "Ed25519 — root signed with YOUR OWN key from the settings (outside the built-in list), checked locally"
+msgstr "Ed25519——根由设置中你自己的密钥签名（不在内置列表中），已在本地检查"
+
+#: beatstamp/certificate.py:331
+msgid "Ed25519 — root signed with a Sigelith key, checked locally"
+msgstr "Ed25519——根由 Sigelith 密钥签名，已在本地检查"
+
+#: beatstamp/certificate.py:327
+msgid "Ed25519 — the signature was not confirmed by the local check"
+msgstr "Ed25519——签名未通过本地检查的确认"
+
+#: beatstamp/certificate.py:324
+msgid "Ed25519 — with a key outside the Sigelith list, signature not binding"
+msgstr "Ed25519——使用 Sigelith 列表之外的密钥，签名不具约束力"
+
+#: beatstamp/certificate.py:321
+msgid "Ed25519 — with a key retired on %(when)s, signature not binding"
+msgstr "Ed25519——使用已于 %(when)s 停用的密钥，签名不具约束力"
+
+#: beatstamp/ui/handover_report.py:314
+msgid "Encrypted package"
+msgstr "加密交付件"
+
+#: beatstamp/ui/handover_dialogs.py:954
+msgid "Encrypted package: %(size)s"
+msgstr "加密交付件：%(size)s"
+
+#: beatstamp/handover_tasks.py:184
+msgid "Encrypting the files and signing the offer…"
+msgstr "正在加密文件并签署提议…"
+
+#: beatstamp/licensing.py:125
+msgid "Encryption of the HTTPS connections and the cryptography behind the signature checks."
+msgstr "HTTPS 连接的加密，以及签名检查背后的密码学运算。"
+
+#: beatstamp/ui/history_model.py:144
+msgid ""
+"Entry carried over from the old TVS client. Its \"signature\" is a concatenation of a time and a digest that cannot be verified.\n"
+"\n"
+"Stamp this file again to get a proof that\n"
+"can be checked independently."
+msgstr ""
+"从旧版 TVS 客户端迁移过来的条目。其“签名”只是时间与摘要的拼接，无法验证。\n"
+"\n"
+"请为此文件重新盖戳，以获得\n"
+"可独立核验的证明。"
+
+#: beatstamp/ui/main_window.py:1956
+msgid "Entry details"
+msgstr "条目详细信息"
+
+#: beatstamp/ui/details.py:143
+msgid "Entry no. %(seq)s in the public Sigelith register"
+msgstr "公开 Sigelith 登记簿中的第 %(seq)s 号条目"
+
+#: beatstamp/ui/main_window.py:1163
+msgid "Error"
+msgstr "错误"
+
+#: beatstamp/ui/dialogs.py:1608
+msgid "Event log — Sigelith Desktop"
+msgstr "事件日志 — Sigelith Desktop"
+
+#: beatstamp/ui/handover_dialogs.py:635
+msgid "Every check in plain words, with instructions for an expert. The report is not evidence — give it together with the checked file."
+msgstr "用通俗的语言列出每项检查，并附有供鉴定人使用的说明。报告不是证据——请与所检查的文件一起提供。"
+
+#: beatstamp/workers.py:354
+msgid "Every entry is already anchored — there is nothing to refresh."
+msgstr "所有条目均已锚定——无需刷新。"
+
+#: beatstamp/ui/witness_panel.py:238
+msgid ""
+"Every entry of the public Sigelith log. In private mode Sigelith Desktop keeps\n"
+"a copy, checks the hash chain of every entry and recomputes the root\n"
+"of every checkpoint from scratch."
+msgstr ""
+"公开 Sigelith 日志中的全部条目。在隐私模式下，Sigelith Desktop 会保存\n"
+"一份副本，检查每个条目的哈希链，并从头重新计算\n"
+"每个检查点的根。"
+
+#: beatstamp/ui/witness_panel.py:252
+msgid ""
+"Every week the Merkle root goes into the title of a bank transfer\n"
+"(MROOT). The weekly checkpoint lists those transfers."
+msgstr ""
+"每周的 Merkle 根都会写入一笔银行转账的附言\n"
+"（MROOT）。每周检查点会列出这些转账。"
+
+#: beatstamp/ui/main_window.py:797
+msgid "Everything about the selected entry, in plain words — and the note to edit"
+msgstr "用通俗的语言说明所选条目的全部信息——并可编辑备注"
+
+#: beatstamp/ui/main_window.py:592
+#: beatstamp/ui/main_window.py:706
+msgid "Everything about this proof: when, how far it has come and who confirms it"
+msgstr "关于此证明的全部信息：时间、进展到哪一步、由谁确认"
+
+#: beatstamp/ui/handover_dialogs.py:796
+msgid "Evidence check — Sigelith Desktop"
+msgstr "证据检查 — Sigelith Desktop"
+
+#: beatstamp/ui/handover_controller.py:416
+#: beatstamp/ui/handover_dialogs.py:699
+msgid "Evidence package"
+msgstr "证据包"
+
+#: beatstamp/ui/handover_controller.py:435
+msgid "Evidence packages (*.zip)"
+msgstr "证据包 (*.zip)"
+
+#: beatstamp/ui/handover_controller.py:499
+msgid "Evidence packages (*.zip);;All files (*)"
+msgstr "证据包 (*.zip);;所有文件 (*)"
+
+#: beatstamp/ui/handover_controller.py:476
+msgid "Evidence packages and defect proofs (*.zip);;All files (*)"
+msgstr "证据包和缺陷证明 (*.zip);;所有文件 (*)"
+
+#: beatstamp/ui/handover_controller.py:443
+msgid "Evidence saved"
+msgstr "证据已保存"
+
+#: beatstamp/ui/handover_panel.py:306
+msgid "Exchange folder"
+msgstr "交换文件夹"
+
+#: beatstamp/ui/dialogs.py:759
+msgid "Exchange folder:"
+msgstr "交换文件夹："
+
+#: beatstamp/ui/handover_panel.py:62
+msgid "Expired"
+msgstr "已过期"
+
+#: beatstamp/ui/main_window.py:860
+msgid "Export history…"
+msgstr "导出历史记录…"
+
+#: beatstamp/ui/main_window.py:2039
+msgid "Export the history"
+msgstr "导出历史记录"
+
+#: beatstamp/ui/main_window.py:817
+msgid "Export…"
+msgstr "导出…"
+
+#: beatstamp/ui/main_window.py:146
+msgid "FOREIGN key — outside the Sigelith keys built into the application"
+msgstr "外来密钥——不在应用内置的 Sigelith 密钥之列"
+
+#: beatstamp/ui/main_window.py:2217
+msgid "Fast mode: the server is asked about each digest."
+msgstr "快速模式：逐个向服务器查询每个摘要。"
+
+#: beatstamp/ui/witness_panel.py:184
+msgid "Fast — ask only about my digests"
+msgstr "快速——只查询我的摘要"
+
+#: beatstamp/ui/dialogs.py:514
+msgid "Fast — ask the server about each of my digests"
+msgstr "快速——向服务器逐个查询我的摘要"
+
+#: beatstamp/history.py:468
+#: beatstamp/ui/details.py:193
+#: beatstamp/ui/history_model.py:43
+msgid "File"
+msgstr "文件"
+
+#: beatstamp/ui/handover_dialogs.py:775
+msgid "File %(name)s"
+msgstr "文件 %(name)s"
+
+#: beatstamp/ui/dialogs.py:697
+msgid "File names:"
+msgstr "文件名："
+
+#: beatstamp/ui/main_window.py:2055
+msgid "File write error:<br>%(reason)s"
+msgstr "文件写入错误：<br>%(reason)s"
+
+#: beatstamp/ui/handover_dialogs.py:241
+#: beatstamp/ui/handover_dialogs.py:417
+#: beatstamp/ui/handover_dialogs.py:921
+msgid "Files"
+msgstr "文件"
+
+#: beatstamp/ui/main_window.py:737
+msgid ""
+"Filters entries as you type. It also searches the full digest,\n"
+"so you can paste a whole hash."
+msgstr ""
+"输入时即筛选条目。也会搜索完整摘要，\n"
+"因此可以粘贴整个哈希值。"
+
+#: beatstamp/ui/handover_controller.py:320
+msgid "Folder not found"
+msgstr "找不到文件夹"
+
+#: beatstamp/ui/handover_controller.py:445
+msgid "For a reader without a verifier — a lawyer, an expert, a court — open it with Verify evidence… and save a PDF report."
+msgstr "对于没有验证工具的人（律师、鉴定人、法院）：用“验证证据…”打开它并保存 PDF 报告。"
+
+#: beatstamp/ui/handover_dialogs.py:172
+msgid "For example: Anna Kowalska, ACME legal"
+msgstr "例如：Anna Kowalska，ACME 法务部"
+
+#: beatstamp/ui/handover_panel.py:240
+msgid "From"
+msgstr "发件人"
+
+#: beatstamp/ui/dialogs.py:1520
+msgid "Full licence texts"
+msgstr "完整许可证文本"
+
+#: beatstamp/ui/main_window.py:347
+msgid "Give files a timestamp in the Sigelith register"
+msgstr "在 Sigelith 登记簿中为文件加盖时间戳"
+
+#: beatstamp/ui/handover_dialogs.py:206
+msgid "Give the contact a name."
+msgstr "请为联系人命名。"
+
+#: beatstamp/ui/handover_panel.py:205
+msgid "Give this file to people who will send you packages. It holds only public keys."
+msgstr "把这个文件交给将向你发送交付件的人。其中只有公钥。"
+
+#: beatstamp/ui/dialogs.py:752
+msgid "Go back to sending the files yourself (e-mail, messenger, USB stick). Nothing is deleted."
+msgstr "改回自己发送文件（电子邮件、即时通讯、U 盘）。不会删除任何内容。"
+
+#: beatstamp/licensing.py:130
+msgid "HTTP connections to sigelith.org and to the independent archives."
+msgstr "与 sigelith.org 及各独立存档之间的 HTTP 连接。"
+
+#: beatstamp/api.py:344
+msgid "HTTP request error: %(kind)s."
+msgstr "HTTP 请求错误：%(kind)s。"
+
+#: beatstamp/ui/main_window.py:2455
+msgid "HTTPS connection with full certificate verification (certifi)."
+msgstr "HTTPS 连接，完整验证证书（certifi）。"
+
+#: beatstamp/ui/handover_panel.py:140
+#: beatstamp/ui/main_window.py:355
+msgid "Hand over files with proof of delivery"
+msgstr "带交付证明地交付文件"
+
+#: beatstamp/ui/dialogs.py:417
+#: beatstamp/ui/main_window.py:345
+msgid "Handover"
+msgstr "Handover"
+
+#: beatstamp/ui/handover_dialogs.py:702
+msgid "Hardware attestation"
+msgstr "硬件证明"
+
+#: beatstamp/ui/handover_dialogs.py:828
+msgid "Hardware attestation of the %(role)s: %(what)s"
+msgstr "%(role)s的硬件证明：%(what)s"
+
+#: beatstamp/ui/handover_dialogs.py:162
+#: beatstamp/ui/handover_panel.py:348
+msgid "Hardware attestation: %(what)s."
+msgstr "硬件证明：%(what)s。"
+
+#: beatstamp/ui/main_window.py:887
+msgid "Hel&p"
+msgstr "帮助(&H)"
+
+#: beatstamp/proof.py:124
+msgid "Highest level: the week root is anchored outside Sigelith — in the Bitcoin chain (OpenTimestamps) and/or by a bank confirmation. Undoing this timestamp would require rewriting other parties' registers."
+msgstr "最高级别：周根已锚定在 Sigelith 之外——写入 Bitcoin 区块链（OpenTimestamps）和/或经银行确认。要撤销此时间戳，就必须改写其他各方的记录。"
+
+#: beatstamp/ui/main_window.py:335
+msgid "History"
+msgstr "历史记录"
+
+#: beatstamp/ui/main_window.py:1898
+msgid "History carried over from TVS"
+msgstr "从 TVS 迁移的历史记录"
+
+#: beatstamp/ui/dialogs.py:719
+msgid "History limit:"
+msgstr "历史记录上限："
+
+#: beatstamp/ui/dialogs.py:87
+msgid ""
+"History, settings and the event log:\n"
+"%(path)s"
+msgstr ""
+"历史记录、设置和事件日志：\n"
+"%(path)s"
+
+#: beatstamp/ui/details.py:153
+msgid "How far the proof has come"
+msgstr "证明的进展"
+
+#: beatstamp/ui/history_model.py:46
+msgid "How far the proof has matured: recorded -> signed -> anchored"
+msgstr "证明的完善程度：已记录 → 已签名 → 已锚定"
+
+#: beatstamp/ui/handover_panel.py:220
+msgid "How it was bound"
+msgstr "绑定方式"
+
+#: beatstamp/ui/handover_panel.py:186
+msgid "How it works"
+msgstr "工作原理"
+
+#: beatstamp/ui/main_window.py:892
+msgid "How it works — sigelith.org"
+msgstr "工作原理 — sigelith.org"
+
+#: beatstamp/ui/handover_dialogs.py:278
+msgid "How long the recipient can answer."
+msgstr "接收方可以答复的期限。"
+
+#: beatstamp/ui/dialogs.py:484
+msgid ""
+"How long to wait for the server answer. Over Tor it is worth\n"
+"raising to 30-60 s — the traffic goes through several relays."
+msgstr ""
+"等待服务器回应的时长。通过 Tor 连接时，建议\n"
+"提高到 30-60 秒——流量要经过多个中继。"
+
+#: beatstamp/ui/handover_report.py:198
+#: beatstamp/ui/handover_report.py:203
+msgid "How the sender bound the recipient's card"
+msgstr "发送方如何绑定接收方卡片"
+
+#: beatstamp/ui/handover_dialogs.py:825
+msgid "How the sender bound the recipient's card: %(level)s"
+msgstr "发送方绑定接收方卡片的方式：%(level)s"
+
+#: beatstamp/certificate.py:735
+msgid "How to check independently: compute the SHA-256 of your document and enter the result at <b>sigelith.org/proof</b>. The weekly Merkle root is signed with an Ed25519 key and anchored outside Sigelith — in the Bitcoin chain (OpenTimestamps) and by an independent bank confirmation. The certificate attests <i>the existence of the document at a given moment</i> and its integrity — it does not attest authorship or the truth of the content."
+msgstr "如何独立核验：计算你的文档的 SHA-256，并在 <b>sigelith.org/proof</b> 输入结果。每周的 Merkle 根由 Ed25519 密钥签名，并锚定在 Sigelith 之外——写入 Bitcoin 区块链（OpenTimestamps），并经独立的银行确认。本证书证实<i>该文档在某一时刻已经存在</i>及其完整性——不证实作者身份或内容的真实性。"
+
+#: beatstamp/ui/handover_report.py:157
+msgid "How to check this independently"
+msgstr "如何独立检查"
+
+#: beatstamp/ui/handover_dialogs.py:178
+msgid "How you made sure that this card belongs to this person. The record is signed with your key and stamped."
+msgstr "你如何确认这张卡片属于此人。该记录由你的密钥签名并加盖时间戳。"
+
+#: beatstamp/ui/handover_dialogs.py:64
+msgid "I confirm that I have received package %(offer)s from %(sender)s and that I hold its encrypted content. This confirmation takes effect at the moment the key part committed in the offer is recorded in the Sigelith log, provided that happens no later than %(deadline)s. Otherwise it has no effect."
+msgstr "我确认已收到 %(sender)s 发来的交付物 %(offer)s，并持有其加密内容。本确认在提议中承诺的密钥部分被记录到 Sigelith 日志的那一刻生效，前提是该记录不晚于 %(deadline)s。否则本确认不产生效力。"
+
+#: beatstamp/ui/handover_dialogs.py:72
+msgid "I refuse to accept package %(offer)s from %(sender)s."
+msgstr "我拒绝接受 %(sender)s 发来的交付物 %(offer)s。"
+
+#: beatstamp/ui/witness_panel.py:255
+msgid ""
+"Immutable weekly releases in the public repository\n"
+"DeiFlagellum/sigelith-log. Sigelith Desktop downloads the checkpoint files\n"
+"from there and compares them byte for byte."
+msgstr ""
+"公开仓库 DeiFlagellum/sigelith-log 中不可更改的\n"
+"每周发布。Sigelith Desktop 从那里下载检查点文件，\n"
+"并逐字节比对。"
+
+#: beatstamp/ui/dialogs.py:314
+msgid "In Windows Security open: Virus & threat protection > Ransomware protection > Allow an app through Controlled folder access."
+msgstr "在 Windows 安全中心中依次打开：病毒和威胁防护 > 勒索软件防护 > 允许应用通过受控制文件夹访问。"
+
+#: beatstamp/ui/handover_controller.py:416
+msgid "Include the delivered files in the evidence? Then it shows exactly what was delivered — and anyone who gets the evidence can read the files."
+msgstr "要把已交付的文件放入证据吗？这样它能准确显示交付了什么——但任何拿到证据的人都能读取这些文件。"
+
+#: beatstamp/certificate.py:654
+msgid "Inclusion path"
+msgstr "包含路径"
+
+#: beatstamp/ui/main_window.py:1542
+msgid "Incomplete"
+msgstr "不完整"
+
+#: beatstamp/ui/main_window.py:1541
+msgid "Incomplete proof"
+msgstr "证明不完整"
+
+#: beatstamp/ui/main_window.py:1170
+#: beatstamp/ui/main_window.py:1391
+#: beatstamp/ui/main_window.py:1530
+msgid "Inconsistent proof"
+msgstr "证明不一致"
+
+#: beatstamp/certificate.py:674
+#: beatstamp/ui/details.py:254
+#: beatstamp/ui/journey.py:120
+#: beatstamp/ui/journey.py:127
+msgid "Independent copies"
+msgstr "独立副本"
+
+#: beatstamp/ui/main_window.py:2471
+msgid "Interface language"
+msgstr "界面语言"
+
+#: beatstamp/ui/dialogs.py:644
+msgid ""
+"Interface language. \"Same as system\" follows the language of the\n"
+"Windows interface (not the regional format).\n"
+"\n"
+"Texts already drawn on screen keep the previous language until\n"
+"the program is restarted."
+msgstr ""
+"界面语言。“跟随系统”会采用 Windows 界面的\n"
+"显示语言（而不是区域格式）。\n"
+"\n"
+"屏幕上已显示的文字会保留之前的语言，直到\n"
+"程序重新启动。"
+
+#: beatstamp/licensing.py:133
+msgid "International domain names in addresses."
+msgstr "地址中的国际化域名。"
+
+#: beatstamp/ui/dialogs.py:930
+msgid "Invalid address"
+msgstr "地址无效"
+
+#: beatstamp/ui/main_window.py:1350
+msgid "Invalid digest"
+msgstr "摘要无效"
+
+#: beatstamp/ui/dialogs.py:936
+msgid "Invalid key"
+msgstr "密钥无效"
+
+#: beatstamp/ui/main_window.py:791
+msgid "Issues a certificate for the selected entry"
+msgstr "为所选条目签发证书"
+
+#: beatstamp/ui/main_window.py:1738
+msgid "Issues a certificate for this entry"
+msgstr "为此条目签发证书"
+
+#: beatstamp/ui/main_window.py:1595
+#: beatstamp/ui/main_window.py:1602
+#: beatstamp/ui/main_window.py:1632
+#: beatstamp/ui/main_window.py:1714
+#: beatstamp/ui/main_window.py:2054
+msgid "It could not be saved"
+msgstr "无法保存"
+
+#: beatstamp/ui/handover_controller.py:188
+#: beatstamp/ui/handover_controller.py:209
+#: beatstamp/ui/handover_controller.py:364
+#: beatstamp/ui/handover_controller.py:441
+#: beatstamp/ui/handover_controller.py:484
+#: beatstamp/ui/handover_controller.py:526
+#: beatstamp/ui/handover_controller.py:559
+#: beatstamp/ui/main_window.py:1021
+msgid "It did not work"
+msgstr "操作未成功"
+
+#: beatstamp/ui/handover_report.py:284
+msgid "It does not prove that anyone read or understood the content, or who stands behind a key — that is what binding a card to a person is for. It is not a formal service of documents under any particular law; what it weighs in a dispute is for a court to decide. Silence proves nothing: an offer without an answer is a status, not evidence."
+msgstr "它不能证明有人阅读或理解了内容，也不能证明密钥背后是谁——这正是将卡片绑定到个人的作用。它不是任何特定法律意义上的正式送达；它在争议中有多大分量，由法院判断。沉默不证明任何事：没有答复的提议只是一种状态，而不是证据。"
+
+#: beatstamp/ui/handover_dialogs.py:114
+msgid "Keep the signing key in Windows Hello (recommended)"
+msgstr "将签名密钥保存在 Windows Hello 中（推荐）"
+
+#: beatstamp/ui/handover_controller.py:443
+msgid "Keep this file safe — Sigelith keeps no copy. Anyone can check it at sigelith.org/handover/verify/ or in Sigelith Desktop."
+msgstr "请妥善保存此文件——Sigelith 不保存任何副本。任何人都可以在 sigelith.org/handover/verify/ 或 Sigelith Desktop 中检查它。"
+
+#: beatstamp/ui/handover_dialogs.py:704
+msgid "Key part matches the offer"
+msgstr "密钥部分与提议一致"
+
+#: beatstamp/ui/handover_dialogs.py:671
+#: beatstamp/ui/handover_report.py:219
+msgid "Key part recorded in the log"
+msgstr "密钥部分已记录到日志"
+
+#: beatstamp/ui/handover_dialogs.py:770
+msgid "Key part — the moment of delivery"
+msgstr "密钥部分——交付时刻"
+
+#: beatstamp/ui/handover_dialogs.py:686
+msgid "Key parts and encrypted package are the ones in the offer"
+msgstr "密钥部分和加密交付件与提议中的一致"
+
+#: beatstamp/ui/dialogs.py:649
+msgid "Language:"
+msgstr "语言："
+
+#: beatstamp/ui/handover_dialogs.py:454
+msgid "Later"
+msgstr "稍后"
+
+#: beatstamp/ui/dialogs.py:1150
+#: beatstamp/ui/main_window.py:914
+msgid "Legal notice (Impressum)"
+msgstr "法律声明（Impressum）"
+
+#: beatstamp/ui/dialogs.py:516
+msgid ""
+"Less data to download, but every refresh and every check tells the server\n"
+"which digest you are interested in."
+msgstr ""
+"需要下载的数据更少，但每次刷新和每次检查都会让服务器\n"
+"知道你关心的是哪个摘要。"
+
+#: beatstamp/handover_tasks.py:104
+msgid "Less than an hour is left before the acceptance expires, so the key part was not published and the delivery did not happen. Send a new package."
+msgstr "距接受到期已不足一小时，因此密钥部分未被发布，交付没有发生。请重新发送一个交付件。"
+
+#: beatstamp/licensing.py:127
+msgid "Lets Python call Windows system libraries."
+msgstr "让 Python 能够调用 Windows 系统库。"
+
+#: beatstamp/ui/handover_report.py:241
+#: beatstamp/ui/history_model.py:46
+msgid "Level"
+msgstr "级别"
+
+#: beatstamp/ui/dialogs.py:1439
+#: beatstamp/ui/dialogs.py:1558
+msgid "Licence"
+msgstr "许可证"
+
+#: beatstamp/ui/dialogs.py:1131
+msgid "Licences and notices"
+msgstr "许可证与声明"
+
+#: beatstamp/ui/dialogs.py:1420
+msgid "Licences and notices — Sigelith Desktop"
+msgstr "许可证与声明 — Sigelith Desktop"
+
+#: beatstamp/ui/dialogs.py:653
+msgid "Light"
+msgstr "浅色"
+
+#: beatstamp/ui/handover_dialogs.py:599
+msgid "Line breaks and spaces from e-mail do not matter."
+msgstr "邮件中的换行和空格不影响。"
+
+#: beatstamp/ui/handover_dialogs.py:605
+msgid "Load"
+msgstr "载入"
+
+#: beatstamp/ui/main_window.py:670
+#: beatstamp/ui/main_window.py:847
+msgid "Load a .beatproof proof…"
+msgstr "载入 .beatproof 证明…"
+
+#: beatstamp/ui/handover_dialogs.py:589
+msgid "Load an answer — Sigelith Desktop"
+msgstr "载入答复 — Sigelith Desktop"
+
+#: beatstamp/ui/handover_panel.py:172
+msgid "Load an answer…"
+msgstr "载入答复…"
+
+#: beatstamp/ui/handover_panel.py:222
+msgid "Load someone's .sigelith-card file and record how you verified that it is theirs."
+msgstr "载入他人的 .sigelith-card 文件，并记录你如何核实它属于此人。"
+
+#: beatstamp/ui/handover_panel.py:173
+msgid "Load the answer file, or paste the answer text, that the recipient sent back."
+msgstr "载入接收方发回的答复文件，或粘贴答复文本。"
+
+#: beatstamp/ui/handover_dialogs.py:562
+msgid "Load the answer…"
+msgstr "载入答复…"
+
+#: beatstamp/workers.py:447
+msgid "Loading proof: %(name)s"
+msgstr "正在载入证明：%(name)s"
+
+#: beatstamp/workers.py:550
+msgid "Loading the list of supporters…"
+msgstr "正在载入支持者名单…"
+
+#: beatstamp/ui/dialogs.py:1310
+#: beatstamp/ui/dialogs.py:1326
+msgid "Loading the list…"
+msgstr "正在载入名单…"
+
+#: beatstamp/ui/main_window.py:505
+msgid "Local check:"
+msgstr "本地检查："
+
+#: beatstamp/ui/main_window.py:1857
+msgid "Local history"
+msgstr "本地历史记录"
+
+#: beatstamp/ui/history_model.py:41
+msgid "Local time"
+msgstr "本地时间"
+
+#: beatstamp/ui/witness_panel.py:367
+msgid "Log checked · checkpoint #%(n)s"
+msgstr "日志已检查 · 检查点 #%(n)s"
+
+#: beatstamp/certificate.py:670
+#: beatstamp/ui/details.py:249
+#: beatstamp/ui/details.py:258
+msgid "Log checkpoint"
+msgstr "日志检查点"
+
+#: beatstamp/ui/witness_panel.py:363
+msgid "Log not checked yet"
+msgstr "日志尚未检查"
+
+#: beatstamp/ui/handover_dialogs.py:812
+#: beatstamp/ui/handover_report.py:259
+msgid "Log proofs"
+msgstr "日志证明"
+
+#: beatstamp/ui/handover_panel.py:299
+msgid "Look for new packages and answers in the exchange folder, and for key parts in the public log."
+msgstr "在交换文件夹中查找新的交付件和答复，在公开日志中查找密钥部分。"
+
+#: beatstamp/ui/handover_controller.py:616
+msgid "Looking for key parts in the log…"
+msgstr "正在日志中查找密钥部分…"
+
+#: beatstamp/ui/witness_panel.py:473
+msgid "MROOT transfers are listed in the weekly checkpoints — the transfer titles can be checked on a bank statement"
+msgstr "MROOT 转账列在每周检查点中——转账附言可在银行对账单上核对"
+
+#: beatstamp/ui/handover_report.py:130
+msgid "Made by Sigelith Desktop %(version)s on %(when)s."
+msgstr "由 Sigelith Desktop %(version)s 于 %(when)s 生成。"
+
+#: beatstamp/ui/main_window.py:873
+msgid "Measure the clock drift of this computer"
+msgstr "测量这台电脑的时钟偏差"
+
+#: beatstamp/ui/main_window.py:2232
+msgid "Measuring the difference between this computer and the Sigelith server"
+msgstr "正在测量这台电脑与 Sigelith 服务器之间的时间差"
+
+#: beatstamp/history.py:473
+msgid "Merkle root"
+msgstr "Merkle 根"
+
+#: beatstamp/certificate.py:651
+msgid "Merkle root of the week"
+msgstr "该周的 Merkle 根"
+
+#: beatstamp/ui/history_model.py:218
+msgid "Merkle root: %(root)s"
+msgstr "Merkle 根：%(root)s"
+
+#: beatstamp/certificate.py:626
+msgid "Moment of stamping"
+msgstr "盖戳时刻"
+
+#: beatstamp/ui/handover_panel.py:212
+msgid "My card"
+msgstr "我的卡片"
+
+#: beatstamp/ui/handover_dialogs.py:189
+#: beatstamp/ui/handover_panel.py:220
+#: beatstamp/ui/handover_report.py:137
+msgid "Name"
+msgstr "名称"
+
+#: beatstamp/ui/handover_dialogs.py:121
+msgid "Name in the Windows Hello window"
+msgstr "Windows Hello 窗口中的名称"
+
+#: beatstamp/ui/handover_dialogs.py:111
+msgid "Name shown in the Windows Hello window"
+msgstr "显示在 Windows Hello 窗口中的名称"
+
+#: beatstamp/ui/handover_dialogs.py:96
+msgid "New card — Sigelith Desktop"
+msgstr "新卡片 — Sigelith Desktop"
+
+#: beatstamp/ui/handover_dialogs.py:145
+msgid "New contact — Sigelith Desktop"
+msgstr "新联系人 — Sigelith Desktop"
+
+#: beatstamp/ui/handover_controller.py:597
+msgid "New packages in the exchange folder: %(n)s"
+msgstr "交换文件夹中的新交付件：%(n)s"
+
+#: beatstamp/ui/handover_dialogs.py:657
+msgid "No acceptance took effect: the key part was not recorded in the log after the acceptance and before its deadline."
+msgstr "没有已生效的接受：密钥部分未在接受之后、期限之前记录到日志中。"
+
+#: beatstamp/ui/history_model.py:233
+msgid "No anchor — the week is still running."
+msgstr "尚无锚定——该周仍在进行中。"
+
+#: beatstamp/ui/main_window.py:2030
+msgid "No change — none of the proofs has moved to another stage yet."
+msgstr "没有变化——尚无任何证明进入下一阶段。"
+
+#: beatstamp/ui/main_window.py:2154
+msgid "No connection"
+msgstr "无连接"
+
+#: beatstamp/api.py:316
+msgid "No connection through the proxy server set on this computer (Windows proxy settings or the HTTPS_PROXY variable). Check those settings or ask your network administrator."
+msgstr "无法通过这台电脑上设置的代理服务器连接（Windows 代理设置或 HTTPS_PROXY 变量）。请检查这些设置，或联系你的网络管理员。"
+
+#: beatstamp/api.py:691
+msgid "No connection to %(host)s."
+msgstr "无法连接到 %(host)s。"
+
+#: beatstamp/api.py:339
+msgid "No connection to sigelith.org. Check your internet access and firewall settings."
+msgstr "无法连接到 sigelith.org。请检查你的网络连接和防火墙设置。"
+
+#: beatstamp/api.py:309
+msgid "No connection to the Tor proxy at %(proxy)s. Start Tor Browser or the tor service, or turn off Tor mode in the settings."
+msgstr "无法连接到位于 %(proxy)s 的 Tor 代理。请启动 Tor Browser 或 tor 服务，或在设置中关闭 Tor 模式。"
+
+#: beatstamp/ui/witness_panel.py:391
+msgid "No connection — showing the last check"
+msgstr "无连接——显示上次检查的结果"
+
+#: beatstamp/ui/handover_controller.py:237
+msgid "No contacts yet"
+msgstr "还没有联系人"
+
+#: beatstamp/ui/handover_dialogs.py:888
+msgid "No defect"
+msgstr "无缺陷"
+
+#: beatstamp/ui/handover_panel.py:411
+msgid "No exchange folder: you save and send the files yourself (e-mail, messenger, USB stick). A shared folder makes it automatic."
+msgstr "没有交换文件夹：文件需要你自己保存并发送（电子邮件、即时通讯、U 盘）。共享文件夹可以让这一切自动完成。"
+
+#: beatstamp/ui/main_window.py:1089
+msgid "No file was found. Folders are expanded automatically — perhaps the chosen folder is empty."
+msgstr "未找到任何文件。文件夹会自动展开——所选文件夹可能是空的。"
+
+#: beatstamp/ui/handover_dialogs.py:167
+#: beatstamp/ui/handover_panel.py:349
+msgid "No hardware attestation."
+msgstr "没有硬件证明。"
+
+#: beatstamp/ui/history_model.py:169
+msgid "No note"
+msgstr "无备注"
+
+#: beatstamp/hashing.py:150
+msgid "No permission to read the file \"%(name)s\"."
+msgstr "没有读取文件“%(name)s”的权限。"
+
+#: beatstamp/ui/main_window.py:464
+msgid "No result"
+msgstr "暂无结果"
+
+#: beatstamp/proof.py:103
+#: beatstamp/ui/main_window.py:1374
+msgid "No stamp"
+msgstr "无戳记"
+
+#: beatstamp/api.py:725
+msgid "No week identifier was given."
+msgstr "未提供周标识。"
+
+#: beatstamp/ui/dialogs.py:1375
+msgid "Nobody is named here right now."
+msgstr "目前这里还没有列出任何人。"
+
+#: beatstamp/ui/handover_dialogs.py:891
+msgid "Not a valid defect proof"
+msgstr "不是有效的缺陷证明"
+
+#: beatstamp/ui/handover_panel.py:72
+msgid "Not collected"
+msgstr "未领取"
+
+#: beatstamp/ui/handover_dialogs.py:656
+msgid "Not completed"
+msgstr "未完成"
+
+#: beatstamp/ui/handover_panel.py:73
+msgid "Not delivered"
+msgstr "未交付"
+
+#: beatstamp/certificate.py:635
+#: beatstamp/ui/details.py:168
+msgid "Not earlier than"
+msgstr "不早于"
+
+#: beatstamp/ui/main_window.py:1375
+msgid "Not found"
+msgstr "未找到"
+
+#: beatstamp/certificate.py:637
+#: beatstamp/ui/details.py:172
+msgid "Not later than"
+msgstr "不晚于"
+
+#: beatstamp/ui/main_window.py:1162
+msgid "Not registered"
+msgstr "未登记"
+
+#: beatstamp/ui/widgets.py:991
+msgid "Not synchronised with the Sigelith server yet"
+msgstr "尚未与 Sigelith 服务器同步"
+
+#: beatstamp/ui/handover_dialogs.py:659
+msgid "Not valid evidence"
+msgstr "不是有效证据"
+
+#: beatstamp/certificate.py:676
+#: beatstamp/history.py:470
+#: beatstamp/ui/details.py:207
+#: beatstamp/ui/handover_dialogs.py:192
+#: beatstamp/ui/handover_dialogs.py:414
+#: beatstamp/ui/handover_dialogs.py:913
+#: beatstamp/ui/history_model.py:49
+msgid "Note"
+msgstr "备注"
+
+#: beatstamp/ui/handover_dialogs.py:262
+msgid "Note (optional)"
+msgstr "备注（可选）"
+
+#: beatstamp/ui/main_window.py:1305
+#: beatstamp/ui/main_window.py:1319
+msgid "Note saved."
+msgstr "备注已保存。"
+
+#: beatstamp/ui/main_window.py:530
+msgid "Note:"
+msgstr "备注："
+
+#: beatstamp/ui/handover_controller.py:581
+msgid "Nothing to check: no package is waiting for an answer or a key part."
+msgstr "没有需要检查的内容：没有交付件在等待答复或密钥部分。"
+
+#: beatstamp/ui/main_window.py:1088
+msgid "Nothing to stamp"
+msgstr "没有可盖戳的内容"
+
+#: beatstamp/ui/handover_dialogs.py:915
+msgid "Number of files"
+msgstr "文件数"
+
+#: beatstamp/ui/handover_dialogs.py:766
+#: beatstamp/ui/handover_dialogs.py:947
+#: beatstamp/ui/handover_report.py:206
+#: beatstamp/ui/handover_report.py:313
+msgid "Offer"
+msgstr "提议"
+
+#: beatstamp/ui/handover_dialogs.py:883
+msgid "Offer defective"
+msgstr "提议有缺陷"
+
+#: beatstamp/ui/handover_dialogs.py:669
+#: beatstamp/ui/handover_report.py:207
+msgid "Offer recorded in the log"
+msgstr "提议已记录到日志"
+
+#: beatstamp/ui/handover_dialogs.py:410
+msgid "Offer recorded in the log: %(when)s"
+msgstr "提议已记录到日志：%(when)s"
+
+#: beatstamp/ui/handover_dialogs.py:677
+#: beatstamp/ui/handover_dialogs.py:700
+msgid "Offer signed by the sender"
+msgstr "发送方签署的提议"
+
+#: beatstamp/ui/main_window.py:793
+#: beatstamp/ui/main_window.py:1740
+msgid "Offline proof"
+msgstr "离线证明"
+
+#: beatstamp/ui/main_window.py:580
+#: beatstamp/ui/main_window.py:697
+msgid "Offline proof (.beatproof)"
+msgstr "离线证明（.beatproof）"
+
+#: beatstamp/ui/main_window.py:1935
+msgid "Offline proof (.beatproof)…"
+msgstr "离线证明（.beatproof）…"
+
+#: beatstamp/ui/handover_dialogs.py:191
+msgid "On"
+msgstr "日期"
+
+#: beatstamp/api.py:666
+msgid "Only HTTPS addresses can be used."
+msgstr "只能使用 HTTPS 地址。"
+
+#: beatstamp/ui/handover_dialogs.py:112
+msgid "Only for the Windows Hello window on this computer. It is not part of the card."
+msgstr "仅用于此计算机上的 Windows Hello 窗口，不属于卡片的一部分。"
+
+#: beatstamp/ui/main_window.py:397
+msgid "Only the SHA-256 digest, computed on this computer, reaches the Sigelith register."
+msgstr "只有在这台电脑上计算出的 SHA-256 摘要会到达 Sigelith 登记簿。"
+
+#: beatstamp/ui/handover_report.py:146
+msgid "Open %(url)s in a current browser and drop the file in. The page recomputes everything in the browser and uploads nothing. Sigelith Desktop does the same offline (Verify evidence…)."
+msgstr "在最新的浏览器中打开 %(url)s 并拖入文件。该页面在浏览器中重新计算一切，不上传任何内容。Sigelith Desktop 可离线完成同样的检查（“验证证据…”）。"
+
+#: beatstamp/ui/handover_panel.py:169
+msgid "Open a .sigelith-handover file someone sent you."
+msgstr "打开别人发给你的 .sigelith-handover 文件。"
+
+#: beatstamp/ui/main_window.py:856
+msgid "Open a Handover package…"
+msgstr "打开 Handover 交付件…"
+
+#: beatstamp/ui/handover_controller.py:201
+msgid "Open a card file"
+msgstr "打开卡片文件"
+
+#: beatstamp/ui/handover_controller.py:270
+msgid "Open a package"
+msgstr "打开交付件"
+
+#: beatstamp/ui/handover_panel.py:168
+msgid "Open a package…"
+msgstr "打开交付件…"
+
+#: beatstamp/ui/handover_controller.py:475
+msgid "Open an evidence package"
+msgstr "打开证据包"
+
+#: beatstamp/ui/dialogs.py:78
+msgid "Open data folder"
+msgstr "打开数据文件夹"
+
+#: beatstamp/ui/handover_dialogs.py:614
+msgid "Open the answer file"
+msgstr "打开答复文件"
+
+#: beatstamp/ui/handover_dialogs.py:601
+msgid "Open the answer file…"
+msgstr "打开答复文件…"
+
+#: beatstamp/ui/witness_panel.py:500
+#: beatstamp/ui/witness_panel.py:508
+msgid "Open the copy"
+msgstr "打开副本"
+
+#: beatstamp/ui/witness_panel.py:220
+msgid "Open the evidence folder"
+msgstr "打开证据文件夹"
+
+#: beatstamp/ui/main_window.py:1669
+msgid "Open the file"
+msgstr "打开文件"
+
+#: beatstamp/ui/dialogs.py:1534
+#: beatstamp/ui/handover_controller.py:338
+msgid "Open the folder"
+msgstr "打开文件夹"
+
+#: beatstamp/ui/handover_panel.py:250
+msgid "Open the folder where the files of the selected package were saved."
+msgstr "打开所选交付件的文件所保存的文件夹。"
+
+#: beatstamp/ui/handover_dialogs.py:469
+#: beatstamp/ui/handover_panel.py:249
+msgid "Open the folder with the files"
+msgstr "打开存放文件的文件夹"
+
+#: beatstamp/ui/handover_controller.py:498
+msgid "Open the other party's copy"
+msgstr "打开另一方的副本"
+
+#: beatstamp/ui/main_window.py:1708
+msgid "OpenTimestamps proof (*.ots)"
+msgstr "OpenTimestamps 证明 (*.ots)"
+
+#: beatstamp/certificate.py:435
+msgid "OpenTimestamps — Bitcoin block %(height)s"
+msgstr "OpenTimestamps — Bitcoin 区块 %(height)s"
+
+#: beatstamp/proof.py:221
+msgid "OpenTimestamps — waiting for a block"
+msgstr "OpenTimestamps — 等待区块"
+
+#: beatstamp/ui/journey.py:154
+msgid "OpenTimestamps, Bitcoin block %(height)s"
+msgstr "OpenTimestamps，Bitcoin 区块 %(height)s"
+
+#: beatstamp/ui/history_model.py:220
+msgid "OpenTimestamps: confirmed in block %(height)s"
+msgstr "OpenTimestamps：已在区块 %(height)s 中确认"
+
+#: beatstamp/ui/history_model.py:223
+msgid "OpenTimestamps: submitted, waiting for a Bitcoin block"
+msgstr "OpenTimestamps：已提交，等待 Bitcoin 区块"
+
+#: beatstamp/ui/handover_panel.py:61
+msgid "Opened"
+msgstr "已打开"
+
+#: beatstamp/ui/dialogs.py:779
+msgid "Opened packages:"
+msgstr "已打开的交付件："
+
+#: beatstamp/ui/dialogs.py:328
+msgid "Opens Windows Security, where Sigelith Desktop can be allowed to write to protected folders."
+msgstr "打开 Windows 安全中心，可在其中允许 Sigelith Desktop 写入受保护的文件夹。"
+
+#: beatstamp/ui/dialogs.py:1010
+#: beatstamp/ui/main_window.py:947
+#: beatstamp/ui/witness_panel.py:134
+msgid "Opens in the browser: %(url)s"
+msgstr "在浏览器中打开：%(url)s"
+
+#: beatstamp/ui/main_window.py:1742
+msgid "Opens sigelith.org/proof with this digest"
+msgstr "用此摘要打开 sigelith.org/proof"
+
+#: beatstamp/ui/dialogs.py:1536
+msgid "Opens the folder with the licence files in the file manager"
+msgstr "在文件资源管理器中打开存放许可证文件的文件夹"
+
+#: beatstamp/ui/main_window.py:588
+msgid ""
+"Opens the public verification page sigelith.org/proof\n"
+"with the digest filled in — an independent confirmation."
+msgstr ""
+"打开公开验证页面 sigelith.org/proof，\n"
+"并自动填入摘要——这是一种独立的确认。"
+
+#: beatstamp/ui/witness_panel.py:100
+msgid "Opens the source of this check in the browser"
+msgstr "在浏览器中打开此项检查的来源"
+
+#: beatstamp/ui/handover_dialogs.py:186
+msgid "Optional: where and how"
+msgstr "可选：在哪里、如何核实"
+
+#: beatstamp/ui/main_window.py:2338
+msgid "Overall state: <b>%(status)s</b><br>Database: %(database)s<br>Cache: %(cache)s<br>Server clock against NTP: %(offset)s (source: %(source)s)"
+msgstr "总体状态：<b>%(status)s</b><br>数据库：%(database)s<br>缓存：%(cache)s<br>服务器时钟与 NTP 的偏差：%(offset)s（来源：%(source)s）"
+
+#: beatstamp/ui/main_window.py:574
+#: beatstamp/ui/main_window.py:694
+#: beatstamp/ui/main_window.py:790
+#: beatstamp/ui/main_window.py:1738
+msgid "PDF certificate"
+msgstr "PDF 证书"
+
+#: beatstamp/ui/main_window.py:1933
+msgid "PDF certificate…"
+msgstr "PDF 证书…"
+
+#: beatstamp/ui/main_window.py:1586
+msgid "PDF document (*.pdf)"
+msgstr "PDF 文档 (*.pdf)"
+
+#: beatstamp/ui/handover_controller.py:520
+msgid "PDF documents (*.pdf)"
+msgstr "PDF 文档 (*.pdf)"
+
+#: beatstamp/ui/handover_controller.py:335
+msgid "Package opened"
+msgstr "交付件已打开"
+
+#: beatstamp/ui/handover_controller.py:261
+msgid "Package ready"
+msgstr "交付件已准备好"
+
+#: beatstamp/ui/handover_controller.py:257
+msgid "Package sent"
+msgstr "交付件已发送"
+
+#: beatstamp/ui/handover_panel.py:409
+msgid "Packages and answers are exchanged through: %(path)s"
+msgstr "交付件和答复经由：%(path)s"
+
+#: beatstamp/ui/dialogs.py:729
+msgid "Packages travel between the two of you — the Sigelith server stores no files and no messages. A shared folder only makes the exchange automatic."
+msgstr "交付件在你们之间传递——Sigelith 服务器不保存任何文件和消息。共享文件夹只是让交换自动进行。"
+
+#: beatstamp/ui/handover_dialogs.py:595
+msgid "Paste the answer text (it starts with sigelith:answer:) or open the answer file."
+msgstr "粘贴答复文本（以 sigelith:answer: 开头），或打开答复文件。"
+
+#: beatstamp/ui/dialogs.py:1239
+msgid "People who support Sigelith and agreed to be named here"
+msgstr "支持 Sigelith 并同意在此署名的人"
+
+#: beatstamp/ui/main_window.py:908
+msgid "People who support Sigelith — the list is loaded from sigelith.org"
+msgstr "支持 Sigelith 的人——名单从 sigelith.org 载入"
+
+#: beatstamp/ui/dialogs.py:321
+msgid "Pick another folder…"
+msgstr "选择其他文件夹…"
+
+#: beatstamp/ui/main_window.py:1195
+msgid "Please note:"
+msgstr "请注意："
+
+#: beatstamp/ui/main_window.py:1437
+msgid "Point to the document?"
+msgstr "指定文档？"
+
+#: beatstamp/ui/handover_controller.py:248
+msgid "Preparing the package…"
+msgstr "正在准备交付件…"
+
+#: beatstamp/ui/main_window.py:1112
+msgid "Preparing…"
+msgstr "正在准备…"
+
+#: beatstamp/ui/handover_dialogs.py:962
+#: beatstamp/ui/handover_report.py:319
+msgid "Preview: %(value)s"
+msgstr "预览：%(value)s"
+
+#: beatstamp/ui/dialogs.py:1151
+#: beatstamp/ui/main_window.py:916
+msgid "Privacy policy"
+msgstr "隐私政策"
+
+#: beatstamp/ui/main_window.py:2215
+msgid "Private mode: Sigelith Desktop keeps a copy of the whole public log."
+msgstr "隐私模式：Sigelith Desktop 保存整个公开日志的副本。"
+
+#: beatstamp/ui/dialogs.py:507
+msgid "Private — keep a copy of the whole public log (recommended)"
+msgstr "隐私——保存整个公开日志的副本（推荐）"
+
+#: beatstamp/ui/witness_panel.py:182
+msgid "Private — the whole log on this computer"
+msgstr "隐私——整个日志保存在这台电脑上"
+
+#: beatstamp/ui/witness_panel.py:185
+msgid ""
+"Private: Sigelith Desktop keeps a copy of the whole public log and computes\n"
+"every proof itself. The server never learns which entries are yours\n"
+"— not when statuses are refreshed and not when you check a file.\n"
+"\n"
+"Fast: Sigelith Desktop asks the server about each digest separately. Less\n"
+"data, but the server sees what you ask about.\n"
+"\n"
+"Stamping always sends the digest — that is its only purpose."
+msgstr ""
+"隐私：Sigelith Desktop 保存整个公开日志的副本，并自行计算\n"
+"每一个证明。服务器永远不会知道哪些条目属于你\n"
+"——无论是刷新状态时，还是核验文件时。\n"
+"\n"
+"快速：Sigelith Desktop 逐个向服务器查询每个摘要。数据量\n"
+"更少，但服务器能看到你查询的内容。\n"
+"\n"
+"盖戳总是会发送摘要——这正是盖戳的唯一用途。"
+
+#: beatstamp/ui/details.py:211
+msgid "Proof"
+msgstr "证明"
+
+#: beatstamp/ui/main_window.py:1519
+msgid "Proof confirmed — %(name)s"
+msgstr "证明已确认 — %(name)s"
+
+#: beatstamp/ui/details.py:144
+msgid "Proof data"
+msgstr "证明数据"
+
+#: beatstamp/ui/main_window.py:1757
+#: beatstamp/ui/main_window.py:1763
+#: beatstamp/ui/main_window.py:1767
+msgid "Proof details"
+msgstr "证明详细信息"
+
+#: beatstamp/history.py:471
+#: beatstamp/ui/details.py:213
+msgid "Proof level"
+msgstr "证明级别"
+
+#: beatstamp/certificate.py:611
+msgid "Proof level: %(level)s"
+msgstr "证明级别：%(level)s"
+
+#: beatstamp/certificate.py:581
+msgid "Proof of existence of a document"
+msgstr "文档存在性证明"
+
+#: beatstamp/ui/main_window.py:1656
+msgid "Proof saved"
+msgstr "证明已保存"
+
+#: beatstamp/ui/main_window.py:1639
+msgid "Proof saved — it needs refreshing"
+msgstr "证明已保存——需要刷新"
+
+#: beatstamp/ui/main_window.py:1648
+msgid "Proof saved — not closed yet"
+msgstr "证明已保存——尚未完结"
+
+#: beatstamp/ui/main_window.py:395
+msgid "Proof that a file existed in time — without sending the file"
+msgstr "证明文件在某一时间已经存在——无需发送文件"
+
+#: beatstamp/ui/handover_dialogs.py:473
+msgid "Proves when the package became readable for you."
+msgstr "证明交付件何时对你变得可读。"
+
+#: beatstamp/certificate.py:660
+msgid "Public key"
+msgstr "公钥"
+
+#: beatstamp/ui/witness_panel.py:238
+msgid "Public log"
+msgstr "公开日志"
+
+#: beatstamp/ui/dialogs.py:1141
+msgid "Public register"
+msgstr "公开登记簿"
+
+#: beatstamp/ui/dialogs.py:1127
+msgid "PySide6 sources"
+msgstr "PySide6 源代码"
+
+#: beatstamp/ui/dialogs.py:1126
+msgid "Qt sources"
+msgstr "Qt 源代码"
+
+#: beatstamp/workers.py:272
+msgid "Querying the Sigelith register…"
+msgstr "正在查询 Sigelith 登记簿…"
+
+#: beatstamp/ui/main_window.py:1366
+msgid "Querying the register…"
+msgstr "正在查询登记簿…"
+
+#: beatstamp/ui/main_window.py:864
+msgid "Quit"
+msgstr "退出"
+
+#: beatstamp/certificate.py:287
+msgid "RECORDED — root signed with a retired key, the proof needs refreshing"
+msgstr "已记录——根由已停用的密钥签名，证明需要刷新"
+
+#: beatstamp/certificate.py:300
+msgid "RECORDED — the week is still running, the anchor is on its way"
+msgstr "已记录——该周仍在进行中，锚定即将到来"
+
+#: beatstamp/certificate.py:299
+msgid "RECORDED — week closed, the root signature is on its way"
+msgstr "已记录——该周已结束，根签名即将到来"
+
+#: beatstamp/ui/dialogs.py:1577
+msgid "Read %(name)s"
+msgstr "阅读 %(name)s"
+
+#: beatstamp/ui/main_window.py:374
+msgid "Ready. Drag files in to give them a timestamp."
+msgstr "就绪。拖入文件即可为其加盖时间戳。"
+
+#: beatstamp/ui/handover_panel.py:240
+msgid "Received"
+msgstr "已接收"
+
+#: beatstamp/ui/handover_dialogs.py:370
+msgid "Received package — Sigelith Desktop"
+msgstr "收到的交付件 — Sigelith Desktop"
+
+#: beatstamp/ui/handover_panel.py:260
+msgid "Received packages"
+msgstr "收到的交付件"
+
+#: beatstamp/ui/handover_dialogs.py:238
+msgid "Recipient"
+msgstr "接收方"
+
+#: beatstamp/ui/handover_report.py:163
+msgid "Recipient's card"
+msgstr "接收方卡片"
+
+#: beatstamp/licensing.py:138
+msgid "Recognises text encodings for requests."
+msgstr "为 requests 识别文本编码。"
+
+#: beatstamp/proof.py:104
+#: beatstamp/ui/journey.py:63
+msgid "Recorded"
+msgstr "已记录"
+
+#: beatstamp/ui/handover_dialogs.py:674
+msgid "Recorded after the acceptance"
+msgstr "在接受之后记录"
+
+#: beatstamp/ui/handover_dialogs.py:673
+msgid "Recorded before the acceptance deadline"
+msgstr "在接受期限之前记录"
+
+#: beatstamp/ui/dialogs.py:1272
+msgid "Refresh"
+msgstr "刷新"
+
+#: beatstamp/ui/main_window.py:868
+msgid "Refresh proof statuses"
+msgstr "刷新证明状态"
+
+#: beatstamp/ui/main_window.py:750
+msgid "Refresh statuses"
+msgstr "刷新状态"
+
+#: beatstamp/certificate.py:712
+msgid "Refresh the proof in Sigelith Desktop (History -> Refresh statuses, F5) and issue the certificate again. <b>Until then this document certifies nothing.</b>"
+msgstr "请在 Sigelith Desktop 中刷新证明（历史记录 → 刷新状态，F5），然后重新签发证书。<b>在此之前，本文件不证明任何事项。</b>"
+
+#: beatstamp/proof.py:436
+msgid "Refresh the proof online (History -> Refresh statuses, F5) to fetch a signature made with the current key."
+msgstr "请在线刷新证明（历史记录 → 刷新状态，F5），以获取用当前密钥制作的签名。"
+
+#: beatstamp/workers.py:368
+msgid "Refreshing %(index)s of %(total)s…"
+msgstr "正在刷新第 %(index)s 个，共 %(total)s 个…"
+
+#: beatstamp/ui/main_window.py:2009
+msgid "Refreshing statuses…"
+msgstr "正在刷新状态…"
+
+#: beatstamp/ui/handover_dialogs.py:768
+msgid "Refusal"
+msgstr "拒绝"
+
+#: beatstamp/ui/handover_report.py:221
+msgid "Refusal recorded in the log"
+msgstr "拒绝已记录到日志"
+
+#: beatstamp/ui/handover_dialogs.py:451
+msgid "Refuse"
+msgstr "拒绝"
+
+#: beatstamp/ui/handover_controller.py:298
+msgid "Refuse the package"
+msgstr "拒绝交付件"
+
+#: beatstamp/ui/handover_controller.py:299
+msgid "Refuse this package? The refusal is signed with your card, and the package is deleted from this computer."
+msgstr "要拒绝这个交付件吗？拒绝将由你的卡片签名，交付件会从此计算机删除。"
+
+#: beatstamp/ui/handover_controller.py:392
+#: beatstamp/ui/handover_dialogs.py:651
+#: beatstamp/ui/handover_panel.py:60
+#: beatstamp/ui/handover_panel.py:71
+msgid "Refused"
+msgstr "已拒绝"
+
+#: beatstamp/ui/handover_dialogs.py:526
+msgid "Refused %(when)s. The key part is never published."
+msgstr "已于 %(when)s 拒绝。密钥部分永远不会发布。"
+
+#: beatstamp/certificate.py:641
+#: beatstamp/history.py:476
+msgid "Register no."
+msgstr "登记编号"
+
+#: beatstamp/workers.py:217
+msgid "Registering in Sigelith: %(name)s"
+msgstr "正在登记到 Sigelith：%(name)s"
+
+#: beatstamp/ui/main_window.py:1531
+msgid "Rejected"
+msgstr "已拒绝"
+
+#: beatstamp/ui/handover_dialogs.py:249
+#: beatstamp/ui/handover_panel.py:226
+msgid "Remove"
+msgstr "移除"
+
+#: beatstamp/ui/handover_controller.py:225
+msgid "Remove %(name)s from this application? Packages already sent stay."
+msgstr "要从本应用中移除 %(name)s 吗？已发送的交付件会保留。"
+
+#: beatstamp/ui/main_window.py:1979
+msgid "Remove <b>%(entries)s</b> from the local history?<br><br>The stamp <b>stays in the public Sigelith register</b> — the register is append-only and nothing can be removed from it. Only this list on this computer changes."
+msgstr "要从本地历史记录中移除 <b>%(entries)s</b> 吗？<br><br>戳记<b>仍会保留在公开的 Sigelith 登记簿中</b>——登记簿只可追加，其中的任何内容都无法删除。改变的只是这台电脑上的这份列表。"
+
+#: beatstamp/ui/main_window.py:803
+#: beatstamp/ui/main_window.py:1940
+msgid "Remove from history"
+msgstr "从历史记录中移除"
+
+#: beatstamp/ui/main_window.py:1978
+msgid "Remove from history?"
+msgstr "从历史记录中移除？"
+
+#: beatstamp/ui/handover_controller.py:224
+msgid "Remove the contact"
+msgstr "移除联系人"
+
+#: beatstamp/ui/handover_panel.py:227
+msgid "Remove the selected contact from this application. Sent packages stay."
+msgstr "从本应用中移除所选联系人。已发送的交付件会保留。"
+
+#: beatstamp/ui/handover_dialogs.py:250
+msgid "Remove the selected file from the package."
+msgstr "从交付件中移除所选文件。"
+
+#: beatstamp/ui/main_window.py:804
+msgid ""
+"Removes the entry from this list ONLY.\n"
+"The stamp in the public Sigelith register\n"
+"stays — it cannot be undone."
+msgstr ""
+"仅从此列表中移除该条目。\n"
+"公开 Sigelith 登记簿中的戳记\n"
+"仍会保留——戳记无法撤销。"
+
+#: beatstamp/ui/handover_controller.py:528
+msgid "Report saved"
+msgstr "报告已保存"
+
+#: beatstamp/licensing.py:120
+msgid "Required by a Qt image plugin that comes with Qt. Sigelith Desktop does not open PDF files with it."
+msgstr "Qt 自带的一个图像插件需要它。Sigelith Desktop 不会用它打开 PDF 文件。"
+
+#: beatstamp/ui/dialogs.py:427
+msgid "Restore defaults"
+msgstr "恢复默认值"
+
+#: beatstamp/ui/dialogs.py:614
+msgid "Restore the built-in list"
+msgstr "恢复内置列表"
+
+#: beatstamp/ui/handover_report.py:189
+#: beatstamp/ui/handover_report.py:308
+msgid "Result"
+msgstr "结果"
+
+#: beatstamp/ui/dialogs.py:943
+#: beatstamp/ui/main_window.py:1178
+#: beatstamp/ui/main_window.py:1400
+#: beatstamp/ui/main_window.py:1537
+msgid "Retired key"
+msgstr "已停用的密钥"
+
+#: beatstamp/ui/history_model.py:139
+msgid "Right-click to copy."
+msgstr "右键单击即可复制。"
+
+#: beatstamp/certificate.py:657
+#: beatstamp/ui/details.py:231
+#: beatstamp/ui/details.py:233
+msgid "Root signature"
+msgstr "根签名"
+
+#: beatstamp/ui/dialogs.py:453
+msgid ""
+"Routes traffic through a local Tor proxy to the Sigelith hidden service.\n"
+"\n"
+"What for: the server does not learn your IP address, so stamps\n"
+"cannot be tied to you through the connection. The digest itself\n"
+"says nothing about the content of the document anyway.\n"
+"\n"
+"Requires a running Tor Browser or tor service on this computer."
+msgstr ""
+"通过本地 Tor 代理，将流量路由到 Sigelith 隐藏服务。\n"
+"\n"
+"用途：服务器无法得知你的 IP 地址，因此无法通过连接\n"
+"把戳记与你联系起来。而摘要本身\n"
+"本来就不会透露文档的任何内容。\n"
+"\n"
+"需要这台电脑上正在运行 Tor Browser 或 tor 服务。"
+
+#: beatstamp/certificate.py:623
+#: beatstamp/ui/details.py:199
+msgid "SHA-256 digest"
+msgstr "SHA-256 摘要"
+
+#: beatstamp/ui/main_window.py:493
+msgid "SHA-256 digest:"
+msgstr "SHA-256 摘要："
+
+#: beatstamp/certificate.py:297
+msgid "SIGNED — the week root is frozen and signed with Ed25519"
+msgstr "已签名——周根已冻结并由 Ed25519 签名"
+
+#: beatstamp/i18n.py:383
+#: beatstamp/ui/dialogs.py:652
+msgid "Same as system"
+msgstr "跟随系统"
+
+#: beatstamp/ui/dialogs.py:425
+msgid "Save"
+msgstr "保存"
+
+#: beatstamp/ui/handover_dialogs.py:634
+msgid "Save a PDF report…"
+msgstr "保存 PDF 报告…"
+
+#: beatstamp/ui/handover_dialogs.py:555
+#: beatstamp/ui/handover_panel.py:274
+msgid "Save evidence…"
+msgstr "保存证据…"
+
+#: beatstamp/ui/handover_controller.py:180
+msgid "Save my card"
+msgstr "保存我的卡片"
+
+#: beatstamp/ui/handover_panel.py:204
+msgid "Save my card file…"
+msgstr "保存我的卡片文件…"
+
+#: beatstamp/ui/handover_dialogs.py:472
+msgid "Save my evidence copy…"
+msgstr "保存我的证据副本…"
+
+#: beatstamp/ui/main_window.py:1707
+msgid "Save the OpenTimestamps proof"
+msgstr "保存 OpenTimestamps 证明"
+
+#: beatstamp/ui/main_window.py:1584
+msgid "Save the PDF certificate"
+msgstr "保存 PDF 证书"
+
+#: beatstamp/ui/handover_controller.py:357
+msgid "Save the answer"
+msgstr "保存答复"
+
+#: beatstamp/ui/handover_dialogs.py:460
+msgid "Save the answer file…"
+msgstr "保存答复文件…"
+
+#: beatstamp/ui/handover_controller.py:463
+msgid "Save the defect proof"
+msgstr "保存缺陷证明"
+
+#: beatstamp/ui/handover_controller.py:457
+#: beatstamp/ui/handover_dialogs.py:485
+msgid "Save the defect proof…"
+msgstr "保存缺陷证明…"
+
+#: beatstamp/ui/handover_dialogs.py:844
+msgid "Save the disclosed files…"
+msgstr "保存已披露的文件…"
+
+#: beatstamp/ui/handover_controller.py:434
+msgid "Save the evidence"
+msgstr "保存证据"
+
+#: beatstamp/ui/handover_panel.py:275
+msgid "Save the evidence package of the selected handover. Sigelith keeps no copy — keep it safe."
+msgstr "保存所选交付的证据包。Sigelith 不保存任何副本——请妥善保存。"
+
+#: beatstamp/ui/main_window.py:862
+msgid "Save the history to CSV or JSON"
+msgstr "将历史记录保存为 CSV 或 JSON"
+
+#: beatstamp/ui/main_window.py:1623
+msgid "Save the offline proof"
+msgstr "保存离线证明"
+
+#: beatstamp/ui/handover_controller.py:519
+msgid "Save the report"
+msgstr "保存报告"
+
+#: beatstamp/ui/handover_controller.py:172
+msgid "Save your card file and give it to the people who will send you packages. It holds only public keys."
+msgstr "保存你的卡片文件，并交给将向你发送交付件的人。其中只有公钥。"
+
+#: beatstamp/ui/main_window.py:1283
+msgid "Saved automatically · visible only on this computer"
+msgstr "自动保存 · 仅在这台电脑上可见"
+
+#: beatstamp/ui/main_window.py:794
+#: beatstamp/ui/main_window.py:1740
+msgid "Saves a stand-alone .beatproof proof"
+msgstr "保存独立的 .beatproof 证明"
+
+#: beatstamp/ui/main_window.py:698
+msgid "Saves a stand-alone proof for the checked digest"
+msgstr "为已核验的摘要保存独立证明文件"
+
+#: beatstamp/ui/main_window.py:820
+msgid "Saves the history to a CSV (Excel) or JSON file"
+msgstr "将历史记录保存为 CSV（Excel）或 JSON 文件"
+
+#: beatstamp/ui/main_window.py:581
+msgid ""
+"Saves the proof in a form that can be checked WITHOUT this application\n"
+"and without access to sigelith.org: the digest, the inclusion path, the\n"
+"week root and the Ed25519 signature in one JSON file."
+msgstr ""
+"以一种无需本应用、也无需访问 sigelith.org 即可核验的形式\n"
+"保存证明：摘要、包含路径、\n"
+"周根和 Ed25519 签名都在一个 JSON 文件中。"
+
+#: beatstamp/ui/handover_controller.py:471
+msgid "Saving the defect proof…"
+msgstr "正在保存缺陷证明…"
+
+#: beatstamp/certificate.py:563
+msgid "Scan to verify at sigelith.org/proof"
+msgstr "扫码在 sigelith.org/proof 验证"
+
+#: beatstamp/ui/main_window.py:735
+msgid "Search: file name, digest, note, week…"
+msgstr "搜索：文件名、摘要、备注、周…"
+
+#: beatstamp/ui/main_window.py:2152
+msgid "See the Witnesses tab"
+msgstr "请查看“见证者”标签页"
+
+#: beatstamp/ui/witness_panel.py:457
+msgid "See the block"
+msgstr "查看区块"
+
+#: beatstamp/ui/main_window.py:852
+msgid "Send files with proof of delivery…"
+msgstr "带交付证明发送文件…"
+
+#: beatstamp/ui/handover_dialogs.py:223
+msgid "Send files — Sigelith Desktop"
+msgstr "发送文件 — Sigelith Desktop"
+
+#: beatstamp/ui/handover_panel.py:162
+msgid "Send files…"
+msgstr "发送文件…"
+
+#: beatstamp/ui/handover_dialogs.py:295
+msgid "Send the file by e-mail, a messenger or a USB stick."
+msgstr "通过电子邮件、即时通讯或 U 盘发送该文件。"
+
+#: beatstamp/ui/handover_controller.py:366
+#: beatstamp/ui/handover_dialogs.py:461
+msgid "Send this file back to the sender, the same way the package came."
+msgstr "请按交付件到来的同一途径，把这个文件发回给发送方。"
+
+#: beatstamp/ui/handover_controller.py:261
+msgid "Send this file to %(who)s by e-mail, a messenger or a USB stick. It is encrypted to their card; nobody else can open it."
+msgstr "请通过电子邮件、即时通讯或 U 盘把这个文件发给 %(who)s。它已针对此人的卡片加密，其他人无法打开。"
+
+#: beatstamp/ui/handover_dialogs.py:396
+msgid "Sender"
+msgstr "发送方"
+
+#: beatstamp/ui/handover_report.py:162
+msgid "Sender's card"
+msgstr "发送方卡片"
+
+#: beatstamp/ui/handover_panel.py:266
+msgid "Sent"
+msgstr "已发送"
+
+#: beatstamp/ui/handover_dialogs.py:514
+msgid "Sent package — Sigelith Desktop"
+msgstr "已发送的交付件 — Sigelith Desktop"
+
+#: beatstamp/ui/handover_panel.py:284
+msgid "Sent packages"
+msgstr "已发送的交付件"
+
+#: beatstamp/ui/handover_dialogs.py:548
+msgid "Sent: %(when)s"
+msgstr "已发送：%(when)s"
+
+#: beatstamp/ui/main_window.py:2422
+msgid "Settings saved."
+msgstr "设置已保存。"
+
+#: beatstamp/ui/dialogs.py:406
+msgid "Settings — Sigelith Desktop"
+msgstr "设置 — Sigelith Desktop"
+
+#: beatstamp/ui/main_window.py:883
+msgid "Settings…"
+msgstr "设置…"
+
+#: beatstamp/ui/main_window.py:1670
+msgid "Show in folder"
+msgstr "在文件夹中显示"
+
+#: beatstamp/ui/main_window.py:747
+msgid "Show only entries at the selected proof stage"
+msgstr "仅显示处于所选证明阶段的条目"
+
+#: beatstamp/ui/main_window.py:919
+msgid "Show the event log"
+msgstr "显示事件日志"
+
+#: beatstamp/ui/handover_dialogs.py:567
+msgid "Show the package file"
+msgstr "显示交付件文件"
+
+#: beatstamp/ui/handover_panel.py:270
+msgid "Show the selected package and its status."
+msgstr "显示所选交付件及其状态。"
+
+#: beatstamp/ui/handover_panel.py:244
+msgid "Show the selected package: decide, send the answer again, open the files."
+msgstr "显示所选交付件：作出决定、重新发送答复、打开文件。"
+
+#: beatstamp/ui/handover_dialogs.py:260
+#: beatstamp/ui/handover_dialogs.py:263
+msgid "Shown to the recipient before they accept."
+msgstr "在接收方接受之前向其显示。"
+
+#: beatstamp/ui/dialogs.py:1133
+msgid ""
+"Shows the full licence texts delivered with the program:\n"
+"%(path)s"
+msgstr ""
+"显示随程序提供的完整许可证文本：\n"
+"%(path)s"
+
+#: beatstamp/ui/dialogs.py:1579
+msgid "Shows the full text of this licence"
+msgstr "显示此许可证的全文"
+
+#: beatstamp/ui/handover_panel.py:243
+#: beatstamp/ui/handover_panel.py:269
+msgid "Show…"
+msgstr "显示…"
+
+#: beatstamp/ui/main_window.py:1502
+msgid "Sigelith Backup file proof: %(name)s — the path in the backup tree leads to the sealed root."
+msgstr "Sigelith Backup 文件证明：%(name)s——备份树中的路径通向已封印的根。"
+
+#: beatstamp/config.py:838
+msgid ""
+"Sigelith Desktop (formerly BeatStamp) has moved its data (stamp history, settings) to:\n"
+"\n"
+"    %(path)s\n"
+"\n"
+"This folder is no longer in use. The files were kept here as a copy — you can delete them once you are sure everything is in the new place.\n"
+msgstr ""
+"Sigelith Desktop（原名 BeatStamp）已将其数据（戳记历史、设置）移至：\n"
+"\n"
+"    %(path)s\n"
+"\n"
+"此文件夹已不再使用。这里的文件作为副本保留——确认所有内容都已在新位置后，即可删除它们。\n"
+
+#: beatstamp/ui/dialogs.py:379
+msgid "Sigelith Desktop can write to this folder again:"
+msgstr "Sigelith Desktop 已可再次写入此文件夹："
+
+#: beatstamp/config.py:632
+msgid "Sigelith Desktop cannot save data"
+msgstr "Sigelith Desktop 无法保存数据"
+
+#: beatstamp/ui/main_window.py:1806
+msgid "Sigelith Desktop cannot save data in %(path)s — new stamps will not be recorded in the history until the folder is changed (Settings -> Data)."
+msgstr "Sigelith Desktop 无法在 %(path)s 中保存数据——在更换文件夹（设置 → 数据）之前，新的戳记不会记入历史记录。"
+
+#: beatstamp/ui/dialogs.py:509
+msgid ""
+"Sigelith Desktop downloads the whole public log (only digests, which are public anyway)\n"
+"and computes every proof itself. The server never learns which entries\n"
+"are yours — not when statuses are refreshed and not when you check a file."
+msgstr ""
+"Sigelith Desktop 会下载整个公开日志（只有摘要，而摘要本来就是公开的），\n"
+"并自行计算每一个证明。服务器永远不会知道哪些条目\n"
+"属于你——无论是刷新状态时，还是核验文件时。"
+
+#: beatstamp/ui/main_window.py:2146
+msgid "Sigelith Desktop found something in the public log that must not happen: <b>%(what)s</b>.<br><br>The conflicting files were kept as evidence in the data folder. Details are in the Witnesses tab."
+msgstr "Sigelith Desktop 在公开日志中发现了绝不应发生的情况：<b>%(what)s</b>。<br><br>相互矛盾的文件已作为证据保存在数据文件夹中。详情见“见证者”标签页。"
+
+#: beatstamp/__main__.py:250
+msgid "Sigelith Desktop is already running. Switch to its window — a second copy would work on the same data folder."
+msgstr "Sigelith Desktop 已在运行。请切换到它的窗口——第二个副本会使用同一个数据文件夹。"
+
+#: beatstamp/ui/dialogs.py:1427
+msgid "Sigelith Desktop is built from open-source components. Each one is listed with its licence and with what it does in this program. The full licence texts are delivered with the program — in the second tab — and the file NOTICE lists every file of the package with its licence."
+msgstr "Sigelith Desktop 由开源组件构建。这里列出了每个组件及其许可证，以及它在本程序中的作用。完整的许可证文本随程序一同提供（见第二个标签页），NOTICE 文件列出了软件包中的每个文件及其许可证。"
+
+#: beatstamp/ui/dialogs.py:811
+msgid "Sigelith Desktop keeps the stamp history, the settings and the event log in one folder. The proofs themselves live in the public Sigelith register, but the history is the only record of WHAT you stamped and when — it exists nowhere else."
+msgstr "Sigelith Desktop 将戳记历史、设置和事件日志保存在同一个文件夹中。证明本身存放在公开的 Sigelith 登记簿里，但只有历史记录能说明你为“什么”盖了戳、何时盖的戳——别处都没有这份记录。"
+
+#: beatstamp/handover_tasks.py:115
+msgid "Sigelith Handover could not finish this step (%(code)s)."
+msgstr "Sigelith Handover 无法完成这一步（%(code)s）。"
+
+#: beatstamp/ui/handover_controller.py:514
+#: beatstamp/ui/handover_report.py:307
+#: beatstamp/ui/handover_report.py:330
+msgid "Sigelith Handover — report on a defect proof"
+msgstr "Sigelith Handover — 缺陷证明报告"
+
+#: beatstamp/ui/handover_controller.py:546
+#: beatstamp/ui/handover_report.py:188
+#: beatstamp/ui/handover_report.py:289
+msgid "Sigelith Handover — report on an evidence package"
+msgstr "Sigelith Handover — 证据包报告"
+
+#: beatstamp/ui/main_window.py:854
+msgid "Sigelith Handover: the recipient confirms receipt with their key"
+msgstr "Sigelith Handover：接收方用自己的密钥确认收到"
+
+#: beatstamp/ui/handover_controller.py:358
+msgid "Sigelith answers (*%(suffix)s)"
+msgstr "Sigelith 答复 (*%(suffix)s)"
+
+#: beatstamp/ui/handover_dialogs.py:615
+msgid "Sigelith answers (*.sigelith-answer);;All files (*)"
+msgstr "Sigelith 答复 (*.sigelith-answer);;所有文件 (*)"
+
+#: beatstamp/ui/handover_controller.py:181
+msgid "Sigelith cards (*%(suffix)s)"
+msgstr "Sigelith 卡片 (*%(suffix)s)"
+
+#: beatstamp/ui/handover_controller.py:202
+msgid "Sigelith cards (*%(suffix)s);;All files (*)"
+msgstr "Sigelith 卡片 (*%(suffix)s);;所有文件 (*)"
+
+#: beatstamp/ui/handover_panel.py:40
+msgid "Sigelith handshake between the two devices"
+msgstr "两台设备之间的 Sigelith 握手"
+
+#: beatstamp/ui/main_window.py:145
+msgid "Sigelith key RETIRED — the proof needs refreshing"
+msgstr "Sigelith 密钥已停用——证明需要刷新"
+
+#: beatstamp/ui/main_window.py:141
+msgid "Sigelith key from the list built into the application"
+msgstr "来自应用内置列表的 Sigelith 密钥"
+
+#: beatstamp/ui/handover_controller.py:271
+msgid "Sigelith packages (*%(suffix)s);;All files (*)"
+msgstr "Sigelith 交付件 (*%(suffix)s);;所有文件 (*)"
+
+#: beatstamp/ui/main_window.py:1625
+msgid "Sigelith proof (*.beatproof)"
+msgstr "Sigelith 证明 (*.beatproof)"
+
+#: beatstamp/ui/main_window.py:1426
+msgid "Sigelith proof (*.beatproof);;JSON files (*.json);;All files (*)"
+msgstr "Sigelith 证明 (*.beatproof);;JSON 文件 (*.json);;所有文件 (*)"
+
+#: beatstamp/ui/witness_panel.py:296
+msgid "Sigelith proof pipeline"
+msgstr "Sigelith 证明流水线"
+
+#: beatstamp/ui/witness_panel.py:558
+msgid "Sigelith served two DIFFERENT signed files under the same checkpoint number"
+msgstr "Sigelith 在同一个检查点编号下提供了两个不同的签名文件"
+
+#: beatstamp/ui/main_window.py:2337
+msgid "Sigelith service status"
+msgstr "Sigelith 服务状态"
+
+#: beatstamp/ui/dialogs.py:560
+msgid "Sigelith signs weekly Merkle roots with an Ed25519 key. The application checks that signature <b>locally</b> and compares the key with the <b>built-in list of Sigelith keys</b> — never with whatever the server sends.<br><br>Without that, the signature alone would prove nothing: a fake server would send its own key together with a matching signature and everything would add up. A signature from a <b>retired</b> key is not enough either — such a proof has to be refreshed online so that it gets a signature made with the current key."
+msgstr "Sigelith 用 Ed25519 密钥为每周的 Merkle 根签名。应用会在<b>本地</b>检查该签名，并将密钥与<b>内置的 Sigelith 密钥列表</b>比对——绝不与服务器发来的任何内容比对。<br><br>否则，单凭签名什么也证明不了：伪造的服务器会连同自己的密钥一起发来匹配的签名，一切看起来都会吻合。来自<b>已停用</b>密钥的签名同样不够——这样的证明必须在线刷新，以获得用当前密钥制作的签名。"
+
+#: beatstamp/certificate.py:515
+msgid "Sigelith — proof of existence %(digest)s"
+msgstr "Sigelith — 存在性证明 %(digest)s"
+
+#: beatstamp/ui/handover_dialogs.py:198
+msgid "Sign and add"
+msgstr "签名并添加"
+
+#: beatstamp/ui/handover_dialogs.py:308
+msgid "Sign and send"
+msgstr "签名并发送"
+
+#: beatstamp/proof.py:105
+msgid "Signed"
+msgstr "已签名"
+
+#: beatstamp/ui/witness_panel.py:242
+msgid ""
+"Signed states of the whole log, chained by the hash of the previous\n"
+"file. Sigelith Desktop checks the Ed25519 signature, the key, the chain and\n"
+"the RFC 9162 consistency proof between consecutive checkpoints."
+msgstr ""
+"整个日志的签名状态，通过上一个文件的哈希值\n"
+"串联成链。Sigelith Desktop 检查 Ed25519 签名、密钥、链，以及\n"
+"相邻检查点之间的 RFC 9162 一致性证明。"
+
+#: beatstamp/ui/handover_panel.py:345
+msgid "Signing key in Windows Hello (TPM), used only after you unlock it."
+msgstr "签名密钥位于 Windows Hello（TPM）中，仅在你解锁后使用。"
+
+#: beatstamp/ui/handover_dialogs.py:158
+msgid "Signing key in hardware, used only after the person unlocks it."
+msgstr "签名密钥位于硬件中，仅在本人解锁后使用。"
+
+#: beatstamp/ui/handover_panel.py:347
+msgid "Signing key stored in software, protected by your Windows account."
+msgstr "签名密钥以软件方式存储，受你的 Windows 账户保护。"
+
+#: beatstamp/ui/handover_dialogs.py:160
+msgid "Signing key stored in software."
+msgstr "签名密钥以软件方式存储。"
+
+#: beatstamp/ui/handover_controller.py:295
+msgid "Signing the acceptance…"
+msgstr "正在签署接受…"
+
+#: beatstamp/ui/handover_controller.py:217
+msgid "Signing the binding record…"
+msgstr "正在签署绑定记录…"
+
+#: beatstamp/ui/handover_controller.py:303
+msgid "Signing the refusal…"
+msgstr "正在签署拒绝…"
+
+#: beatstamp/ui/handover_dialogs.py:452
+msgid "Signs a refusal. The package is deleted from this computer."
+msgstr "签署拒绝。交付件将从此计算机删除。"
+
+#: beatstamp/ui/handover_dialogs.py:448
+msgid "Signs the acceptance with your card and records it in the log before it leaves this computer."
+msgstr "用你的卡片签署接受，并在它离开此计算机之前记录到日志中。"
+
+#: beatstamp/ui/handover_report.py:138
+msgid "Size"
+msgstr "大小"
+
+#: beatstamp/history.py:469
+msgid "Size (B)"
+msgstr "大小（B）"
+
+#: beatstamp/history.py:278
+msgid "Skipped %(count)s damaged history entries; the rest were read correctly."
+msgstr "已跳过 %(count)s 个损坏的历史记录条目；其余条目读取正常。"
+
+#: beatstamp/ui/witness_panel.py:259
+msgid ""
+"Snapshots in the Wayback Machine of the non-profit Internet Archive.\n"
+"Sigelith Desktop compares the archived checkpoint file byte for byte."
+msgstr ""
+"非营利机构 Internet Archive 的 Wayback Machine 中的快照。\n"
+"Sigelith Desktop 会逐字节比对存档的检查点文件。"
+
+#: beatstamp/licensing.py:122
+msgid "Software drawing, used only on computers without a working graphics driver."
+msgstr "软件绘图，仅在没有可用显卡驱动程序的电脑上使用。"
+
+#: beatstamp/ui/dialogs.py:263
+msgid "Some files could not be copied: %(names)s. The originals stayed in the previous folder."
+msgstr "部分文件无法复制：%(names)s。原文件仍保留在之前的文件夹中。"
+
+#: beatstamp/ui/main_window.py:1155
+msgid "Some files did not work out"
+msgstr "部分文件未成功"
+
+#: beatstamp/ui/dialogs.py:676
+msgid ""
+"Sorting the folder by name then sorts it by time, and two versions of one\n"
+"document never get the same name."
+msgstr ""
+"这样按名称排序文件夹就等于按时间排序，而且同一文档的\n"
+"两个版本永远不会同名。"
+
+#: beatstamp/history.py:477
+msgid "Source"
+msgstr "来源"
+
+#: beatstamp/ui/dialogs.py:1566
+msgid "Source code"
+msgstr "源代码"
+
+#: beatstamp/ui/main_window.py:842
+msgid "Stamp files…"
+msgstr "为文件盖戳…"
+
+#: beatstamp/ui/main_window.py:333
+msgid "Stamping"
+msgstr "盖戳"
+
+#: beatstamp/ui/dialogs.py:527
+msgid "Stamping always sends the digest of the file — that is its only purpose. The file itself never leaves this computer."
+msgstr "盖戳总是会发送文件的摘要——这正是盖戳的唯一用途。文件本身从不离开这台电脑。"
+
+#: beatstamp/licensing.py:144
+msgid "Standard Windows runtime libraries."
+msgstr "标准 Windows 运行时库。"
+
+#: beatstamp/licensing.py:115
+msgid "Starts the program and unpacks its code — the executable file SigelithDesktop.exe itself."
+msgstr "启动程序并解包其代码——即可执行文件 SigelithDesktop.exe 本身。"
+
+#: beatstamp/ui/main_window.py:876
+msgid "State of the Sigelith server"
+msgstr "Sigelith 服务器状态"
+
+#: beatstamp/ui/handover_panel.py:240
+#: beatstamp/ui/handover_panel.py:266
+msgid "Status"
+msgstr "状态"
+
+#: beatstamp/ui/main_window.py:2025
+msgid "Statuses refreshed"
+msgstr "状态已刷新"
+
+#: beatstamp/ui/main_window.py:442
+msgid "Stop"
+msgstr "停止"
+
+#: beatstamp/ui/dialogs.py:751
+msgid "Stop using it"
+msgstr "停止使用"
+
+#: beatstamp/ui/main_window.py:1072
+msgid "Stopping…"
+msgstr "正在停止…"
+
+#: beatstamp/ui/main_window.py:444
+msgid "Stops the current task (Esc)"
+msgstr "停止当前任务（Esc）"
+
+#: beatstamp/ui/main_window.py:871
+msgid "Synchronise the clock"
+msgstr "同步时钟"
+
+#: beatstamp/ui/widgets.py:995
+msgid "Synchronise the clock with the Sigelith server (F6)"
+msgstr "与 Sigelith 服务器同步时钟（F6）"
+
+#: beatstamp/ui/widgets.py:1028
+msgid "Synchronised with the Sigelith server — difference %(offset)s s"
+msgstr "已与 Sigelith 服务器同步——偏差 %(offset)s 秒"
+
+#: beatstamp/ui/main_window.py:2232
+msgid "Synchronising the clock…"
+msgstr "正在同步时钟…"
+
+#: beatstamp/certificate.py:282
+msgid "TVS ARCHIVE — entry from the old client, without verifiable proof"
+msgstr "TVS 存档——来自旧版客户端的条目，没有可验证的证明"
+
+#: beatstamp/ui/history_model.py:126
+msgid "TVS archive"
+msgstr "TVS 存档"
+
+#: beatstamp/ui/main_window.py:1073
+msgid "Task stopped."
+msgstr "任务已停止。"
+
+#: beatstamp/ui/details.py:270
+msgid "Technical data (JSON) for experts"
+msgstr "供专家查看的技术数据（JSON）"
+
+#: beatstamp/ui/dialogs.py:1238
+msgid "Thank you"
+msgstr "致谢"
+
+#: beatstamp/ui/main_window.py:904
+msgid "Thank you to the supporters…"
+msgstr "感谢支持者…"
+
+#: beatstamp/ui/dialogs.py:1231
+msgid "Thank you — Sigelith Desktop"
+msgstr "致谢 — Sigelith Desktop"
+
+#: beatstamp/api.py:731
+msgid "The .ots proof could not be downloaded (HTTP %(code)s)."
+msgstr "无法下载 .ots 证明（HTTP %(code)s）。"
+
+#: beatstamp/proof.py:410
+msgid "The @beat time %(beat)s does not match the UTC time %(utc)s (it should be %(expected)s)."
+msgstr "@beat 时间 %(beat)s 与 UTC 时间 %(utc)s 不符（应为 %(expected)s）。"
+
+#: beatstamp/proof.py:399
+msgid "The @beat time has an invalid format."
+msgstr "@beat 时间格式无效。"
+
+#: beatstamp/ui/dialogs.py:931
+msgid "The API address must start with <b>https://</b>.<br><br>An unencrypted connection exposes digests and answers to being swapped on the way."
+msgstr "API 地址必须以 <b>https://</b> 开头。<br><br>未加密的连接会让摘要和服务器回应在传输途中面临被调包的风险。"
+
+#: beatstamp/api.py:357
+msgid "The API request limit was exceeded (20 stamps per minute per IP address). "
+msgstr "已超出 API 请求限额（每个 IP 地址每分钟 20 次盖戳）。"
+
+#: beatstamp/bundle.py:256
+#: beatstamp/proof.py:544
+msgid "The Ed25519 signature of the week root is invalid."
+msgstr "周根的 Ed25519 签名无效。"
+
+#: beatstamp/licensing.py:132
+msgid "The HTTP transport under requests."
+msgstr "requests 底层的 HTTP 传输层。"
+
+#: beatstamp/ui/journey.py:88
+msgid "The Merkle root of the week is frozen and signed with the Sigelith Ed25519 key; Sigelith Desktop checked the signature and the inclusion path."
+msgstr "该周的 Merkle 根已冻结，并由 Sigelith 的 Ed25519 密钥签名；Sigelith Desktop 已检查签名和包含路径。"
+
+#: beatstamp/ui/main_window.py:701
+msgid ""
+"The OpenTimestamps proof of the week — to be checked with an\n"
+"OpenTimestamps client, entirely outside Sigelith and outside this application."
+msgstr ""
+"该周的 OpenTimestamps 证明——可用\n"
+"OpenTimestamps 客户端核验，完全独立于 Sigelith 和本应用。"
+
+#: beatstamp/fileproof.py:107
+msgid "The Sigelith confirmation in the file proof is not about this backup seal."
+msgstr "文件证明中的 Sigelith 确认不属于此备份封印。"
+
+#: beatstamp/handover_tasks.py:114
+msgid "The Sigelith log answered for a different digest."
+msgstr "Sigelith 日志针对另一个哈希值作出了应答。"
+
+#: beatstamp/ui/main_window.py:902
+msgid "The Sigelith manifesto"
+msgstr "Sigelith 宣言"
+
+#: beatstamp/api.py:377
+msgid "The Sigelith server returned error %(code)s. Try again in a moment."
+msgstr "Sigelith 服务器返回了错误 %(code)s。请稍后重试。"
+
+#: beatstamp/ui/handover_panel.py:160
+msgid "The Sigelith server stores nothing — no files, no messages, no contacts; only digests go to the public log."
+msgstr "Sigelith 服务器不保存任何东西——没有文件、没有消息、没有联系人；进入公开日志的只有摘要。"
+
+#: beatstamp/handover_tasks.py:53
+msgid "The Windows Hello key of this card is no longer on this computer. Create a new card."
+msgstr "此卡片的 Windows Hello 密钥已不在这台计算机上。请创建新卡片。"
+
+#: beatstamp/ui/handover_dialogs.py:563
+msgid "The answer file or text the recipient sent back."
+msgstr "接收方发回的答复文件或文本。"
+
+#: beatstamp/ui/handover_controller.py:308
+msgid "The answer text is in the clipboard."
+msgstr "答复文本已复制到剪贴板。"
+
+#: beatstamp/__main__.py:142
+msgid ""
+"The application will try to carry on. The details were written to the event log:\n"
+"%(path)s"
+msgstr ""
+"应用将尝试继续运行。详细信息已写入事件日志：\n"
+"%(path)s"
+
+#: beatstamp/ui/main_window.py:898
+msgid "The archive of signed checkpoints"
+msgstr "签名检查点存档"
+
+#: beatstamp/ui/dialogs.py:785
+msgid ""
+"The attestation proves that the signing key of your card lives in the TPM chip\n"
+"of this computer and is used only after Windows Hello. It names the maker and\n"
+"model of the TPM. Without it, the card only declares Windows Hello."
+msgstr ""
+"证明表明你卡片的签名密钥位于此计算机的 TPM 芯片中，\n"
+"并且只在 Windows Hello 验证后使用。它会写明 TPM 的制造商\n"
+"和型号。没有它，卡片只是声明使用 Windows Hello。"
+
+#: beatstamp/fileproof.py:128
+msgid "The backup seal statement does not confirm this file tree."
+msgstr "备份封印声明没有确认这棵文件树。"
+
+#: beatstamp/handover_tasks.py:72
+msgid "The binding record could not be made (%(code)s)."
+msgstr "无法生成绑定记录（%(code)s）。"
+
+#: beatstamp/licensing.py:118
+msgid "The bridge between Python and C++ used by PySide6."
+msgstr "PySide6 所使用的 Python 与 C++ 之间的桥梁。"
+
+#: beatstamp/ui/handover_panel.py:338
+msgid "The card holds only public keys. The signing key is created in Windows Hello and never leaves this computer."
+msgstr "卡片只包含公钥。签名密钥在 Windows Hello 中生成，永远不会离开这台计算机。"
+
+#: beatstamp/ui/handover_dialogs.py:101
+msgid "The card holds two public keys: one for your signature and one that people use to encrypt packages to you. It contains no name — the people you exchange it with know whose it is."
+msgstr "卡片包含两个公钥：一个用于你的签名，另一个供他人为你加密交付件。卡片中没有姓名——与你交换卡片的人知道它属于谁。"
+
+#: beatstamp/ui/dialogs.py:670
+msgid "The certificate and the .beatproof proof are named after the stamped file."
+msgstr "证书和 .beatproof 证明以被盖戳的文件命名。"
+
+#: beatstamp/ui/main_window.py:1596
+#: beatstamp/ui/main_window.py:1603
+msgid "The certificate could not be saved:<br>%(reason)s"
+msgstr "无法保存证书：<br>%(reason)s"
+
+#: beatstamp/ui/main_window.py:1608
+msgid "The certificate is in English: a PDF cannot reproduce this script faithfully."
+msgstr "证书以英文生成：PDF 无法准确呈现这种文字。"
+
+#: beatstamp/ui/main_window.py:2178
+msgid "The check did not work"
+msgstr "检查未成功"
+
+#: beatstamp/bundle.py:307
+msgid "The checkpoint description does not match the checkpoint file inside the proof."
+msgstr "检查点说明与证明中的检查点文件不符。"
+
+#: beatstamp/api.py:597
+msgid "The checkpoint file could not be downloaded (HTTP %(code)s)."
+msgstr "无法下载检查点文件（HTTP %(code)s）。"
+
+#: beatstamp/bundle.py:302
+msgid "The checkpoint in the proof is not signed with a Sigelith key valid at that time."
+msgstr "证明中的检查点并非由当时有效的 Sigelith 密钥签名。"
+
+#: beatstamp/bundle.py:297
+msgid "The checkpoint section of the proof is damaged."
+msgstr "证明中的检查点部分已损坏。"
+
+#: beatstamp/ui/dialogs.py:267
+msgid "The choice could not be written down, so the next start will go back to the previous folder."
+msgstr "无法保存这一选择，因此下次启动时会退回到之前的文件夹。"
+
+#: beatstamp/ui/main_window.py:2315
+msgid "The clock is out of step"
+msgstr "时钟不同步"
+
+#: beatstamp/ui/main_window.py:2295
+msgid "The clock was not synchronised"
+msgstr "时钟未同步"
+
+#: beatstamp/ui/main_window.py:2293
+msgid "The clock was not synchronised: %(reason)s"
+msgstr "时钟未同步：%(reason)s"
+
+#: beatstamp/ui/dialogs.py:824
+msgid "The current data folder. Changing it copies the files to the new place and checks straight away that writing works there — the old folder is left untouched."
+msgstr "当前的数据文件夹。更改时会把文件复制到新位置，并立即检查能否在那里写入——旧文件夹保持不变。"
+
+#: beatstamp/ui/dialogs.py:322
+msgid "The data are copied to the new folder; nothing is deleted from the old one."
+msgstr "数据会复制到新文件夹；旧文件夹中的任何内容都不会被删除。"
+
+#: beatstamp/handover_tasks.py:59
+msgid "The data does not meet the rules of the format (%(code)s)."
+msgstr "数据不符合格式规则（%(code)s）。"
+
+#: beatstamp/config.py:650
+msgid ""
+"The data folder does not accept writes:\n"
+"%(path)s\n"
+"\n"
+"What the system reports: %(reason)s\n"
+"\n"
+"Pick another folder for the data — nothing is deleted, whatever is already in the old folder stays there."
+msgstr ""
+"数据文件夹无法写入：\n"
+"%(path)s\n"
+"\n"
+"系统报告：%(reason)s\n"
+"\n"
+"请为数据另选一个文件夹——不会删除任何内容，旧文件夹中已有的一切都会保留在原处。"
+
+#: beatstamp/ui/dialogs.py:258
+msgid "The data folder is now:"
+msgstr "现在的数据文件夹为："
+
+#: beatstamp/handover_tasks.py:110
+msgid "The deadline of this package has passed, so the key part is never published. Send a new package."
+msgstr "此交付件的期限已过，因此密钥部分永远不会发布。请重新发送一个交付件。"
+
+#: beatstamp/ui/handover_controller.py:451
+#: beatstamp/ui/handover_report.py:326
+msgid "The defect proof holds the offer, both key parts and the encrypted package. Anyone who gets it can open the package as far as it opens — give it only to those who must judge the defect: the sender, a lawyer, an expert or a court."
+msgstr "缺陷证明包含提议、两部分密钥和加密交付件。任何得到它的人都能在可打开的范围内打开交付件——只交给需要判断缺陷的人：发送方、律师、鉴定人或法院。"
+
+#: beatstamp/ui/handover_dialogs.py:482
+msgid "The defect proof lets anyone check the defect, without you or the sender — at sigelith.org/handover/verify/ or in Sigelith Desktop."
+msgstr "有了缺陷证明，任何人无需你或发送方参与，就能在 sigelith.org/handover/verify/ 或 Sigelith Desktop 中检查缺陷。"
+
+#: beatstamp/certificate.py:565
+msgid "The digest in this entry has an invalid format — the QR code was skipped"
+msgstr "此条目中的摘要格式无效——已略过二维码"
+
+#: beatstamp/ui/journey.py:65
+msgid "The digest is in the public, append-only register — the time of the entry will never change."
+msgstr "摘要已在公开、只可追加的登记簿中——条目的时间永远不会改变。"
+
+#: beatstamp/proof.py:114
+msgid "The digest is in the public, append-only register. The current week is still running, so the Merkle root has not been frozen yet — the signature and the anchor arrive once it closes (Monday 00:00 UTC)."
+msgstr "摘要已在公开、只可追加的登记簿中。本周仍在进行中，因此 Merkle 根尚未冻结——签名和锚定会在本周结束（周一 00:00 UTC）后到来。"
+
+#: beatstamp/bundle.py:227
+#: beatstamp/fileproof.py:117
+msgid "The digest of the selected file does NOT match the digest in the proof. The file was changed, or the proof is about a different document."
+msgstr "所选文件的摘要与证明中的摘要不符。要么文件已被改动，要么该证明针对的是另一个文档。"
+
+#: beatstamp/ui/details.py:172
+msgid ""
+"The earliest anchor covering this entry: a Bitcoin block (OpenTimestamps)\n"
+"or a bank transfer. The entry must have existed before it."
+msgstr ""
+"涵盖此条目的最早锚定：一个 Bitcoin 区块（OpenTimestamps）\n"
+"或一笔银行转账。此条目必定在它之前就已存在。"
+
+#: beatstamp/ui/journey.py:71
+msgid "The entry is inside a signed checkpoint of the whole log, and Sigelith Desktop checked its path to the checkpoint root itself."
+msgstr "此条目已包含在整个日志的一个签名检查点中，Sigelith Desktop 亲自检查了它到检查点根的路径。"
+
+#: beatstamp/ui/handover_dialogs.py:557
+msgid "The evidence package: offer, answer and log proofs with their receipts. Sigelith keeps no copy — keep it safe."
+msgstr "证据包：提议、答复以及附带回执的日志证明。Sigelith 不保存任何副本——请妥善保存。"
+
+#: beatstamp/ui/handover_dialogs.py:845
+msgid "The exact files of the package, checked against the offer."
+msgstr "交付件的确切文件，已与提议核对。"
+
+#: beatstamp/ui/handover_dialogs.py:291
+msgid "The exchange folder (not set)"
+msgstr "交换文件夹（未设置）"
+
+#: beatstamp/ui/handover_dialogs.py:290
+msgid "The exchange folder: %(path)s"
+msgstr "交换文件夹：%(path)s"
+
+#: beatstamp/hashing.py:161
+msgid "The file \"%(name)s\" could not be read."
+msgstr "无法读取文件“%(name)s”。"
+
+#: beatstamp/hashing.py:149
+msgid "The file \"%(name)s\" does not exist or has been moved."
+msgstr "文件“%(name)s”不存在或已被移动。"
+
+#: beatstamp/hashing.py:153
+msgid "The file \"%(name)s\" is in use by another program."
+msgstr "文件“%(name)s”正被其他程序使用。"
+
+#: beatstamp/hashing.py:158
+msgid "The file \"%(name)s\" is open in another program and locked for reading. Close it and try again."
+msgstr "文件“%(name)s”已在其他程序中打开，并被锁定而无法读取。请关闭后重试。"
+
+#: beatstamp/ui/main_window.py:1567
+msgid "The file <b>%(name)s</b> already exists in this folder.<br><br>Overwrite it?"
+msgstr "此文件夹中已存在文件 <b>%(name)s</b>。<br><br>要覆盖它吗？"
+
+#: beatstamp/ui/main_window.py:1566
+msgid "The file already exists"
+msgstr "文件已存在"
+
+#: beatstamp/ui/handover_report.py:136
+msgid "The file checked"
+msgstr "所检查的文件"
+
+#: beatstamp/handover_tasks.py:133
+msgid "The file could not be read or written: %(error)s"
+msgstr "无法读取或写入文件：%(error)s"
+
+#: beatstamp/bundle.py:193
+msgid "The file does not contain a valid JSON object."
+msgstr "该文件不包含有效的 JSON 对象。"
+
+#: beatstamp/api.py:703
+#: beatstamp/api.py:710
+msgid "The file from %(host)s is unnaturally large."
+msgstr "来自 %(host)s 的文件大得异常。"
+
+#: beatstamp/bundle.py:342
+msgid "The file is not a valid JSON document."
+msgstr "该文件不是有效的 JSON 文档。"
+
+#: beatstamp/fileproof.py:123
+msgid "The file path in the proof does not match the leaf of the backup tree."
+msgstr "证明中的文件路径与备份树的叶子不一致。"
+
+#: beatstamp/fileproof.py:100
+msgid "The file proof is damaged — fields are missing or malformed."
+msgstr "文件证明已损坏——缺少字段或字段格式错误。"
+
+#: beatstamp/ui/main_window.py:1379
+msgid "The file was never stamped, or it was changed after stamping — even a single changed byte gives a completely different digest."
+msgstr "该文件从未盖戳，或者在盖戳后被改动过——哪怕只改动一个字节，得到的摘要也会完全不同。"
+
+#: beatstamp/ui/handover_controller.py:350
+msgid "The files open as soon as the sender publishes the key part."
+msgstr "发送方一发布密钥部分，文件就会打开。"
+
+#: beatstamp/ui/handover_dialogs.py:244
+msgid "The files travel encrypted. Their names and contents are visible only to the recipient."
+msgstr "文件以加密形式传递。只有接收方能看到文件名和内容。"
+
+#: beatstamp/ui/dialogs.py:260
+msgid "The files were copied. The previous folder was left untouched: %(path)s"
+msgstr "文件已复制。之前的文件夹保持不变：%(path)s"
+
+#: beatstamp/ui/dialogs.py:866
+msgid "The folder is set for this run by the %(name)s environment variable, so it cannot be changed here."
+msgstr "本次运行的文件夹由环境变量 %(name)s 设定，因此无法在此处更改。"
+
+#: beatstamp/ui/handover_controller.py:321
+msgid "The folder with the files of this package no longer exists: %(path)s"
+msgstr "此交付件的文件所在的文件夹已不存在：%(path)s"
+
+#: beatstamp/ui/handover_dialogs.py:164
+msgid "The hardware attestation does not verify (%(code)s); the card itself is valid."
+msgstr "硬件证明无法验证（%(code)s）；卡片本身有效。"
+
+#: beatstamp/history.py:244
+msgid "The history file could not be opened: %(reason)s."
+msgstr "无法打开历史记录文件：%(reason)s。"
+
+#: beatstamp/history.py:264
+msgid "The history file had an unexpected structure and has been set aside as \"%(name)s\"."
+msgstr "历史记录文件的结构异常，已另存为“%(name)s”。"
+
+#: beatstamp/history.py:253
+msgid "The history file was damaged and has been set aside as \"%(name)s\". The history starts over — the previous entries are in that file."
+msgstr "历史记录文件已损坏，已另存为“%(name)s”。历史记录将从头开始——之前的条目保存在该文件中。"
+
+#: beatstamp/ui/main_window.py:2035
+msgid "The history is empty"
+msgstr "历史记录为空"
+
+#: beatstamp/ui/main_window.py:2000
+msgid "The history is empty — there is nothing to refresh."
+msgstr "历史记录为空——没有可刷新的内容。"
+
+#: beatstamp/ui/dialogs.py:849
+msgid "The history limit (Behaviour tab) removes the oldest entries from the history; a backup keeps them. Sigelith Backup (coming soon to Microsoft Store) can back up this folder together with the exact bytes of every stamped document — it only reads here and never changes anything."
+msgstr "历史记录上限（“行为”选项卡）会把最旧的条目从历史记录中删除；备份会保留它们。Sigelith Backup（即将登陆 Microsoft Store）可以连同每个已盖戳文档的原始字节一起备份此文件夹——它在这里只读取，不做任何更改。"
+
+#: beatstamp/licensing.py:141
+msgid "The icons of the interface."
+msgstr "界面图标。"
+
+#: beatstamp/proof.py:528
+msgid "The inclusion path does NOT lead to the given week root — the proof data is inconsistent."
+msgstr "包含路径并不通向给定的周根——证明数据不一致。"
+
+#: beatstamp/bundle.py:244
+msgid "The inclusion path does not lead to the week root."
+msgstr "包含路径不通向周根。"
+
+#: beatstamp/certificate.py:710
+msgid "The inclusion path, the root signature or the stamp time do not agree with the proof data. "
+msgstr "包含路径、根签名或盖戳时间与证明数据不一致。"
+
+#: beatstamp/ui/dialogs.py:592
+msgid ""
+"The key history shipped with this version of the program.\n"
+"Public list: sigelith.org/spec/#keys"
+msgstr ""
+"此版本程序自带的密钥历史。\n"
+"公开列表：sigelith.org/spec/#keys"
+
+#: beatstamp/ui/handover_dialogs.py:117
+msgid "The key is created in the TPM and each signature needs your PIN, face or fingerprint."
+msgstr "密钥在 TPM 中生成，每次签名都需要你的 PIN、面部或指纹。"
+
+#: beatstamp/ui/handover_dialogs.py:536
+msgid "The key part could not be published before the acceptance expired, so the delivery did not happen. Send a new package."
+msgstr "未能在接受到期之前发布密钥部分，因此交付没有发生。请重新发送一个交付件。"
+
+#: beatstamp/ui/handover_dialogs.py:540
+msgid "The key part may have reached the log operator without being recorded. The contents could therefore become readable without a proof of delivery."
+msgstr "密钥部分可能已到达日志运营方但未被记录。因此，内容可能在没有交付证明的情况下变得可读。"
+
+#: beatstamp/handover_tasks.py:112
+msgid "The key part was not published (%(code)s)."
+msgstr "密钥部分未被发布（%(code)s）。"
+
+#: beatstamp/ui/handover_report.py:280
+msgid "The key part was recorded in the public log after the acceptance and before its deadline. From that moment the recipient could open the package: that is the time of delivery."
+msgstr "密钥部分在接受之后、期限之前被记录到公开日志中。从那一刻起，接收方就能打开交付件：这就是交付时间。"
+
+#: beatstamp/ui/handover_dialogs.py:892
+msgid "The key parts or the encrypted package in this file are not the ones the offer commits to, or the file breaks the format. It proves nothing about the offer."
+msgstr "此文件中的密钥部分或加密交付件不是提议所承诺的，或者文件违反了格式要求。它不能证明关于该提议的任何事情。"
+
+#: beatstamp/ui/handover_dialogs.py:544
+msgid "The last answer could not be completed (%(code)s)."
+msgstr "上一个答复无法完成（%(code)s）。"
+
+#: beatstamp/ui/dialogs.py:1510
+msgid "The licence texts are missing from this installation: %(path)s"
+msgstr "此安装中缺少许可证文本：%(path)s"
+
+#: beatstamp/ui/dialogs.py:1349
+msgid "The list could not be loaded. %(reason)s"
+msgstr "无法载入名单。%(reason)s"
+
+#: beatstamp/ui/dialogs.py:1347
+msgid "The list could not be refreshed. %(reason)s"
+msgstr "无法刷新名单。%(reason)s"
+
+#: beatstamp/ui/dialogs.py:1356
+msgid "The list did not arrive in time. Please try again in a moment."
+msgstr "名单未能及时送达。请稍后重试。"
+
+#: beatstamp/ui/dialogs.py:1261
+msgid "The list is downloaded from sigelith.org — it is not part of the installed program."
+msgstr "名单从 sigelith.org 下载——它不是已安装程序的一部分。"
+
+#: beatstamp/supporters.py:155
+#: beatstamp/supporters.py:198
+#: beatstamp/supporters.py:202
+msgid "The list of supporters came back in an unexpected format."
+msgstr "返回的支持者名单格式异常。"
+
+#: beatstamp/licensing.py:139
+msgid "The list of trusted root certificates for HTTPS."
+msgstr "HTTPS 所用的受信任根证书列表。"
+
+#: beatstamp/ui/main_window.py:2158
+msgid "The log checks out"
+msgstr "日志核验无误"
+
+#: beatstamp/ui/witness_panel.py:385
+msgid "The log does not add up — see the alarm below"
+msgstr "日志对不上——请查看下方警报"
+
+#: beatstamp/ui/dialogs.py:1617
+msgid "The log is still empty."
+msgstr "日志仍为空。"
+
+#: beatstamp/ui/dialogs.py:1249
+msgid "The names come from a public list on sigelith.org. Everyone on it asked to be named and can withdraw at any time, so Sigelith Desktop reloads the list at least once a day and keeps no copy older than that."
+msgstr "这些名字来自 sigelith.org 上的一份公开名单。名单上的每个人都是主动要求署名的，并且可以随时撤回，因此 Sigelith Desktop 每天至少重新载入一次名单，也不会保留超过一天的旧副本。"
+
+#: beatstamp/ui/main_window.py:2472
+msgid "The new language applies to texts drawn from now on. The whole window switches after Sigelith Desktop is restarted."
+msgstr "新语言会应用于此后显示的文字。重新启动 Sigelith Desktop 后，整个窗口都会切换。"
+
+#: beatstamp/ui/journey.py:79
+msgid "The next daily checkpoint (after 00:00 UTC) will contain this entry."
+msgstr "下一个每日检查点（00:00 UTC 之后）将包含此条目。"
+
+#: beatstamp/ui/main_window.py:1280
+msgid "The note applies to all %(count)s files of this batch."
+msgstr "该备注适用于本批全部 %(count)s 个文件。"
+
+#: beatstamp/ui/main_window.py:516
+msgid ""
+"The note stays ONLY on this computer, in the local history.\n"
+"It is not sent to the register and does not reach the server.\n"
+"You can add or change it at any time — also later, in the History."
+msgstr ""
+"备注只保存在这台电脑上的本地历史记录中。\n"
+"它不会发送到登记簿，也不会到达服务器。\n"
+"你可以随时添加或修改——以后也可以在历史记录中进行。"
+
+#: beatstamp/ui/details.py:202
+msgid "The note stays only in the local history. It is not sent anywhere."
+msgstr "备注只保存在本地历史记录中，不会发送到任何地方。"
+
+#: beatstamp/ui/handover_dialogs.py:411
+msgid "The offer is not in the log."
+msgstr "提议不在日志中。"
+
+#: beatstamp/ui/handover_dialogs.py:486
+msgid "The offer, both key parts and the encrypted package in one file."
+msgstr "提议、两部分密钥和加密交付件合在一个文件中。"
+
+#: beatstamp/ui/details.py:196
+msgid "The only information that reached the Sigelith register"
+msgstr "唯一到达 Sigelith 登记簿的信息"
+
+#: beatstamp/ui/main_window.py:492
+msgid "The only information that reaches the Sigelith register"
+msgstr "唯一会到达 Sigelith 登记簿的信息"
+
+#: beatstamp/ui/handover_controller.py:333
+#: beatstamp/ui/handover_dialogs.py:477
+msgid "The opened files differ from what the preview showed — the offer was defective, so your acceptance has no effect."
+msgstr "打开的文件与预览显示的不同——提议有缺陷，因此你的接受不产生效力。"
+
+#: beatstamp/licensing.py:134
+msgid "The optional connection through the Tor network."
+msgstr "可选的 Tor 网络连接。"
+
+#: beatstamp/ui/handover_controller.py:493
+msgid "The other party's copy"
+msgstr "另一方的副本"
+
+#: beatstamp/handover_tasks.py:82
+msgid "The package could not be prepared (%(code)s)."
+msgstr "无法准备交付件（%(code)s）。"
+
+#: beatstamp/ui/handover_dialogs.py:391
+msgid "The package did not open the way the sender offered it (%(code)s). The offer was defective, so your acceptance has no effect."
+msgstr "交付件未能按发送方的提议打开（%(code)s）。提议有缺陷，因此你的接受不产生效力。"
+
+#: beatstamp/ui/handover_dialogs.py:660
+msgid "The package does not hold up: its format or a signature is wrong."
+msgstr "此证据包站不住脚：其格式或某个签名有误。"
+
+#: beatstamp/ui/handover_dialogs.py:884
+msgid "The package does not match what the sender signed in the offer: %(what)s. The recipient's acceptance of this offer has no effect."
+msgstr "交付件与发送方在提议中签署的内容不符：%(what)s。接收方对此提议的接受不产生效力。"
+
+#: beatstamp/ui/handover_controller.py:258
+msgid "The package for %(who)s is in the exchange folder. Their application will pick it up; the answer comes back the same way."
+msgstr "发给 %(who)s 的交付件已在交换文件夹中。此人的应用会取走它；答复会沿同一途径返回。"
+
+#: beatstamp/handover_tasks.py:86
+msgid "The package is defective, so the acceptance has no effect (%(code)s)."
+msgstr "交付件有缺陷，因此接受不产生效力（%(code)s）。"
+
+#: beatstamp/ui/handover_dialogs.py:236
+msgid "The package is encrypted to this card; only its owner can open it."
+msgstr "交付件针对这张卡片加密；只有卡片持有者能打开。"
+
+#: beatstamp/ui/handover_dialogs.py:684
+#: beatstamp/ui/handover_dialogs.py:692
+#: beatstamp/ui/handover_dialogs.py:693
+#: beatstamp/ui/handover_dialogs.py:694
+#: beatstamp/ui/handover_dialogs.py:695
+#: beatstamp/ui/handover_dialogs.py:696
+msgid "The package opens as offered"
+msgstr "交付件按提议打开"
+
+#: beatstamp/ui/handover_dialogs.py:889
+msgid "The package opens with the key parts committed in the offer and matches its preview. The claim of a defect is unfounded."
+msgstr "交付件可用提议中承诺的密钥部分打开，且与其预览一致。缺陷主张没有依据。"
+
+#: beatstamp/fileproof.py:126
+msgid "The path in the backup tree does not lead to the sealed root."
+msgstr "备份树中的路径没有通向已封印的根。"
+
+#: beatstamp/witness.py:1107
+msgid "The path of this entry does NOT lead to the root of checkpoint #%(n)s, which this application verified itself."
+msgstr "此条目的路径并不通向检查点 #%(n)s 的根，而该检查点已由本应用亲自核验。"
+
+#: beatstamp/bundle.py:323
+msgid "The path of this entry does not lead to the root of the checkpoint inside the proof."
+msgstr "此条目的路径不通向证明中检查点的根。"
+
+#: beatstamp/ui/journey.py:75
+msgid "The path to the checkpoint did not check out."
+msgstr "到检查点的路径未通过核验。"
+
+#: beatstamp/hashing.py:152
+msgid "The path to the file \"%(name)s\" is too long."
+msgstr "文件“%(name)s”的路径过长。"
+
+#: beatstamp/ui/handover_dialogs.py:685
+#: beatstamp/ui/handover_dialogs.py:690
+msgid "The preview matches the content"
+msgstr "预览与内容一致"
+
+#: beatstamp/ui/dialogs.py:703
+msgid ""
+"The previous version of the program overwrote certificates silently\n"
+"when a file of the same name was already in the folder."
+msgstr ""
+"旧版程序在文件夹中已有同名文件时，\n"
+"会不加提示地覆盖证书。"
+
+#: beatstamp/bundle.py:273
+msgid "The proof contains no public key for the signature."
+msgstr "证明中没有用于签名的公钥。"
+
+#: beatstamp/bundle.py:276
+msgid "The proof contains no root signature. Export it again once the week has closed so that it is complete."
+msgstr "证明中没有根签名。请在该周结束后重新导出，使其完整。"
+
+#: beatstamp/bundle.py:247
+msgid "The proof contains no week root — the week was still open when it was exported."
+msgstr "证明中没有周根——导出时该周尚未结束。"
+
+#: beatstamp/ui/main_window.py:1633
+msgid "The proof could not be saved:<br>%(reason)s"
+msgstr "无法保存证明：<br>%(reason)s"
+
+#: beatstamp/ui/main_window.py:1395
+msgid "The proof data did not pass the local check:"
+msgstr "证明数据未通过本地检查："
+
+#: beatstamp/bundle.py:209
+msgid "The proof does not contain a valid SHA-256 digest."
+msgstr "证明中没有有效的 SHA-256 摘要。"
+
+#: beatstamp/bundle.py:334
+msgid "The proof file could not be opened: %(reason)s."
+msgstr "无法打开证明文件：%(reason)s。"
+
+#: beatstamp/bundle.py:344
+msgid "The proof file has an unexpected structure."
+msgstr "证明文件的结构异常。"
+
+#: beatstamp/bundle.py:338
+msgid "The proof file is unnaturally large — rejected."
+msgstr "证明文件大得异常——已拒绝。"
+
+#: beatstamp/bundle.py:215
+msgid "The proof gives the week in an invalid format."
+msgstr "证明中给出的周格式无效。"
+
+#: beatstamp/bundle.py:218
+msgid "The proof gives the week root in an invalid format."
+msgstr "证明中给出的周根格式无效。"
+
+#: beatstamp/ui/main_window.py:1543
+msgid "The proof is consistent but not closed yet — it was exported before the week ended. Check the digest in the register (the <b>Check digest</b> button) and export the proof again."
+msgstr "证明一致，但尚未完结——它是在该周结束前导出的。请在登记簿中核对摘要（<b>核对摘要</b>按钮），然后重新导出证明。"
+
+#: beatstamp/ui/main_window.py:1177
+#: beatstamp/ui/main_window.py:1398
+msgid "The proof needs refreshing"
+msgstr "证明需要刷新"
+
+#: beatstamp/ui/main_window.py:1535
+msgid "The proof needs refreshing — %(name)s"
+msgstr "证明需要刷新 — %(name)s"
+
+#: beatstamp/ui/main_window.py:1522
+msgid "The proof was checked <b>entirely locally</b> — without connecting to sigelith.org and without trusting anyone. The inclusion path, the root signature, the identity of the key and the week of the stamp all add up. The signature confirms that the document existed no later than the end of the week; the exact moment is given by the register."
+msgstr "证明<b>完全在本地</b>完成了核验——未连接 sigelith.org，也无需信任任何人。包含路径、根签名、密钥身份以及戳记所在的周全部吻合。签名证实该文档最迟在该周结束时已经存在；确切时刻由登记簿给出。"
+
+#: beatstamp/ui/main_window.py:2447
+msgid "The proxy \"%(proxy)s\" is not a local address. Traffic to the .onion service goes over plain HTTP, so it reaches that machine in clear text — this is NOT anonymisation."
+msgstr "代理“%(proxy)s”不是本地地址。发往 .onion 服务的流量走的是普通 HTTP，因此会以明文到达那台机器——这并不是匿名化。"
+
+#: beatstamp/ui/main_window.py:897
+msgid "The public log and its checkpoints"
+msgstr "公开日志及其检查点"
+
+#: beatstamp/ui/witness_panel.py:393
+msgid "The public log checked by this application"
+msgstr "由本应用核验的公开日志"
+
+#: beatstamp/ui/witness_panel.py:165
+#: beatstamp/ui/witness_panel.py:389
+msgid "The public log has not been checked yet"
+msgstr "公开日志尚未检查"
+
+#: beatstamp/ui/main_window.py:893
+msgid "The public verification page"
+msgstr "公开验证页面"
+
+#: beatstamp/ui/handover_dialogs.py:530
+msgid "The recipient did not answer before %(when)s. This is a status, not evidence of anything."
+msgstr "接收方未在 %(when)s 之前答复。这只是一个状态，不能证明任何事情。"
+
+#: beatstamp/ui/handover_dialogs.py:652
+msgid "The recipient refused the package (%(when)s)."
+msgstr "接收方拒绝了交付件（%(when)s）。"
+
+#: beatstamp/ui/handover_controller.py:392
+msgid "The recipient refused the package. The key part is never published."
+msgstr "接收方拒绝了交付件。密钥部分永远不会发布。"
+
+#: beatstamp/ui/handover_dialogs.py:654
+msgid "The recipient refused the package; the refusal is not in the log."
+msgstr "接收方拒绝了交付件；拒绝不在日志中。"
+
+#: beatstamp/handover_tasks.py:108
+msgid "The recipient refused this package, so the key part is never published."
+msgstr "接收方拒绝了这个交付件，因此密钥部分永远不会发布。"
+
+#: beatstamp/ui/handover_panel.py:150
+msgid "The recipient sees the title and the list of files, but can open them only after signing the receipt with their own key (Windows Hello)."
+msgstr "接收方可以看到标题和文件列表，但只有用自己的密钥（Windows Hello）签署收件确认后才能打开文件。"
+
+#: beatstamp/ui/handover_report.py:232
+msgid "The recipient signed a structured answer; this is its fixed reading, not free text."
+msgstr "接收方签署的是结构化答复；这是它的固定表述，而不是自由文本。"
+
+#: beatstamp/ui/handover_dialogs.py:293
+msgid "The recipient's application picks it up automatically."
+msgstr "接收方的应用会自动取走它。"
+
+#: beatstamp/ui/handover_report.py:278
+msgid "The recipient's key signed an acceptance, stating that it holds that encrypted package."
+msgstr "接收方的密钥签署了接受声明，表明其持有该加密交付件。"
+
+#: beatstamp/ui/handover_dialogs.py:647
+msgid "The recipient's signed acceptance took effect at %(when)s, when the key part was recorded in the Sigelith log."
+msgstr "接收方签署的接受于 %(when)s 生效，即密钥部分被记录到 Sigelith 日志之时。"
+
+#: beatstamp/ui/main_window.py:1165
+msgid "The register did not confirm the write. Try again."
+msgstr "登记簿未确认写入。请重试。"
+
+#: beatstamp/ui/details.py:181
+msgid "The register gives the exact moment. The two bounds do not depend on the Sigelith clock at all — they can be checked in Bitcoin and at the bank."
+msgstr "确切时刻由登记簿给出。这两个界限完全不依赖 Sigelith 的时钟——可以在 Bitcoin 和银行处核验。"
+
+#: beatstamp/ui/handover_controller.py:528
+msgid "The report is a reading, not evidence — give it together with the checked file."
+msgstr "报告只是解读，不是证据——请与所检查的文件一起提供。"
+
+#: beatstamp/ui/journey.py:104
+msgid "The root is in the Bitcoin chain (OpenTimestamps) — rewriting it would mean rewriting Bitcoin."
+msgstr "根已在 Bitcoin 区块链中（OpenTimestamps）——要改写它，就得改写 Bitcoin。"
+
+#: beatstamp/proof.py:438
+msgid "The root of week%(week)s was signed with a Sigelith key retired on %(when)s. A signature from a retired key is no longer a proof, so the level stays \"Recorded\" — the external anchor is also waiting for confirmation. %(hint)s"
+msgstr "该周%(week)s 的根是用已于 %(when)s 停用的 Sigelith 密钥签名的。已停用密钥的签名不再构成证明，因此级别仍为“已记录”——外部锚定也在等待确认。%(hint)s"
+
+#: beatstamp/ui/history_model.py:156
+msgid ""
+"The root signature was not accepted at the last check:\n"
+"a key outside the built-in list, or inconsistent proof data.\n"
+"\n"
+"Refresh statuses (F5) to check the proof again."
+msgstr ""
+"上次检查时未接受根签名：\n"
+"密钥不在内置列表中，或证明数据不一致。\n"
+"\n"
+"请刷新状态（F5）以重新检查证明。"
+
+#: beatstamp/bundle.py:269
+msgid "The root was signed with a key other than the Sigelith keys built into the application — the signature does not prove its origin."
+msgstr "根是用应用内置的 Sigelith 密钥以外的密钥签名的——该签名无法证明其来源。"
+
+#: beatstamp/licensing.py:124
+msgid "The runtime the program is written in."
+msgstr "编写本程序所用语言的运行时。"
+
+#: beatstamp/ui/handover_dialogs.py:465
+msgid "The same answer as text, for pasting into a message."
+msgstr "同一答复的文本形式，可粘贴到消息中。"
+
+#: beatstamp/ui/history_model.py:42
+msgid "The same moment in @beat time — without time zones"
+msgstr "以 @beat 时间表示的同一时刻——没有时区"
+
+#: beatstamp/ui/dialogs.py:681
+msgid "The same moment in @beat — the same everywhere in the world."
+msgstr "以 @beat 表示的同一时刻——在全世界都相同。"
+
+#: beatstamp/ui/details.py:274
+msgid "The same values the .beatproof export writes — to be checked with your own tool"
+msgstr "与 .beatproof 导出所写入的值相同——可用你自己的工具核验"
+
+#: beatstamp/ui/handover_report.py:269
+msgid "The sender attached the exact content of the package. It matches the hash committed in the offer, so these are the files the recipient could open."
+msgstr "发送方附上了交付件的确切内容。它与提议中承诺的哈希值一致，因此这些就是接收方能够打开的文件。"
+
+#: beatstamp/ui/handover_dialogs.py:407
+msgid "The sender calls themselves: %(name)s"
+msgstr "发送方自称：%(name)s"
+
+#: beatstamp/ui/handover_dialogs.py:384
+msgid "The sender did not publish the key part before your acceptance expired, so the acceptance has no effect. The encrypted content was deleted from this computer."
+msgstr "发送方未在你的接受到期之前发布密钥部分，因此接受不产生效力。加密内容已从此计算机删除。"
+
+#: beatstamp/ui/handover_report.py:276
+msgid "The sender's key signed an offer to the recipient's key, committing to the exact encrypted package."
+msgstr "发送方的密钥签署了一份发给接收方密钥的提议，承诺的正是这个加密交付件。"
+
+#: beatstamp/api.py:327
+#: beatstamp/api.py:336
+msgid "The server accepted the connection but sent no answer in time."
+msgstr "服务器接受了连接，但未能及时回应。"
+
+#: beatstamp/api.py:275
+msgid "The server address must start with https:// — an unencrypted connection is allowed only for an .onion address."
+msgstr "服务器地址必须以 https:// 开头——只有 .onion 地址才允许使用未加密的连接。"
+
+#: beatstamp/ui/main_window.py:1174
+msgid "The server answer did not pass the local check."
+msgstr "服务器的回应未通过本地检查。"
+
+#: beatstamp/api.py:415
+msgid "The server answer exceeded the allowed size — the download was aborted."
+msgstr "服务器的回应超出了允许的大小——已中止下载。"
+
+#: beatstamp/proof.py:460
+msgid "The server answer is not a valid JSON object."
+msgstr "服务器的回应不是有效的 JSON 对象。"
+
+#: beatstamp/api.py:408
+msgid "The server answer is unnaturally large — aborted."
+msgstr "服务器的回应大得异常——已中止。"
+
+#: beatstamp/proof.py:469
+msgid "The server answered with a proof for a DIFFERENT digest than the one sent — the answer was rejected."
+msgstr "服务器返回的证明针对的是另一个摘要，而不是发送的那个——已拒绝该回应。"
+
+#: beatstamp/api.py:301
+msgid "The server certificate could not be verified. The connection was aborted. Check whether something is intercepting the traffic (corporate firewall, antivirus with HTTPS inspection)."
+msgstr "无法验证服务器证书，连接已中止。请检查是否有程序在拦截流量（企业防火墙、带 HTTPS 检查功能的杀毒软件）。"
+
+#: beatstamp/proof.py:603
+msgid "The server claims the week root is anchored, but it did not supply the complete data (inclusion path + signature), so this could not be confirmed locally. The proof level stays \"Recorded\"."
+msgstr "服务器声称周根已锚定，但没有提供完整数据（包含路径 + 签名），因此无法在本地确认。证明级别仍为“已记录”。"
+
+#: beatstamp/witness.py:1088
+msgid "The server describes checkpoint #%(n)s with a different tree size than the signed checkpoint file this application verified."
+msgstr "服务器对检查点 #%(n)s 描述的树大小，与本应用核验过的签名检查点文件不同。"
+
+#: beatstamp/api.py:322
+msgid "The server did not answer in time (limit %(seconds)s s to connect)."
+msgstr "服务器未能及时回应（连接时限 %(seconds)s 秒）。"
+
+#: beatstamp/proof.py:555
+msgid "The server did not give a public key for the signature."
+msgstr "服务器未提供用于签名的公钥。"
+
+#: beatstamp/api.py:553
+msgid "The server did not issue a certificate (HTTP %(code)s)."
+msgstr "服务器未签发证书（HTTP %(code)s）。"
+
+#: beatstamp/api.py:532
+msgid "The server did not return a synchronisation time."
+msgstr "服务器未返回同步时间。"
+
+#: beatstamp/proof.py:617
+msgid "The server did not supply an inclusion path — membership in the root could not be confirmed locally."
+msgstr "服务器未提供包含路径——无法在本地确认该摘要属于这个根。"
+
+#: beatstamp/proof.py:592
+msgid "The server gave a confirmed bank anchor for a root other than the root of this week — that anchor was not accepted."
+msgstr "服务器给出的已确认银行锚定针对的是另一个根，而不是该周的根——该锚定未被接受。"
+
+#: beatstamp/proof.py:507
+msgid "The server gave the week root in an invalid format — the answer was rejected."
+msgstr "服务器给出的周根格式无效——已拒绝该回应。"
+
+#: beatstamp/api.py:360
+msgid "The server received too many requests from this address. "
+msgstr "服务器收到来自此地址的请求过多。"
+
+#: beatstamp/api.py:391
+#: beatstamp/api.py:637
+msgid "The server rejected the request (HTTP %(code)s)."
+msgstr "服务器拒绝了请求（HTTP %(code)s）。"
+
+#: beatstamp/proof.py:481
+msgid "The server returned a digest in an invalid format."
+msgstr "服务器返回的摘要格式无效。"
+
+#: beatstamp/api.py:536
+msgid "The server returned a time in an invalid format."
+msgstr "服务器返回的时间格式无效。"
+
+#: beatstamp/api.py:434
+#: beatstamp/api.py:455
+#: beatstamp/api.py:483
+#: beatstamp/api.py:568
+#: beatstamp/api.py:607
+msgid "The server returned an answer in an unexpected format."
+msgstr "服务器返回的回应格式异常。"
+
+#: beatstamp/api.py:384
+#: beatstamp/api.py:642
+msgid "The server sent back an answer that cannot be read as JSON."
+msgstr "服务器返回的回应无法解析为 JSON。"
+
+#: beatstamp/api.py:556
+msgid "The server sent back data that is not a PDF file."
+msgstr "服务器返回的数据不是 PDF 文件。"
+
+#: beatstamp/ui/dialogs.py:1384
+msgid "The server sent more names than this window shows."
+msgstr "服务器发来的名字多于此窗口所能显示的数量。"
+
+#: beatstamp/proof.py:558
+msgid "The server signed the root with a key OTHER than the Sigelith keys built into the application. The signature may be technically valid, but it does not prove it comes from Sigelith."
+msgstr "服务器用应用内置的 Sigelith 密钥以外的密钥签署了根。该签名在技术上可能有效，但无法证明它来自 Sigelith。"
+
+#: beatstamp/api.py:349
+msgid "The server tried to redirect the request — rejected for security reasons."
+msgstr "服务器试图重定向请求——出于安全原因已拒绝。"
+
+#: beatstamp/ui/main_window.py:152
+msgid "The signature comes from a retired Sigelith key."
+msgstr "该签名来自已停用的 Sigelith 密钥。"
+
+#: beatstamp/ui/handover_report.py:155
+msgid "The source code of the verifier and of the reference implementation is open (Apache-2.0), with test vectors: %(url)s"
+msgstr "验证工具和参考实现的源代码是开放的（Apache-2.0），并附有测试向量：%(url)s"
+
+#: beatstamp/ui/dialogs.py:246
+msgid ""
+"The stamp history is a list of your documents: their names and their digests. In this folder OneDrive will copy it to the cloud and to your other computers.\n"
+"\n"
+"Use this folder anyway?"
+msgstr ""
+"戳记历史是你的文档清单：包括文档名称及其摘要。放在此文件夹中，OneDrive 会将它复制到云端和你的其他电脑上。\n"
+"\n"
+"仍要使用此文件夹吗？"
+
+#: beatstamp/proof.py:422
+msgid "The stamp time (%(utc)s) lies outside week %(week)s (%(range)s UTC), whose root the proof covers. The signature confirms only the week, so a time outside it has no backing in the proof — the data is inconsistent."
+msgstr "盖戳时间（%(utc)s）落在周 %(week)s（%(range)s UTC）之外，而证明所涵盖的正是该周的根。签名只确认周，因此该周之外的时间在证明中没有依据——数据不一致。"
+
+#: beatstamp/proof.py:395
+msgid "The stamp time (UTC) has an invalid format."
+msgstr "盖戳时间（UTC）格式无效。"
+
+#: beatstamp/ui/main_window.py:411
+msgid ""
+"The state of the public log as checked by this application. Click to see\n"
+"the witnesses: checkpoints, Bitcoin, the bank and the independent copies."
+msgstr ""
+"由本应用核验的公开日志状态。点击查看\n"
+"见证者：检查点、Bitcoin、银行以及独立副本。"
+
+#: beatstamp/ui/main_window.py:1018
+msgid "The task ended with an error."
+msgstr "任务因错误而结束。"
+
+#: beatstamp/handover_tasks.py:93
+msgid "The time to answer this package has passed, so it can no longer be accepted or refused."
+msgstr "答复此交付件的期限已过，因此无法再接受或拒绝。"
+
+#: beatstamp/ui/handover_report.py:151
+msgid "The times rest on receipts signed with the Sigelith log key (Ed25519): %(key)s. Within a day each entry is also confirmed outside Sigelith's control — by a checkpoint in public archives, then in Bitcoin."
+msgstr "这些时间以 Sigelith 日志密钥（Ed25519）签名的回执为依据：%(key)s。每条记录还会在一天之内于 Sigelith 无法控制之处得到确认——先是公共档案中的检查点，随后是 Bitcoin。"
+
+#: beatstamp/ui/handover_dialogs.py:808
+msgid "The times rest on the Sigelith log's signatures (receipts). Below: what this application confirmed outside Sigelith's control."
+msgstr "这些时间以 Sigelith 日志的签名（回执）为依据。下面是本应用在 Sigelith 控制之外确认的内容。"
+
+#: beatstamp/handover_tasks.py:81
+msgid "The title or the note contains characters that are not allowed."
+msgstr "标题或备注包含不允许的字符。"
+
+#: beatstamp/licensing.py:142
+msgid "The typeface of the digests, of the clock and of the technical data."
+msgstr "摘要、时钟和技术数据所用的字体。"
+
+#: beatstamp/licensing.py:140
+msgid "The typeface of the interface and of the PDF certificate."
+msgstr "界面和 PDF 证书所用的字体。"
+
+#: beatstamp/ui/journey.py:95
+msgid "The week closes on Monday at 00:00 UTC; then its root is signed."
+msgstr "该周在周一 00:00 UTC 结束，随后其根被签名。"
+
+#: beatstamp/proof.py:612
+msgid "The week is closed, but the root has no signature yet. This usually means the closing is under way."
+msgstr "该周已结束，但根尚未签名。这通常意味着封存正在进行中。"
+
+#: beatstamp/proof.py:418
+msgid "The week of the proof does not exist in the ISO calendar."
+msgstr "证明中的周在 ISO 日历中不存在。"
+
+#: beatstamp/witness.py:1251
+msgid "The week root given by the server does not match the root computed from the public log itself — the server presents two different versions of week %(week)s."
+msgstr "服务器给出的周根与根据公开日志本身计算出的根不一致——服务器对周 %(week)s 提供了两个不同的版本。"
+
+#: beatstamp/ui/journey.py:112
+msgid "The week root is in the title of a bank transfer (MROOT) — confirmed by the bank."
+msgstr "周根已写入一笔银行转账的附言（MROOT）——已由银行确认。"
+
+#: beatstamp/ui/history_model.py:150
+msgid ""
+"The week root was signed with a Sigelith key that has been\n"
+"retired — such a signature is no longer a proof, so the level\n"
+"stays \"Recorded\".\n"
+"\n"
+"Refresh statuses (F5) to fetch a signature made with the current key."
+msgstr ""
+"周根是用一把已停用的 Sigelith 密钥\n"
+"签名的——这样的签名不再构成证明，因此级别\n"
+"仍为“已记录”。\n"
+"\n"
+"请刷新状态（F5），以获取用当前密钥制作的签名。"
+
+#: beatstamp/certificate.py:706
+msgid "The week root was signed with a key outside the Sigelith key list built into the application — such a signature does not prove its origin. "
+msgstr "周根是用应用内置 Sigelith 密钥列表之外的密钥签名的——这样的签名无法证明其来源。"
+
+#: beatstamp/licensing.py:119
+msgid "The whole user interface: windows, buttons, text and drawing."
+msgstr "整个用户界面：窗口、按钮、文字和绘图。"
+
+#: beatstamp/ui/main_window.py:2145
+msgid "The witnesses raised an alarm"
+msgstr "见证者发出了警报"
+
+#: beatstamp/ui/dialogs.py:658
+msgid "Theme:"
+msgstr "主题："
+
+#: beatstamp/handover_tasks.py:101
+msgid "There is no answer yet."
+msgstr "还没有答复。"
+
+#: beatstamp/ui/main_window.py:2036
+msgid "There is nothing to export yet."
+msgstr "目前还没有可导出的内容。"
+
+#: beatstamp/ui/dialogs.py:1084
+msgid "They are used unmodified and linked dynamically. This copy comes from the Microsoft Store, so its files cannot be exchanged in place — the package is installed read-only and bound to its signature. To run this program against your own build of Qt, use the portable release of the same version, where the libraries sit in the <code>_internal</code> folder next to the program; the notices below say how to obtain it."
+msgstr "这些库未经修改，并以动态方式链接。此副本来自 Microsoft Store，因此无法就地替换其中的文件——软件包以只读方式安装，并与其签名绑定。若要让本程序使用你自己构建的 Qt 运行，请使用同一版本的便携版，其库文件位于程序旁的 <code>_internal</code> 文件夹中；下方的声明说明了如何获取它。"
+
+#: beatstamp/ui/dialogs.py:1093
+msgid "They are used unmodified and linked dynamically: the libraries sit in the <code>_internal</code> folder next to the program and may be replaced with your own build of the same version."
+msgstr "这些库未经修改，并以动态方式链接：库文件位于程序旁的 <code>_internal</code> 文件夹中，可以替换为你自己构建的同一版本。"
+
+#: beatstamp/ui/dialogs.py:944
+msgid "This Sigelith key was retired on %(date)s and cannot be accepted — a signature made with it is no longer a proof.<br><br>Leave the field empty to use the built-in list of keys."
+msgstr "此 Sigelith 密钥已于 %(date)s 停用，无法接受——用它制作的签名不再构成证明。<br><br>将此字段留空即可使用内置的密钥列表。"
+
+#: beatstamp/handover_tasks.py:96
+msgid "This answer cannot be read, or it does not belong to a package sent from this application."
+msgstr "无法读取此答复，或者它不属于从本应用发出的交付件。"
+
+#: beatstamp/certificate.py:602
+msgid "This certificate attests that the document with the SHA-256 digest given below was registered in the public, append-only Sigelith register at the moment shown — in <b>@beat</b> time (1000 beats per day, anchored in UTC). The document itself <b>never left the computer</b>: only its cryptographic digest went to the register."
+msgstr "本证书证实：具有下列 SHA-256 摘要的文档，已于所示时刻登记在公开、只可追加的 Sigelith 登记簿中——时间以 <b>@beat</b> 表示（每天 1000 个 beat，以 UTC 为基准）。文档本身<b>从未离开电脑</b>：只有其密码学摘要被发送到登记簿。"
+
+#: beatstamp/ui/handover_dialogs.py:943
+#: beatstamp/ui/handover_report.py:309
+msgid "This check is arithmetic only: it needs neither the log nor the network, and anyone who repeats it gets the same result."
+msgstr "此检查纯属计算：既不需要日志也不需要网络，任何人重复都会得到相同结果。"
+
+#: beatstamp/ui/widgets.py:1050
+msgid "This computer's clock is %(direction)s the Sigelith server time by %(seconds)s s. Timestamps are issued by the server, so the proof is correct — but the clock shown next to it may differ from the real @beat."
+msgstr "这台电脑的时钟比 Sigelith 服务器时间%(direction)s %(seconds)s 秒。时间戳由服务器签发，因此证明是正确的——但旁边显示的时钟可能与真实的 @beat 不同。"
+
+#: beatstamp/ui/main_window.py:1377
+msgid "This digest <b>does not appear</b> in the Sigelith register.<br><br>"
+msgstr "此摘要<b>未出现</b>在 Sigelith 登记簿中。<br><br>"
+
+#: beatstamp/proof.py:113
+msgid "This digest does not appear in the public Sigelith register."
+msgstr "此摘要未出现在公开的 Sigelith 登记簿中。"
+
+#: beatstamp/api.py:549
+msgid "This digest has no stamp yet, so there is no certificate for it on the server."
+msgstr "此摘要尚无戳记，因此服务器上没有对应的证书。"
+
+#: beatstamp/certificate.py:596
+msgid "This document describes an entry whose proof was <b>not confirmed</b> by the local check. <b>It does not certify a timestamp</b> — the values below are merely the data stored in the entry."
+msgstr "本文件描述的条目，其证明<b>未通过</b>本地检查的确认。<b>它不证明任何时间戳</b>——下列数值仅是该条目中存储的数据。"
+
+#: beatstamp/ui/dialogs.py:1598
+msgid "This file could not be read: %(name)s"
+msgstr "无法读取此文件：%(name)s"
+
+#: beatstamp/ui/main_window.py:1183
+msgid "This file had already been stamped"
+msgstr "此文件此前已盖过戳"
+
+#: beatstamp/ui/dialogs.py:245
+msgid "This folder is inside OneDrive"
+msgstr "此文件夹位于 OneDrive 中"
+
+#: beatstamp/ui/dialogs.py:193
+msgid "This folder is outside OneDrive and outside Windows Backup, so the stamp history is not copied anywhere by itself. If it matters to you, make your own copy of the folder."
+msgstr "此文件夹不在 OneDrive 中，也不在 Windows 备份范围内，因此戳记历史不会被自动复制到任何地方。如果它对你很重要，请自行备份此文件夹。"
+
+#: beatstamp/ui/witness_panel.py:577
+msgid "This is exactly what the witnesses exist for. Sigelith Desktop kept the conflicting files as evidence. Do not delete them; report the case to Sigelith and keep your own copy."
+msgstr "这正是见证者存在的意义。Sigelith Desktop 已将相互矛盾的文件作为证据保存。请不要删除它们；请向 Sigelith 报告此情况，并自行保留一份副本。"
+
+#: beatstamp/ui/dialogs.py:685
+msgid "This is how the next certificate will be named. If a file of that name already exists, Sigelith Desktop adds \"(2)\" — it never proposes to overwrite it."
+msgstr "下一个证书将这样命名。如果已存在同名文件，Sigelith Desktop 会加上“(2)”——绝不会提议覆盖它。"
+
+#: beatstamp/handover_tasks.py:68
+msgid "This is not a valid Sigelith card file."
+msgstr "这不是有效的 Sigelith 卡片文件。"
+
+#: beatstamp/handover_tasks.py:70
+msgid "This is your own card."
+msgstr "这是你自己的卡片。"
+
+#: beatstamp/handover_tasks.py:84
+msgid "This package cannot be opened: %(why)s"
+msgstr "无法打开此交付件：%(why)s"
+
+#: beatstamp/handover_tasks.py:91
+msgid "This package has already been answered."
+msgstr "此交付件已经答复过了。"
+
+#: beatstamp/handover_tasks.py:99
+msgid "This package is not known to this application."
+msgstr "本应用不认识此交付件。"
+
+#: beatstamp/handover_tasks.py:89
+msgid "This package opened as offered, so there is no defect to prove."
+msgstr "此交付件已按提议打开，因此没有需要证明的缺陷。"
+
+#: beatstamp/licensing.py:113
+msgid "This program. Its source code is public under the Apache License 2.0."
+msgstr "本程序。其源代码依据 Apache License 2.0 公开。"
+
+#: beatstamp/ui/handover_report.py:133
+msgid "This report is a reading of the file below. It is not evidence itself: the evidence is the file, and anyone can check it again — see the last section."
+msgstr "本报告是对下列文件的解读，其本身不是证据：证据是该文件，任何人都可以再次检查它——见最后一节。"
+
+#: beatstamp/supporters.py:205
+msgid "This version of Sigelith Desktop cannot read the list of supporters (the server speaks version %(version)s). A newer version of the application can."
+msgstr "此版本的 Sigelith Desktop 无法读取支持者名单（服务器使用的是 %(version)s 版格式）。更新版本的应用可以读取。"
+
+#: beatstamp/ui/dialogs.py:548
+msgid ""
+"Those services learn only that someone downloads public Sigelith files —\n"
+"nothing about your documents. Without this, the witnesses compare Sigelith\n"
+"only with itself."
+msgstr ""
+"这些服务只会知道有人下载了公开的 Sigelith 文件——\n"
+"对你的文档一无所知。不启用此项，见证者只能拿 Sigelith\n"
+"与它自己比对。"
+
+#: beatstamp/ui/handover_report.py:241
+msgid "Time (UTC)"
+msgstr "时间 (UTC)"
+
+#: beatstamp/ui/dialogs.py:487
+msgid "Time limit:"
+msgstr "超时时间："
+
+#: beatstamp/certificate.py:517
+msgid "Timestamp certificate"
+msgstr "时间戳证书"
+
+#: beatstamp/certificate.py:582
+msgid "Timestamp certificate · sigelith.org"
+msgstr "时间戳证书 · sigelith.org"
+
+#: beatstamp/ui/main_window.py:1182
+msgid "Timestamp granted"
+msgstr "已获得时间戳"
+
+#: beatstamp/ui/main_window.py:498
+msgid "Timestamp:"
+msgstr "时间戳："
+
+#: beatstamp/ui/handover_dialogs.py:911
+#: beatstamp/ui/handover_panel.py:240
+#: beatstamp/ui/handover_panel.py:266
+msgid "Title"
+msgstr "标题"
+
+#: beatstamp/ui/handover_dialogs.py:259
+msgid "Title, for example: Annex to the lease"
+msgstr "标题，例如：租赁合同附件"
+
+#: beatstamp/ui/handover_panel.py:266
+msgid "To"
+msgstr "收件人"
+
+#: beatstamp/ui/handover_dialogs.py:547
+msgid "To: %(who)s"
+msgstr "收件人：%(who)s"
+
+#: beatstamp/ui/handover_dialogs.py:432
+msgid "Together: %(size)s"
+msgstr "合计：%(size)s"
+
+#: beatstamp/ui/dialogs.py:477
+msgid "Tor proxy:"
+msgstr "Tor 代理："
+
+#: beatstamp/ui/handover_dialogs.py:918
+msgid "Total size"
+msgstr "总大小"
+
+#: beatstamp/ui/main_window.py:2441
+msgid ""
+"Traffic goes through the Tor network to the Sigelith hidden service.\n"
+"The server does not learn your IP address."
+msgstr ""
+"流量经由 Tor 网络到达 Sigelith 隐藏服务。\n"
+"服务器无法得知你的 IP 地址。"
+
+#: beatstamp/ui/dialogs.py:335
+msgid "Tries to write a test file to the folder once more."
+msgstr "再次尝试向该文件夹写入一个测试文件。"
+
+#: beatstamp/ui/dialogs.py:415
+msgid "Trust"
+msgstr "信任"
+
+#: beatstamp/api.py:364
+msgid "Try again in %(seconds)s s."
+msgstr "请在 %(seconds)s 秒后重试。"
+
+#: beatstamp/certificate.py:290
+msgid "UNCONFIRMED — root signed with a key outside the Sigelith list, signature not binding"
+msgstr "未确认——根由 Sigelith 列表之外的密钥签名，签名不具约束力"
+
+#: beatstamp/certificate.py:293
+msgid "UNCONFIRMED — the proof did not pass the local check"
+msgstr "未确认——证明未通过本地检查"
+
+#: beatstamp/history.py:465
+#: beatstamp/ui/details.py:163
+msgid "UTC time"
+msgstr "UTC 时间"
+
+#: beatstamp/workers.py:238
+msgid "Unexpected error: %(kind)s."
+msgstr "意外错误：%(kind)s。"
+
+#: beatstamp/ui/handover_dialogs.py:400
+msgid "Unknown card. Compare the fingerprint with the sender before you accept — anybody can send you a package."
+msgstr "未知卡片。接受之前，请与发送方核对指纹——任何人都可以给你发送交付件。"
+
+#: beatstamp/bundle.py:196
+#: beatstamp/fileproof.py:86
+msgid "Unknown proof format (expected \"%(format)s\")."
+msgstr "未知的证明格式（应为“%(format)s”）。"
+
+#: beatstamp/ui/dialogs.py:1064
+msgid "Until version 2.2 this program was called BeatStamp. TimeVaultSecure (timevaultsecure.com) is an earlier product by the same author, and Sigelith Desktop carries over the history it left behind."
+msgstr "本程序在 2.2 版之前名为 BeatStamp。TimeVaultSecure（timevaultsecure.com）是同一作者的早期产品，Sigelith Desktop 会接管它留下的历史记录。"
+
+#: beatstamp/ui/dialogs.py:714
+msgid ""
+"Upper ceiling on the number of entries in the local history. Above\n"
+"it the OLDEST entries are removed. 0 = no limit.\n"
+"\n"
+"The proof itself is in the public Sigelith register — removing an\n"
+"entry from the local history does not delete the stamp."
+msgstr ""
+"本地历史记录中条目数量的上限。超出上限时，\n"
+"最早的条目会被移除。0 = 不限。\n"
+"\n"
+"证明本身在公开的 Sigelith 登记簿中——从本地历史记录中\n"
+"移除条目并不会删除戳记。"
+
+#: beatstamp/ui/main_window.py:334
+msgid "Verification"
+msgstr "验证"
+
+#: beatstamp/history.py:478
+msgid "Verification address"
+msgstr "验证地址"
+
+#: beatstamp/ui/handover_dialogs.py:190
+msgid "Verified by"
+msgstr "核实方式"
+
+#: beatstamp/ui/main_window.py:1521
+msgid "Verified offline"
+msgstr "已离线核验"
+
+#: beatstamp/ui/main_window.py:844
+msgid "Verify a file…"
+msgstr "核验文件…"
+
+#: beatstamp/ui/handover_panel.py:177
+msgid "Verify evidence…"
+msgstr "验证证据…"
+
+#: beatstamp/ui/dialogs.py:660
+msgid "Verify the proof right after stamping"
+msgstr "盖戳后立即核验证明"
+
+#: beatstamp/api.py:365
+msgid "Wait a moment."
+msgstr "请稍候。"
+
+#: beatstamp/ui/main_window.py:975
+msgid "Wait for the current task to finish, or stop it (Esc)."
+msgstr "请等待当前任务完成，或将其停止（Esc）。"
+
+#: beatstamp/ui/handover_panel.py:69
+msgid "Waiting for the answer"
+msgstr "等待答复"
+
+#: beatstamp/ui/handover_panel.py:58
+msgid "Waiting for your decision"
+msgstr "等待你的决定"
+
+#: beatstamp/ui/main_window.py:1171
+#: beatstamp/ui/main_window.py:1392
+msgid "Warning"
+msgstr "警告"
+
+#: beatstamp/ui/witness_panel.py:554
+msgid "Warning from the witnesses"
+msgstr "来自见证者的警告"
+
+#: beatstamp/certificate.py:649
+#: beatstamp/history.py:472
+#: beatstamp/ui/details.py:219
+msgid "Week"
+msgstr "周"
+
+#: beatstamp/ui/history_model.py:215
+msgid "Week %(week)s (%(state)s)"
+msgstr "周 %(week)s（%(state)s）"
+
+#: beatstamp/api.py:728
+msgid "Week %(week)s has no OpenTimestamps proof yet."
+msgstr "周 %(week)s 尚无 OpenTimestamps 证明。"
+
+#: beatstamp/proof.py:119
+msgid "Week closed: the Merkle root is frozen and signed with the Sigelith Ed25519 key, and the digest was confirmed locally to belong to that root. The external anchor is on its way."
+msgstr "该周已结束：Merkle 根已冻结，并由 Sigelith 的 Ed25519 密钥签名；已在本地确认该摘要属于这个根。外部锚定即将到来。"
+
+#: beatstamp/ui/journey.py:83
+#: beatstamp/ui/journey.py:87
+#: beatstamp/ui/journey.py:94
+msgid "Week signed"
+msgstr "周已签名"
+
+#: beatstamp/ui/handover_report.py:241
+msgid "What"
+msgstr "内容"
+
+#: beatstamp/ui/main_window.py:894
+msgid "What a timestamp proves"
+msgstr "时间戳能证明什么"
+
+#: beatstamp/ui/dialogs.py:1439
+msgid "What it does in Sigelith Desktop"
+msgstr "在 Sigelith Desktop 中的作用"
+
+#: beatstamp/ui/main_window.py:505
+msgid "What the application computed ITSELF, without trusting the server"
+msgstr "应用自行计算的结果，无需信任服务器"
+
+#: beatstamp/ui/handover_report.py:222
+#: beatstamp/ui/handover_report.py:315
+msgid "What the package shows"
+msgstr "证据包显示的内容"
+
+#: beatstamp/ui/handover_dialogs.py:958
+#: beatstamp/ui/handover_report.py:318
+msgid "What the preview showed — and what the package holds"
+msgstr "预览显示的内容——以及交付件实际包含的内容"
+
+#: beatstamp/ui/main_window.py:895
+msgid "What the proof says in a dispute — and what it does not"
+msgstr "发生争议时证明能说明什么——以及不能说明什么"
+
+#: beatstamp/ui/handover_dialogs.py:256
+msgid "What the recipient sees before accepting"
+msgstr "接收方在接受前看到的内容"
+
+#: beatstamp/ui/handover_report.py:230
+msgid "What the recipient signed"
+msgstr "接收方签署的内容"
+
+#: beatstamp/ui/main_window.py:353
+msgid "What this application checks in the public log by itself"
+msgstr "本应用在公开日志中自行检查的内容"
+
+#: beatstamp/ui/handover_report.py:275
+#: beatstamp/ui/handover_report.py:323
+msgid "What this proves — and what it does not"
+msgstr "这能证明什么——以及不能证明什么"
+
+#: beatstamp/ui/handover_dialogs.py:438
+msgid "What you sign when you accept"
+msgstr "接受时你签署的内容"
+
+#: beatstamp/ui/details.py:158
+msgid "When"
+msgstr "时间"
+
+#: beatstamp/ui/history_model.py:41
+msgid "When the stamp was created, in your time zone"
+msgstr "戳记的创建时间（你所在的时区）"
+
+#: beatstamp/ui/handover_dialogs.py:183
+msgid "When you verified the card."
+msgstr "你核实卡片的日期。"
+
+#: beatstamp/ui/dialogs.py:765
+msgid ""
+"Where the files of an opened package are saved. Each package gets its own\n"
+"folder, and the files are marked as coming from the internet."
+msgstr ""
+"已打开交付件的文件保存位置。每个交付件都有自己的文件夹，\n"
+"文件会被标记为来自互联网。"
+
+#: beatstamp/ui/handover_dialogs.py:289
+msgid "Where the package goes"
+msgstr "交付件的去向"
+
+#: beatstamp/ui/history_model.py:48
+msgid "Where the week root was preserved outside Sigelith"
+msgstr "周根在 Sigelith 之外的保存位置"
+
+#: beatstamp/ui/dialogs.py:771
+#: beatstamp/ui/handover_controller.py:549
+msgid "Where to save the files"
+msgstr "文件保存位置"
+
+#: beatstamp/ui/handover_dialogs.py:337
+msgid "Where to save the package"
+msgstr "交付件保存位置"
+
+#: beatstamp/ui/dialogs.py:499
+msgid "While Sigelith Desktop is open it checks the public Sigelith log by itself: every new signed checkpoint, the chain between them and the copies kept by third parties. Choose how it checks YOUR proofs."
+msgstr "Sigelith Desktop 打开期间会自行检查公开的 Sigelith 日志：每个新的签名检查点、它们之间的链，以及第三方保存的副本。请选择它如何检查你自己的证明。"
+
+#: beatstamp/ui/main_window.py:903
+msgid "Why Sigelith exists"
+msgstr "Sigelith 为何存在"
+
+#: beatstamp/handover_tasks.py:147
+msgid "Windows Hello asks twice: for the new key and for signing the card."
+msgstr "Windows Hello 会询问两次：新密钥和卡片签名。"
+
+#: beatstamp/ui/handover_panel.py:340
+msgid "Windows Hello is not available here: the signing key will be kept in software, protected by your Windows account — the card says so."
+msgstr "此处无法使用 Windows Hello：签名密钥将以软件方式存储，受你的 Windows 账户保护——卡片会注明这一点。"
+
+#: beatstamp/handover_tasks.py:51
+#: beatstamp/ui/handover_dialogs.py:119
+msgid "Windows Hello is not available on this computer."
+msgstr "此计算机上无法使用 Windows Hello。"
+
+#: beatstamp/handover_tasks.py:55
+msgid "Windows Hello reported an error: %(detail)s"
+msgstr "Windows Hello 报告了错误：%(detail)s"
+
+#: beatstamp/handover_tasks.py:49
+msgid "Windows Hello was cancelled, so nothing was signed."
+msgstr "已取消 Windows Hello，因此没有签署任何内容。"
+
+#: beatstamp/ui/handover_dialogs.py:124
+msgid "Windows Hello will ask twice: for the new key and for signing the card."
+msgstr "Windows Hello 将询问两次：新密钥和卡片签名。"
+
+#: beatstamp/config.py:638
+msgid ""
+"Windows is blocking writes to this folder:\n"
+"%(path)s\n"
+"\n"
+"This is almost always ransomware protection in Windows Security (\"Controlled folder access\"). It lets only applications it already knows write to folders such as Documents, Pictures or Videos — a newly installed program is not one of them yet.\n"
+"\n"
+"There are two ways out: allow Sigelith Desktop in the Windows ransomware protection settings, or pick another folder for the data. Nothing is deleted either way — whatever is already in the old folder stays there."
+msgstr ""
+"Windows 正在阻止向此文件夹写入：\n"
+"%(path)s\n"
+"\n"
+"这几乎总是 Windows 安全中心的勒索软件防护（“受控制文件夹的访问”）所致。它只允许已知的应用写入文档、图片或视频等文件夹——新安装的程序还不在其列。\n"
+"\n"
+"有两种解决办法：在 Windows 勒索软件防护设置中允许 Sigelith Desktop，或者为数据另选一个文件夹。无论哪种办法都不会删除任何内容——旧文件夹中已有的一切都会保留在原处。"
+
+#: beatstamp/ui/dialogs.py:327
+msgid "Windows protection settings…"
+msgstr "Windows 防护设置…"
+
+#: beatstamp/ui/handover_report.py:283
+msgid "With the disclosed content, anyone can check which files the package held."
+msgstr "有了披露的内容，任何人都能检查交付件包含哪些文件。"
+
+#: beatstamp/ui/handover_controller.py:420
+msgid "With the files"
+msgstr "包含文件"
+
+#: beatstamp/ui/handover_dialogs.py:126
+msgid "Without Windows Hello the key is stored in software, protected by your Windows account. The card says so, and so does every evidence package."
+msgstr "没有 Windows Hello 时，密钥以软件方式存储，受你的 Windows 账户保护。卡片和每个证据包都会注明这一点。"
+
+#: beatstamp/ui/handover_controller.py:421
+msgid "Without the files"
+msgstr "不含文件"
+
+#: beatstamp/ui/witness_panel.py:358
+msgid "Witness alarm"
+msgstr "见证者警报"
+
+#: beatstamp/ui/dialogs.py:414
+#: beatstamp/ui/main_window.py:340
+msgid "Witnesses"
+msgstr "见证者"
+
+#: beatstamp/ui/main_window.py:2166
+msgid "Witnesses: %(n)s new checkpoints checked"
+msgstr "见证者：已检查 %(n)s 个新检查点"
+
+#: beatstamp/ui/main_window.py:997
+#: beatstamp/ui/main_window.py:1107
+msgid "Working…"
+msgstr "正在处理…"
+
+#: beatstamp/ui/main_window.py:2434
+msgid "YOUR OWN public key is set — besides the built-in list of Sigelith keys the application also accepts signatures made with that key."
+msgstr "已设置你自己的公钥——除内置的 Sigelith 密钥列表外，应用也会接受用该密钥制作的签名。"
+
+#: beatstamp/ui/main_window.py:1094
+msgid "You are about to stamp <b>%(files)s</b>.<br><br>The server accepts 20 stamps per minute, so the operation will take about %(minutes)s. Continue?"
+msgstr "你即将为 <b>%(files)s</b> 盖戳。<br><br>服务器每分钟接受 20 次盖戳，因此此操作大约需要 %(minutes)s。要继续吗？"
+
+#: beatstamp/ui/main_window.py:655
+msgid ""
+"You can check any digest — including one you did not stamp\n"
+"from this computer. Enter starts the check."
+msgstr ""
+"你可以核对任何摘要——包括并非从这台电脑\n"
+"盖戳的摘要。按 Enter 开始核对。"
+
+#: beatstamp/ui/handover_panel.py:147
+msgid "You choose a contact and files. The application encrypts them into a package that only this person can open. The package travels by e-mail, a messenger, a USB stick or a shared folder — never through the Sigelith server."
+msgstr "你选择联系人和文件。应用会把它们加密成只有这个人能打开的交付件。交付件通过电子邮件、即时通讯、U 盘或共享文件夹传递——从不经过 Sigelith 服务器。"
+
+#: beatstamp/ui/handover_dialogs.py:387
+msgid "You did not answer before the deadline, so the offer lapsed. The encrypted content was deleted from this computer."
+msgstr "未在期限前答复，因此提议已失效。加密内容已从此计算机删除。"
+
+#: beatstamp/ui/handover_panel.py:335
+msgid "You have no card yet"
+msgstr "你还没有卡片"
+
+#: beatstamp/ui/handover_dialogs.py:100
+msgid "Your Sigelith card"
+msgstr "你的 Sigelith 卡片"
+
+#: beatstamp/ui/handover_controller.py:348
+msgid "Your answer is signed, recorded in the log and placed in the exchange folder."
+msgstr "你的答复已签名、记录到日志，并放入交换文件夹。"
+
+#: beatstamp/ui/handover_panel.py:152
+msgid "Your application then records the missing key part in the public Sigelith log — that is the moment of delivery. The recipient's application finds it and opens the files by itself; you keep the evidence package."
+msgstr "随后你的应用会把缺失的密钥部分记录到 Sigelith 公开日志中——这就是交付时刻。接收方的应用会自行找到它并打开文件；证据包由你保存。"
+
+#: beatstamp/ui/handover_panel.py:343
+msgid "Your card fingerprint — compare it aloud, group by group:"
+msgstr "你的卡片指纹——请逐组大声核对："
+
+#: beatstamp/ui/handover_controller.py:171
+msgid "Your card is ready"
+msgstr "你的卡片已准备好"
+
+#: beatstamp/ui/handover_dialogs.py:106
+msgid "Your current card will be archived. Packages sent to it can still be opened here, but give people your new card file."
+msgstr "你当前的卡片将被归档。发往它的交付件仍可在这里打开，但请把新卡片文件交给大家。"
+
+#: beatstamp/ui/details.py:161
+msgid "Your local time"
+msgstr "你的本地时间"
+
+#: beatstamp/ui/main_window.py:498
+msgid ""
+"Your local time, UTC and @beat — the same moment. Below: the two bounds\n"
+"that do not depend on the Sigelith clock at all."
+msgstr ""
+"你的本地时间、UTC 和 @beat——同一时刻。下方是两个\n"
+"完全不依赖 Sigelith 时钟的时间界限。"
+
+#: beatstamp/ui/widgets.py:983
+msgid "Your local time, with the time zone of this computer"
+msgstr "你的本地时间，采用这台电脑的时区"
+
+#: beatstamp/ui/handover_dialogs.py:267
+msgid "Your name as the recipient should see it"
+msgstr "希望接收方看到的你的名字"
+
+#: beatstamp/ui/handover_dialogs.py:173
+msgid "Your name for this contact. It stays on this computer."
+msgstr "你为此联系人起的名字。仅保存在这台计算机上。"
+
+#: beatstamp/ui/history_model.py:49
+msgid "Your own description. It stays on this computer"
+msgstr "你自己的说明。它只保存在这台电脑上"
+
+#: beatstamp/ui/dialogs.py:624
+msgid "Your own key is accepted <b>alongside</b> the built-in list and is permanently visible in the status bar. Whoever slips you their key can sign any \"proof\" with it."
+msgstr "你自己的密钥会与内置列表<b>一并</b>被接受，并始终显示在状态栏中。谁把自己的密钥塞给你，谁就能用它签署任何“证明”。"
+
+#: beatstamp/ui/main_window.py:2415
+msgid "Your own public key"
+msgstr "你自己的公钥"
+
+#: beatstamp/ui/dialogs.py:598
+msgid "Your own public key (advanced)"
+msgstr "你自己的公钥（高级）"
+
+#: beatstamp/ui/witness_panel.py:266
+msgid "Your proofs"
+msgstr "你的证明"
+
+#: beatstamp/ui/main_window.py:351
+msgid "Your stamps and the stage their proof has reached"
+msgstr "你的戳记及其证明所处的阶段"
+
+#: beatstamp/ui/witness_panel.py:266
+msgid ""
+"Your stamps from the History, measured against the witnesses:\n"
+"how many are already inside a signed checkpoint and how many are\n"
+"kept by parties that Sigelith does not control."
+msgstr ""
+"历史记录中的戳记与见证者对照的结果：\n"
+"有多少已在签名检查点内，有多少已由\n"
+"Sigelith 无法控制的各方留存。"
+
+#: beatstamp/ui/witness_panel.py:557
+msgid "a checkpoint does not continue the chain of the previous one"
+msgstr "某个检查点未延续上一个检查点的链"
+
+#: beatstamp/ui/witness_panel.py:556
+msgid "a checkpoint file is not signed with a Sigelith key"
+msgstr "某个检查点文件并非由 Sigelith 密钥签名"
+
+#: beatstamp/ui/witness_panel.py:566
+msgid "a copy kept by a third party differs from what Sigelith served"
+msgstr "第三方保存的副本与 Sigelith 提供的内容不同"
+
+#: beatstamp/ui/witness_panel.py:560
+msgid "a new checkpoint does not extend the previous one — something was removed or rewritten"
+msgstr "新的检查点并未扩展上一个检查点——有内容被删除或改写"
+
+#: beatstamp/ui/handover_dialogs.py:423
+msgid "a program or script: open it only if you trust the sender"
+msgstr "程序或脚本：只有在信任发送方时才打开"
+
+#: beatstamp/ui/handover_dialogs.py:743
+msgid "acceptance"
+msgstr "接受"
+
+#: beatstamp/ui/handover_dialogs.py:748
+msgid "acceptance: %(accepted)s, key part: %(recorded)s"
+msgstr "接受：%(accepted)s，密钥部分：%(recorded)s"
+
+#: beatstamp/ui/journey.py:78
+msgid "after 00:00 UTC"
+msgstr "00:00 UTC 之后"
+
+#: beatstamp/ui/details.py:240
+msgid "after the week closes"
+msgstr "该周结束后"
+
+#: beatstamp/ui/widgets.py:1049
+msgid "ahead of"
+msgstr "快"
+
+#: beatstamp/ui/witness_panel.py:496
+msgid "alarm"
+msgstr "警报"
+
+#: beatstamp/ui/witness_panel.py:542
+msgid "all pinned"
+msgstr "全部已留存"
+
+#: beatstamp/ui/handover_report.py:294
+msgid "also in the root of week %(week)s, which the log declares anchored"
+msgstr "也在 %(week)s 周的根中，日志声明该根已锚定"
+
+#: beatstamp/ui/handover_report.py:297
+msgid "also in the signed root of week %(week)s"
+msgstr "也在 %(week)s 周的已签名根中"
+
+#: beatstamp/ui/main_window.py:1248
+msgid "anchor (according to the register): %(anchors)s"
+msgstr "锚定（据登记簿）：%(anchors)s"
+
+#: beatstamp/ui/witness_panel.py:57
+msgid "any moment now"
+msgstr "即将"
+
+#: beatstamp/ui/details.py:234
+msgid "arrives once the week closes (Monday 00:00 UTC)"
+msgstr "该周结束（周一 00:00 UTC）后到来"
+
+#: beatstamp/ui/witness_panel.py:610
+msgid "attention: %(names)s"
+msgstr "需注意：%(names)s"
+
+#: beatstamp/ui/handover_report.py:167
+msgid "attested: %(what)s"
+msgstr "硬件证明：%(what)s"
+
+#: beatstamp/certificate.py:438
+msgid "bank transfer %(bank)s, booked %(date)s"
+msgstr "银行转账 %(bank)s，入账日期 %(date)s"
+
+#: beatstamp/ui/journey.py:157
+msgid "bank transfer, %(bank)s"
+msgstr "银行转账，%(bank)s"
+
+#: beatstamp/ui/widgets.py:1049
+msgid "behind"
+msgstr "慢"
+
+#: beatstamp/ui/journey.py:103
+msgid "block %(h)s"
+msgstr "区块 %(h)s"
+
+#: beatstamp/ui/witness_panel.py:452
+msgid "block from checkpoint #%(n)s confirmed by %(source)s · mined %(when)s"
+msgstr "检查点 #%(n)s 中的区块已由 %(source)s 确认 · 挖出于 %(when)s"
+
+#: beatstamp/ui/dialogs.py:603
+msgid "built-in list of keys"
+msgstr "内置密钥列表"
+
+#: beatstamp/ui/details.py:265
+msgid "by asking the server about this digest"
+msgstr "通过向服务器查询此摘要"
+
+#: beatstamp/ui/handover_panel.py:42
+msgid "card received over a channel the person controls"
+msgstr "通过本人控制的渠道收到卡片"
+
+#: beatstamp/certificate.py:770
+msgid "certificate"
+msgstr "certificate"
+
+#: beatstamp/ui/main_window.py:1251
+msgid "checked privately — the server was not told which digest this is"
+msgstr "已私密核验——服务器未被告知这是哪个摘要"
+
+#: beatstamp/ui/main_window.py:2159
+msgid "checkpoint #%(n)s · %(new)s new · %(copies)s independent copies confirmed"
+msgstr "检查点 #%(n)s · %(new)s 个新检查点 · 已确认 %(copies)s 份独立副本"
+
+#: beatstamp/ui/witness_panel.py:462
+#: beatstamp/ui/witness_panel.py:490
+msgid "checks with outside services are turned off in the settings"
+msgstr "已在设置中关闭与外部服务的比对"
+
+#: beatstamp/ui/main_window.py:2301
+msgid "clock out of step"
+msgstr "时钟不同步"
+
+#: beatstamp/certificate.py:643
+#: beatstamp/ui/details.py:221
+#: beatstamp/ui/history_model.py:214
+msgid "closed"
+msgstr "已结束"
+
+#: beatstamp/ui/witness_panel.py:414
+msgid "computed locally"
+msgstr "本地计算"
+
+#: beatstamp/certificate.py:396
+msgid "concerns a root other than the week root — not accepted"
+msgstr "针对的是周根以外的另一个根——不予接受"
+
+#: beatstamp/ui/details.py:244
+msgid "confirmation no."
+msgstr "确认号"
+
+#: beatstamp/ui/witness_panel.py:455
+msgid "confirmed"
+msgstr "已确认"
+
+#: beatstamp/certificate.py:399
+msgid "confirmed according to the register"
+msgstr "据登记簿已确认"
+
+#: beatstamp/certificate.py:371
+msgid "confirmed according to the register — %(where)s%(ots)s"
+msgstr "据登记簿已确认——%(where)s%(ots)s"
+
+#: beatstamp/ui/journey.py:152
+msgid "confirmed by %(source)s"
+msgstr "已由 %(source)s 确认"
+
+#: beatstamp/ui/handover_dialogs.py:783
+msgid "confirmed outside Sigelith: %(sources)s"
+msgstr "已在 Sigelith 之外确认：%(sources)s"
+
+#: beatstamp/ui/witness_panel.py:432
+msgid "daily"
+msgstr "每日"
+
+#: beatstamp/ui/witness_panel.py:591
+msgid "daily checkpoint"
+msgstr "每日检查点"
+
+#: beatstamp/ui/main_window.py:2305
+msgid "difference %(offset)s s, round trip %(rtt)s ms"
+msgstr "偏差 %(offset)s 秒，往返 %(rtt)s 毫秒"
+
+#: beatstamp/ui/witness_panel.py:460
+#: beatstamp/ui/witness_panel.py:494
+msgid "differs"
+msgstr "不一致"
+
+#: beatstamp/ui/witness_panel.py:533
+msgid "empty"
+msgstr "暂无"
+
+#: beatstamp/ui/witness_panel.py:564
+msgid "entries of the public log that were already downloaded have changed"
+msgstr "已下载的公开日志条目发生了变化"
+
+#: beatstamp/ui/handover_report.py:248
+msgid "entry"
+msgstr "记录"
+
+#: beatstamp/ui/witness_panel.py:420
+msgid "fast mode"
+msgstr "快速模式"
+
+#: beatstamp/ui/witness_panel.py:419
+msgid "fast mode — the log is not downloaded; each digest is asked about separately"
+msgstr "快速模式——不下载日志；逐个查询每个摘要"
+
+#: beatstamp/ui/witness_panel.py:383
+msgid "fast mode — the server is asked about each digest"
+msgstr "快速模式——逐个向服务器查询每个摘要"
+
+#: beatstamp/ui/handover_panel.py:38
+msgid "fingerprint QR code scanned in person"
+msgstr "当面扫描了指纹二维码"
+
+#: beatstamp/ui/handover_panel.py:41
+msgid "fingerprint compared by voice (at least 4 groups)"
+msgstr "通过语音核对了指纹（至少 4 组）"
+
+#: beatstamp/ui/handover_panel.py:39
+msgid "fingerprint named in a document signed by the person"
+msgstr "指纹写在本人签署的文件中"
+
+#: beatstamp/ui/witness_panel.py:500
+msgid "identical"
+msgstr "一致"
+
+#: beatstamp/certificate.py:457
+msgid "identical copies checked by Sigelith Desktop at: %(list)s"
+msgstr "Sigelith Desktop 已核验的一致副本位于：%(list)s"
+
+#: beatstamp/ui/witness_panel.py:498
+msgid "identical copy checked byte for byte · %(when)s"
+msgstr "已逐字节核验，副本一致 · %(when)s"
+
+#: beatstamp/ui/witness_panel.py:62
+msgid "in %(d)s d %(h)s h"
+msgstr "%(d)s 天 %(h)s 小时后"
+
+#: beatstamp/ui/witness_panel.py:64
+msgid "in %(h)s h %(m)s min"
+msgstr "%(h)s 小时 %(m)s 分钟后"
+
+#: beatstamp/ui/witness_panel.py:65
+msgid "in %(m)s min"
+msgstr "%(m)s 分钟后"
+
+#: beatstamp/ui/details.py:238
+msgid "in block %(h)s (OpenTimestamps)"
+msgstr "在区块 %(h)s 中（OpenTimestamps）"
+
+#: beatstamp/ui/witness_panel.py:475
+msgid "in the log"
+msgstr "已入日志"
+
+#: beatstamp/ui/main_window.py:1226
+msgid "inclusion path — the week is still open"
+msgstr "包含路径——该周尚未结束"
+
+#: beatstamp/ui/witness_panel.py:435
+msgid "inconsistent"
+msgstr "不一致"
+
+#: beatstamp/handover_tasks.py:42
+msgid "it does not meet the rules of the format (%(code)s)."
+msgstr "它不符合格式规则（%(code)s）。"
+
+#: beatstamp/handover_tasks.py:39
+msgid "it is addressed to someone else."
+msgstr "它是发给别人的。"
+
+#: beatstamp/handover_tasks.py:41
+msgid "its creation time lies in the future."
+msgstr "它的创建时间在未来。"
+
+#: beatstamp/ui/witness_panel.py:42
+msgid "just now"
+msgstr "刚刚"
+
+#: beatstamp/ui/main_window.py:143
+msgid "key accepted thanks to YOUR OWN key from the settings"
+msgstr "密钥因设置中你自己的密钥而被接受"
+
+#: beatstamp/ui/handover_report.py:164
+msgid "key in hardware, used only after the person unlocks it"
+msgstr "硬件中的密钥，仅在本人解锁后使用"
+
+#: beatstamp/ui/details.py:230
+msgid "key outside the built-in list"
+msgstr "密钥不在内置列表中"
+
+#: beatstamp/ui/handover_report.py:165
+msgid "key stored in software"
+msgstr "以软件方式存储的密钥"
+
+#: beatstamp/ui/dialogs.py:1381
+msgid "last change on the server: %(when)s"
+msgstr "服务器上的最后更改：%(when)s"
+
+#: beatstamp/ui/witness_panel.py:396
+msgid "last check %(when)s"
+msgstr "上次检查：%(when)s"
+
+#: beatstamp/ui/handover_panel.py:52
+msgid "level %(level)s of 5 (1 = strongest) — %(method)s"
+msgstr "等级 %(level)s/5（1 为最强）— %(method)s"
+
+#: beatstamp/ui/handover_dialogs.py:176
+msgid "level %(level)s: %(method)s"
+msgstr "等级 %(level)s：%(method)s"
+
+#: beatstamp/ui/main_window.py:1244
+msgid "log checkpoint — the next daily one will contain this entry"
+msgstr "日志检查点——下一个每日检查点将包含此条目"
+
+#: beatstamp/ui/details.py:228
+msgid "made with a RETIRED key — the proof needs refreshing"
+msgstr "由已停用的密钥制作——证明需要刷新"
+
+#: beatstamp/ui/witness_panel.py:543
+msgid "maturing"
+msgstr "完善中"
+
+#: beatstamp/ui/witness_panel.py:398
+msgid "next %(when)s"
+msgstr "下次：%(when)s"
+
+#: beatstamp/ui/witness_panel.py:447
+msgid "no block in the checkpoints yet"
+msgstr "检查点中尚无区块"
+
+#: beatstamp/ui/main_window.py:2163
+msgid "no checkpoint has been issued yet"
+msgstr "尚未签发任何检查点"
+
+#: beatstamp/ui/main_window.py:1483
+msgid "no document was pointed to — only the proof itself was checked"
+msgstr "未指定文档——只检查了证明本身"
+
+#: beatstamp/ui/dialogs.py:713
+msgid "no limit"
+msgstr "不限"
+
+#: beatstamp/certificate.py:317
+msgid "no root signature"
+msgstr "无根签名"
+
+#: beatstamp/ui/main_window.py:1490
+msgid "no valid root signature"
+msgstr "无有效的根签名"
+
+#: beatstamp/ui/history_model.py:230
+msgid "no. %(ref)s"
+msgstr "编号 %(ref)s"
+
+#: beatstamp/certificate.py:353
+msgid "none — the time comes from the register alone, without confirmation by a signature."
+msgstr "无——时间仅来自登记簿，未经签名确认。"
+
+#: beatstamp/ui/dialogs.py:742
+msgid "none — you send the files yourself"
+msgstr "无——文件由你自己发送"
+
+#: beatstamp/ui/handover_report.py:250
+msgid "not accepted (%(code)s)"
+msgstr "未被认可（%(code)s）"
+
+#: beatstamp/certificate.py:363
+#: beatstamp/certificate.py:393
+msgid "not binding — root without a confirmed Sigelith signature"
+msgstr "不具约束力——根没有经确认的 Sigelith 签名"
+
+#: beatstamp/ui/handover_panel.py:50
+msgid "not bound"
+msgstr "未绑定"
+
+#: beatstamp/ui/handover_dialogs.py:781
+msgid "not checked"
+msgstr "未检查"
+
+#: beatstamp/ui/main_window.py:491
+msgid "not computed yet"
+msgstr "尚未计算"
+
+#: beatstamp/ui/handover_report.py:204
+msgid "not documented — the package does not show who holds the recipient's card"
+msgstr "未记录——证据包未显示谁持有接收方卡片"
+
+#: beatstamp/ui/journey.py:183
+msgid "not earlier than"
+msgstr "不早于"
+
+#: beatstamp/ui/handover_dialogs.py:711
+#: beatstamp/ui/handover_dialogs.py:719
+#: beatstamp/ui/handover_report.py:58
+msgid "not in the log"
+msgstr "不在日志中"
+
+#: beatstamp/ui/journey.py:184
+msgid "not later than"
+msgstr "不晚于"
+
+#: beatstamp/ui/witness_panel.py:517
+msgid "not published there yet — checked %(when)s; Sigelith Desktop tries again every 3 h"
+msgstr "尚未在该处发布——上次检查：%(when)s；Sigelith Desktop 每 3 小时重试一次"
+
+#: beatstamp/certificate.py:455
+msgid "not published yet — they follow in their own rhythm (GitHub weekly, Internet Archive weekly, Zenodo quarterly)"
+msgstr "尚未发布——它们按各自的节奏跟进（GitHub 每周、Internet Archive 每周、Zenodo 每季度）"
+
+#: beatstamp/ui/details.py:256
+msgid "not published yet — they follow on their own"
+msgstr "尚未发布——之后会自动跟进"
+
+#: beatstamp/ui/handover_report.py:201
+msgid "not recorded in the log before the offer"
+msgstr "未在提议之前记录到日志"
+
+#: beatstamp/certificate.py:376
+msgid "not submitted yet"
+msgstr "尚未提交"
+
+#: beatstamp/ui/witness_panel.py:532
+msgid "nothing stamped on this computer yet"
+msgstr "这台电脑上尚未盖过戳"
+
+#: beatstamp/ui/witness_panel.py:463
+#: beatstamp/ui/witness_panel.py:491
+msgid "off"
+msgstr "已关闭"
+
+#: beatstamp/certificate.py:644
+#: beatstamp/ui/history_model.py:214
+msgid "open"
+msgstr "进行中"
+
+#: beatstamp/ui/main_window.py:133
+msgid "or click to pick them from disk · you can drop many files and whole folders"
+msgstr "或点击从磁盘中选择 · 可以拖入多个文件和整个文件夹"
+
+#: beatstamp/certificate.py:401
+msgid "pending"
+msgstr "待处理"
+
+#: beatstamp/ui/witness_panel.py:381
+msgid "private mode — the whole log is on this computer"
+msgstr "隐私模式——整个日志都在这台电脑上"
+
+#: beatstamp/ui/details.py:263
+msgid "privately — from the copy of the public log on this computer"
+msgstr "私密方式——根据这台电脑上的公开日志副本"
+
+#: beatstamp/bundle.py:176
+msgid "proof"
+msgstr "proof"
+
+#: beatstamp/ui/main_window.py:2451
+msgid "proxy outside this computer"
+msgstr "代理不在这台电脑上"
+
+#: beatstamp/ui/witness_panel.py:594
+msgid "quarterly version %(quarter)s in Zenodo (at the latest)"
+msgstr "Zenodo 中的季度版本 %(quarter)s（最迟）"
+
+#: beatstamp/ui/handover_dialogs.py:740
+#: beatstamp/ui/handover_dialogs.py:829
+msgid "recipient"
+msgstr "接收方"
+
+#: beatstamp/ui/handover_dialogs.py:745
+msgid "recorded %(at)s, valid until %(until)s"
+msgstr "记录于 %(at)s，有效期至 %(until)s"
+
+#: beatstamp/ui/handover_report.py:200
+msgid "recorded in the log before the offer"
+msgstr "已在提议之前记录到日志"
+
+#: beatstamp/ui/handover_dialogs.py:743
+msgid "refusal"
+msgstr "拒绝"
+
+#: beatstamp/ui/witness_panel.py:593
+msgid "release %(week)s on GitHub (at the latest)"
+msgstr "GitHub 上的发布 %(week)s（最迟）"
+
+#: beatstamp/ui/witness_panel.py:611
+msgid "reported by sigelith.org/api/proof/status %(when)s"
+msgstr "由 sigelith.org/api/proof/status 报告（%(when)s）"
+
+#: beatstamp/ui/dialogs.py:581
+msgid "retired %(date)s: <span style=\"font-family:monospace\">%(key)s</span>"
+msgstr "%(date)s 停用：<span style=\"font-family:monospace\">%(key)s</span>"
+
+#: beatstamp/ui/main_window.py:1233
+msgid "root signature — it arrives once the week closes"
+msgstr "根签名——该周结束后到来"
+
+#: beatstamp/ui/handover_dialogs.py:740
+#: beatstamp/ui/handover_dialogs.py:829
+msgid "sender"
+msgstr "发送方"
+
+#: beatstamp/ui/handover_dialogs.py:729
+#: beatstamp/ui/handover_dialogs.py:948
+msgid "sender %(sender)s, recipient %(recipient)s"
+msgstr "发送方 %(sender)s，接收方 %(recipient)s"
+
+#: beatstamp/ui/main_window.py:2041
+msgid "sigelith-history.csv"
+msgstr "sigelith-history.csv"
+
+#: beatstamp/ui/handover_report.py:298
+msgid "signed receipt of the log"
+msgstr "日志的签名回执"
+
+#: beatstamp/ui/details.py:221
+msgid "still running"
+msgstr "进行中"
+
+#: beatstamp/certificate.py:374
+msgid "submitted to the OpenTimestamps calendars, waiting for a block"
+msgstr "已提交到 OpenTimestamps 日历服务器，等待区块"
+
+#: beatstamp/ui/dialogs.py:679
+msgid "the @beat time of the stamp"
+msgstr "盖戳时的 @beat 时间"
+
+#: beatstamp/certificate.py:366
+msgid "the Bitcoin chain"
+msgstr "Bitcoin 区块链"
+
+#: beatstamp/ui/witness_panel.py:568
+msgid "the Bitcoin explorer knows a different block"
+msgstr "Bitcoin 区块浏览器记录的是另一个区块"
+
+#: beatstamp/ui/main_window.py:1228
+#: beatstamp/ui/main_window.py:1488
+msgid "the Ed25519 root signature is valid"
+msgstr "Ed25519 根签名有效"
+
+#: beatstamp/ui/main_window.py:1230
+msgid "the Ed25519 signature is invalid"
+msgstr "Ed25519 签名无效"
+
+#: beatstamp/ui/main_window.py:1196
+msgid "the ORIGINAL timestamp was returned. The first stamp wins — the date on an already registered document cannot be refreshed."
+msgstr "返回的是原始时间戳。以第一次盖戳为准——已登记文档的日期无法更新。"
+
+#: beatstamp/ui/witness_panel.py:412
+msgid "the chain of every entry and the root of %(k)s checkpoints recomputed on this computer"
+msgstr "已在这台电脑上重新计算每个条目的链以及 %(k)s 个检查点的根"
+
+#: beatstamp/ui/main_window.py:1498
+msgid "the checkpoint in the proof does not check out"
+msgstr "证明中的检查点未通过核验"
+
+#: beatstamp/ui/handover_dialogs.py:876
+msgid "the content breaks the format rules (file list, names or sizes)"
+msgstr "内容违反格式规则（文件列表、名称或大小）"
+
+#: beatstamp/ui/witness_panel.py:504
+msgid "the copy at %(name)s cannot be read — it proves nothing either way; checked %(when)s, Sigelith Desktop tries again in a day"
+msgstr "%(name)s 上的副本无法读取——它既不能证明什么，也不能否定什么；上次检查：%(when)s，Sigelith Desktop 一天后重试"
+
+#: beatstamp/ui/witness_panel.py:494
+msgid "the copy at %(name)s differs from what Sigelith served — see the alarm"
+msgstr "%(name)s 上的副本与 Sigelith 提供的内容不同——请查看警报"
+
+#: beatstamp/ui/witness_panel.py:416
+msgid "the copy of the log is downloaded at the first check"
+msgstr "首次检查时会下载日志副本"
+
+#: beatstamp/ui/dialogs.py:673
+msgid "the date and time of the stamp (your local time)"
+msgstr "盖戳的日期和时间（你的本地时间）"
+
+#: beatstamp/ui/handover_dialogs.py:873
+msgid "the decrypted content is not the content committed in the offer"
+msgstr "解密后的内容不是提议中承诺的内容"
+
+#: beatstamp/ui/main_window.py:642
+msgid "the digest will be computed locally and looked up in the register"
+msgstr "摘要将在本地计算，并在登记簿中查找"
+
+#: beatstamp/ui/main_window.py:1481
+msgid "the document digest does NOT match the proof"
+msgstr "文档摘要与证明不符"
+
+#: beatstamp/ui/main_window.py:1479
+msgid "the document digest matches the proof"
+msgstr "文档摘要与证明相符"
+
+#: beatstamp/ui/handover_dialogs.py:871
+msgid "the encrypted package does not decrypt with the key committed in the offer"
+msgstr "加密交付件无法用提议中承诺的密钥解密"
+
+#: beatstamp/ui/witness_panel.py:459
+msgid "the explorer knows a different block at this height"
+msgstr "区块浏览器在此高度记录的是另一个区块"
+
+#: beatstamp/handover_tasks.py:37
+msgid "the file is damaged or incomplete."
+msgstr "文件已损坏或不完整。"
+
+#: beatstamp/ui/witness_panel.py:425
+msgid "the first check downloads every checkpoint and verifies the whole chain"
+msgstr "首次检查会下载所有检查点并核验整条链"
+
+#: beatstamp/ui/witness_panel.py:524
+msgid "the first quarterly version: 2026-Q3, early October"
+msgstr "首个季度版本：2026-Q3，10 月初"
+
+#: beatstamp/ui/witness_panel.py:477
+msgid "the first weekly checkpoint lists every bank anchor so far"
+msgstr "首个每周检查点会列出迄今为止的所有银行锚定"
+
+#: beatstamp/ui/witness_panel.py:521
+msgid "the first weekly release follows the weekly checkpoint (Monday)"
+msgstr "首个每周发布会在每周检查点（周一）之后跟进"
+
+#: beatstamp/ui/main_window.py:1224
+msgid "the inclusion path does NOT lead to the root"
+msgstr "包含路径并不通向根"
+
+#: beatstamp/ui/main_window.py:1487
+msgid "the inclusion path does not match"
+msgstr "包含路径不匹配"
+
+#: beatstamp/ui/main_window.py:1485
+msgid "the inclusion path leads to the week root"
+msgstr "包含路径通向周根"
+
+#: beatstamp/ui/main_window.py:1222
+msgid "the inclusion path matches the week root"
+msgstr "包含路径与周根相符"
+
+#: beatstamp/ui/dialogs.py:668
+msgid "the name of the source file"
+msgstr "源文件的名称"
+
+#: beatstamp/ui/details.py:259
+msgid "the next daily checkpoint will contain this entry"
+msgstr "下一个每日检查点将包含此条目"
+
+#: beatstamp/handover_tasks.py:35
+msgid "the offer has expired."
+msgstr "提议已过期。"
+
+#: beatstamp/ui/main_window.py:1241
+msgid "the path to checkpoint #%(n)s does NOT check out"
+msgstr "到检查点 #%(n)s 的路径未通过核验"
+
+#: beatstamp/ui/main_window.py:1237
+msgid "the path to signed checkpoint #%(n)s checks out — against the checkpoint file this application verified"
+msgstr "到签名检查点 #%(n)s 的路径核验无误——依据的是本应用核验过的检查点文件"
+
+#: beatstamp/ui/handover_dialogs.py:875
+msgid "the preview cannot be read with the key part committed in the offer"
+msgstr "无法用提议中承诺的密钥部分读取预览"
+
+#: beatstamp/ui/handover_dialogs.py:869
+msgid "the preview the recipient saw before accepting differs from the content"
+msgstr "接收方在接受前看到的预览与内容不同"
+
+#: beatstamp/ui/main_window.py:1494
+msgid "the proof carries signed checkpoint #%(n)s and the path of the entry to its root checks out"
+msgstr "证明中带有签名检查点 #%(n)s，且条目到其根的路径核验无误"
+
+#: beatstamp/ui/witness_panel.py:562
+msgid "the root recomputed from the public log differs from the signed checkpoint"
+msgstr "根据公开日志重新计算出的根与签名检查点不同"
+
+#: beatstamp/ui/main_window.py:171
+msgid "the signature covers week %(week)s (%(range)s UTC) — the document existed no later than %(end)s; the exact moment is given by the register"
+msgstr "签名覆盖周 %(week)s（%(range)s UTC）——该文档最迟在 %(end)s 已经存在；确切时刻由登记簿给出"
+
+#: beatstamp/ui/witness_panel.py:523
+msgid "the snapshot follows the GitHub release"
+msgstr "快照会在 GitHub 发布之后跟进"
+
+#: beatstamp/ui/witness_panel.py:615
+msgid "the state of the Sigelith pipeline arrives with the first check"
+msgstr "Sigelith 流水线的状态会随首次检查一同获取"
+
+#: beatstamp/ui/details.py:246
+msgid "the transfer with the week root follows"
+msgstr "附带周根的转账随后跟进"
+
+#: beatstamp/ui/main_window.py:176
+msgid "time according to the register — week %(week)s without a confirmed signature"
+msgstr "时间据登记簿——周 %(week)s 没有经确认的签名"
+
+#: beatstamp/ui/main_window.py:2335
+msgid "unavailable"
+msgstr "不可用"
+
+#: beatstamp/ui/handover_dialogs.py:787
+msgid "under a checkpoint this application verified; copies at third parties follow"
+msgstr "位于本应用已验证的检查点之下；第三方副本随后跟进"
+
+#: beatstamp/certificate.py:516
+#: beatstamp/ui/main_window.py:2346
+msgid "unknown"
+msgstr "未知"
+
+#: beatstamp/ui/handover_panel.py:368
+msgid "unknown card %(fingerprint)s"
+msgstr "未知卡片 %(fingerprint)s"
+
+#: beatstamp/ui/witness_panel.py:508
+msgid "unreadable"
+msgstr "无法读取"
+
+#: beatstamp/ui/details.py:226
+msgid "valid, Sigelith key from the list built into the application"
+msgstr "有效，为应用内置列表中的 Sigelith 密钥"
+
+#: beatstamp/ui/witness_panel.py:435
+msgid "verified"
+msgstr "已核验"
+
+#: beatstamp/ui/witness_panel.py:417
+#: beatstamp/ui/witness_panel.py:426
+#: beatstamp/ui/witness_panel.py:447
+#: beatstamp/ui/witness_panel.py:466
+#: beatstamp/ui/witness_panel.py:478
+#: beatstamp/ui/witness_panel.py:515
+#: beatstamp/ui/witness_panel.py:519
+#: beatstamp/ui/witness_panel.py:526
+#: beatstamp/ui/witness_panel.py:543
+msgid "waiting"
+msgstr "等待中"
+
+#: beatstamp/ui/details.py:239
+msgid "waiting for a block"
+msgstr "等待区块"
+
+#: beatstamp/ui/witness_panel.py:465
+msgid "waiting for the independent explorer"
+msgstr "等待独立的区块浏览器"
+
+#: beatstamp/ui/handover_dialogs.py:788
+msgid "waiting for the next checkpoint (within a day)"
+msgstr "等待下一个检查点（一天之内）"
+
+#: beatstamp/certificate.py:318
+msgid "waiting for the week to close"
+msgstr "等待该周结束"
+
+#: beatstamp/certificate.py:344
+msgid "week %(week)s (%(range)s UTC) — root signed and checked: the document existed no later than %(end)s. The exact moment within that week is given by the Sigelith register."
+msgstr "周 %(week)s（%(range)s UTC）——根已签名并经过检查：该文档最迟在 %(end)s 已经存在。该周内的确切时刻由 Sigelith 登记簿给出。"
+
+#: beatstamp/certificate.py:350
+msgid "week %(week)s is still running — the signature will cover it once it closes; the exact time is given by the Sigelith register."
+msgstr "周 %(week)s 仍在进行中——该周结束后签名将覆盖它；确切时间由 Sigelith 登记簿给出。"
+
+#: beatstamp/ui/witness_panel.py:432
+msgid "weekly"
+msgstr "每周"
+
+#: beatstamp/ui/witness_panel.py:592
+msgid "weekly checkpoint closing %(week)s"
+msgstr "结束 %(week)s 的每周检查点"
+
+#: beatstamp/ui/main_window.py:2335
+msgid "working"
+msgstr "正常"
+
+#: beatstamp/certificate.py:377
+msgid "— (the week is still running)"
+msgstr "—（该周仍在进行中）"
+
+#: beatstamp/ui/main_window.py:1152
+msgid "…and %(count)s more."
+msgstr "…另有 %(count)s 个。"
+
+#: beatstamp/ui/handover_dialogs.py:430
+msgid "…and %(files)s more."
+msgstr "…以及另外 %(files)s。"
+
+#: beatstamp/ui/main_window.py:654
+msgid "…or paste a SHA-256 digest here (64 hex characters)"
+msgstr "…或在此粘贴 SHA-256 摘要（64 个十六进制字符）"

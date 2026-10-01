@@ -1,0 +1,73 @@
+# Sigelith Desktop — en-us
+
+## Short description
+Timestamp files without uploading them, verify any proof offline, watch the public log’s independent witnesses — and hand over files with proof of delivery. Free, no account, open source.
+
+## Description
+Sigelith Desktop proves that a file existed at a point in time — and the file never leaves your computer.
+
+Timestamp files
+Drag files onto the window. The app computes each file’s SHA-256 digest on your computer and sends only that digest to the public Sigelith log. You get a PDF certificate and an offline .beatproof proof.
+
+Verify without trusting us
+Drop any file to see whether and when it was stamped. The app checks the inclusion path and the signature itself, against keys built into the program. In private mode it keeps its own copy of the public log, so the server never learns which file you check.
+
+Witnesses
+While it runs, the app audits the log by itself: signed checkpoints, the chain between them, copies at GitHub, the Internet Archive and Zenodo, and the Bitcoin blocks they name. Any mismatch raises an alarm.
+
+Hand over files with proof of delivery
+The recipient confirms receipt with their own key (Windows Hello), and the moment of delivery is recorded in the public log. The package travels between you; the Sigelith server stores nothing.
+For a reader without a verifier — a lawyer, an expert, a court — open the evidence with Verify evidence… and save a PDF report: every check in plain words, with instructions for checking it independently.
+If a package does not open the way it was offered, the recipient’s acceptance has no effect. The app says so and saves a defect proof that anyone can recompute.
+
+Private by default
+Private mode keeps a copy of the whole public log (only digests, which are public anyway), so refreshing a proof never tells the server which one is yours.
+
+What a timestamp proves
+A timestamp shows that a file with exactly these bytes existed no later than the recorded time. It does not show who made the file or what it means. The proof is tied to the exact bytes. A copy re-saved by an editor or re-compressed by a messenger has a different digest — keep the original with its certificate.
+
+Sigelith Desktop is free and open source (Apache-2.0). No account, no ads, no telemetry.
+Available in English, Polish, German, Spanish, French, Russian, Turkish, Japanese, Korean, Chinese and Arabic.
+
+## What's new in this version
+• Checks single-file time proofs from Sigelith Backup (.sigelith-proof files): a proof shows that one file was in a sealed backup at that moment, without revealing the other files.
+• Double-clicking a .beatproof or .sigelith-proof file opens the app on the Verification tab — a proof file is never stamped by mistake.
+• Sigelith Backup can pass a file from a backup straight to Sigelith Handover.
+
+## Product features
+Timestamp any file without uploading it — only its SHA-256 digest is recorded
+PDF certificate and an offline .beatproof proof for every file
+Stamp many files or whole folders at once
+Verify files and proofs offline, against keys built into the app
+Private mode: your own copy of the public log, so nobody learns what you check
+Built-in witnesses: signed checkpoints, independent copies and Bitcoin anchors
+Proof of delivery signed with the recipient’s key and Windows Hello
+Encrypted packages travel by e-mail, messenger, USB stick or a shared folder
+Evidence package and PDF report for lawyers, experts and courts
+History of every stamp with the state of its proof
+Optional Tor mode
+Free — no account, no ads, no telemetry
+Open source (Apache-2.0)
+In 11 languages
+
+## Screenshots and captions
+01-stamp.png: Timestamp files: only the SHA-256 digest leaves your computer.
+02-history.png: History: every stamp with the state of its proof.
+03-witnesses.png: Witnesses: what the app confirmed in the public log by itself.
+04-handover.png: Handover: send files, receive them, keep the evidence.
+05-evidence.png: Evidence check: the verdict and every check, in your language.
+
+## Additional system requirements (recommended hardware)
+Windows 10 (22H2) or Windows 11, 64-bit. Handover works best with Windows Hello.
+
+## Keywords (up to 7)
+timestamp
+time stamp
+proof of existence
+SHA-256
+digital evidence
+proof of delivery
+file hash
+
+## Copyright and trademark info
+© 2026 Adam Koch

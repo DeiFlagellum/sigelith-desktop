@@ -203,7 +203,7 @@
 
 -----------------------------------------------------------------------
 
-   BeatStamp
+   Sigelith Desktop (formerly BeatStamp)
 
    Copyright 2026 Adam Koch
 
@@ -219,7 +219,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 
-   This license covers the BeatStamp source code in this directory.  The
+   This license covers the Sigelith Desktop source code in this directory.  The
    program is distributed together with third-party software that carries
    its own licenses -- in particular Qt and PySide6 under the GNU Lesser
    General Public License v3.  See the NOTICE file next to this one, and

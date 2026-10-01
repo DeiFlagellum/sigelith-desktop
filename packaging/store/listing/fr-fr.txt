@@ -1,0 +1,73 @@
+# Sigelith Desktop — fr-fr
+
+## Short description
+Horodatez des fichiers sans les envoyer, vérifiez n’importe quelle preuve hors ligne, surveillez les témoins indépendants du journal public — et remettez des fichiers avec une preuve de remise. Gratuit, sans compte, open source.
+
+## Description
+Sigelith Desktop prouve qu’un fichier existait à un moment donné — et le fichier ne quitte jamais votre ordinateur.
+
+Horodater des fichiers
+Glissez des fichiers sur la fenêtre. L’application calcule l’empreinte SHA-256 de chaque fichier sur votre ordinateur et n’envoie que cette empreinte au journal public Sigelith. Vous obtenez un certificat PDF et une preuve hors ligne .beatproof.
+
+Vérifier sans nous faire confiance
+Déposez n’importe quel fichier pour savoir s’il a été horodaté, et quand. L’application vérifie elle-même le chemin d’inclusion et la signature, avec des clés intégrées au programme. En mode privé, elle garde sa propre copie du journal public : le serveur ne sait jamais quel fichier vous vérifiez.
+
+Témoins
+Tant qu’elle tourne, l’application audite elle-même le journal : points de contrôle signés, chaîne qui les relie, copies sur GitHub, dans l’Internet Archive et sur Zenodo, et blocs Bitcoin qu’ils citent. Toute divergence déclenche une alarme.
+
+Remettez des fichiers avec une preuve de remise
+Le destinataire confirme la réception avec sa propre clé (Windows Hello), et le moment de la remise est inscrit au journal public. L’envoi circule entre vous ; le serveur Sigelith ne conserve rien.
+Pour un lecteur sans vérificateur — avocat, expert, tribunal —, ouvrez la preuve avec « Vérifier une preuve… » et enregistrez un rapport PDF : chaque vérification en toutes lettres, avec des instructions pour la vérifier de façon indépendante.
+Si un envoi ne s’ouvre pas comme il a été proposé, l’acceptation du destinataire est sans effet. L’application le signale et enregistre une preuve du défaut que chacun peut recalculer.
+
+Privé par défaut
+Le mode privé garde une copie de tout le journal public (uniquement des empreintes, publiques de toute façon) : actualiser une preuve ne dit jamais au serveur laquelle est la vôtre.
+
+Ce que prouve un horodatage
+Un horodatage montre qu’un fichier composé exactement de ces octets existait au plus tard au moment enregistré. Il ne montre ni qui a créé le fichier ni ce qu’il signifie. La preuve est liée à ces octets exacts. Une copie réenregistrée par un éditeur ou recompressée par une messagerie a une autre empreinte — gardez l’original avec son certificat.
+
+Sigelith Desktop est gratuit et open source (Apache-2.0). Sans compte, sans publicité, sans télémétrie.
+Disponible en anglais, polonais, allemand, espagnol, français, russe, turc, japonais, coréen, chinois et arabe.
+
+## What's new in this version
+• Vérifie les preuves horodatées de fichiers individuels issues de Sigelith Backup (fichiers .sigelith-proof) : la preuve montre qu’un fichier se trouvait dans une sauvegarde scellée à ce moment-là, sans révéler les autres fichiers.
+• Un double-clic sur un fichier .beatproof ou .sigelith-proof ouvre l’application dans l’onglet Vérification : un fichier de preuve n’est jamais horodaté par erreur.
+• Sigelith Backup peut transmettre un fichier de la sauvegarde directement à Sigelith Handover.
+
+## Product features
+Horodatez n’importe quel fichier sans l’envoyer — seule son empreinte SHA-256 est enregistrée
+Certificat PDF et preuve .beatproof vérifiable hors ligne pour chaque fichier
+Horodatez de nombreux fichiers ou des dossiers entiers d’un coup
+Vérifiez fichiers et preuves hors ligne, avec des clés intégrées à l’application
+Mode privé : votre propre copie du journal public, pour que personne ne sache ce que vous vérifiez
+Témoins intégrés : points de contrôle signés, copies indépendantes et ancrages Bitcoin
+Preuve de remise signée avec la clé du destinataire et Windows Hello
+Les envois chiffrés voyagent par e-mail, messagerie, clé USB ou dossier partagé
+Dossier de preuve et rapport PDF pour avocats, experts et tribunaux
+Historique de chaque horodatage avec l’état de sa preuve
+Mode Tor en option
+Gratuit — sans compte, sans publicité, sans télémétrie
+Open source (Apache-2.0)
+En 11 langues
+
+## Screenshots and captions
+01-stamp.png: Horodater des fichiers : seule l’empreinte SHA-256 quitte votre ordinateur.
+02-history.png: Historique : chaque horodatage avec l’état de sa preuve.
+03-witnesses.png: Témoins : ce que l’application a confirmé elle-même dans le journal public.
+04-handover.png: Handover : envoyez des fichiers, recevez-les, gardez les preuves.
+05-evidence.png: Vérification d’une preuve : le verdict et chaque contrôle, dans votre langue.
+
+## Additional system requirements (recommended hardware)
+Windows 10 (22H2) ou Windows 11, 64 bits. Handover fonctionne au mieux avec Windows Hello.
+
+## Keywords (up to 7)
+horodatage
+preuve d'existence
+SHA-256
+preuve numérique
+preuve de remise
+empreinte numérique
+hachage
+
+## Copyright and trademark info
+© 2026 Adam Koch

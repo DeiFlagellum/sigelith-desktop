@@ -1,0 +1,51 @@
+libffi inside cffi's _cffi_backend.pyd
+======================================
+
+The Windows build of cffi 2.1.1 does not link a libffi library: its setup.py
+compiles the copy of libffi 2.00-beta that cffi carries in
+src/c/libffi_x86_x64 ("from the CPython distribution", says the setup.py)
+into _internal/_cffi_backend.cp314-win_amd64.pyd, which accordingly imports
+no libffi DLL.  On 64-bit Windows the files compiled in are ffi.c, prep_cif.c
+and types.c, with the assembler routines of win64.obj.  The headers of those
+sources carry these copyright notices:
+
+  ffi.c:
+    ffi.c - Copyright (c) 1996, 1998, 1999, 2001  Red Hat, Inc.
+    Copyright (c) 2002  Ranjit Mathew
+    Copyright (c) 2002  Bo Thorsen
+    Copyright (c) 2002  Roger Sayle
+  prep_cif.c:
+    prep_cif.c - Copyright (c) 1996, 1998  Red Hat, Inc.
+  types.c:
+    types.c - Copyright (c) 1996, 1998  Red Hat, Inc.
+  ffi.h:
+    libffi 2.00-beta - Copyright (c) 1996-2003  Red Hat, Inc.
+  ffitarget.h:
+    ffitarget.h - Copyright (c) 1996-2003  Red Hat, Inc.
+  ffi_common.h:
+    ffi_common.h - Copyright (c) 1996  Red Hat, Inc.
+
+and this permission notice (verbatim from ffi.c; prep_cif.c, types.c, ffi.h
+and ffitarget.h carry the same text):
+
+   Permission is hereby granted, free of charge, to any person obtaining
+   a copy of this software and associated documentation files (the
+   ``Software''), to deal in the Software without restriction, including
+   without limitation the rights to use, copy, modify, merge, publish,
+   distribute, sublicense, and/or sell copies of the Software, and to
+   permit persons to whom the Software is furnished to do so, subject to
+   the following conditions:
+
+   The above copyright notice and this permission notice shall be included
+   in all copies or substantial portions of the Software.
+
+   THE SOFTWARE IS PROVIDED ``AS IS'', WITHOUT WARRANTY OF ANY KIND, EXPRESS
+   OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+   MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+   IN NO EVENT SHALL CYGNUS SOLUTIONS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+   OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+   ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+   OTHER DEALINGS IN THE SOFTWARE.
+
+This is the older libffi that cffi bundles, not the libffi-8.dll of CPython
+that _ctypes.pyd uses; that one is a separate component in the NOTICE file.

@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-  BeatStamp — manifest paczki MSIX dla Microsoft Store.
+  Sigelith Desktop — manifest paczki MSIX dla Microsoft Store.
 
-  SZABLON. Dwie wartosci w sekcji <Identity> to PLACEHOLDERY i paczka z nimi
-  NIE zostanie przyjeta przez Sklep — trzeba je przepisac z Partner Center po
-  zarejestrowaniu aplikacji (Partner Center → aplikacja → Product management →
-  Product identity). Musza zgadzac sie CO DO ZNAKU, razem z wielkoscia liter:
-  Windows odrzuca paczke, ktorej `Publisher` rozni sie od tego w certyfikacie
-  podpisujacym choc jednym znakiem, a Sklep odrzuca paczke z cudzym `Name`.
-  Szczegoly i kolejnosc krokow: ../README.md, rozdzial „Paczka dla Microsoft
+  Wartosci w sekcji <Identity> i <PublisherDisplayName> sa przepisane z
+  Partner Center (aplikacja → Product management → Product identity) po
+  rezerwacji nazwy „Sigelith Desktop" 2026-09-27 (produkt 9N5XK65GTF33;
+  wczesniejsza rezerwacja „BeatStamp" z 2026-09-26 wygasa nieuzywana).
+  Musza zgadzac sie CO DO ZNAKU,
+  razem z wielkoscia liter: Windows odrzuca paczke, ktorej `Publisher` rozni
+  sie od tego w certyfikacie podpisujacym choc jednym znakiem, a Sklep
+  odrzuca paczke z cudzym `Name`. Nie zmieniac ich recznie — jedynym zrodlem
+  jest Product identity.
+  Szczegoly i kolejnosc krokow: ../ROZWOJ.md, rozdzial „Paczka dla Microsoft
   Store (MSIX)".
 
   `Version` podmienia automatycznie `build_msix.ps1` na podstawie
@@ -22,31 +25,36 @@
   xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
   xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
-  IgnorableNamespaces="uap rescap">
+  xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3"
+  xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10"
+  IgnorableNamespaces="uap rescap uap3 desktop">
 
   <!--
-    UZUPELNIC PO REJESTRACJI W PARTNER CENTER.
-
-    Name       — „Package/Identity/Name" z Partner Center. Ma postac
-                 <PrefiksWydawcy>.<NazwaAplikacji>, np. „12345AdamKoch.BeatStamp".
-                 Prefiks przydziela Microsoft; nie da sie go zgadnac.
-    Publisher  — „Package/Identity/Publisher", pelna nazwa wyrozniajaca
-                 certyfikatu, np. „CN=1A2B3C4D-5E6F-7890-ABCD-EF1234567890".
-                 Dla konta indywidualnego jest to zwykle GUID, a NIE „CN=Adam Koch".
-                 Do testu lokalnego (self-signed) wpisz tu cokolwiek — ale
-                 certyfikat testowy musi miec DOKLADNIE ten sam „Subject".
+    Z Partner Center (Product identity):
+    Name       — „Package/Identity/Name", nadany przez Microsoft przy
+                 rezerwacji nazwy.
+    Publisher  — „Package/Identity/Publisher", nazwa wyrozniajaca certyfikatu,
+                 ktorym Microsoft podpisuje paczke w Sklepie (GUID, a nie
+                 „CN=Adam Koch"). Certyfikat testowy z `build_msix.ps1 -SelfSign`
+                 dostaje DOKLADNIE ten sam „Subject".
+  -->
+  <!--
+    Tozsamosc produktu „Sigelith Desktop" (Partner Center, 9N5XK65GTF33,
+    2026-09-27). `build_msix.ps1` przez `check_identity.ps1` ODMAWIA
+    budowania paczki z tozsamoscia BeatStampa (AdamKoch.BeatStamp).
   -->
   <Identity
-    Name="PLACEHOLDER-WYDAWCA.BeatStamp"
-    Publisher="CN=PLACEHOLDER-PUBLISHER-Z-PARTNER-CENTER"
-    Version="2.1.0.0"
+    Name="AdamKoch.SigelithDesktop"
+    Publisher="CN=322BC472-4859-4579-991B-25EE879D3796"
+    Version="3.0.1.0"
     ProcessorArchitecture="x64" />
 
   <Properties>
-    <DisplayName>BeatStamp</DisplayName>
+    <DisplayName>Sigelith Desktop</DisplayName>
     <!--
       Nazwa wydawcy widoczna dla uzytkownika w karcie Sklepu i w „Aplikacje
-      i funkcje". Musi zgadzac sie z nazwa wydawcy z konta Partner Center.
+      i funkcje". Musi zgadzac sie z „Package/Properties/PublisherDisplayName"
+      z Product identity (nazwa wydawcy z konta Partner Center).
     -->
     <PublisherDisplayName>Adam Koch</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
@@ -79,21 +87,29 @@
     <Resource Language="en-US" />
     <Resource Language="pl-PL" />
     <Resource Language="de-DE" />
+    <Resource Language="es-ES" />
+    <Resource Language="fr-FR" />
+    <Resource Language="ru-RU" />
+    <Resource Language="tr-TR" />
+    <Resource Language="ja-JP" />
+    <Resource Language="ko-KR" />
+    <Resource Language="zh-CN" />
+    <Resource Language="ar-SA" />
   </Resources>
 
   <Applications>
     <!--
       `Windows.FullTrustApplication` — zwykly program Win32 w paczce MSIX.
-      BeatStamp czyta pliki wskazane przez uzytkownika z dowolnego miejsca na
+      Sigelith Desktop czyta pliki wskazane przez uzytkownika z dowolnego miejsca na
       dysku i zapisuje historie poza AppData, wiec model piaskownicy UWP nie
       wchodzi w gre.
     -->
-    <Application Id="BeatStamp"
-                 Executable="BeatStamp.exe"
+    <Application Id="SigelithDesktop"
+                 Executable="SigelithDesktop.exe"
                  EntryPoint="Windows.FullTrustApplication">
       <uap:VisualElements
-        DisplayName="BeatStamp"
-        Description="Dowod istnienia pliku w czasie. Dokument nie opuszcza komputera - do publicznego rejestru BeatTime trafia wylacznie jego skrot SHA-256."
+        DisplayName="Sigelith Desktop"
+        Description="Proof that a file existed at a point in time. The file never leaves your computer - only its SHA-256 digest goes to the public Sigelith log."
         BackgroundColor="transparent"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png">
@@ -107,6 +123,50 @@
           </uap:ShowNameOnTiles>
         </uap:DefaultTile>
       </uap:VisualElements>
+      <!--
+        Sigelith Handover (3.0): dwuklik na paczce, odpowiedzi albo karcie
+        otwiera aplikacje, a `MainWindow.open_paths` kieruje plik do zakladki
+        Handover — NIGDY do stemplowania (skrot paczki nie ma czego szukac
+        w publicznym dzienniku). Pakiet dowodowy to zwykly .zip, bez
+        skojarzenia: sprawdza sie go przyciskiem albo na stronie.
+      -->
+      <Extensions>
+        <uap:Extension Category="windows.fileTypeAssociation">
+          <uap:FileTypeAssociation Name="sigelith-handover">
+            <uap:DisplayName>Sigelith Handover</uap:DisplayName>
+            <uap:SupportedFileTypes>
+              <uap:FileType>.sigelith-handover</uap:FileType>
+              <uap:FileType>.sigelith-answer</uap:FileType>
+              <uap:FileType>.sigelith-card</uap:FileType>
+            </uap:SupportedFileTypes>
+          </uap:FileTypeAssociation>
+        </uap:Extension>
+        <!--
+          Dowody (3.0.1): dwuklik na .beatproof albo na dowodzie pliku z kopii
+          Sigelith Backup (.sigelith-proof) otwiera SPRAWDZANIE — `open_paths`
+          nigdy ich nie stempluje.
+        -->
+        <uap:Extension Category="windows.fileTypeAssociation">
+          <uap:FileTypeAssociation Name="sigelith-proof">
+            <uap:DisplayName>Sigelith proof</uap:DisplayName>
+            <uap:SupportedFileTypes>
+              <uap:FileType>.beatproof</uap:FileType>
+              <uap:FileType>.sigelith-proof</uap:FileType>
+            </uap:SupportedFileTypes>
+          </uap:FileTypeAssociation>
+        </uap:Extension>
+        <!--
+          Alias (3.0.1): `sigelith-desktop.exe` z parametrem handover i plikiem otwiera okno
+          wysylki Sigelith Handover z tym plikiem — tak wola go Sigelith Backup
+          („Przekaz…” przy pliku z kopii). Bez uprawnien, tylko nazwa w PATH.
+        -->
+        <uap3:Extension Category="windows.appExecutionAlias"
+          Executable="SigelithDesktop.exe" EntryPoint="Windows.FullTrustApplication">
+          <uap3:AppExecutionAlias>
+            <desktop:ExecutionAlias Alias="sigelith-desktop.exe" />
+          </uap3:AppExecutionAlias>
+        </uap3:Extension>
+      </Extensions>
     </Application>
   </Applications>
 
@@ -121,7 +181,7 @@
       i dodatkowy tekst w karcie aplikacji — przy uprawnieniach z grupy
       „restricted" (`broadFileSystemAccess`) recenzja wymaga uzasadnienia.
 
-      Katalog danych (`%USERPROFILE%\BeatStamp`) tez ZADNEGO uprawnienia nie
+      Katalog danych (`%USERPROFILE%\Sigelith`) tez ZADNEGO uprawnienia nie
       wymaga: aplikacja pelnozaufana z paczki pisze w profilu uzytkownika
       zwyklym Win32 (`open`/`CreateFile`) tak samo jak zwykly `.exe`.
       Uprawnienia `documentsLibrary` i `broadFileSystemAccess` bramkuja API

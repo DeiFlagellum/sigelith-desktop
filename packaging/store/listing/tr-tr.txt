@@ -1,0 +1,73 @@
+# Sigelith Desktop — tr-tr
+
+## Short description
+Dosyaları yüklemeden damgalayın, her kanıtı çevrimdışı doğrulayın, herkese açık günlüğün bağımsız tanıklarını izleyin — ve dosyaları teslim kanıtıyla teslim edin. Ücretsiz, hesapsız, açık kaynak.
+
+## Description
+Sigelith Desktop, bir dosyanın belirli bir anda var olduğunu kanıtlar — ve dosya bilgisayarınızdan hiç çıkmaz.
+
+Dosyaları damgalayın
+Dosyaları pencereye sürükleyin. Uygulama her dosyanın SHA-256 özetini bilgisayarınızda hesaplar ve herkese açık Sigelith günlüğüne yalnızca bu özeti gönderir. Bir PDF sertifikası ve çevrimdışı bir .beatproof kanıtı alırsınız.
+
+Bize güvenmeden doğrulayın
+Damgalanıp damgalanmadığını ve ne zaman damgalandığını görmek için herhangi bir dosyayı bırakın. Uygulama dahil etme yolunu ve imzayı, programa gömülü anahtarlarla kendisi kontrol eder. Gizli modda herkese açık günlüğün kendi kopyasını tutar; böylece sunucu hangi dosyayı kontrol ettiğinizi asla öğrenmez.
+
+Tanıklar
+Uygulama çalışırken günlüğü kendisi denetler: imzalı kontrol noktaları, aralarındaki zincir, GitHub’daki, Internet Archive’daki ve Zenodo’daki kopyalar ve bunların andığı Bitcoin blokları. Her uyuşmazlık bir alarm başlatır.
+
+Dosyaları teslim kanıtıyla teslim edin
+Alıcı teslimi kendi anahtarıyla (Windows Hello) onaylar ve teslim anı herkese açık günlüğe kaydedilir. Gönderi aranızda taşınır; Sigelith sunucusu hiçbir şey saklamaz.
+Doğrulayıcısı olmayan biri için — avukat, bilirkişi, mahkeme — kanıtı Kanıt doğrula… ile açın ve bir PDF raporu kaydedin: her kontrol düz sözlerle, bağımsız kontrol talimatlarıyla birlikte.
+Bir gönderi teklif edildiği gibi açılmıyorsa alıcının kabulü hükümsüzdür. Uygulama bunu söyler ve herkesin yeniden hesaplayabileceği bir kusur kanıtı kaydeder.
+
+Varsayılan olarak gizli
+Gizli mod, herkese açık günlüğün tamamının bir kopyasını tutar (yalnızca zaten herkese açık olan özetler); böylece bir kanıtı yenilemek, sunucuya hangisinin sizin olduğunu asla söylemez.
+
+Zaman damgası neyi kanıtlar
+Zaman damgası, tam olarak bu baytlara sahip bir dosyanın en geç kaydedilen anda var olduğunu gösterir. Dosyayı kimin oluşturduğunu ya da ne anlama geldiğini göstermez. Kanıt tam o baytlara bağlıdır. Bir düzenleyicinin yeniden kaydettiği ya da bir mesajlaşma uygulamasının yeniden sıkıştırdığı kopyanın özeti farklıdır — orijinali sertifikasıyla birlikte saklayın.
+
+Sigelith Desktop ücretsiz ve açık kaynaktır (Apache-2.0). Hesap yok, reklam yok, telemetri yok.
+İngilizce, Lehçe, Almanca, İspanyolca, Fransızca, Rusça, Türkçe, Japonca, Korece, Çince ve Arapça olarak kullanılabilir.
+
+## What's new in this version
+• Sigelith Backup’tan gelen tek dosya zaman kanıtlarını (.sigelith-proof dosyaları) doğrular: kanıt, bir dosyanın o anda mühürlü bir yedekte olduğunu diğer dosyaları açığa çıkarmadan gösterir.
+• Bir .beatproof veya .sigelith-proof dosyasına çift tıklamak uygulamayı Doğrulama sekmesinde açar — kanıt dosyası asla yanlışlıkla damgalanmaz.
+• Sigelith Backup, yedekteki bir dosyayı doğrudan Sigelith Handover’a aktarabilir.
+
+## Product features
+Her dosyayı yüklemeden damgalayın — yalnızca SHA-256 özeti kaydedilir
+Her dosya için PDF sertifikası ve çevrimdışı doğrulanabilir .beatproof kanıtı
+Çok sayıda dosyayı ya da klasörleri tek seferde damgalayın
+Dosyaları ve kanıtları uygulamaya gömülü anahtarlarla çevrimdışı doğrulayın
+Gizli mod: herkese açık günlüğün kendi kopyası, böylece neyi kontrol ettiğinizi kimse öğrenmez
+Yerleşik tanıklar: imzalı kontrol noktaları, bağımsız kopyalar ve Bitcoin çapaları
+Alıcının anahtarı ve Windows Hello ile imzalanan teslim kanıtı
+Şifreli gönderiler e-posta, mesajlaşma, USB bellek ya da paylaşılan klasörle taşınır
+Avukatlar, bilirkişiler ve mahkemeler için kanıt paketi ve PDF raporu
+Her damganın kanıt durumuyla birlikte geçmişi
+İsteğe bağlı Tor modu
+Ücretsiz — hesap, reklam ve telemetri yok
+Açık kaynak (Apache-2.0)
+11 dilde
+
+## Screenshots and captions
+01-stamp.png: Dosyaları damgalayın: bilgisayarınızdan yalnızca SHA-256 özeti çıkar.
+02-history.png: Geçmiş: her damga, kanıtının durumuyla birlikte.
+03-witnesses.png: Tanıklar: uygulamanın herkese açık günlükte kendisinin doğruladıkları.
+04-handover.png: Handover: dosya gönderin, alın, kanıtları saklayın.
+05-evidence.png: Kanıt kontrolü: karar ve her bir kontrol, kendi dilinizde.
+
+## Additional system requirements (recommended hardware)
+Windows 10 (22H2) veya Windows 11, 64 bit. Handover en iyi Windows Hello ile çalışır.
+
+## Keywords (up to 7)
+zaman damgası
+dosya damgalama
+dijital kanıt
+teslim kanıtı
+SHA-256
+dosya özeti
+hash
+
+## Copyright and trademark info
+© 2026 Adam Koch

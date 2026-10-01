@@ -1,31 +1,32 @@
 """
-Glowne okno BeatStamp.
+Glowne okno Sigelith Desktop.
 
-Uklad wyrasta z trzech czynnosci, które uzytkownik faktycznie wykonuje —
-stad trzy zakladki zamiast jednej kolumny dziewieciu przyciskow, która była
-wcześniej:
+Uklad wyrasta z czterech rzeczy, ktore uzytkownik faktycznie robi albo chce
+widziec:
 
-    Znakowanie   — nadaj plikowi znacznik czasu
-    Weryfikacja  — sprawdź plik, skrót albo dowód .beatproof
-    Historia     — co już ostemplowalem i na jakim etapie jest dowód
+    Stemplowanie — nadaj plikowi znacznik czasu
+    Weryfikacja  — sprawdz plik, skrot albo dowod .beatproof
+    Historia     — co juz ostemplowalem i na jakim etapie jest dowod
+    Swiadkowie   — co aplikacja sama sprawdza w publicznym dzienniku (2.2)
 
-Zasady, ktorych trzyma się cały ten plik:
+Zasady, ktorych trzyma sie caly ten plik:
 
-* nic dlugotrwalego nie dzieje się w watku GUI — liczenie skrótu i sieć ida
-  przez `QThreadPool` (`workers.py`), zawsze z paskiem postepu i przyciskiem
-  przerwania;
+* nic dlugotrwalego nie dzieje sie w watku GUI — liczenie skrotu i siec ida
+  przez `QThreadPool` (`workers.py`), zawsze z widocznym znakiem pracy;
 * kazdy komunikat idzie przez katalog tlumaczen i mowi, CO ZROBIC, a nie
   tylko co sie stalo;
 * stan dowodu nie jest lukrowany: swiezy stempel jest opisany jako swiezy,
   a nie jako "zweryfikowany";
-* każdy element sterujacy ma podpowiedz — program ma się tlumaczyc sam.
+* kazdy element sterujacy ma podpowiedz — program ma sie tlumaczyc sam.
 """
 from __future__ import annotations
 
 import html
 import logging
+import random
 import sys
 import webbrowser
+from dataclasses import replace
 from pathlib import Path
 
 from PySide6.QtCore import QThreadPool, QTimer, QUrl, Qt
@@ -46,6 +47,7 @@ from PySide6.QtWidgets import (
     QMessageBox,
     QProgressBar,
     QPushButton,
+    QScrollArea,
     QSizePolicy,
     QTableView,
     QTabWidget,
@@ -53,26 +55,29 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
-from .. import __version__, beatcore, bundle, certificate, keys, merkle, plural, proof
+from .. import __app_name__, __version__, beatcore, bundle, certificate, keys, merkle, naming, plural, proof
+from .. import fileproof, onion, witness
 from ..api import ApiError, BeatTimeClient
 from ..config import (
     IMPRESSUM_URL,
     MigrationReport,
-    PRIVACY_POLICY_URL,
     Settings,
     WriteProblem,
     app_data_dir,
     describe_write_problem,
     history_path,
+    privacy_policy_url,
     probe_write,
     resource_path,
+    site_url,
+    verify_url,
     write_atomic,
 )
 from ..history import SOURCE_TVS_LEGACY, History, entry_from_verification
-from ..i18n import _, set_language
+from ..i18n import _, current_language, ltr, rtl_block, set_language
 from ..proof import Level, VerificationResult
 from .. import workers
-from . import theme
+from . import icons, journey, theme
 from .dialogs import (
     AboutDialog,
     DetailsDialog,
@@ -86,9 +91,38 @@ from .dialogs import (
     resolve_data_dir_problem,
 )
 from .history_model import COL_DIGEST, HistoryFilter, HistoryModel
-from .widgets import BeatClock, CopyField, DropZone, StatusBadge, card, label
+from .widgets import (
+    BeatClock,
+    BusyOverlay,
+    CopyField,
+    DropZone,
+    ElidedButton,
+    ElidedLabel,
+    ProofJourney,
+    PulseDot,
+    StatusBadge,
+    action_row,
+    card,
+    divider,
+    fit_to_screen,
+    label,
+    section_label,
+)
+from .witness_panel import WitnessPanel
+from .handover_controller import HandoverController, is_handover_file
 
 log = logging.getLogger(__name__)
+
+#: Co ile swiadek sprawdza dziennik, gdy okno jest otwarte.
+WITNESS_INTERVAL_MS = 15 * 60 * 1000
+#: Rozrzut cyklu swiadka (+/-). Bez niego wszystkie instalacje uruchomione
+#: o pelnej godzinie pytalyby serwer w tej samej sekundzie co kwadrans.
+WITNESS_JITTER = 0.15
+#: Kolejna porcja checkpointow po przebiegu przycietym do limitu. 3 s przy
+#: pierwszym uruchomieniu po dluzszej przerwie wpadalo w limit API (120/min).
+WITNESS_CONTINUE_MS = 60 * 1000
+#: Ile czekamy przy zamykaniu na prace w tle, zanim proces skonczy sie bez niej.
+CLOSE_WAIT_MS = 4000
 
 
 def _DROP_TEXTS() -> tuple[str, str]:
@@ -104,18 +138,18 @@ def _DROP_TEXTS() -> tuple[str, str]:
 def _key_line(signer_status: str) -> str:
     """Wiersz listy kontroli o tozsamosci klucza — rozroznia przypadki."""
     if signer_status == keys.SIGNER_CURRENT:
-        return '✔ ' + _('BeatTime key from the list built into the application')
+        return '✓ ' + _('Sigelith key from the list built into the application')
     if signer_status == keys.SIGNER_OVERRIDE:
         return '⚠ ' + _('key accepted thanks to YOUR OWN key from the settings')
     if signer_status == keys.SIGNER_RETIRED:
-        return '✘ ' + _('BeatTime key RETIRED — the proof needs refreshing')
-    return '✘ ' + _('FOREIGN key — outside the BeatTime keys built into the '
+        return '✗ ' + _('Sigelith key RETIRED — the proof needs refreshing')
+    return '✗ ' + _('FOREIGN key — outside the Sigelith keys built into the '
                     'application')
 
 
 def _retired_html(warnings: list[str]) -> str:
     """Opis stanu „podpis wycofanym kluczem" — tekst z escapowaniem."""
-    return ('<b>' + _('The signature comes from a retired BeatTime key.')
+    return ('<b>' + _('The signature comes from a retired Sigelith key.')
             + '</b><br>' + '<br>'.join(html.escape(w) for w in warnings))
 
 
@@ -143,30 +177,36 @@ def _week_note(week: str, confirmed: bool) -> str:
              'confirmed signature') % {'week': week}
 
 
-def _time_html(beat: str, utc: str, note: str = '') -> str:
-    """Wiersz „@beat · czas lokalny (UTC)" — z każdą wartością przepuszczoną
-    przez `html.escape`.
+def _time_html(obj, note: str = '', *, with_bounds: bool = True) -> str:
+    """Wiersz czasu: @beat · czas lokalny (strefa) · UTC, pod nim granice.
 
-    Etykiety Qt mają domyślnie `Qt::AutoText`: gdy tekst wygląda na HTML
-    (a wygląda, bo sami wstawiamy `<b>`), CAŁOŚĆ trafia do parsera tekstu
-    wzbogaconego — razem z wartościami wklejonymi ze środka. Qt rozumie w nim
-    `<img src=...>` i ładuje wskazany zasób, także ze ścieżki sieciowej UNC.
-    Wystarczyłby więc `"beat": "<img src='//host/x.png'>"` w pliku
-    `.beatproof`, żeby samo WYŚWIETLENIE wyniku odpytało serwer atakującego —
-    w programie, który obiecuje, że ten plik sprawdza wyłącznie lokalnie.
-
-    `proof.py` odrzuca już takie wartości przy granicy zaufania; to jest
-    druga warstwa, dla danych, które tamtędy nie przechodzą (pliki
-    `.beatproof` czytane wprost).
+    Kazda wartosc przechodzi przez `html.escape` (`journey.moment_html`).
+    Etykiety Qt maja `Qt::AutoText`: tekst wygladajacy na HTML trafia do
+    parsera tekstu wzbogaconego razem z wartosciami ze srodka, a ten rozumie
+    `<img src=...>` — takze ze sciezki UNC. Wystarczyloby `"beat": "<img
+    src='//host/x.png'>"` w pliku `.beatproof`, zeby samo WYSWIETLENIE wyniku
+    odpytalo serwer atakujacego.
     """
-    dt = beatcore.parse_iso_utc(utc)
-    text = (f'<b>{html.escape(beat or "—")}</b> · {html.escape(beatcore.local_str(dt))} '
-            f'<span style="color:{theme.MUTED_INK}">'
-            f'({html.escape(beatcore.utc_str(dt))})</span>')
+    text = journey.moment_html(obj)
     if note:
         text += (f'<br><span style="color:{theme.MUTED_INK}">'
                  f'{html.escape(note)}</span>')
-    return text
+    if with_bounds:
+        bounds = journey.bounds_html(obj)
+        if bounds:
+            text += '<br>' + bounds
+    # Tekst wzbogacony bierze kierunek akapitu z pierwszej mocnej litery —
+    # tu z izolowanego „@424.05". Po arabsku caly blok szedl od lewej.
+    return rtl_block(text)
+
+
+class _DictView:
+    """Slownik `.beatproof` z atrybutami jak `Entry` — do `_time_html`."""
+
+    def __init__(self, data: dict):
+        self.beat = str(data.get('beat') or '')
+        self.utc = str(data.get('utc') or '')
+        self.time_bounds = data.get('time') if isinstance(data.get('time'), dict) else {}
 
 
 class MainWindow(QMainWindow):
@@ -181,106 +221,206 @@ class MainWindow(QMainWindow):
             key_override=settings.key_override)
         self.current_result: VerificationResult | None = None
         self.current_entry = None
+        self._current_batch: list = []
         self.verify_result: VerificationResult | None = None
+        self._verify_source_name = ''
         self._active_task: workers.Task | None = None
         self._pending_files: list[Path] = []
         # Od chwili zamkniecia okna zadne odlozone wywolanie nie ma prawa
-        # niczego uruchamiac. Timery z konstruktora (migracja, synchronizacja
-        # zegara) sa zaplanowane na 0-300 ms; zamkniecie programu w tym oknie
-        # czasu trafialoby w okno, ktorego pula watkow jest juz sprzatana.
+        # niczego uruchamiac. Timery z konstruktora sa zaplanowane na 0-300 ms;
+        # zamkniecie programu w tym oknie czasu trafialoby w okno, ktorego
+        # pula watkow jest juz sprzatana.
         self._closing = False
+
+        # Swiadek (witness.py). Stan wczytujemy od razu — to jeden plik JSON —
+        # a kopie dziennika dopiero w watku roboczym, przy pierwszej potrzebie.
+        self.witness_store = witness.WitnessStore()
+        self.witness_state = self.witness_store.load()
+        self.log_mirror = witness.LogMirror()
+        self._witness_running = False
+        self._witness_interactive = False
+        self._background_started = False
+        # Zadania w tle, ktore trzeba umiec przerwac: przy czynnosci
+        # uzytkownika (pierwszenstwo) i przy zamykaniu okna.
+        self._witness_task: workers.Task | None = None
+        self._quiet_task: workers.Task | None = None
+        self._sync_task: workers.Task | None = None
+        self._onion_task: workers.Task | None = None
+        self._background_paused = False
+        #: True = przy zamknieciu watek w tle nie skonczyl w `CLOSE_WAIT_MS`;
+        #: `__main__` konczy wtedy proces bez czekania na niego.
+        self.abandoned_workers = False
+        self._witness_timer = QTimer(self)
+        self._witness_timer.setInterval(WITNESS_INTERVAL_MS)
+        self._witness_timer.timeout.connect(self._background_cycle)
+        self._note_timer = QTimer(self)
+        self._note_timer.setSingleShot(True)
+        self._note_timer.setInterval(900)
+        self._note_timer.timeout.connect(self._save_note_to_current)
 
         # Jeden watek roboczy: zadania i tak ida sekwencyjnie (limit serwera
         # to 20 stempli/min), a jeden watek znaczy, ze nie ma dwoch zapisow
-        # historii naraz — bez potrzeby zakladania blokad.
+        # historii ani dwoch zmian kopii dziennika naraz — bez blokad.
         self.pool = QThreadPool(self)
         self.pool.setMaxThreadCount(1)
 
-        # Tytul KONCZY SIE nazwa programu — tak samo jak kazde okno
-        # dialogowe. To nie jest kwestia gustu: `setApplicationDisplayName`
-        # kaze Qt dokleic „ - BeatStamp" do kazdego tytulu, ktory ta nazwa
-        # sie nie konczy (`QPlatformWindow::formatWindowTitle`). Poprzednia
-        # wersja zaczynala sie od nazwy, wiec system pokazywal
-        # „BeatStamp 2.1.0 — znacznik czasu @beat - BeatStamp", z dwoma
-        # roznymi myslnikami, na kazdym zrzucie ekranu.
-        self.setWindowTitle(_('@beat timestamps %(version)s — BeatStamp')
+        # Tytul KONCZY SIE nazwa programu — `setApplicationDisplayName` kaze
+        # Qt dokleic „ - Sigelith Desktop" do kazdego tytulu, ktory ta nazwa
+        # sie nie konczy (`QPlatformWindow::formatWindowTitle`).
+        self.setWindowTitle(_('@beat timestamps %(version)s — Sigelith Desktop')
                             % {'version': __version__})
-        self.setMinimumSize(940, 660)
+        # 560, nie 680: przy 1920x1080 ze skala 150% (1280x720 logicznie)
+        # zostaje ~640 px na okno — 680 nie miescilo sie nawet po
+        # zmaksymalizowaniu. Tresc zakladek i tak jest przewijana.
+        self.setMinimumSize(980, 560)
         self.setAcceptDrops(True)
         self._load_icon()
 
         self._build_ui()
         self._build_menu()
         self._refresh_history_view()
+        self._render_witnesses()
 
         # Wszystko, co moze wyswietlic okienko, odkladamy na PO starcie petli
         # zdarzen. Modalny komunikat wywolany jeszcze w konstruktorze
-        # zatrzymuje program zanim glowne okno sie pokaze — uzytkownik widzi
-        # wtedy sam dialog, bez kontekstu, jakby aplikacja sie nie uruchomila.
+        # zatrzymuje program zanim glowne okno sie pokaze.
         QTimer.singleShot(0, self._check_data_dir)
         QTimer.singleShot(0, self._report_migration)
         QTimer.singleShot(0, self._report_history_problem)
         QTimer.singleShot(50, self._migrate_legacy_history)
         QTimer.singleShot(300, self._sync_clock)
+        # Adres .onion (tylko w trybie Tor, raz na dobe) — po starcie, zeby
+        # nie wyprzedzic synchronizacji zegara w jednowatkowej puli.
+        QTimer.singleShot(8000, self._refresh_onion)
 
     # --- Budowa interfejsu --------------------------------------------------
 
     def _load_icon(self) -> None:
-        # Swiadomie BEZ awaryjnego siegania po `tvs_icon.ico`. Awaryjna ikona
-        # starej marki na nowej aplikacji jest gorsza niz brak ikony: myli
-        # uzytkownika co do tego, ktory program ma przed soba.
+        # Swiadomie BEZ awaryjnego siegania po `tvs_icon.ico` — ikona starej
+        # marki na nowej aplikacji myli co do tego, ktory program jest otwarty.
         path = resource_path('beatstamp.ico')
         if path.exists():
             self.setWindowIcon(QIcon(str(path)))
 
+    @staticmethod
+    def _scrolled(page: QWidget) -> QScrollArea:
+        """Zakladka w obszarze przewijania.
+
+        Przy malym oknie uklad nie ma prawa sciskac tresci ponizej jej
+        minimum — wtedy napisy z zawijaniem wchodzily na sasiednie wiersze
+        (napis „Uwaga: ..." chowal sie pod polem skrotu). W obszarze
+        przewijania tresc zachowuje swoja wysokosc, a okno dostaje pasek.
+        """
+        page.setObjectName('scrollBody')
+        area = QScrollArea()
+        area.setWidgetResizable(True)
+        # Przewijanie tylko w pionie: tresc ma sie ukladac do szerokosci okna.
+        area.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        area.setFrameShape(QFrame.NoFrame)
+        area.setWidget(page)
+        return area
+
     def _build_ui(self) -> None:
         root = QWidget()
         layout = QVBoxLayout(root)
-        layout.setContentsMargins(16, 12, 16, 10)
+        layout.setContentsMargins(18, 14, 18, 8)
         layout.setSpacing(12)
         layout.addWidget(self._build_header())
 
         self.tabs = QTabWidget()
-        self.tabs.addTab(self._build_stamp_tab(), _('Stamping'))
-        self.tabs.addTab(self._build_verify_tab(), _('Verification'))
+        self.tabs.setDocumentMode(True)
+        self.tabs.tabBar().setDrawBase(False)
+        self.tabs.addTab(self._scrolled(self._build_stamp_tab()), _('Stamping'))
+        self.tabs.addTab(self._scrolled(self._build_verify_tab()), _('Verification'))
         self.tabs.addTab(self._build_history_tab(), _('History'))
+        self.witness_panel = WitnessPanel()
+        self.witness_panel.checkRequested.connect(lambda: self.check_witnesses(True))
+        self.witness_panel.modeChanged.connect(self._set_witness_mode)
+        self.witness_panel.evidenceRequested.connect(self._open_evidence)
+        self.tabs.addTab(self._scrolled(self.witness_panel), _('Witnesses'))
+        # Sigelith Handover (3.0): przekazanie plikow z dowodem doreczenia.
+        # Ostatnia zakladka — indeksy 0-3 sa zaszyte w wielu miejscach.
+        self.handover = HandoverController(self)
+        self.handover_scroll = self._scrolled(self.handover.panel)
+        self.tabs.addTab(self.handover_scroll, _('Handover'))
         self.tabs.setTabToolTip(
-            0, _('Give files a timestamp in the BeatTime register'))
+            0, _('Give files a timestamp in the Sigelith register'))
         self.tabs.setTabToolTip(
             1, _('Check a file, a SHA-256 digest or a .beatproof proof'))
         self.tabs.setTabToolTip(
             2, _('Your stamps and the stage their proof has reached'))
+        self.tabs.setTabToolTip(
+            3, _('What this application checks in the public log by itself'))
+        self.tabs.setTabToolTip(
+            4, _('Hand over files with proof of delivery'))
+        for index, name in enumerate(('fingerprint', 'shield-check', 'clock-history',
+                                      'people', 'file-earmark-lock')):
+            icons.apply_tab(self.tabs, index, name, 'text_muted', 16)
         layout.addWidget(self.tabs, 1)
 
         layout.addWidget(self._build_progress())
         self.setCentralWidget(root)
+        self.overlay = BusyOverlay(root)
 
         status = self.statusBar()
+        self.status_lock = QLabel()
+        icons.apply_label(self.status_lock, 'lock-fill', 'text_faint', 12)
+        status.addPermanentWidget(self.status_lock)
         self.status_connection = QLabel()
+        self.status_connection.setTextFormat(Qt.PlainText)
         self.status_connection.setObjectName('faint')
         status.addPermanentWidget(self.status_connection)
         self._update_connection_label()
         status.showMessage(_('Ready. Drag files in to give them a timestamp.'))
 
     def _build_header(self) -> QWidget:
-        header = QWidget()
+        header = QFrame()
+        header.setObjectName('header')
+        self._header = header
         row = QHBoxLayout(header)
-        row.setContentsMargins(2, 0, 2, 0)
+        row.setContentsMargins(20, 12, 18, 12)
+        row.setSpacing(18)
 
         left = QVBoxLayout()
         left.setSpacing(1)
-        title = label('@ BeatStamp', role='h1')
-        title.setStyleSheet(f'color: {theme.ACCENT};')
+        # Izolacja: po arabsku nazwa lacinska w bloku od prawej ma zostac
+        # w jednym kawalku (do 2.2.0 „@" z poczatku „@ BeatStamp" ladowal
+        # na jej koncu). Marka NIE jest tlumaczona.
+        title = label(rtl_block(ltr(__app_name__)), role='brand')
         left.addWidget(title)
-        left.addWidget(label(
-            _('Proof that a file existed in time — without sending the file'),
-            role='hint',
-            tooltip=_('Only the SHA-256 digest, computed on this computer, '
-                      'reaches the BeatTime register.')))
-        row.addLayout(left)
-        row.addStretch(1)
+        # Podpis i pastylka skracaja sie przy waskim oknie; zegar nie — patrz
+        # `ElidedLabel`. W 2.2.0 przy minimalnej szerokosci Qt obcinal
+        # wszystko naraz: poczatek pastylki i koncowke zegara.
+        tagline = ElidedLabel(
+            _('Proof that a file existed in time — without sending the file'))
+        tagline.setObjectName('hint')
+        tagline.set_hint(_('Only the SHA-256 digest, computed on this computer, '
+                           'reaches the Sigelith register.'))
+        left.addWidget(tagline)
+        row.addLayout(left, 1)
+
+        # Pastylka swiadkow: jedno spojrzenie mowi, czy dziennik sie zgadza.
+        pill = QHBoxLayout()
+        pill.setSpacing(6)
+        self.witness_dot = PulseDot()
+        # Skracany SRODEK: przy waskim oknie zostaje poczatek („Dziennik
+        # sprawdzony") i koniec (numer punktu kontrolnego).
+        self.witness_button = ElidedButton(elide=Qt.ElideMiddle)
+        self.witness_button.setObjectName('ghost')
+        self.witness_button.setCursor(Qt.PointingHandCursor)
+        self.witness_button.set_hint(_(
+            'The state of the public log as checked by this application. Click '
+            'to see\nthe witnesses: checkpoints, Bitcoin, the bank and the '
+            'independent copies.'))
+        self.witness_button.clicked.connect(lambda: self.tabs.setCurrentIndex(3))
+        pill.addWidget(self.witness_dot, 0, Qt.AlignVCenter)
+        pill.addWidget(self.witness_button, 1, Qt.AlignVCenter)
+        row.addLayout(pill, 1)
+        row.addSpacing(8)
 
         self.clock = BeatClock()
+        self.clock.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        self.clock.syncRequested.connect(self.sync_clock_interactive)
         row.addWidget(self.clock)
         return header
 
@@ -288,6 +428,7 @@ class MainWindow(QMainWindow):
         wrapper = QWidget()
         row = QHBoxLayout(wrapper)
         row.setContentsMargins(0, 0, 0, 0)
+        row.setSpacing(10)
 
         self.progress = QProgressBar()
         self.progress.setTextVisible(True)
@@ -299,6 +440,7 @@ class MainWindow(QMainWindow):
         self.progress_label.hide()
 
         self.cancel_button = QPushButton(_('Stop'))
+        icons.apply(self.cancel_button, 'x-circle')
         self.cancel_button.setToolTip(_('Stops the current task (Esc)'))
         self.cancel_button.clicked.connect(self._cancel_task)
         self.cancel_button.hide()
@@ -308,79 +450,126 @@ class MainWindow(QMainWindow):
         row.addWidget(self.cancel_button)
         return wrapper
 
-    # --- Zakladka: Znakowanie ----------------------------------------------
+    # --- Karta wyniku --------------------------------------------------------
+
+    def _result_card(self, *, with_note: bool) -> dict:
+        """Karta wyniku — wspolna dla stemplowania i weryfikacji."""
+        frame = card()
+        outer = QVBoxLayout(frame)
+        outer.setContentsMargins(20, 16, 20, 16)
+        outer.setSpacing(10)
+
+        top = QHBoxLayout()
+        top.setSpacing(12)
+        title = label(_('No result'), role='h2')
+        title.setWordWrap(True)
+        badge = StatusBadge()
+        top.addWidget(title, 1)
+        top.addWidget(badge, 0, Qt.AlignTop)
+        outer.addLayout(top)
+
+        description = label('', role='hint', wrap=True)
+        outer.addWidget(description)
+
+        path = ProofJourney()
+        path.hide()
+        outer.addWidget(path)
+        outer.addWidget(divider())
+
+        grid = QGridLayout()
+        grid.setHorizontalSpacing(18)
+        grid.setVerticalSpacing(10)
+        grid.setColumnMinimumWidth(0, 140)
+        grid.setColumnStretch(1, 1)
+
+        def key(text, tip=''):
+            widget = label(text, role='hint', tooltip=tip)
+            widget.setAlignment(Qt.AlignLeft | Qt.AlignTop)
+            return widget
+
+        digest = CopyField(
+            _('not computed yet'),
+            tooltip=_('The only information that reaches the Sigelith register'))
+        grid.addWidget(key(_('SHA-256 digest:')), 0, 0)
+        grid.addWidget(digest, 0, 1)
+
+        moment = label('—', wrap=True, selectable=True)
+        moment.setTextFormat(Qt.RichText)
+        grid.addWidget(key(_('Timestamp:'), _(
+            'Your local time, UTC and @beat — the same moment. Below: the two '
+            'bounds\nthat do not depend on the Sigelith clock at all.')), 1, 0)
+        grid.addWidget(moment, 1, 1)
+
+        checks = label('—', role='hint', wrap=True)
+        checks.setTextFormat(Qt.RichText)
+        grid.addWidget(key(_('Local check:'), _(
+            'What the application computed ITSELF, without trusting the server')), 2, 0)
+        grid.addWidget(checks, 2, 1)
+
+        widgets = {'frame': frame, 'title': title, 'badge': badge,
+                   'description': description, 'journey': path, 'digest': digest,
+                   'time': moment, 'checks': checks, 'grid': grid}
+        if with_note:
+            note = QLineEdit()
+            note.setPlaceholderText(_('Add a note to this stamp — e.g. "client '
+                                      'contract, signed version"'))
+            note.setToolTip(_(
+                'The note stays ONLY on this computer, in the local history.\n'
+                'It is not sent to the register and does not reach the server.\n'
+                'You can add or change it at any time — also later, in the '
+                'History.'))
+            note.setEnabled(False)
+            note.editingFinished.connect(self._save_note_to_current)
+            note.textEdited.connect(lambda _text: self._note_timer.start())
+            note_hint = label('', role='faint')
+            # Notatka ZARAZ pod wynikiem, nie na dole karty: dopisuje sie ja
+            # tuz po stemplu, a przy mniejszym oknie dolna czesc karty jest
+            # juz pod krawedzia.
+            row = QHBoxLayout()
+            row.setSpacing(18)
+            note_key = key(_('Note:'), _('A description visible only to you'))
+            note_key.setFixedWidth(140)
+            row.addWidget(note_key, 0, Qt.AlignTop)
+            box = QVBoxLayout()
+            box.setSpacing(3)
+            box.addWidget(note)
+            box.addWidget(note_hint)
+            row.addLayout(box, 1)
+            outer.insertLayout(2, row)
+            widgets['note'] = note
+            widgets['note_hint'] = note_hint
+        outer.addLayout(grid)
+        return widgets
+
+    # --- Zakladka: Stemplowanie ---------------------------------------------
 
     def _build_stamp_tab(self) -> QWidget:
         page = QWidget()
         layout = QVBoxLayout(page)
-        layout.setContentsMargins(14, 14, 14, 14)
-        layout.setSpacing(12)
+        layout.setContentsMargins(4, 6, 4, 6)
+        layout.setSpacing(14)
 
-        self.drop_zone = DropZone(*_DROP_TEXTS())
+        self.drop_zone = DropZone(*_DROP_TEXTS(), icon_name='fingerprint')
+        self.drop_zone.setMinimumHeight(170)
+        self.drop_zone.setMaximumHeight(250)
         self.drop_zone.filesDropped.connect(self.stamp_files)
         self.drop_zone.browseRequested.connect(self.browse_files_to_stamp)
-        layout.addWidget(self.drop_zone, 1)
+        layout.addWidget(self.drop_zone, 2)
 
-        note_row = QHBoxLayout()
-        note_label = label(_('Note:'),
-                           tooltip=_('A description visible only to you'))
-        self.note_input = QLineEdit()
-        self.note_input.setPlaceholderText(
-            _('e.g. "client contract, signed version" — optional'))
-        self.note_input.setToolTip(_(
-            'The note stays ONLY on this computer, in the local history.\n'
-            'It is not sent to the register and does not reach the server '
-            'certificate.\n'
-            'It is saved together with the stamp and on every change of the '
-            'text.'))
-        self.note_input.editingFinished.connect(self._save_note_to_current)
-        note_row.addWidget(note_label)
-        note_row.addWidget(self.note_input, 1)
-        layout.addLayout(note_row)
+        parts = self._result_card(with_note=True)
+        self.stamp_result = parts['frame']
+        self.result_title = parts['title']
+        self.result_badge = parts['badge']
+        self.result_description = parts['description']
+        self.result_description.setText(
+            _('Drag a file into the area above to give it a timestamp.'))
+        self.result_journey = parts['journey']
+        self.result_digest = parts['digest']
+        self.result_time = parts['time']
+        self.result_checks = parts['checks']
+        self.note_input = parts['note']
+        self.note_hint = parts['note_hint']
 
-        self.stamp_result = self._build_result_card()
-        layout.addWidget(self.stamp_result)
-        return page
-
-    def _build_result_card(self) -> QFrame:
-        frame = card()
-        grid = QGridLayout(frame)
-        grid.setContentsMargins(16, 14, 16, 14)
-        grid.setHorizontalSpacing(12)
-        grid.setVerticalSpacing(8)
-
-        top = QHBoxLayout()
-        top.setSpacing(10)
-        self.result_title = label(_('No result'), role='h2')
-        self.result_badge = StatusBadge()
-        top.addWidget(self.result_title)
-        top.addWidget(self.result_badge)
-        top.addStretch(1)
-        grid.addLayout(top, 0, 0, 1, 2)
-
-        self.result_description = label(
-            _('Drag a file into the area above to give it a timestamp.'),
-            role='hint', wrap=True)
-        grid.addWidget(self.result_description, 1, 0, 1, 2)
-
-        grid.addWidget(label(_('SHA-256 digest:'), role='hint'), 2, 0)
-        self.result_digest = CopyField(
-            _('not computed yet'),
-            tooltip=_('The only information that reaches the BeatTime register'))
-        grid.addWidget(self.result_digest, 2, 1)
-
-        grid.addWidget(label(_('Timestamp:'), role='hint'), 3, 0)
-        self.result_time = label('—', selectable=True)
-        grid.addWidget(self.result_time, 3, 1)
-
-        grid.addWidget(label(
-            _('Local check:'), role='hint',
-            tooltip=_('What the application computed ITSELF, without trusting '
-                      'the server')), 4, 0)
-        self.result_checks = label('—', role='hint', wrap=True)
-        grid.addWidget(self.result_checks, 4, 1)
-
-        actions = QHBoxLayout()
         self.button_pdf = self._action_button(
             _('PDF certificate'), self.save_certificate,
             _('Builds the certificate on this computer — it works without the '
@@ -391,30 +580,45 @@ class MainWindow(QMainWindow):
             _('Offline proof (.beatproof)'), self.save_bundle,
             _('Saves the proof in a form that can be checked WITHOUT this '
               'application\n'
-              'and without access to beattime.live: the digest, the inclusion '
+              'and without access to sigelith.org: the digest, the inclusion '
               'path, the\nweek root and the Ed25519 signature in one JSON '
               'file.'))
         self.button_browser = self._action_button(
             _('Check in the browser'), self.open_in_browser,
-            _('Opens the public verification page beattime.live/proof\n'
+            _('Opens the public verification page sigelith.org/proof\n'
               'with the digest filled in — an independent confirmation.'))
         self.button_details = self._action_button(
             _('Details…'), self.show_details,
-            _('The complete technical proof data in JSON'))
+            _('Everything about this proof: when, how far it has come and who '
+              'confirms it'))
         for button in (self.button_pdf, self.button_bundle,
                        self.button_browser, self.button_details):
             button.setEnabled(False)
-            actions.addWidget(button)
         self.button_pdf.setObjectName('primary')
-        actions.addStretch(1)
-        grid.addLayout(actions, 5, 0, 1, 2)
-        grid.setColumnStretch(1, 1)
-        return frame
+        icons.apply(self.button_pdf, 'file-earmark-pdf', icons.ON_ACCENT)
+        icons.apply(self.button_bundle, 'file-earmark-lock')
+        icons.apply(self.button_browser, 'globe2')
+        icons.apply(self.button_details, 'info-circle')
+        parts['frame'].layout().addLayout(action_row(
+            [self.button_pdf, self.button_bundle, self.button_browser,
+             self.button_details]))
+        layout.addWidget(self.stamp_result)
+        layout.addStretch(1)
+        return page
 
     @staticmethod
-    def _action_button(text: str, slot, tooltip: str) -> QPushButton:
-        button = QPushButton(text)
-        button.setToolTip(tooltip)
+    def _action_button(text: str, slot, tooltip: str, *, elide: bool = False) -> QPushButton:
+        """Przycisk czynnosci. `elide` — skraca tekst, gdy rzad sie nie miesci.
+
+        Rzad pod Historia ma szesc przyciskow; po niemiecku przy minimalnej
+        szerokosci okna ostatni z nich wychodzil poza okno.
+        """
+        if elide:
+            button = ElidedButton(text)
+            button.set_hint(tooltip)
+        else:
+            button = QPushButton(text)
+            button.setToolTip(tooltip)
         button.clicked.connect(slot)
         return button
 
@@ -423,8 +627,8 @@ class MainWindow(QMainWindow):
     def _build_verify_tab(self) -> QWidget:
         page = QWidget()
         layout = QVBoxLayout(page)
-        layout.setContentsMargins(14, 14, 14, 14)
-        layout.setSpacing(12)
+        layout.setContentsMargins(4, 6, 4, 6)
+        layout.setSpacing(14)
 
         intro = label(
             _('Check whether a document already has a timestamp — and whether '
@@ -436,13 +640,14 @@ class MainWindow(QMainWindow):
         self.verify_drop = DropZone(
             _('Drag a file here to check it'),
             _('the digest will be computed locally and looked up in the '
-              'register'))
-        self.verify_drop.setMinimumHeight(110)
+              'register'), icon_name='shield-check')
+        self.verify_drop.setMinimumHeight(130)
         self.verify_drop.filesDropped.connect(self._verify_dropped)
         self.verify_drop.browseRequested.connect(self.browse_file_to_verify)
         layout.addWidget(self.verify_drop)
 
         hash_row = QHBoxLayout()
+        hash_row.setSpacing(10)
         self.verify_input = QLineEdit()
         self.verify_input.setObjectName('mono')
         self.verify_input.setPlaceholderText(
@@ -455,53 +660,36 @@ class MainWindow(QMainWindow):
         self.verify_button = QPushButton(_('Check digest'))
         self.verify_button.setObjectName('primary')
         self.verify_button.setToolTip(_(
-            'Asks the BeatTime register about this digest and checks the '
-            'answer\nlocally: the inclusion path, the root signature and the '
-            'identity of\nthe key. It records nothing and changes nothing.'))
+            'Checks this digest and the answer locally: the inclusion path, '
+            'the root\nsignature, the identity of the key and the path to the '
+            'signed checkpoint.\nIn private mode the server is not even told '
+            'which digest you check.'))
         self.verify_button.setEnabled(False)
+        icons.apply(self.verify_button, 'search', icons.ON_ACCENT)
         self.verify_button.clicked.connect(self.verify_typed_hash)
         bundle_button = QPushButton(_('Load a .beatproof proof…'))
         bundle_button.setToolTip(_(
             'Checks a stand-alone proof file. The verification happens\n'
             'entirely locally — without connecting to anything.'))
         bundle_button.clicked.connect(self.check_bundle_file)
+        icons.apply(bundle_button, 'folder2-open')
         hash_row.addWidget(self.verify_input, 1)
         hash_row.addWidget(self.verify_button)
         hash_row.addWidget(bundle_button)
         layout.addLayout(hash_row)
 
-        result = card()
-        grid = QGridLayout(result)
-        grid.setContentsMargins(16, 14, 16, 14)
-        grid.setVerticalSpacing(8)
+        parts = self._result_card(with_note=False)
+        self.verify_title = parts['title']
+        self.verify_badge = parts['badge']
+        self.verify_description = parts['description']
+        self.verify_description.setText(
+            _('Drag a file in, paste a digest, or load a .beatproof file.'))
+        self.verify_journey = parts['journey']
+        self.verify_digest = parts['digest']
+        self.verify_digest.set_value('')
+        self.verify_time = parts['time']
+        self.verify_checks = parts['checks']
 
-        top = QHBoxLayout()
-        top.setSpacing(10)
-        self.verify_title = label(_('No result'), role='h2')
-        self.verify_badge = StatusBadge()
-        top.addWidget(self.verify_title)
-        top.addWidget(self.verify_badge)
-        top.addStretch(1)
-        grid.addLayout(top, 0, 0, 1, 2)
-
-        self.verify_description = label(
-            _('Drag a file in, paste a digest, or load a .beatproof file.'),
-            role='hint', wrap=True)
-        grid.addWidget(self.verify_description, 1, 0, 1, 2)
-
-        grid.addWidget(label(_('Digest:'), role='hint'), 2, 0)
-        self.verify_digest = CopyField('—')
-        grid.addWidget(self.verify_digest, 2, 1)
-
-        grid.addWidget(label(_('Timestamp:'), role='hint'), 3, 0)
-        self.verify_time = label('—', selectable=True)
-        grid.addWidget(self.verify_time, 3, 1)
-
-        grid.addWidget(label(_('Local check:'), role='hint'), 4, 0)
-        self.verify_checks = label('—', role='hint', wrap=True)
-        grid.addWidget(self.verify_checks, 4, 1)
-
-        actions = QHBoxLayout()
         self.verify_pdf_button = self._action_button(
             _('PDF certificate'), self.save_verify_certificate,
             _('Builds a certificate for the checked digest'))
@@ -511,20 +699,23 @@ class MainWindow(QMainWindow):
         self.verify_ots_button = self._action_button(
             _('Download the .ots proof'), self.download_ots,
             _('The OpenTimestamps proof of the week — to be checked with an\n'
-              'OpenTimestamps client, entirely outside BeatTime and outside '
+              'OpenTimestamps client, entirely outside Sigelith and outside '
               'this application.'))
         self.verify_details_button = self._action_button(
             _('Details…'), self.show_verify_details,
-            _('The complete proof data (JSON)'))
+            _('Everything about this proof: when, how far it has come and who '
+              'confirms it'))
         for button in (self.verify_pdf_button, self.verify_bundle_button,
                        self.verify_ots_button, self.verify_details_button):
             button.setEnabled(False)
-            actions.addWidget(button)
-        actions.addStretch(1)
-        grid.addLayout(actions, 5, 0, 1, 2)
-        grid.setColumnStretch(1, 1)
-
-        layout.addWidget(result)
+        icons.apply(self.verify_pdf_button, 'file-earmark-pdf')
+        icons.apply(self.verify_bundle_button, 'file-earmark-lock')
+        icons.apply(self.verify_ots_button, 'currency-bitcoin')
+        icons.apply(self.verify_details_button, 'info-circle')
+        parts['frame'].layout().addLayout(action_row(
+            [self.verify_pdf_button, self.verify_bundle_button,
+             self.verify_ots_button, self.verify_details_button]))
+        layout.addWidget(parts['frame'])
         layout.addStretch(1)
         return page
 
@@ -532,11 +723,13 @@ class MainWindow(QMainWindow):
 
     def _build_history_tab(self) -> QWidget:
         page = QWidget()
+        page.setObjectName('page')
         layout = QVBoxLayout(page)
-        layout.setContentsMargins(14, 14, 14, 14)
-        layout.setSpacing(10)
+        layout.setContentsMargins(4, 6, 4, 6)
+        layout.setSpacing(12)
 
         controls = QHBoxLayout()
+        controls.setSpacing(10)
         self.history_search = QLineEdit()
         self.history_search.setPlaceholderText(
             _('Search: file name, digest, note, week…'))
@@ -558,9 +751,10 @@ class MainWindow(QMainWindow):
         refresh.setToolTip(_(
             'A proof MATURES: a stamp from this week gets its signature once '
             'the\nweek closes, and the Bitcoin attestation a few hours later.\n'
-            'This operation asks the register about entries that are not yet\n'
-            'anchored or are signed with a retired key. (F5)'))
+            'While the program is open this happens by itself every 15 minutes;\n'
+            'this button does it right now. (F5)'))
         refresh.clicked.connect(self.refresh_history_statuses)
+        icons.apply(refresh, 'arrow-repeat')
         controls.addWidget(refresh)
         layout.addLayout(controls)
 
@@ -578,7 +772,9 @@ class MainWindow(QMainWindow):
         self.history_table.setSelectionMode(QAbstractItemView.ExtendedSelection)
         self.history_table.setSortingEnabled(True)
         self.history_table.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.history_table.setShowGrid(False)
         self.history_table.verticalHeader().setVisible(False)
+        self.history_table.verticalHeader().setDefaultSectionSize(34)
         self.history_table.horizontalHeader().setStretchLastSection(True)
         self.history_table.horizontalHeader().setSectionResizeMode(
             QHeaderView.ResizeToContents)
@@ -589,7 +785,6 @@ class MainWindow(QMainWindow):
             self._update_history_buttons)
         layout.addWidget(self.history_table, 1)
 
-        buttons = QHBoxLayout()
         self.history_buttons = {
             'pdf': self._action_button(
                 _('PDF certificate'), self.history_certificate,
@@ -599,24 +794,32 @@ class MainWindow(QMainWindow):
                 _('Saves a stand-alone .beatproof proof')),
             'details': self._action_button(
                 _('Details…'), self.history_details,
-                _('The complete entry data (JSON)')),
+                _('Everything about the selected entry, in plain words — and the '
+                  'note to edit')),
             'copy': self._action_button(
                 _('Copy digest'), self.history_copy_digest,
                 _('Copies the full SHA-256 digest to the clipboard')),
             'delete': self._action_button(
                 _('Remove from history'), self.history_delete,
                 _('Removes the entry from this list ONLY.\n'
-                  'The stamp in the public BeatTime register\n'
+                  'The stamp in the public Sigelith register\n'
                   'stays — it cannot be undone.')),
         }
         for button in self.history_buttons.values():
             button.setEnabled(False)
-            buttons.addWidget(button)
-        buttons.addStretch(1)
-
+            # Szesc przyciskow w jednym rzedzie: nieco mniejsze marginesy,
+            # zeby po niemiecku miescily sie przy minimalnej szerokosci okna.
+            button.setObjectName('compact')
+        for key, name in (('pdf', 'file-earmark-pdf'), ('bundle', 'file-earmark-lock'),
+                          ('details', 'info-circle'), ('copy', 'copy'),
+                          ('delete', 'trash3')):
+            icons.apply(self.history_buttons[key], name)
         export = QPushButton(_('Export…'))
+        export.setObjectName('compact')
+        icons.apply(export, 'download')
         export.setToolTip(_('Saves the history to a CSV (Excel) or JSON file'))
         export.clicked.connect(self.export_history)
+        buttons = action_row(list(self.history_buttons.values()))
         buttons.addWidget(export)
         layout.addLayout(buttons)
 
@@ -626,88 +829,130 @@ class MainWindow(QMainWindow):
 
     # --- Menu ---------------------------------------------------------------
 
+    def _site(self, path: str) -> str:
+        """Adres strony serwisu (sigelith.org) w jezyku interfejsu (jesli taka jest)."""
+        return site_url(path, current_language())
+
     def _build_menu(self) -> None:
         bar = self.menuBar()
 
         # Akcelerator (`&`) jest CZESCIA tlumaczenia: kazdy jezyk musi
-        # postawic go przy innej literze i nie moze go zgubic. Pilnuje tego
-        # `CatalogTests.test_menu_accelerators_are_unique_per_language`.
+        # postawic go przy innej literze i nie moze go zgubic.
         file_menu = bar.addMenu(_('&File'))
         self._add_action(file_menu, _('Stamp files…'), self.browse_files_to_stamp,
-                         QKeySequence.Open, _('Choose files to stamp'))
+                         QKeySequence.Open, _('Choose files to stamp'), 'fingerprint')
         self._add_action(file_menu, _('Verify a file…'), self.browse_file_to_verify,
                          QKeySequence('Ctrl+Shift+O'),
-                         _('Check whether a file already has a stamp'))
+                         _('Check whether a file already has a stamp'), 'shield-check')
         self._add_action(file_menu, _('Load a .beatproof proof…'),
                          self.check_bundle_file, QKeySequence('Ctrl+B'),
-                         _('Check a stand-alone proof — without the network'))
+                         _('Check a stand-alone proof — without the network'),
+                         'folder2-open')
+        file_menu.addSeparator()
+        self._add_action(file_menu, _('Send files with proof of delivery…'),
+                         lambda: self.handover.send(), QKeySequence('Ctrl+Shift+H'),
+                         _('Sigelith Handover: the recipient confirms receipt with their key'),
+                         'file-earmark-lock')
+        self._add_action(file_menu, _('Open a Handover package…'),
+                         lambda: self.handover.open_package(), QKeySequence(),
+                         _('A .sigelith-handover file someone sent you'), 'download')
         file_menu.addSeparator()
         self._add_action(file_menu, _('Export history…'), self.export_history,
                          QKeySequence('Ctrl+E'),
-                         _('Save the history to CSV or JSON'))
+                         _('Save the history to CSV or JSON'), 'download')
         file_menu.addSeparator()
-        self._add_action(file_menu, _('Quit'), self.close, QKeySequence.Quit, '')
+        self._add_action(file_menu, _('Quit'), self.close, QKeySequence.Quit, '',
+                         'box-arrow-right')
 
         tools_menu = bar.addMenu(_('&Tools'))
         self._add_action(tools_menu, _('Refresh proof statuses'),
                          self.refresh_history_statuses, QKeySequence('F5'),
-                         _('Check whether the proofs have matured'))
-        self._add_action(tools_menu, _('Synchronise the clock'), self._sync_clock,
-                         QKeySequence('F6'),
-                         _('Measure the clock drift of this computer'))
+                         _('Check whether the proofs have matured'), 'arrow-repeat')
+        self._add_action(tools_menu, _('Synchronise the clock'),
+                         self.sync_clock_interactive, QKeySequence('F6'),
+                         _('Measure the clock drift of this computer'),
+                         'arrow-clockwise')
         self._add_action(tools_menu, _('Check the service status'), self.check_health,
-                         QKeySequence('F7'), _('State of the BeatTime server'))
+                         QKeySequence('F7'), _('State of the Sigelith server'),
+                         'activity')
+        self._add_action(tools_menu, _('Check the witnesses now'),
+                         lambda: self.check_witnesses(True), QKeySequence('F8'),
+                         _('Checkpoints, their chain and the independent copies'),
+                         'people')
         tools_menu.addSeparator()
         self._add_action(tools_menu, _('Settings…'), self.open_settings,
                          QKeySequence('Ctrl+,'),
-                         _('Connection, trust, behaviour'))
+                         _('Connection, witnesses, trust, behaviour'), 'gear')
 
         help_menu = bar.addMenu(_('Hel&p'))
         self._add_action(help_menu, _('About'), self.show_about,
-                         QKeySequence('F1'), '')
-        self._add_action(help_menu, _('How it works — beattime.live'),
-                         lambda: QDesktopServices.openUrl(QUrl('https://beattime.live/proof/')),
-                         None, _('The public verification page'))
+                         QKeySequence('F1'), '', 'info-circle')
+        # Strony w jezyku interfejsu — do 2.1 „Jak to dziala" prowadzilo na
+        # angielska strone, choc program mowil po polsku.
+        self._site_action(help_menu, _('How it works — sigelith.org'), 'proof',
+                          _('The public verification page'))
+        self._site_action(help_menu, _('What a timestamp proves'), 'evidence',
+                          _('What the proof says in a dispute — and what it does '
+                            'not'), 'patch-question')
+        self._site_action(help_menu, _('The public log and its checkpoints'),
+                          'checkpoints', _('The archive of signed checkpoints'),
+                          'journal-check')
+        # Manifest w wersji 2 (Sigelith, 2026-09-28); wersja 1 („The BeatTime
+        # Manifesto”, ostemplowana #174) zostaje dostepna na stronie manifestu.
+        self._site_action(help_menu, _('The Sigelith manifesto'), 'manifesto',
+                          _('Why Sigelith exists'), 'file-earmark-text')
         self._add_action(help_menu, _('Thank you to the supporters…'),
                          self.show_thanks, None,
-                         _('People who support BeatTime — the list is loaded '
-                           'from beattime.live'))
+                         # Wspierajacy wspieraja Sigelith (warunki wsparcia
+                         # od 2026-09-27); liste podaje serwer Sigelith.
+                         _('People who support Sigelith — the list is loaded '
+                           'from sigelith.org'), 'heart')
         help_menu.addSeparator()
         # Impressum i ochrona danych sa TUTAJ, a nie tylko w oknie
         # „O programie": § 5 DDG wymaga, zeby impressum bylo osiagalne
-        # bezposrednio, w najwyzej dwoch klinieciach. Pomoc -> Impressum to
-        # dokladnie dwa; przez „O programie" bylyby trzy. Adresy sa stale
-        # (`config.IMPRESSUM_URL`), wiec wlasny serwer w Ustawieniach ich nie
-        # podmienia.
-        self._legal_action(help_menu, _('Legal notice (Impressum)'), IMPRESSUM_URL)
-        self._legal_action(help_menu, _('Privacy policy'), PRIVACY_POLICY_URL)
+        # bezposrednio, w najwyzej dwoch kliknieciach.
+        self._legal_action(help_menu, _('Legal notice (Impressum)'), IMPRESSUM_URL,
+                           'building')
+        self._legal_action(help_menu, _('Privacy policy'),
+                           privacy_policy_url(current_language()), 'shield-lock')
         help_menu.addSeparator()
         self._add_action(help_menu, _('Show the event log'), self.show_log,
                          None, _('A record of errors — useful when reporting a '
-                                 'problem'))
+                                 'problem'), 'list-ul')
         self._add_action(help_menu, data_dir_button_text(), lambda: open_data_dir(),
-                         None, data_dir_tooltip())
+                         None, data_dir_tooltip(), 'folder')
 
         escape = QAction(self)
         escape.setShortcut(QKeySequence('Esc'))
         escape.triggered.connect(self._cancel_task)
         self.addAction(escape)
 
-    def _legal_action(self, menu: QMenu, text: str, url: str) -> QAction:
-        """Pozycja menu otwierajaca dokument prawny w przegladarce.
-
-        Adres siedzi takze w `QAction.data()` — dzieki temu da sie sprawdzic
-        testem, DOKAD naprawde prowadzi pozycja menu, bez klikania w nia
-        i bez otwierania przegladarki na maszynie budujacej.
-        """
-        action = self._add_action(
-            menu, text, lambda: open_url(url), None,
-            _('Opens in the browser: %(url)s') % {'url': url})
+    def _site_action(self, menu: QMenu, text: str, page: str, tip: str,
+                     icon_name: str = 'globe2') -> QAction:
+        url = self._site(page)
+        action = self._add_action(menu, text, lambda: open_url(url), None, tip,
+                                  icon_name)
         action.setData(url)
         return action
 
-    def _add_action(self, menu: QMenu, text: str, slot, shortcut, tip: str) -> QAction:
+    def _legal_action(self, menu: QMenu, text: str, url: str,
+                      icon_name: str = '') -> QAction:
+        """Pozycja menu otwierajaca dokument prawny w przegladarce.
+
+        Adres siedzi takze w `QAction.data()` — dzieki temu da sie sprawdzic
+        testem, DOKAD naprawde prowadzi pozycja menu.
+        """
+        action = self._add_action(
+            menu, text, lambda: open_url(url), None,
+            _('Opens in the browser: %(url)s') % {'url': url}, icon_name)
+        action.setData(url)
+        return action
+
+    def _add_action(self, menu: QMenu, text: str, slot, shortcut, tip: str,
+                    icon_name: str = '') -> QAction:
         action = QAction(text, self)
+        if icon_name:
+            icons.apply(action, icon_name)
         if shortcut is not None:
             action.setShortcut(shortcut)
         if tip:
@@ -723,12 +968,7 @@ class MainWindow(QMainWindow):
         return self._active_task is not None
 
     def _start(self, task: workers.Task, on_result, *, label_text: str = '') -> bool:
-        """Uruchamia zadanie, o ile zadne inne nie trwa.
-
-        Jedno zadanie naraz jest tu celowe: rownolegle stemplowanie i tak
-        rozbiloby się o limit serwera, a przy okazji dwa wątki pisalyby
-        jednoczesnie do tego samego pliku historii.
-        """
+        """Uruchamia zadanie, o ile zadne inne nie trwa."""
         if self._closing:
             return False
         if self._busy():
@@ -742,7 +982,8 @@ class MainWindow(QMainWindow):
         task.signals.failed.connect(self._on_failed)
         task.signals.finished.connect(on_result)
         task.signals.done.connect(self._on_task_done)
-        workers.launch(self.pool, task)
+        self._pause_background()
+        workers.launch(self.pool, task, workers.PRIORITY_USER)
         return True
 
     def _set_busy_ui(self, busy: bool, label_text: str = '') -> None:
@@ -771,17 +1012,59 @@ class MainWindow(QMainWindow):
         self.statusBar().showMessage(text, 6000)
 
     def _on_failed(self, message: str) -> None:
-        # Do dziennika trafia KAZDE niepowodzenie. Wczesniej komunikat szedl
-        # wylacznie do okienka, wiec po jego zamknieciu nie zostawal zaden
-        # slad — a przy uruchomieniu bez konsoli (wersja .exe) nie bylo
-        # zadnego sposobu, zeby dowiedziec sie, co poszlo nie tak.
+        # Do dziennika trafia KAZDE niepowodzenie — przy uruchomieniu bez
+        # konsoli (wersja .exe) okienko bylo jedynym, ulotnym sladem.
         log.warning('zadanie nieudane: %s', message)
         self.statusBar().showMessage(_('The task ended with an error.'), 6000)
-        QMessageBox.warning(self, _('It did not work'), message)
+        # Zwykly tekst: komunikat bywa trescia odpowiedzi serwera (pole
+        # `error`/`detail`), a QMessageBox domyslnie zgaduje HTML.
+        box = QMessageBox(QMessageBox.Warning, _('It did not work'), message,
+                          QMessageBox.Ok, self)
+        box.setTextFormat(Qt.PlainText)
+        box.exec()
 
     def _on_task_done(self) -> None:
         self._active_task = None
         self._set_busy_ui(False)
+        self._resume_background()
+
+    # --- Praca w tle a czynnosci uzytkownika ---------------------------------
+
+    def _background_tasks(self) -> list[workers.Task]:
+        return [t for t in (self._witness_task, self._quiet_task, self._sync_task,
+                            self._onion_task,
+                            self.handover.background_task())
+                if t is not None]
+
+    def _pause_background(self) -> None:
+        """Czynnosc uzytkownika ma pierwszenstwo przed kontrola w tle.
+
+        Pula ma jeden watek (patrz konstruktor), wiec plik upuszczony tuz po
+        starcie czekal za calym przebiegiem swiadka — w sieci z zepsutym IPv6
+        ponad 40 s „Pracuje…" (diagnostyka 2026-09-27). Przebieg w tle
+        przerywamy: zatrzymuje sie przy najblizszym sprawdzeniu `cancelled`,
+        a po czynnosci uzytkownika rusza od nowa (`_resume_background`).
+        Kontroli uruchomionej recznie („Sprawdz teraz") nie ruszamy.
+        """
+        paused = False
+        if self._witness_task is not None and not self._witness_interactive:
+            self._witness_task.cancel()
+            paused = True
+        if self._quiet_task is not None:
+            self._quiet_task.cancel()
+            paused = True
+        if paused:
+            self._background_paused = True
+            log.info('kontrola w tle wstrzymana — pierwszenstwo ma czynnosc uzytkownika')
+
+    def _resume_background(self) -> None:
+        if not self._background_paused or self._closing:
+            return
+        self._background_paused = False
+        QTimer.singleShot(5000, self._background_cycle)
+
+    def _next_witness_interval(self) -> int:
+        return int(WITNESS_INTERVAL_MS * random.uniform(1 - WITNESS_JITTER, 1 + WITNESS_JITTER))
 
     def _cancel_task(self) -> None:
         if self._active_task is not None:
@@ -816,14 +1099,16 @@ class MainWindow(QMainWindow):
                 QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes) != QMessageBox.Yes:
             return
 
+        # Notatka poprzedniego stempla, jesli ktos ja jeszcze pisal.
+        self._save_note_to_current()
         self.settings.last_directory = str(paths[0].parent)
         self.tabs.setCurrentIndex(0)
         self.drop_zone.set_texts(
             _('Working…'),
             _('%(files)s queued') % {'files': plural.files(len(paths))})
         task = workers.StampFilesTask(
-            paths, self.client, note=self.note_input.text().strip(),
-            key_override=self.settings.key_override)
+            paths, self.client, key_override=self.settings.key_override,
+            witness_state=self.witness_state)
         if not self._start(task, self._on_stamped, label_text=_('Preparing…')):
             self._reset_drop_texts()
 
@@ -831,10 +1116,7 @@ class MainWindow(QMainWindow):
         self._reset_drop_texts()
 
         # `merge`, a nie petla `add`/`replace`: KOMPLET stempli ma wejsc do
-        # pamieci, zanim cokolwiek dotknie dysku. Przy zablokowanym katalogu
-        # `_store` powtarza sam zapis — a gdyby kazdy wpis zapisywal plik
-        # osobno, pierwszy nieudany zapis przerwalby petle i stemple 2..N
-        # przepadlyby mimo ze ich dowody sa juz w publicznym rejestrze.
+        # pamieci, zanim cokolwiek dotknie dysku (patrz `History.merge`).
         self._store(lambda: self.history.merge(
             [item.entry for item in outcome.successes]), self.history.save)
         self._refresh_history_view()
@@ -842,10 +1124,13 @@ class MainWindow(QMainWindow):
         if outcome.successes:
             last = outcome.successes[-1]
             self.current_result = last.result
-            self.current_entry = last.entry
-            self.note_input.setText(last.entry.note)
-            self._show_result(last.result, last.entry, newly_created=last.newly_created,
+            self.current_entry = self.history.find(last.entry.digest) or last.entry
+            self._current_batch = [self.history.find(item.entry.digest) or item.entry
+                                   for item in outcome.successes]
+            self._show_result(last.result, self.current_entry,
+                              newly_created=last.newly_created,
                               count=len(outcome.successes))
+            self._show_note_for_current()
         if outcome.failures:
             self._report_failures(outcome.failures)
         elif outcome.successes:
@@ -878,6 +1163,7 @@ class MainWindow(QMainWindow):
             self.result_badge.show_state('error', _('Error'))
             self.result_description.setText(
                 _('The register did not confirm the write. Try again.'))
+            self.result_journey.hide()
             return
 
         if result.problems:
@@ -902,10 +1188,9 @@ class MainWindow(QMainWindow):
             kind = 'ok' if result.level.order >= Level.SIGNED.order else 'info'
             self.result_badge.show_state(kind, result.level.label,
                                          result.level.description)
-            # NIE `_('Note:')`: ten sam msgid jest etykieta POLA notatki
-            # (linia 309). Po angielsku oba znaczenia mieszcza sie w jednym
-            # slowie, po niemiecku nie — „Notiz:" to pole uzytkownika,
-            # a tu potrzebne jest „Hinweis:".
+            # NIE `_('Note:')`: ten sam msgid jest etykieta POLA notatki.
+            # Po niemiecku „Notiz:" to pole uzytkownika, a tu potrzebne
+            # jest „Hinweis:".
             extra = ('' if newly_created else
                      '<br><br><b>' + _('Please note:') + '</b> '
                      + _('the ORIGINAL timestamp was returned. The first stamp '
@@ -914,9 +1199,10 @@ class MainWindow(QMainWindow):
             self.result_description.setText(result.level.description + extra)
 
         self.result_digest.set_value(result.digest)
-        self.result_time.setText(_time_html(
-            result.beat, result.utc, self._result_week_note(result)))
+        self.result_time.setText(_time_html(result, self._result_week_note(result)))
         self.result_checks.setText(self._checks_text(result))
+        self.result_journey.set_steps(journey.journey_steps(result, self.witness_state))
+        self.result_journey.show()
         # Certyfikat i .beatproof tylko dla dowodu bez zastrzezen — dokument
         # wystawiony z odpowiedzi odrzuconej przez kontrole lokalna
         # wygladalby jak dowod, a nim nie jest.
@@ -933,23 +1219,37 @@ class MainWindow(QMainWindow):
     def _checks_text(result: VerificationResult) -> str:
         parts = []
         if result.inclusion_checked:
-            parts.append('✔ ' + _('the inclusion path matches the week root')
+            parts.append('✓ ' + _('the inclusion path matches the week root')
                          if result.inclusion_ok else
-                         '✘ ' + _('the inclusion path does NOT lead to the root'))
+                         '✗ ' + _('the inclusion path does NOT lead to the root'))
         else:
             parts.append('• ' + _('inclusion path — the week is still open'))
         if result.signature_checked:
-            parts.append('✔ ' + _('the Ed25519 root signature is valid')
+            parts.append('✓ ' + _('the Ed25519 root signature is valid')
                          if result.signature_ok
-                         else '✘ ' + _('the Ed25519 signature is invalid'))
+                         else '✗ ' + _('the Ed25519 signature is invalid'))
             parts.append(_key_line(result.signer_status))
         else:
             parts.append('• ' + _('root signature — it arrives once the week '
                                   'closes'))
+        cp = result.checkpoint or {}
+        if cp.get('verified'):
+            parts.append('✓ ' + _('the path to signed checkpoint #%(n)s checks out '
+                                  '— against the checkpoint file this application '
+                                  'verified') % {'n': cp.get('n')})
+        elif cp.get('n'):
+            parts.append('✗ ' + _('the path to checkpoint #%(n)s does NOT check out')
+                         % {'n': cp.get('n')})
+        else:
+            parts.append('• ' + _('log checkpoint — the next daily one will contain '
+                                  'this entry'))
         # Nazwa banku przychodzi z sieci, a etykieta interpretuje HTML —
         # escapujemy KAZDA wartosc, takze nasze wlasne ostrzezenia.
         parts.append('• ' + _('anchor (according to the register): %(anchors)s')
                      % {'anchors': html.escape(result.anchor_summary)})
+        if result.witness_mode == witness.MODE_PRIVATE:
+            parts.append('• ' + _('checked privately — the server was not told which '
+                                  'digest this is'))
         for warning in result.warnings:
             parts.append(f'⚠ {html.escape(warning)}')
         return '<br>'.join(parts)
@@ -960,25 +1260,62 @@ class MainWindow(QMainWindow):
         for button in (self.button_pdf, self.button_bundle):
             button.setEnabled(enabled and exportable)
 
-    def _save_note_to_current(self) -> None:
-        """Notatka zapisuje się sama — bez osobnego przycisku "Zapisz".
+    # --- Notatka --------------------------------------------------------------
 
-        Poprzednik miał przycisk "Zapisz notatke", który dopisywal tekst do
-        OSTATNIEGO wpisu historii, niezależnie od tego, czego dotyczyl. Przy
-        dwoch plikach pod rzad notatka ladowala przy niewlasciwym.
+    def _show_note_for_current(self) -> None:
+        """Pole notatki po stemplu: aktywne, z tym, co juz jest w historii.
+
+        Do 2.1 pole stalo NAD wynikiem i dzialalo tylko wtedy, gdy wpisalo sie
+        notatke PRZED przeciagnieciem pliku — a przeciaga sie od razu. Teraz
+        notatke dopisuje sie po stemplu, w karcie wyniku, a w Historii mozna
+        ja zmienic w kazdej chwili.
         """
-        if self.current_entry is None:
+        entry = self.current_entry
+        self.note_input.setEnabled(entry is not None)
+        self.note_input.setText(str(getattr(entry, 'note', '') or ''))
+        count = len(self._current_batch)
+        if entry is None:
+            self.note_hint.setText('')
+        elif count > 1:
+            self.note_hint.setText(_('The note applies to all %(count)s files of '
+                                     'this batch.') % {'count': count})
+        else:
+            self.note_hint.setText(_('Saved automatically · visible only on this '
+                                     'computer'))
+
+    def _save_note_to_current(self) -> None:
+        """Notatka zapisuje sie sama — bez osobnego przycisku "Zapisz"."""
+        self._note_timer.stop()
+        targets = self._current_batch or ([self.current_entry] if self.current_entry else [])
+        if not targets:
             return
         note = self.note_input.text().strip()
-        if note == self.current_entry.note:
+        changed = False
+        for entry in targets:
+            existing = self.history.find(entry.digest)
+            for item in {id(x): x for x in (entry, existing) if x is not None}.values():
+                if item.note != note:
+                    item.note = note
+                    changed = True
+        if not changed:
             return
-        self.current_entry.note = note
-        existing = self.history.find(self.current_entry.digest)
-        if existing is not None:
+        if not self._store(self.history.save):
+            return
+        self._refresh_history_view()
+        self.statusBar().showMessage(_('Note saved.'), 3000)
+
+    def _set_note(self, entry, note: str) -> None:
+        """Notatka zmieniona w oknie szczegolow."""
+        if entry is None or entry.note == note:
+            return
+        entry.note = note
+        existing = self.history.find(entry.digest)
+        if existing is not None and existing is not entry:
             existing.note = note
-            if not self._store(self.history.save):
-                return
+        if self._store(self.history.save):
             self._refresh_history_view()
+            if self.current_entry is not None and self.current_entry.digest == entry.digest:
+                self.note_input.setText(note)
             self.statusBar().showMessage(_('Note saved.'), 3000)
 
     # --- Weryfikacja --------------------------------------------------------
@@ -1022,7 +1359,9 @@ class MainWindow(QMainWindow):
         self.verify_input.setText(digest)
         self._verify_source_name = source
         task = workers.VerifyDigestTask(
-            digest, self.client, key_override=self.settings.key_override)
+            digest, self.client, key_override=self.settings.key_override,
+            mode=self.settings.witness_mode, witness_state=self.witness_state,
+            mirror=self.log_mirror)
         self._start(task, self._on_verified,
                     label_text=_('Querying the register…'))
 
@@ -1035,7 +1374,7 @@ class MainWindow(QMainWindow):
             self.verify_title.setText(_('No stamp'))
             self.verify_badge.show_state('warn', _('Not found'))
             self.verify_description.setText(
-                _('This digest <b>does not appear</b> in the BeatTime '
+                _('This digest <b>does not appear</b> in the Sigelith '
                   'register.<br><br>')
                 + (_('The file was never stamped, or it was changed after '
                      'stamping — even a single changed byte gives a completely '
@@ -1044,6 +1383,7 @@ class MainWindow(QMainWindow):
                    _('Check that the digest was pasted in full.')))
             self.verify_time.setText('—')
             self.verify_checks.setText('—')
+            self.verify_journey.hide()
             self._enable_verify_buttons(False)
             return
 
@@ -1067,9 +1407,10 @@ class MainWindow(QMainWindow):
             self.verify_badge.show_state(kind, result.level.label, result.level.description)
             self.verify_description.setText(result.level.description)
 
-        self.verify_time.setText(_time_html(
-            result.beat, result.utc, self._result_week_note(result)))
+        self.verify_time.setText(_time_html(result, self._result_week_note(result)))
         self.verify_checks.setText(self._checks_text(result))
+        self.verify_journey.set_steps(journey.journey_steps(result, self.witness_state))
+        self.verify_journey.show()
         self._enable_verify_buttons(True, exportable=not result.problems)
         self.verify_ots_button.setEnabled(bool(result.week) and result.ots_status != 'none')
 
@@ -1080,12 +1421,18 @@ class MainWindow(QMainWindow):
         self.verify_ots_button.setEnabled(False)
 
     def check_bundle_file(self) -> None:
+        # Dowody plików z kopii Sigelith Backup (.sigelith-proof) w tym samym filtrze —
+        # dopisane do wzorca, żeby nie zmieniać przetłumaczonego napisu.
+        filters = _('Sigelith proof (*.beatproof);;JSON files (*.json);;All files (*)').replace(
+            '*.beatproof)', f'*.beatproof *{fileproof.EXTENSION})', 1)
         path, _filter = QFileDialog.getOpenFileName(
             self, _('Choose a proof file'),
-            self.settings.last_directory or str(Path.home()),
-            _('BeatStamp proof (*.beatproof);;JSON files (*.json);;All files (*)'))
-        if not path:
-            return
+            self.settings.last_directory or str(Path.home()), filters)
+        if path:
+            self.check_bundle_path(Path(path))
+
+    def check_bundle_path(self, path: Path) -> None:
+        """Sprawdza wskazany plik dowodu — z przycisku, z menu albo z dwukliku w Eksploratorze."""
         answer = QMessageBox.question(
             self, _('Point to the document?'),
             _('Do you also want to point to the <b>document</b> this proof is '
@@ -1103,48 +1450,70 @@ class MainWindow(QMainWindow):
                 document = Path(doc_path)
         self.tabs.setCurrentIndex(1)
         task = workers.CheckBundleTask(
-            Path(path), document, key_override=self.settings.key_override)
+            path, document, key_override=self.settings.key_override)
         self._start(task, self._on_bundle_checked,
                     label_text=_('Checking the proof…'))
 
     def _on_bundle_checked(self, outcome: workers.BundleOutcome) -> None:
         check = outcome.check
         self.verify_result = None
-        self._bundle_data = outcome.data
+        data = outcome.data
+        backup_file = None
+        if data.get('format') == fileproof.FORMAT:
+            # Dowód pliku z kopii: czas i pola zaufania niesie osadzony beatproof-v1.
+            backup_file = fileproof.file_info(data)
+            inner = data.get('beatproof')
+            data = inner if isinstance(inner, dict) else {}
+        # Do okna „Szczegoly" idzie widok z polami zaufania z TEGO sprawdzenia,
+        # a nie surowy plik — patrz `bundle.verified_view`.
+        self._bundle_data = bundle.verified_view(data, check)
+        if backup_file is not None:
+            self._bundle_data['file_name'] = str(backup_file.get('name') or '')
+            self._bundle_data['digest'] = check.digest
         self.verify_digest.set_value(check.digest)
         self.verify_input.setText(check.digest)
+        self.verify_journey.hide()
 
         lines = []
         if check.file_matches is True:
-            lines.append('✔ ' + _('the document digest matches the proof'))
+            lines.append('✓ ' + _('the document digest matches the proof'))
         elif check.file_matches is False:
-            lines.append('✘ ' + _('the document digest does NOT match the proof'))
+            lines.append('✗ ' + _('the document digest does NOT match the proof'))
         else:
             lines.append('• ' + _('no document was pointed to — only the proof '
                                   'itself was checked'))
-        lines.append('✔ ' + _('the inclusion path leads to the week root')
+        lines.append('✓ ' + _('the inclusion path leads to the week root')
                      if check.inclusion_ok
-                     else '✘ ' + _('the inclusion path does not match'))
-        lines.append('✔ ' + _('the Ed25519 root signature is valid')
+                     else '✗ ' + _('the inclusion path does not match'))
+        lines.append('✓ ' + _('the Ed25519 root signature is valid')
                      if check.signature_ok
-                     else '✘ ' + _('no valid root signature'))
+                     else '✗ ' + _('no valid root signature'))
         if check.signer_status:
             lines.append(_key_line(check.signer_status))
+        if check.checkpoint_ok is True:
+            lines.append('✓ ' + _('the proof carries signed checkpoint #%(n)s and the '
+                                  'path of the entry to its root checks out')
+                         % {'n': check.checkpoint_n})
+        elif check.checkpoint_ok is False:
+            lines.append('✗ ' + _('the checkpoint in the proof does not check out'))
         for warning in check.warnings:
             lines.append(f'⚠ {html.escape(warning)}')
+        if backup_file is not None and not check.problems:
+            lines.append('✓ ' + html.escape(_(
+                'Sigelith Backup file proof: %(name)s — the path in the backup tree '
+                'leads to the sealed root.') % {'name': str(backup_file.get('path')
+                                                          or backup_file.get('name') or '')}))
         for note in check.notes:
             lines.append(f'• {html.escape(note)}')
         self.verify_checks.setText('<br>'.join(lines))
 
-        data = outcome.data
-        # Tresc pliku .beatproof pochodzi OD KOGOS INNEGO — to jedyne miejsce
-        # w programie, gdzie dane wchodza wprost z pliku wskazanego przez
-        # uzytkownika. Ida przez ten sam bezpieczny skladacz co reszta.
-        # Podpis obejmuje tylko tydzien; bundle.check sprawdzil, ze czas w nim
-        # lezy, wiec przy check.ok tydzien jest granica potwierdzona.
+        # Tresc pliku .beatproof pochodzi OD KOGOS INNEGO — idzie przez ten
+        # sam bezpieczny skladacz co reszta.
+        # Bez granic czasu: w pliku .beatproof to niepodpisane twierdzenie,
+        # a stalo obok „Zweryfikowano offline" (fuzzing 2026-09-27).
         self.verify_time.setText(_time_html(
-            str(data.get('beat') or ''), str(data.get('utc') or ''),
-            '' if check.problems else _week_note(check.week, check.ok)))
+            _DictView(data), '' if check.problems else _week_note(check.week, check.ok),
+            with_bounds=False))
 
         if check.ok:
             self.verify_title.setText(_('Proof confirmed — %(name)s')
@@ -1152,7 +1521,7 @@ class MainWindow(QMainWindow):
             self.verify_badge.show_state('ok', _('Verified offline'))
             self.verify_description.setText(_(
                 'The proof was checked <b>entirely locally</b> — without '
-                'connecting to beattime.live and without trusting anyone. The '
+                'connecting to sigelith.org and without trusting anyone. The '
                 'inclusion path, the root signature, the identity of the key '
                 'and the week of the stamp all add up. The signature confirms '
                 'that the document existed no later than the end of the week; '
@@ -1181,55 +1550,79 @@ class MainWindow(QMainWindow):
     # --- Zapis wynikow ------------------------------------------------------
 
     def _choose_save_path(self, title: str, default_name: str, filters: str) -> Path | None:
-        start = Path(self.settings.last_directory or str(Path.home())) / default_name
+        # Proponowana nazwa NIGDY nie wskazuje istniejacego pliku: przy
+        # zajetej nazwie dostaje „(2)". Do 2.1 drugi certyfikat tego samego
+        # dokumentu zastepowal pierwszy, jesli ktos przeoczyl pytanie.
+        start = naming.unique_path(
+            Path(self.settings.last_directory or str(Path.home())) / default_name)
         path, _filter = QFileDialog.getSaveFileName(self, title, str(start), filters)
         if not path:
             return None
         target = Path(path)
         # QFileDialog pyta o nadpisanie samo, ale tylko gdy uzytkownik wpisze
-        # nazwe recznie. Sprawdzamy jeszcze raz, bo poprzednik sklejal sciezke
-        # z nazwy pliku zrodlowego i nadpisywal BEZ pytania.
+        # nazwe recznie. Sprawdzamy jeszcze raz.
         if self.settings.confirm_overwrite and target.exists():
             if QMessageBox.question(
                     self, _('The file already exists'),
                     _('The file <b>%(name)s</b> already exists in this '
-                      'folder.<br><br>Overwrite it?') % {'name': target.name},
+                      'folder.<br><br>Overwrite it?') % {'name': html.escape(target.name)},
                     QMessageBox.Yes | QMessageBox.No,
                     QMessageBox.No) != QMessageBox.Yes:
                 return None
         self.settings.last_directory = str(target.parent)
         return target
 
+    def _name_parts(self) -> dict:
+        return {'source': self.settings.name_cert_after_source,
+                'moment': self.settings.cert_name_moment,
+                'beat': self.settings.cert_name_beat}
+
     def _write_certificate(self, entry) -> None:
         if entry is None:
             return
         target = self._choose_save_path(
             _('Save the PDF certificate'),
-            certificate.default_filename(entry) if self.settings.name_cert_after_source
-            else _('certificate') + '_beattime.pdf',
+            naming.certificate_name(entry, **self._name_parts()),
             _('PDF document (*.pdf)'))
         if target is None:
             return
         try:
             write_atomic(target, certificate.build_certificate(
-                entry, key_override=self.settings.key_override))
+                entry, key_override=self.settings.key_override,
+                witness_state=self.witness_state))
         except OSError as e:
             QMessageBox.warning(
                 self, _('It could not be saved'),
                 _('The certificate could not be saved:<br>%(reason)s')
-                % {'reason': e.strerror or e})
+                % {'reason': html.escape(str(e.strerror or e))})
             return
-        self._offer_open(target, _('Certificate saved'))
+        except Exception as e:     # noqa: BLE001 — np. LayoutError reportlaba
+            log.error('certyfikat PDF', exc_info=True)
+            QMessageBox.warning(
+                self, _('It could not be saved'),
+                _('The certificate could not be saved:<br>%(reason)s')
+                % {'reason': html.escape(type(e).__name__)})
+            return
+        note = ''
+        if certificate.certificate_language() != current_language():
+            note = _('The certificate is in English: a PDF cannot reproduce this '
+                     'script faithfully.')
+        self._offer_open(target, _('Certificate saved'), note=note)
+
+    def _checkpoint_file(self, entry) -> bytes | None:
+        cp = getattr(entry, 'checkpoint', None) or {}
+        if not cp.get('verified') or not isinstance(cp.get('n'), int):
+            return None
+        return self.witness_store.read_checkpoint(cp['n'])
 
     def _write_bundle(self, entry) -> None:
         if entry is None:
             return
-        data = bundle.build(entry)
+        data = bundle.build(entry, checkpoint_file=self._checkpoint_file(entry))
         target = self._choose_save_path(
             _('Save the offline proof'),
-            bundle.default_name(str(getattr(entry, 'digest', '')),
-                                str(getattr(entry, 'file_name', '') or '')),
-            _('BeatStamp proof (*.beatproof)'))
+            naming.bundle_name(entry, **self._name_parts()),
+            _('Sigelith proof (*.beatproof)'))
         if target is None:
             return
         try:
@@ -1238,7 +1631,7 @@ class MainWindow(QMainWindow):
             QMessageBox.warning(
                 self, _('It could not be saved'),
                 _('The proof could not be saved:<br>%(reason)s')
-                % {'reason': e.strerror or e})
+                % {'reason': html.escape(str(e.strerror or e))})
             return
         level = str(data.get('level') or '')
         if data.get('root_signature') and keys.is_retired(data.get('public_key')):
@@ -1249,7 +1642,7 @@ class MainWindow(QMainWindow):
                   'so the recipient will not accept this proof. Refresh the '
                   'statuses (History -> Refresh statuses, F5) and export the '
                   'proof again — it will get a signature made with the current '
-                  'BeatTime key.') % {'name': html.escape(saved.name)})
+                  'Sigelith key.') % {'name': html.escape(saved.name)})
         elif level == Level.RECORDED.value:
             QMessageBox.information(
                 self, _('Proof saved — not closed yet'),
@@ -1262,13 +1655,17 @@ class MainWindow(QMainWindow):
         else:
             self._offer_open(saved, _('Proof saved'))
 
-    def _offer_open(self, path: Path, title: str) -> None:
+    def _offer_open(self, path: Path, title: str, *, note: str = '') -> None:
         box = QMessageBox(self)
         box.setWindowTitle(title)
         box.setTextFormat(Qt.RichText)
-        box.setText(_('<b>%(name)s</b> was saved.')
-                    % {'name': html.escape(path.name)})
-        box.setInformativeText(str(path.parent))
+        box.setText(rtl_block(_('<b>%(name)s</b> was saved.')
+                              % {'name': html.escape(ltr(path.name))}))
+        # Pole informacyjne dziedziczy tekst wzbogacony: nowe linie jako <br>,
+        # sciezka escapowana (w nazwie folderu moze byc „&").
+        box.setInformativeText(rtl_block(
+            html.escape(ltr(str(path.parent)))
+            + (f'<br><br>{html.escape(note)}' if note else '')))
         open_button = box.addButton(_('Open the file'), QMessageBox.AcceptRole)
         folder_button = box.addButton(_('Show in folder'), QMessageBox.ActionRole)
         box.addButton(_('Close'), QMessageBox.RejectRole)
@@ -1307,7 +1704,7 @@ class MainWindow(QMainWindow):
 
     def _save_ots(self, week: str, data: bytes) -> None:
         target = self._choose_save_path(
-            _('Save the OpenTimestamps proof'), f'beattime-{week}.ots',
+            _('Save the OpenTimestamps proof'), f'sigelith-{week}.ots',
             _('OpenTimestamps proof (*.ots)'))
         if target is None:
             return
@@ -1322,27 +1719,53 @@ class MainWindow(QMainWindow):
               'You can check it with an OpenTimestamps client:<br>'
               '<code>ots verify %(command)s</code><br><br>'
               'That verification goes through the Bitcoin chain — entirely '
-              'outside BeatTime and outside this application.')
+              'outside Sigelith and outside this application.')
             % {'name': html.escape(target.name),
                'command': html.escape(target.name)})
+
+    def _verify_page(self, digest: str) -> str:
+        return verify_url(digest, current_language())
 
     def open_in_browser(self) -> None:
         if self.current_result is None:
             return
-        webbrowser.open(f'https://beattime.live/proof/?h={self.current_result.digest}')
+        webbrowser.open(self._verify_page(self.current_result.digest))
+
+    def _details(self, title: str, entry, data: dict | None = None) -> None:
+        actions = []
+        if entry is not None and getattr(entry, 'source', '') != SOURCE_TVS_LEGACY:
+            actions = [
+                (_('PDF certificate'), _('Issues a certificate for this entry'),
+                 lambda: self._write_certificate(entry)),
+                (_('Offline proof'), _('Saves a stand-alone .beatproof proof'),
+                 lambda: self._write_bundle(entry)),
+                (_('Check in the browser'), _('Opens sigelith.org/proof with this '
+                                              'digest'),
+                 lambda: webbrowser.open(self._verify_page(entry.digest))),
+            ]
+        in_history = entry is not None and self.history.find(entry.digest) is not None
+        DetailsDialog(
+            title, data if data is not None else bundle.build(
+                entry, checkpoint_file=self._checkpoint_file(entry)),
+            self, entry=entry, witness_state=self.witness_state,
+            on_note=(lambda text: self._set_note(entry, text)) if in_history else None,
+            actions=actions).exec()
 
     def show_details(self) -> None:
         if self.current_entry is None:
             return
-        DetailsDialog(_('Proof details'),
-                      bundle.build(self.current_entry), self).exec()
+        self._details(_('Proof details'), self.current_entry)
 
     def show_verify_details(self) -> None:
-        data = (bundle.build(entry_from_verification(self.verify_result))
-                if self.verify_result is not None
-                else getattr(self, '_bundle_data', None))
+        if self.verify_result is not None:
+            entry = self.history.find(self.verify_result.digest) or entry_from_verification(
+                self.verify_result, file_name=getattr(self, '_verify_source_name', ''))
+            self._details(_('Proof details'), entry)
+            return
+        data = getattr(self, '_bundle_data', None)
         if data:
-            DetailsDialog(_('Proof details'), data, self).exec()
+            DetailsDialog(_('Proof details'), data, self,
+                          witness_state=self.witness_state).exec()
 
     # --- Historia -----------------------------------------------------------
 
@@ -1353,21 +1776,22 @@ class MainWindow(QMainWindow):
         legacy = sum(1 for e in self.history.entries if e.source == SOURCE_TVS_LEGACY)
         parts = [plural.entries(total),
                  _('%(count)s anchored') % {'count': anchored}]
+        pinned = sum(1 for e in self.history.entries
+                     if witness.pinning(e.checkpoint, self.witness_state).sources)
+        if pinned:
+            parts.append(_('%(count)s with independent copies') % {'count': pinned})
         if legacy:
             parts.append(_('%(count)s from the TVS archive') % {'count': legacy})
         self.history_summary.setText(' · '.join(parts))
         self._update_history_buttons()
+        panel = getattr(self, 'witness_panel', None)
+        if panel is not None:
+            panel.set_history(self.history.entries)
 
     # --- Katalog danych -----------------------------------------------------
 
     def _check_data_dir(self) -> None:
-        """Sprawdza PRZY STARCIE, czy program ma gdzie zapisac dane.
-
-        Plik probny kosztuje milisekundy i oszczedza sytuacji, w ktorej
-        uzytkownik dowiaduje sie o blokadzie dopiero po policzeniu skrotu
-        pliku o wielkosci kilku gigabajtow — a swiezy stempel, juz zapisany
-        w publicznym rejestrze, przepada razem z nieudanym zapisem historii.
-        """
+        """Sprawdza PRZY STARCIE, czy program ma gdzie zapisac dane."""
         if self._closing:
             return
         problem = probe_write()
@@ -1375,17 +1799,11 @@ class MainWindow(QMainWindow):
             self._resolve_data_dir(problem)
 
     def _resolve_data_dir(self, problem: WriteProblem) -> bool:
-        """Okno blokady + przyjecie nowego katalogu. `True` = da sie pisac.
-
-        Rezygnacja NIE gasi programu: weryfikacja dowodow, podglad historii
-        i eksport dzialaja dalej. Pasek stanu zostaje jednak z ostrzezeniem
-        bez terminu waznosci — nowy stempel nie zostanie zapisany, dopoki
-        katalog sie nie zmieni, i uzytkownik ma to widziec caly czas.
-        """
+        """Okno blokady + przyjecie nowego katalogu. `True` = da sie pisac."""
         chosen = resolve_data_dir_problem(problem, self)
         if chosen is None:
             self.statusBar().showMessage(
-                _('BeatStamp cannot save data in %(path)s — new stamps will '
+                _('Sigelith Desktop cannot save data in %(path)s — new stamps will '
                   'not be recorded in the history until the folder is changed '
                   '(Settings -> Data).') % {'path': problem.directory})
             return False
@@ -1393,27 +1811,21 @@ class MainWindow(QMainWindow):
         return True
 
     def _adopt_data_dir(self) -> None:
-        """Po zmianie katalogu danych: historia musi pisac w NOWYM miejscu.
-
-        `History` zapamietuje sciezke przy tworzeniu, wiec bez tego wiersza
-        program pisalby dalej tam, gdzie zapis wlasnie sie nie udal.
-        """
+        """Po zmianie katalogu danych: historia i swiadek pisza w NOWYM miejscu."""
         self.history.path = history_path()
+        self.witness_store = witness.WitnessStore()
+        self.witness_state = self.witness_store.load()
+        self.log_mirror = witness.LogMirror()
+        self._render_witnesses()
+        self.handover.adopt_data_dir()
         self.statusBar().showMessage(
             _('Data folder: %(path)s') % {'path': app_data_dir()}, 20_000)
 
     def _store(self, action, save=None) -> bool:
         """Zapis danych programu z obsluga blokady. `True` = zapisane.
 
-        Jedyne miejsce, przez ktore ida zapisy historii i ustawien. Bez niego
-        blokada zapisu wychodzila ze slotu Qt jako nieprzechwycony wyjatek:
-        uzytkownik dostawal slad `FileNotFoundError` mowiacy o pliku
-        tymczasowym, ktorego nigdy nie widzial, a swiezy stempel przepadal.
-
-        Po zmianie katalogu powtarzamy SAM ZAPIS, a nie cala czynnosc.
-        `History.add` najpierw dopisuje wpis do listy w pamieci, a dopiero
-        potem zapisuje plik — ponowienie calej czynnosci dolozyloby ten sam
-        stempel po raz drugi.
+        Po zmianie katalogu powtarzamy SAM ZAPIS, a nie cala czynnosc —
+        ponowienie `History.add` dolozyloby ten sam stempel po raz drugi.
         """
         save = save or action
         try:
@@ -1426,24 +1838,13 @@ class MainWindow(QMainWindow):
         try:
             save()
         except OSError as e:
-            # Drugie niepowodzenie z rzedu: mowimy o nim i konczymy. Kolejne
-            # okno z tym samym pytaniem bylaby petla, z ktorej uzytkownik nie
-            # ma jak wyjsc.
             problem = describe_write_problem(app_data_dir(), e)
             QMessageBox.warning(self, problem.title, problem.message)
             return False
         return True
 
     def _report_migration(self) -> None:
-        """Mowi o przeprowadzce danych — na pasku stanu, nie okienkiem.
-
-        Przeniesienie plikow na nowe miejsce jest czynnoscia programu, nie
-        problemem uzytkownika: nie ma tu decyzji do podjecia ani bledu do
-        naprawienia. Modalne okienko przy starcie zatrzymywaloby program,
-        zanim glowne okno zdazy sie pokazac (ten sam powod, dla ktorego caly
-        ten blok jest odlozony na petle zdarzen). Kto chce szczegolow, ma je
-        w dzienniku zdarzen — i w katalogu, ktory otwiera menu Pomoc.
-        """
+        """Mowi o przeprowadzce danych — na pasku stanu, nie okienkiem."""
         if self._closing or self._migration is None:
             return
         message = self._migration.message
@@ -1458,15 +1859,7 @@ class MainWindow(QMainWindow):
 
     @staticmethod
     def _find_legacy_history() -> Path | None:
-        """Szuka `history.json` starego klienta TVS.
-
-        Sprawdzamy dwa miejsca, bo stary program zapisywal historie do
-        KATALOGU ROBOCZEGO — czyli tam, skad go uruchomiono. Przy wersji
-        skompilowanej bylo to zwykle miejsce, gdzie lezal `tvs_gui.exe`;
-        przy uruchomieniu ze zrodel — katalog repozytorium. Szukanie tylko
-        obok zrodel dzialaloby więc wyłącznie u programisty, a u uzytkownika
-        wersji exe migracja po cichu nie robilaby nic.
-        """
+        """Szuka `history.json` starego klienta TVS (katalog programu, zrodla, cwd)."""
         candidates = [Path(sys.executable).resolve().parent,
                       Path(__file__).resolve().parent.parent.parent,
                       Path.cwd()]
@@ -1493,13 +1886,8 @@ class MainWindow(QMainWindow):
         if not self._store(lambda: self.history.import_legacy_tvs(legacy),
                            self.history.save):
             return
-        # Liczymy z listy, a nie z wyniku funkcji: gdy pierwszy zapis padl na
-        # blokadzie, wpisy sa juz w pamieci, a wartosc zwrocona przepadla
-        # razem z wyjatkiem.
         added = len(self.history.entries) - before
         try:
-            # Sciezke liczymy PONOWNIE: `_store` mogl w miedzyczasie przeniesc
-            # katalog danych, a znacznik ma wyladowac tam, gdzie historia.
             (app_data_dir() / '.tvs-zaimportowano').write_text(
                 'ok', encoding='utf-8')
         except OSError:
@@ -1512,7 +1900,7 @@ class MainWindow(QMainWindow):
                   'history.<br><br>They are marked as an <b>archive</b>: their '
                   'former "signature" is a concatenation of a time and a digest '
                   'that cannot be verified. To get a proof that can be checked '
-                  'independently, stamp those files again — BeatTime will write '
+                  'independently, stamp those files again — Sigelith will write '
                   'a new entry and the old one will stay in the history.')
                 % {'entries': plural.entries(added)})
 
@@ -1565,7 +1953,7 @@ class MainWindow(QMainWindow):
     def history_details(self) -> None:
         entries = self._selected_entries()
         if entries:
-            DetailsDialog(_('Entry details'), bundle.build(entries[0]), self).exec()
+            self._details(_('Entry details'), entries[0])
 
     def history_copy_digest(self) -> None:
         entries = self._selected_entries()
@@ -1576,7 +1964,11 @@ class MainWindow(QMainWindow):
     def history_open_browser(self) -> None:
         entries = self._selected_entries()
         if entries:
-            webbrowser.open(entries[0].verify_url)
+            entry = entries[0]
+            url = (entry.verify_url if entry.source == SOURCE_TVS_LEGACY
+                   else self._verify_page(entry.digest))
+            if url:
+                webbrowser.open(url)
 
     def history_delete(self) -> None:
         entries = self._selected_entries()
@@ -1585,7 +1977,7 @@ class MainWindow(QMainWindow):
         if QMessageBox.question(
                 self, _('Remove from history?'),
                 _('Remove <b>%(entries)s</b> from the local history?<br><br>'
-                  'The stamp <b>stays in the public BeatTime register</b> — the '
+                  'The stamp <b>stays in the public Sigelith register</b> — the '
                   'register is append-only and nothing can be removed from it. '
                   'Only this list on this computer changes.')
                 % {'entries': plural.entries(len(entries))},
@@ -1610,15 +2002,24 @@ class MainWindow(QMainWindow):
         self.tabs.setCurrentIndex(2)
         task = workers.RefreshEntriesTask(
             self.history.entries, self.client,
-            key_override=self.settings.key_override)
+            key_override=self.settings.key_override,
+            mode=self.settings.witness_mode, witness_state=self.witness_state,
+            mirror=self.log_mirror)
         self._start(task, self._on_refreshed,
                     label_text=_('Refreshing statuses…'))
 
-    def _on_refreshed(self, updated: list) -> None:
+    def _on_refreshed(self, updated: list, *, quiet: bool = False) -> None:
         # Ten sam powod co w `_on_stamped`: przerwana w polowie petla zapisow
         # utrwalilaby czesc odswiezonych statusow i zgubila reszte.
-        self._store(lambda: self.history.merge(updated), self.history.save)
+        if updated:
+            self._store(lambda: self.history.merge(updated), self.history.save)
         self._refresh_history_view()
+        if quiet:
+            if updated:
+                self.statusBar().showMessage(
+                    _('%(entries)s matured in the background.')
+                    % {'entries': plural.entries(len(updated))}, 8000)
+            return
         if updated:
             QMessageBox.information(
                 self, _('Statuses refreshed'),
@@ -1637,7 +2038,7 @@ class MainWindow(QMainWindow):
         path, selected = QFileDialog.getSaveFileName(
             self, _('Export the history'),
             str(Path(self.settings.last_directory or Path.home())
-                / _('beatstamp-history.csv')),
+                / _('sigelith-history.csv')),
             _('CSV sheet for Excel (*.csv);;JSON file (*.json)'))
         if not path:
             return
@@ -1651,28 +2052,249 @@ class MainWindow(QMainWindow):
         except OSError as e:
             QMessageBox.warning(
                 self, _('It could not be saved'),
-                _('File write error:<br>%(reason)s') % {'reason': e.strerror or e})
+                _('File write error:<br>%(reason)s')
+                % {'reason': html.escape(str(e.strerror or e))})
             return
         self._offer_open(target, _('%(entries)s exported')
                          % {'entries': plural.entries(count)})
 
-    # --- Narzedzia ----------------------------------------------------------
+    # --- Swiadkowie -------------------------------------------------------------
 
-    def _sync_clock(self) -> None:
-        if self._closing or self._busy():
+    def _render_witnesses(self) -> None:
+        panel = getattr(self, 'witness_panel', None)
+        if panel is None:
             return
-        task = workers.ClockSyncTask(self.client)
-        task.signals.finished.connect(self._on_synced)
-        # Synchronizacja jest czynnoscia tla — nie zajmuje paska postepu i nie
-        # blokuje uzytkownika, wiec omija `_start`. Blad jest tylko logowany:
-        # brak sieci przy starcie nie powinien witac uzytkownika okienkiem.
-        task.signals.failed.connect(
-            lambda message: self.statusBar().showMessage(
-                _('The clock was not synchronised: %(reason)s')
-                % {'reason': message}, 8000))
+        panel.set_mode(self.settings.witness_mode)
+        panel.set_third_party(self.settings.third_party_checks)
+        panel.set_state(self.witness_state)
+        panel.set_running(self._witness_running)
+        role, text = panel.summary()
+        self.witness_dot.set_state(role, self._witness_running)
+        self.witness_button.setText(text)
+
+    def showEvent(self, event) -> None:
+        super().showEvent(event)
+        # Praca w tle rusza dopiero, gdy okno jest NA EKRANIE — nie w
+        # konstruktorze. Okno budowane w testach (albo przez kod
+        # biblioteczny) nie laczy sie wtedy z niczym samo z siebie.
+        if not self._background_started and not self._closing:
+            self._background_started = True
+            if self.settings.background_checks:
+                QTimer.singleShot(2500, self._background_cycle)
+                self._witness_timer.start()
+            # Handover czeka tylko wtedy, gdy jest na co (folder wymiany albo
+            # zaakceptowana paczka) — niezaleznie od kontroli swiadka.
+            self.handover.start_background()
+
+    def _background_cycle(self) -> None:
+        if self._closing or not self.settings.background_checks:
+            return
+        if self._busy():
+            # Uzytkownik cos wlasnie robi — wracamy po jego zadaniu.
+            self._background_paused = True
+            return
+        self.check_witnesses(False)
+
+    def check_witnesses(self, interactive: bool = True) -> None:
+        """Jeden przebieg swiadka; `interactive` = nakladka z wynikiem."""
+        if self._closing:
+            return
+        if self._witness_running:
+            if interactive:
+                self.tabs.setCurrentIndex(3)
+            return
+        self._witness_running = True
+        self._witness_interactive = interactive
+        if interactive:
+            self.overlay.begin(_('Checking the public log…'), _(
+                'Downloading new checkpoints and checking the signature, the chain, '
+                'consistency and the independent copies'))
+        task = workers.WitnessRefreshTask(
+            self.client, self.witness_store, self.witness_state,
+            self.log_mirror if self.settings.witness_mode == witness.MODE_PRIVATE else None,
+            mode=self.settings.witness_mode, key_override=self.settings.key_override,
+            third_party=self.settings.third_party_checks)
+        task.signals.finished.connect(self._on_witness_refreshed)
+        task.signals.failed.connect(self._on_witness_failed)
+        task.signals.done.connect(self._on_witness_done)
+        self._witness_task = task
+        self._render_witnesses()
         workers.launch(self.pool, task)
 
-    def _on_synced(self, result) -> None:
+    def _on_witness_refreshed(self, outcome) -> None:
+        state, report = outcome
+        # Jedna linia na przebieg: do 2.2.0 udany przebieg nie zostawial
+        # w dzienniku NIC — wynik byl tylko w state.json.
+        log.info('swiadek: %s nowych checkpointow, %s nowych wpisow, kopie: %s, '
+                 'alarmy: %s, bledy: %s%s', report.new_checkpoints, report.new_entries,
+                 ', '.join(report.copies_confirmed) or '—', len(report.new_alarms),
+                 len(report.errors), ' (ciag dalszy)' if report.more else '')
+        for error in report.errors[:5]:
+            log.info('swiadek: %s', error)
+        self.witness_state = state
+        try:
+            self.witness_store.save(state)
+        except OSError:
+            log.warning('swiadek: nie udalo sie zapisac stanu', exc_info=True)
+        self._render_witnesses()
+        self._refresh_history_view()
+        critical = [a for a in report.new_alarms if a.get('severity') == 'critical']
+        if critical:
+            self.tabs.setCurrentIndex(3)
+            QMessageBox.critical(
+                self, _('The witnesses raised an alarm'),
+                _('Sigelith Desktop found something in the public log that must not '
+                  'happen: <b>%(what)s</b>.<br><br>The conflicting files were '
+                  'kept as evidence in the data folder. Details are in the '
+                  'Witnesses tab.') % {'what': html.escape(critical[0].get('detail', ''))})
+        if self._witness_interactive:
+            if state.critical_alarms:
+                self.overlay.finish(_('Alarm'), _('See the Witnesses tab'), ok=False)
+            elif report.errors and not report.new_checkpoints and state.last_error:
+                self.overlay.finish(_('No connection'), state.last_error, ok=False)
+            else:
+                latest = state.latest
+                self.overlay.finish(
+                    _('The log checks out'),
+                    (_('checkpoint #%(n)s · %(new)s new · %(copies)s independent '
+                       'copies confirmed') % {
+                        'n': latest.n, 'new': report.new_checkpoints,
+                        'copies': sum(1 for s in witness.SOURCES if state.copy_max(s))})
+                    if latest else _('no checkpoint has been issued yet'))
+        if report.new_checkpoints or report.copies_confirmed:
+            self.statusBar().showMessage(
+                _('Witnesses: %(n)s new checkpoints checked') % {'n': report.new_checkpoints}
+                + (' · ' + ', '.join(report.copies_confirmed) if report.copies_confirmed
+                   else ''), 8000)
+        if report.more:
+            QTimer.singleShot(WITNESS_CONTINUE_MS, self._background_cycle)
+        elif self.settings.background_checks and not self._witness_interactive:
+            self._refresh_quietly()
+
+    def _on_witness_failed(self, message: str) -> None:
+        log.warning('swiadek: %s', message)
+        self.witness_state.last_error = message
+        if self._witness_interactive:
+            self.overlay.finish(_('The check did not work'), message, ok=False)
+
+    def _on_witness_done(self) -> None:
+        self._witness_running = False
+        self._witness_task = None
+        # Nastepny przebieg liczy sie od konca tego, z rozrzutem.
+        if self._witness_timer.isActive():
+            self._witness_timer.setInterval(self._next_witness_interval())
+        self._render_witnesses()
+
+    def _refresh_quietly(self) -> None:
+        """Dojrzewanie dowodow w tle — bez paska postepu i bez okienek."""
+        if self._closing or not self.history.entries:
+            return
+        task = workers.RefreshEntriesTask(
+            self.history.entries, self.client,
+            key_override=self.settings.key_override,
+            mode=self.settings.witness_mode, witness_state=self.witness_state,
+            mirror=self.log_mirror, quiet=True)
+        if not any(task._needs_refresh(e) for e in self.history.entries):
+            return
+        task.signals.finished.connect(lambda updated: self._on_refreshed(updated, quiet=True))
+        task.signals.failed.connect(lambda message: log.info('odswiezanie w tle: %s', message))
+        task.signals.done.connect(self._on_quiet_done)
+        self._quiet_task = task
+        workers.launch(self.pool, task)
+
+    def _on_quiet_done(self) -> None:
+        self._quiet_task = None
+
+    def _set_witness_mode(self, mode: str) -> None:
+        if mode not in witness.MODES or mode == self.settings.verification_mode:
+            return
+        self.settings.verification_mode = mode
+        self._store(self.settings.save)
+        self._render_witnesses()
+        self.statusBar().showMessage(
+            _('Private mode: Sigelith Desktop keeps a copy of the whole public log.')
+            if mode == witness.MODE_PRIVATE else
+            _('Fast mode: the server is asked about each digest.'), 6000)
+        if mode == witness.MODE_PRIVATE:
+            QTimer.singleShot(200, lambda: self.check_witnesses(False))
+
+    def _open_evidence(self) -> None:
+        folder = self.witness_store.directory / 'evidence'
+        folder.mkdir(parents=True, exist_ok=True)
+        QDesktopServices.openUrl(QUrl.fromLocalFile(str(folder)))
+
+    # --- Narzedzia ----------------------------------------------------------
+
+    def _sync_clock(self, interactive: bool = False) -> None:
+        if self._closing:
+            return
+        if interactive:
+            self.overlay.begin(_('Synchronising the clock…'), _(
+                'Measuring the difference between this computer and the Sigelith '
+                'server'))
+        self.clock.set_syncing(True)
+        task = workers.ClockSyncTask(self.client)
+        task.signals.finished.connect(lambda result: self._on_synced(result, interactive))
+        # Synchronizacja przy starcie jest czynnoscia tla — blad tylko na
+        # pasku stanu: brak sieci przy starcie nie powinien witac okienkiem.
+        task.signals.failed.connect(lambda message: self._on_sync_failed(message, interactive))
+        task.signals.done.connect(lambda: self.clock.set_syncing(False))
+        task.signals.done.connect(self._on_sync_done)
+        self._sync_task = task
+        workers.launch(self.pool, task)
+
+    def _on_sync_done(self) -> None:
+        self._sync_task = None
+
+    # --- Adres .onion (onion.py) --------------------------------------------
+
+    def _refresh_onion(self, force: bool = False) -> None:
+        """Biezacy adres .onion z serwisu — raz na dobe, tylko w trybie Tor.
+
+        Dzieki temu zmiana adresu uslugi ukrytej nie wymaga nowego wydania
+        programu. Blad (Tor nie dziala, brak sieci, zla odpowiedz) zostawia
+        dotychczasowy adres i nic nie pokazuje — sprobujemy przy nastepnym
+        uruchomieniu. Zadanie dostaje KOPIE ustawien (inny watek).
+        """
+        if self._closing or not self.settings.use_tor or self._onion_task is not None:
+            return
+        if not force and not onion.due(self.settings.onion_checked):
+            return
+        task = workers.OnionRefreshTask(replace(self.settings))
+        task.signals.finished.connect(self._on_onion)
+        task.signals.done.connect(self._on_onion_done)
+        self._onion_task = task
+        workers.launch(self.pool, task)
+
+    def _on_onion_done(self) -> None:
+        self._onion_task = None
+
+    def _on_onion(self, url) -> None:
+        if not url or self._closing:
+            return
+        changed = url != self.settings.onion_base_url
+        self.settings.onion_url = url
+        self.settings.onion_checked = onion.now_iso()
+        self._store(self.settings.save)
+        if changed and self.settings.use_tor:
+            log.info('onion: przelaczam na nowy adres uslugi %s', url)
+            # Nowy klient: stary trzyma pule polaczen do POPRZEDNIEGO adresu.
+            # Zamykamy go dopiero po chwili — moze jeszcze konczyc zapytanie
+            # czynnosci uzytkownika.
+            old_client, self.client = self.client, BeatTimeClient(self.settings)
+            QTimer.singleShot(120_000, old_client.close)
+            self._update_connection_label()
+
+    def sync_clock_interactive(self) -> None:
+        self._sync_clock(True)
+
+    def _on_sync_failed(self, message: str, interactive: bool) -> None:
+        self.statusBar().showMessage(
+            _('The clock was not synchronised: %(reason)s') % {'reason': message}, 8000)
+        if interactive:
+            self.overlay.finish(_('The clock was not synchronised'), message, ok=False)
+
+    def _on_synced(self, result, interactive: bool = False) -> None:
         self.clock.apply_sync(result.offset_seconds)
         warning = self.clock.drift_warning
         if warning:
@@ -1680,24 +2302,39 @@ class MainWindow(QMainWindow):
             self.status_connection.setToolTip(warning)
         else:
             self._update_connection_label()
+        summary = (_('difference %(offset)s s, round trip %(rtt)s ms')
+                   % {'offset': f'{result.offset_seconds:+.2f}',
+                      'rtt': f'{result.round_trip_seconds * 1000:.0f}'})
         self.statusBar().showMessage(
             _('Clock synchronised (difference %(offset)s s, round trip '
               '%(rtt)s ms).') % {'offset': f'{result.offset_seconds:+.2f}',
                                  'rtt': f'{result.round_trip_seconds * 1000:.0f}'},
             6000)
+        if interactive:
+            self.overlay.finish(
+                _('The clock is out of step') if warning else _('Clock synchronised'),
+                warning or summary, ok=not warning)
 
     def check_health(self) -> None:
-        self._start(workers.HealthTask(self.client), self._on_health,
-                    label_text=_('Checking the service status…'))
+        self.overlay.begin(_('Checking the service status…'),
+                           _('Asking the Sigelith server about its database, cache '
+                             'and clock'))
+        if not self._start(workers.HealthTask(self.client), self._on_health,
+                           label_text=_('Checking the service status…')):
+            self.overlay.hide()
+            return
+        if self._active_task is not None:
+            self._active_task.signals.failed.connect(lambda _m: self.overlay.hide())
 
     def _on_health(self, data: dict) -> None:
+        self.overlay.hide()
         clock = data.get('clock') or {}
         offset = clock.get('offset')
         status = html.escape(str(data.get('status', '?')))
         source = html.escape(str(clock.get('server', '—')))
         working, broken = _('working'), _('unavailable')
         QMessageBox.information(
-            self, _('BeatTime service status'),
+            self, _('Sigelith service status'),
             _('Overall state: <b>%(status)s</b><br>'
               'Database: %(database)s<br>'
               'Cache: %(cache)s<br>'
@@ -1713,10 +2350,7 @@ class MainWindow(QMainWindow):
         before = app_data_dir()
         dialog = SettingsDialog(self.settings, self)
         accepted = dialog.exec() == SettingsDialog.Accepted
-        # Zakladka „Dane" dziala OD RAZU, a nie po przycisku „Zapisz" (katalog
-        # danych nie jest polem `settings.json` — patrz `SettingsDialog._data_tab`).
-        # Sprawdzamy wiec takze po rezygnacji: historia musi pisac tam, gdzie
-        # dane naprawde sa.
+        # Zakladka „Dane" dziala OD RAZU, a nie po przycisku „Zapisz".
         if app_data_dir() != before:
             self._adopt_data_dir()
         if not accepted:
@@ -1729,8 +2363,13 @@ class MainWindow(QMainWindow):
             or new_settings.use_tor != self.settings.use_tor
             or new_settings.tor_proxy != self.settings.tor_proxy
             or new_settings.timeout_seconds != self.settings.timeout_seconds)
+        mode_changed = new_settings.witness_mode != self.settings.witness_mode
+        background_changed = (new_settings.background_checks
+                              != self.settings.background_checks)
 
         override_changed = new_settings.key_override != self.settings.key_override
+        exchange_changed = (new_settings.handover_exchange_dir
+                            != self.settings.handover_exchange_dir)
         self.settings = new_settings
         self._store(self.settings.save)
         self.history.limit = new_settings.history_limit
@@ -1742,21 +2381,39 @@ class MainWindow(QMainWindow):
             old_client.close()
             self._update_connection_label()
             QTimer.singleShot(200, self._sync_clock)
+            if self.settings.use_tor:
+                # Wlaczony (albo przestawiony) tryb Tor: od razu sprawdz, czy
+                # serwis nie oglasza nowszego adresu .onion.
+                QTimer.singleShot(1500, lambda: self._refresh_onion(True))
         if theme_changed:
             theme.apply_theme(QApplication.instance(), self.settings.theme)
+            icons.refresh()
+            self.update()
         if language_changed:
             self._apply_language()
+        if background_changed:
+            if self.settings.background_checks and self._background_started:
+                self._witness_timer.start()
+                QTimer.singleShot(500, self._background_cycle)
+            else:
+                self._witness_timer.stop()
+        if mode_changed and self.settings.witness_mode == witness.MODE_PRIVATE \
+                and self._background_started:
+            QTimer.singleShot(300, lambda: self.check_witnesses(False))
+        self._render_witnesses()
+        self.handover.refresh()
+        if exchange_changed and self.settings.handover_exchange_dir:
+            QTimer.singleShot(300, self.handover.background_check)
         if override_changed:
             self._update_connection_label()
             # Wpisy zweryfikowane usunietym (albo zmienionym) wlasnym kluczem
-            # nie moga dalej pokazywac „Zakotwiczony" — F5 dociagnie podpis
-            # aktualnym kluczem.
+            # nie moga dalej pokazywac „Zakotwiczony".
             if self.history.demote_untrusted(new_settings.key_override):
                 self._refresh_history_view()
             if new_settings.key_override:
                 QMessageBox.warning(
                     self, _('Your own public key'),
-                    _('Besides the built-in list of BeatTime keys, the '
+                    _('Besides the built-in list of Sigelith keys, the '
                       'application will now also accept signatures made with '
                       '<b>the key you entered</b>.<br><br>Whoever gave you that '
                       'key can sign any "proof" with it. The status bar will '
@@ -1765,33 +2422,24 @@ class MainWindow(QMainWindow):
         self.statusBar().showMessage(_('Settings saved.'), 4000)
 
     def _update_connection_label(self) -> None:
-        """Pasek stanu ma mówić, jak jest NAPRAWDĘ — nie jak być powinno.
+        """Pasek stanu ma mowic, jak jest NAPRAWDE — nie jak byc powinno.
 
-        Dwa ustawienia potrafią po cichu unieważnić gwarancje, które program
-        obiecuje na tym samym pasku, i oba są zwykłym tekstem w pliku
-        ustawień:
-
-        * proxy Tor pod innym adresem niż lokalny — w trybie `.onion` ruch
-          idzie zwykłym HTTP-em, bo szyfrowanie zapewnia Tor. Jeśli po drugiej
-          stronie Tora nie ma, jest to ruch jawnym tekstem do cudzej maszyny,
-          a nie anonimizacja;
-        * własny klucz publiczny obok wbudowanej listy — kotwica zaufania
-          przestaje być wyłącznie tą, którą dostarczono z programem.
-
-        Wcześniej pasek w obu przypadkach pokazywał to samo zapewnienie co
-        zawsze. Teraz każdy z nich jest widoczny bez otwierania ustawień.
+        Dwa ustawienia potrafia po cichu uniewaznic gwarancje, ktore program
+        obiecuje na tym samym pasku: proxy Tor pod adresem spoza tego
+        komputera i wlasny klucz publiczny obok wbudowanej listy. Kazde z nich
+        jest widoczne bez otwierania ustawien.
         """
         warnings = []
         if self.settings.key_override:
             warnings.append(_(
                 'YOUR OWN public key is set — besides the built-in list of '
-                'BeatTime keys the application also accepts signatures made '
+                'Sigelith keys the application also accepts signatures made '
                 'with that key.'))
 
         if self.settings.use_tor:
             if self.settings.tor_proxy_is_local:
-                text, tip = '🧅 Tor (.onion)', _(
-                    'Traffic goes through the Tor network to the BeatTime '
+                text, tip = 'Tor (.onion)', _(
+                    'Traffic goes through the Tor network to the Sigelith '
                     'hidden service.\nThe server does not learn your IP '
                     'address.')
             else:
@@ -1803,45 +2451,32 @@ class MainWindow(QMainWindow):
                 text, tip = '⚠ ' + _('proxy outside this computer'), ''
         else:
             host = self.settings.base_url.replace('https://', '').rstrip('/')
-            text = f'🔒 {host}'
+            text = f'HTTPS · {host}'
             tip = _('HTTPS connection with full certificate verification '
                     '(certifi).')
 
         if warnings:
-            self.status_connection.setText('⚠ ' + text.lstrip('🔒🧅⚠ '))
+            self.status_connection.setText('⚠ ' + text.lstrip('⚠ '))
             self.status_connection.setToolTip('\n\n'.join(warnings))
         else:
             self.status_connection.setText(text)
             self.status_connection.setToolTip(tip)
 
     def _apply_language(self) -> None:
-        """Przelacza jezyk i mowi wprost, ze pelna zmiana wymaga restartu.
-
-        Napisy sa wstrzykiwane w konstruktory widgetow, wiec te juz narysowane
-        zostaja w poprzednim jezyku. Udawanie, ze zmiana jest natychmiastowa,
-        byloby gorsze niz jedno zdanie prawdy: uzytkownik zobaczylby okno
-        w dwoch jezykach naraz i uznal to za usterke.
-
-        Komunikat powstaje PO przelaczeniu, wiec jest juz w nowym jezyku —
-        czyli w tym, ktorego uzytkownik wlasnie zazadal.
-        """
+        """Przelacza jezyk i mowi wprost, ze pelna zmiana wymaga restartu."""
         applied = set_language(self.settings.language)
         log.info('jezyk interfejsu zmieniony na %s (ustawienie %r)',
                  applied, self.settings.language)
         QMessageBox.information(
             self, _('Interface language'),
             _('The new language applies to texts drawn from now on. The whole '
-              'window switches after BeatStamp is restarted.'))
+              'window switches after Sigelith Desktop is restarted.'))
 
     def show_about(self) -> None:
         AboutDialog(self).exec()
 
     def show_thanks(self) -> None:
-        """Okno podziekowan. Lista idzie przez te sama pule watkow co reszta.
-
-        Okno NIE pokazuje sie samo z siebie przy starcie — podziekowanie jest
-        do obejrzenia wtedy, gdy ktos chce je obejrzec.
-        """
+        """Okno podziekowan. Nie pokazuje sie samo z siebie przy starcie."""
         ThanksDialog(self.client, self.pool, self).exec()
 
     def show_log(self) -> None:
@@ -1849,9 +2484,13 @@ class MainWindow(QMainWindow):
 
     # --- Zdarzenia okna -----------------------------------------------------
 
+    def resizeEvent(self, event) -> None:
+        super().resizeEvent(event)
+        if getattr(self, 'overlay', None) is not None and self.overlay.isVisible():
+            self.overlay.setGeometry(self.centralWidget().rect())
+
     def dragEnterEvent(self, event) -> None:
-        # Cale okno przyjmuje pliki — nie tylko strefa upuszczania. Trafienie
-        # w prostokat 150 px nie powinno byc warunkiem uzycia programu.
+        # Cale okno przyjmuje pliki — nie tylko strefa upuszczania.
         if not self._busy() and event.mimeData().hasUrls():
             event.acceptProposedAction()
 
@@ -1867,8 +2506,14 @@ class MainWindow(QMainWindow):
         if not paths:
             return
         event.acceptProposedAction()
-        if self.tabs.currentIndex() == 1:
+        # Pliki Handover (paczka, odpowiedz, karta) NIGDY nie ida do
+        # stemplowania: skrot paczki nie ma czego szukac w publicznym dzienniku.
+        if any(is_handover_file(p) for p in paths):
+            self.handover.open_files([p for p in paths if is_handover_file(p)])
+        elif self.tabs.currentIndex() == 1:
             self._verify_dropped(paths)
+        elif self.tabs.currentWidget() is self.handover_scroll:
+            self.handover.send(paths)
         else:
             self.stamp_files(paths)
 
@@ -1886,6 +2531,8 @@ class MainWindow(QMainWindow):
         # Od tego miejsca okno jest w stanie zamykania: odlozone timery,
         # ktore zdaza jeszcze wystrzelic, nie uruchomia juz nowej pracy.
         self._closing = True
+        self._witness_timer.stop()
+        self._save_note_to_current()
 
         try:
             self.settings.window_geometry = bytes(
@@ -1896,27 +2543,82 @@ class MainWindow(QMainWindow):
 
         # Czekamy na watki puli: bez tego proces potrafi zostac w pamieci albo
         # przewrocic sie na obiektach Qt niszczonych spod pracujacego watku.
+        # Prace w tle PRZERYWAMY: do 2.2.0 przebieg swiadka nie dostawal
+        # sygnalu i po zamknieciu okna proces zyl dalej niewidoczny (71 s
+        # w pomiarze 2026-09-27), a otwarcie programu w tym czasie dawalo dwie
+        # kopie na jednym katalogu danych.
+        for task in self._background_tasks():
+            task.cancel()
         self.pool.clear()
-        if not self.pool.waitForDone(4000):
-            log.warning('wątki robocze nie zakończyły się w czasie 4 s')
-        self.client.close()
+        if not self.pool.waitForDone(CLOSE_WAIT_MS):
+            log.warning('wątki robocze nie zakończyły się w czasie %s s — proces '
+                        'skończy się bez nich', CLOSE_WAIT_MS // 1000)
+            self.abandoned_workers = True
+        else:
+            self.client.close()
         super().closeEvent(event)
+
+    def activate_from_other_instance(self, files: list) -> None:
+        """Druga kopia programu przekazala pliki (albo tylko prosi o pokazanie okna)."""
+        if self._closing:
+            return
+        if self.isMinimized():
+            self.showNormal()
+        self.show()
+        self.raise_()
+        self.activateWindow()
+        paths = [Path(f) for f in files if Path(f).is_file()]
+        if paths:
+            self.open_paths(paths)
+
+    def handover_send(self, files: list) -> None:
+        """Okno wysylki Sigelith Handover z plikami (`--handover`, np. z Sigelith Backup)."""
+        if self._closing:
+            return
+        paths = [Path(f) for f in files if Path(f).is_file()]
+        if not paths:
+            return
+        self.tabs.setCurrentWidget(self.handover_scroll)
+        self.handover.send(paths)
+
+    def open_paths(self, paths: list[Path]) -> None:
+        """Pliki z wiersza polecen, z „Otworz za pomoca" i z drugiej kopii programu.
+
+        Pliki Handover ida do zakladki Handover, reszta — jak zawsze — do
+        stemplowania. Mieszanki nie stemplujemy: paczka obok zwyklego pliku to
+        raczej pomylka niz prosba o publiczny stempel.
+        """
+        handover = [p for p in paths if is_handover_file(p)]
+        proofs = [p for p in paths if fileproof.is_proof_file(p)]
+        if handover:
+            self.handover.open_files(handover)
+        elif proofs:
+            # Dowód (.beatproof, .sigelith-proof) idzie do SPRAWDZANIA — stempel
+            # skrótu dowodu nic by nie znaczył, a wysłałby go do publicznego dziennika.
+            self.check_bundle_path(proofs[0])
+        elif paths:
+            self.tabs.setCurrentIndex(0)
+            self.stamp_files(paths)
 
     def restore_geometry(self) -> None:
         raw = self.settings.window_geometry
         if not raw:
-            self.resize(1020, 720)
+            fit_to_screen(self, 1100, 780)
             return
         try:
             from PySide6.QtCore import QByteArray
             self.restoreGeometry(QByteArray.fromBase64(raw.encode('ascii')))
         except Exception:          # noqa: BLE001
-            self.resize(1020, 720)
+            fit_to_screen(self, 1100, 780)
+        # Zapisany rozmiar z wiekszego ekranu (albo sprzed zmiany skali) nie
+        # moze wychodzic poza obecny.
+        if not self.isMaximized():
+            fit_to_screen(self, self.width(), self.height())
         # Okno zapisane na monitorze, ktorego juz nie ma, otworzyloby sie poza
         # widocznym obszarem — i wygladalo jak program, ktory sie nie uruchomil.
         screen = QGuiApplication.screenAt(self.geometry().center())
         if screen is None:
-            self.resize(1020, 720)
+            self.resize(1100, 780)
             primary = QGuiApplication.primaryScreen()
             if primary is not None:
                 self.move(primary.availableGeometry().center() - self.rect().center())

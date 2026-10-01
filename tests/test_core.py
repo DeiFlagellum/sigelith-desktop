@@ -330,5 +330,81 @@ class BundleTests(unittest.TestCase):
         self.assertTrue(check.notes)
 
 
+class BundleAuthorityTests(unittest.TestCase):
+    """Zmiana nazwy (Sigelith, 2026-09-27) nie zmienia formatu `.beatproof`.
+
+    Dowody wystawione przez BeatStampa maja `"authority":
+    "https://beattime.live"` i musza sie sprawdzac zawsze. Nowe pisza
+    `https://sigelith.org` (ta sama instancja, ten sam klucz) — w tej samej
+    strukturze v1, pod tym samym identyfikatorem formatu i rozszerzeniem.
+    """
+
+    #: Pola dowodu v1 w kolejnosci, w jakiej pisal je BeatStamp 2.2.0.
+    V1_KEYS = ['format', 'generator', 'authority', 'digest', 'beat', 'utc', 'seq',
+               'week', 'week_closed', 'week_root', 'inclusion_proof',
+               'root_signature', 'public_key', 'chain_hash', 'ots_status',
+               'ots_bitcoin_height', 'anchors', 'level', 'file_name', 'note',
+               'time', 'how_to_verify']
+
+    def _fresh(self) -> dict:
+        return bundle.build(proof.verify_payload(LIVE_PAYLOAD, expected_digest=DIGEST),
+                            file_name='umowa.pdf')
+
+    def _as_beatstamp_wrote_it(self) -> dict:
+        """Dowod dokladnie tak, jak zapisal go BeatStamp 2.2.0."""
+        data = self._fresh()
+        data['generator'] = 'BeatStamp 2.2.0'
+        data['authority'] = 'https://beattime.live'
+        data['how_to_verify'] = (
+            '1) Compute the SHA-256 of the document and compare it with "digest". '
+            '4) Compare "public_key" with the current BeatTime key — the key '
+            'history: https://beattime.live/spec/#keys.')
+        return data
+
+    def test_new_bundles_keep_the_v1_structure(self):
+        data = self._fresh()
+        self.assertEqual(list(data), self.V1_KEYS)
+        self.assertEqual(data['format'], 'beatproof-v1')
+        self.assertEqual(bundle.FORMAT, 'beatproof-v1')
+        self.assertEqual(bundle.EXTENSION, '.beatproof')
+        self.assertEqual(data['authority'], 'https://sigelith.org')
+        from beatstamp import __version__
+        self.assertEqual(data['generator'], f'Sigelith Desktop {__version__}')
+
+    def test_an_old_beatstamp_bundle_still_verifies(self):
+        import tempfile
+        old = self._as_beatstamp_wrote_it()
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / 'umowa.beatproof'
+            path.write_text(json.dumps(old, indent=2, ensure_ascii=False), encoding='utf-8')
+            loaded = bundle.load(path)
+        check = bundle.check(loaded, document_digest=DIGEST)
+        self.assertTrue(check.ok, check.problems)
+        self.assertTrue(check.signature_ok)
+        self.assertTrue(check.key_pinned_ok)
+        self.assertEqual(loaded['authority'], 'https://beattime.live')
+
+    def test_both_authorities_are_accepted(self):
+        for authority in ('https://beattime.live', 'https://sigelith.org'):
+            with self.subTest(authority=authority):
+                data = {**self._fresh(), 'authority': authority}
+                self.assertTrue(bundle.check(data, document_digest=DIGEST).ok)
+
+    def test_trust_does_not_come_from_the_authority_field(self):
+        """Pole opisowe: nie ratuje dowodu podpisanego obcym kluczem i nie psuje
+        poprawnego — o zaufaniu decyduje wylacznie lista kluczy."""
+        forged = {**self._fresh(), 'authority': 'https://sigelith.org',
+                  'public_key': 'A' * 43 + '='}
+        self.assertFalse(bundle.check(forged, document_digest=DIGEST).ok)
+        odd = {**self._fresh(), 'authority': 'https://example.org'}
+        self.assertTrue(bundle.check(odd, document_digest=DIGEST).ok)
+
+    def test_saving_still_uses_the_beatproof_extension(self):
+        import tempfile
+        with tempfile.TemporaryDirectory() as tmp:
+            saved = bundle.save(self._fresh(), Path(tmp) / 'umowa')
+        self.assertEqual(saved.suffix, '.beatproof')
+
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)

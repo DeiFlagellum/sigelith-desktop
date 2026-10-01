@@ -1,7 +1,7 @@
 """
 Sprawdza GOTOWĄ, ZBUDOWANĄ aplikację — nie kod, z którego powstała.
 
-Powód istnienia tego skryptu jest konkretny. Pierwsza kompilacja BeatStampa
+Powód istnienia tego skryptu jest konkretny. Pierwsza kompilacja programu (wtedy BeatStamp)
 wyglądała na udaną (PyInstaller zakończył się kodem 0, plik miał poprawny
 rozmiar, ikonę i metadane wersji), a mimo to **nie uruchamiała się wcale**:
 w `beatstamp.spec` wykluczony był moduł `PIL`, który `reportlab.lib.utils`
@@ -13,14 +13,14 @@ którego `certifi` nie znajduje w `sys._MEIPASS` — jest **niewidoczna dla
 testów jednostkowych z definicji**. Jedyny sposób, żeby ją złapać, to
 uruchomić zbudowany program i sprawdzić, czy naprawdę wykonał swoją pracę.
 
-Build jest KATALOGOWY (`dist/BeatStamp/BeatStamp.exe` plus
+Build jest KATALOGOWY (`dist/SigelithDesktop/SigelithDesktop.exe` plus
 `_internal/`), więc skrypt przyjmuje zarówno ścieżkę do pliku .exe, jak i do
 samego katalogu, i mierzy rozmiar CAŁEJ paczki — to ona jedzie do Sklepu,
 nie sam program rozruchowy, który waży niecały megabajt.
 
 Test przechodzi całą ścieżkę użytkownika: start → skrót SHA-256 → HTTPS
-(czyli i magazyn CA) → rejestracja w BeatTime → weryfikacja lokalna → zapis
-historii. Uruchamiany jest w ŚWIEŻYM katalogu danych (`BEATSTAMP_DATA_DIR`)
+(czyli i magazyn CA) → rejestracja w Sigelith → weryfikacja lokalna → zapis
+historii. Uruchamiany jest w ŚWIEŻYM katalogu danych (`SIGELITH_DATA_DIR`)
 przy PUSTEJ starej lokalizacji (`%LOCALAPPDATA%`), więc sprawdza też
 zachowanie przy pierwszym uruchomieniu na nowym komputerze — razem
 z przeprowadzką danych, która przy pustym źródle ma tylko zapisać znacznik
@@ -46,7 +46,7 @@ from pathlib import Path
 # wiec ten import jest tani i dziala takze bez zainstalowanego Qt.
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from beatstamp import selftest  # noqa: E402  (sciezka ustawiona wyzej)
+from beatstamp import config, selftest  # noqa: E402  (sciezka ustawiona wyzej)
 
 TIMEOUT_SECONDS = 45
 POLL_SECONDS = 0.5
@@ -62,7 +62,14 @@ def ok(message: str) -> None:
 
 
 def main() -> int:
-    exe = _resolve_exe(sys.argv[1] if len(sys.argv) > 1 else 'dist/BeatStamp')
+    # Konsola Windows bywa w cp1252: linia samokontroli z nazwami jezykow
+    # (cyrylica, CJK, arabski) wywracala weryfikacje DOBREJ paczki.
+    for stream in (sys.stdout, sys.stderr):
+        try:
+            stream.reconfigure(errors='replace')
+        except (AttributeError, ValueError):
+            pass
+    exe = _resolve_exe(sys.argv[1] if len(sys.argv) > 1 else 'dist/SigelithDesktop')
     print(f'Weryfikacja: {exe}')
     if not exe.is_file():
         fail('plik nie istnieje — kompilacja się nie powiodła')
@@ -75,18 +82,23 @@ def main() -> int:
     # dopiero jako skutek: interfejs uparcie po angielsku albo kazde
     # polaczenie HTTPS odrzucone. Tu widac przyczyne i z nazwy.
     internal = package / '_internal'
-    for relative, label in (
-            ('certifi/cacert.pem', 'magazyn CA (certifi)'),
-            ('locale/pl/LC_MESSAGES/beatstamp.mo', 'katalog tlumaczen: polski'),
-            ('locale/de/LC_MESSAGES/beatstamp.mo', 'katalog tlumaczen: niemiecki'),
-            ('beatstamp.ico', 'ikona aplikacji')):
+    # Jezyki bierzemy ze ZRODEL (`locale/<jezyk>/.../beatstamp.po`): kazdy
+    # katalog w repozytorium musi miec swoj `.mo` w paczce.
+    source_locale = Path(__file__).resolve().parent.parent / 'locale'
+    languages = sorted(p.parent.parent.name
+                       for p in source_locale.glob('*/LC_MESSAGES/beatstamp.po'))
+    required = [('certifi/cacert.pem', 'magazyn CA (certifi)'),
+                ('beatstamp.ico', 'ikona aplikacji')]
+    required += [(f'locale/{code}/LC_MESSAGES/beatstamp.mo', f'katalog tlumaczen: {code}')
+                 for code in languages]
+    for relative, label in required:
         if not (internal / relative).is_file():
             fail(f'w paczce brakuje zasobu: {label} (_internal/{relative})')
-    ok('zasoby na miejscu: magazyn CA, tlumaczenia pl i de, ikona')
+    ok(f'zasoby na miejscu: magazyn CA, tlumaczenia ({" ".join(languages)}), ikona')
 
-    workspace = Path(tempfile.mkdtemp(prefix='beatstamp-verify-'))
+    workspace = Path(tempfile.mkdtemp(prefix='sigelith-verify-'))
     # Katalog danych wskazujemy WPROST. Bez tego trafilby do prawdziwego
-    # katalogu danych osoby uruchamiającej test (`%USERPROFILE%\BeatStamp`),
+    # katalogu danych osoby uruchamiającej test (`%USERPROFILE%\Sigelith`),
     # a stemple weryfikacyjne mieszałyby się z jej historią. Ta sama zmienna
     # wyłącza przeprowadzkę ze starych lokalizacji (`config.migrate_legacy_data`)
     # — katalog ma być PUSTY, żeby jedyny wpis, który w nim powstanie,
@@ -99,28 +111,30 @@ def main() -> int:
     # stemplował. Bez tego serwer zwróciłby HTTP 200 (stempel już istnieje)
     # i test przeszedłby, nie sprawdziwszy ścieżki zapisu.
     document = workspace / 'dokument testowy.txt'
-    document.write_text(f'BeatStamp weryfikacja {uuid.uuid4()}', encoding='utf-8')
+    document.write_text(f'Sigelith Desktop weryfikacja {uuid.uuid4()}', encoding='utf-8')
     expected = hashlib.sha256(document.read_bytes()).hexdigest()
 
     env = dict(os.environ)
-    env['BEATSTAMP_DATA_DIR'] = str(data_dir)
+    env[config.DATA_DIR_ENV] = str(data_dir)
     env['LOCALAPPDATA'] = str(app_data)     # pusta STARA lokalizacja
     # Jezyk wymuszony, zeby test nie zalezal od ustawien maszyny, na ktorej
     # akurat sklada sie wydanie. Przy okazji sprawdza, ze katalogi tlumaczen
     # NAPRAWDE trafily do paczki: gdyby ich zabraklo, wpis w dzienniku
     # pokazalby „jezyk interfejsu (ustawienia 'pl'): en".
-    env['BEATSTAMP_LANG'] = 'pl'
+    env['SIGELITH_LANG'] = 'pl'
     env.pop('QT_QPA_PLATFORM', None)        # ma działać na prawdziwym pulpicie
 
     # --- Samokontrola paczki -------------------------------------------
     # Osobne uruchomienie, bo sprawdza to, czego nie da sie zobaczyc
-    # z zewnatrz: komplet TRZECH katalogow tlumaczen, zapis do katalogu
-    # danych, wygenerowanie certyfikatu PDF (dynamiczne importy `reportlab`
-    # — tak wygladala druga nieudana kompilacja tego projektu) i pobranie
-    # listy podziekowan. Program konczy sie sam, przed stworzeniem okna.
+    # z zewnatrz: komplet katalogow tlumaczen, zapis do katalogu danych,
+    # wygenerowanie certyfikatu PDF (dynamiczne importy `reportlab` — tak
+    # wygladala druga nieudana kompilacja tego projektu), obieg Sigelith
+    # Handover (kryptografia z rozszerzen w Rust, DPAPI i webauthn.dll przez
+    # ctypes) i pobranie listy podziekowan. Program konczy sie sam, przed
+    # stworzeniem okna.
     selftest_dir = workspace / 'samokontrola'
     selftest_env = dict(env)
-    selftest_env['BEATSTAMP_DATA_DIR'] = str(selftest_dir)
+    selftest_env[config.DATA_DIR_ENV] = str(selftest_dir)
     print('  uruchamiam samokontrole paczki')
     try:
         code = subprocess.run([str(exe), selftest.FLAG], env=selftest_env,
@@ -128,21 +142,24 @@ def main() -> int:
     except subprocess.TimeoutExpired:
         fail('samokontrola nie skonczyla sie w wyznaczonym czasie')
         return 1                      # nieosiagalne: `fail` rzuca SystemExit
-    selftest_log = selftest_dir / 'beatstamp.log'
+    selftest_log = selftest_dir / config.LOG_NAME
     for line in _selftest_lines(selftest_log):
         print(f'         {line}')
     if code != 0:
         fail(f'samokontrola paczki NIE przeszla (kod {code})' + _log_tail(selftest_log))
     if not any('SAMOKONTROLA: komplet' in line for line in _selftest_lines(selftest_log)):
         fail('samokontrola nie zostawila wyniku w dzienniku' + _log_tail(selftest_log))
-    ok('samokontrola paczki przeszla (tlumaczenia pl/en/de, PDF, podziekowania)')
+    # Handover jawnie: kontrola wypadnieta z listy dalaby „komplet" bez niej.
+    if not any('[OK] Sigelith Handover' in line for line in _selftest_lines(selftest_log)):
+        fail('samokontrola nie sprawdzila Sigelith Handover' + _log_tail(selftest_log))
+    ok('samokontrola paczki przeszla (zasoby, wszystkie jezyki, PDF, Handover, podziekowania)')
 
     # --- Sciezka uzytkownika -------------------------------------------
     print(f'  uruchamiam z argumentem: {document.name}')
     process = subprocess.Popen([str(exe), str(document)], env=env, cwd=str(workspace))
 
     history = data_dir / 'history.json'
-    log = data_dir / 'beatstamp.log'
+    log = data_dir / config.LOG_NAME
     deadline = time.time() + TIMEOUT_SECONDS
     entries = None
     while time.time() < deadline:
@@ -206,9 +223,9 @@ def main() -> int:
 
     # Stary katalog ma pozostać nietknięty: przy pustym źródle przeprowadzka
     # nie ma prawa go utworzyć, a dane pod żadnym pozorem nie mogą tam trafić.
-    if (app_data / 'BeatStamp').exists():
+    if (app_data / config.LEGACY_DIR_NAME).exists():
         fail('program dotknął starej lokalizacji %LOCALAPPDATA%\\BeatStamp')
-    ok('stara lokalizacja %LOCALAPPDATA% nietknięta')
+    ok('stara lokalizacja %LOCALAPPDATA%\\BeatStamp nietknięta')
 
     for phrase in ('Traceback', 'nieprzechwycony', 'CRITICAL'):
         if phrase in text:
@@ -237,7 +254,7 @@ def _resolve_exe(argument: str) -> Path:
     """
     path = Path(argument).resolve()
     if path.is_dir():
-        return path / 'BeatStamp.exe'
+        return path / 'SigelithDesktop.exe'
     return path
 
 

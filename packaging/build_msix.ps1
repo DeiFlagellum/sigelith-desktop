@@ -1,4 +1,4 @@
-﻿# Składa paczkę MSIX z gotowego katalogu `dist\BeatStamp\`.
+﻿# Składa paczkę MSIX z gotowego katalogu `dist\SigelithDesktop\`.
 #
 # Kolejność jest wymuszona: najpierw `..\build.ps1` (testy → katalog programu
 # → weryfikacja, że zbudowana aplikacja NAPRAWDĘ stempluje), dopiero potem ten
@@ -18,7 +18,7 @@ param(
     [string]$Version,
     [switch]$SelfSign,
     [switch]$Install,
-    [string]$CertPassword = 'beatstamp-test'
+    [string]$CertPassword = 'sigelith-test'
 )
 
 # Patrz komentarz w ..\build.ps1: w Windows PowerShellu 5.1 `Stop` zamienia
@@ -35,6 +35,21 @@ function Stop-Build($message) {
 }
 function Step($text) { Write-Host "`n=== $text ===" -ForegroundColor Cyan }
 function Note($text) { Write-Host "  $text" -ForegroundColor DarkGray }
+
+# --- Tozsamosc paczki (PRZED czymkolwiek innym) --------------------------
+#
+# Program nazywa sie od 3.0.0 Sigelith Desktop i ma w Partner Center WLASNY
+# produkt (9P1ZQVR2MPST). Paczka z tozsamoscia BeatStampa (AdamKoch.BeatStamp)
+# nalezy do innego produktu: Sklep by jej nie przyjal, a zainstalowana lokalnie
+# udawalaby stary program. Wczesniej placeholder w <Identity> dal paczke, ktora
+# budowala sie bez bledu i byla bezuzyteczna — dlatego tu jest TWARDY STOP,
+# a nie ostrzezenie, i dzieje sie przed kasowaniem dist\msix i przed makeappx.
+# Logika jest w osobnym pliku, zeby test (tests/test_rebrand.py) mogl ja
+# sprawdzic bez budowania czegokolwiek.
+& (Join-Path $Packaging 'check_identity.ps1') -Manifest (Join-Path $Packaging 'AppxManifest.xml')
+if ($LASTEXITCODE -ne 0) {
+    Stop-Build 'Tozsamosc w packaging\AppxManifest.xml nie jest tozsamoscia Sigelith Desktop (szczegoly wyzej). Paczka NIE zostala zbudowana.'
+}
 
 # --- Narzedzia -------------------------------------------------------------
 
@@ -58,8 +73,7 @@ function Find-SdkTool($name) {
         if ($inPath) { return $inPath.Source }
         return $null
     }
-    # Numer wersji SDK to katalog DZIADEK: <bin>.0.26100.0d
-arzedzie.exe.
+    # Numer wersji SDK to katalog DZIADEK: <bin>\10.0.26100.0\x64\narzedzie.exe.
     return ($found | Sort-Object { [version](Split-Path (Split-Path (Split-Path $_ -Parent) -Parent) -Leaf) } |
             Select-Object -Last 1)
 }
@@ -112,8 +126,8 @@ Note "wersja aplikacji: $Version  →  wersja paczki: $packageVersion"
 # --- Zawartosc -------------------------------------------------------------
 
 Step 'Zawartosc paczki'
-$appDir = Join-Path $Desktop 'dist\BeatStamp'
-if (-not (Test-Path (Join-Path $appDir 'BeatStamp.exe'))) {
+$appDir = Join-Path $Desktop 'dist\SigelithDesktop'
+if (-not (Test-Path (Join-Path $appDir 'SigelithDesktop.exe'))) {
     Stop-Build "Brak zbudowanej aplikacji w $appDir. Uruchom najpierw:`n  .\build.ps1"
 }
 
@@ -171,11 +185,25 @@ if ($makepri) {
     # zasobow — bez `resources.pri` widzi tylko warianty bez kwalifikatora
     # i kazdy kafelek dostaje obrazek w skali 100%, przeskalowany przez system.
     $priConfig = Join-Path $layout 'priconfig.xml'
-    & $makepri createconfig /cf $priConfig /dq 'en-US_pl-PL_de-DE' /o | Out-Null
+    & $makepri createconfig /cf $priConfig /dq 'en-US_pl-PL_de-DE_es-ES_fr-FR_ru-RU_tr-TR_ja-JP_ko-KR_zh-CN_ar-SA' /o | Out-Null
     if ($LASTEXITCODE -ne 0) { Stop-Build 'makepri createconfig zakonczylo sie bledem.' }
+    # Jeden resources.pri ze WSZYSTKIMI skalami i tylko z katalogu Assets.
+    # Domyslna konfiguracja ma sekcje <packaging>, ktora rozdziela warianty
+    # skali do resources.scale-*.pri — to uklad dla pakietow zasobow
+    # w bundlach; w pojedynczej paczce .msix system moze ich nie dolaczyc
+    # i kafelki przy 200% dostawaly obrazek 100%. Indeks zostaje od korzenia
+    # paczki: `startIndexAt="Assets"` gubil prefiks — zasoby nazywaly sie
+    # Files/X.png, a manifest odwoluje sie do Assets\X.png (sprawdzone
+    # `makepri dump`, 2026-09-27).
+    [xml]$pri = Get-Content -Path $priConfig -Raw
+    $packaging = $pri.SelectSingleNode('/resources/packaging')
+    if ($packaging) { [void]$pri.DocumentElement.RemoveChild($packaging) }
+    $pri.Save($priConfig)
     & $makepri new /pr $layout /cf $priConfig /of (Join-Path $layout 'resources.pri') /o | Out-Null
     if ($LASTEXITCODE -ne 0) { Stop-Build 'makepri new zakonczylo sie bledem.' }
     Remove-Item $priConfig -Force
+    $split = Get-ChildItem $layout -Filter 'resources.*.pri' -File
+    if ($split) { Stop-Build "makepri rozdzielil zasoby: $($split.Name -join ', ')" }
     Note 'resources.pri zbudowany'
 } else {
     Write-Host '  makepri nie znaleziony — paczka bez resources.pri.' -ForegroundColor Yellow
@@ -185,7 +213,7 @@ if ($makepri) {
 # --- Pakowanie -------------------------------------------------------------
 
 Step 'Pakowanie'
-$msix = Join-Path $Desktop "dist\BeatStamp-$packageVersion-x64.msix"
+$msix = Join-Path $Desktop "dist\SigelithDesktop-$packageVersion-x64.msix"
 if (Test-Path $msix) { Remove-Item $msix -Force }
 & $makeappx pack /d $layout /p $msix /o
 if ($LASTEXITCODE -ne 0) { Stop-Build 'makeappx pack zakonczylo sie bledem.' }
@@ -208,18 +236,18 @@ Nie znaleziono signtool.exe. To ten sam Windows SDK co makeappx — skladnik
     # ktory nie mowi, ktora strona jest zla.
     $local = Join-Path $Packaging '_local'
     New-Item -ItemType Directory -Path $local -Force | Out-Null
-    $pfx = Join-Path $local 'BeatStamp-test.pfx'
-    $cer = Join-Path $local 'BeatStamp-test.cer'
+    $pfx = Join-Path $local 'SigelithDesktop-test.pfx'
+    $cer = Join-Path $local 'SigelithDesktop-test.cer'
 
     $existing = Get-ChildItem Cert:\CurrentUser\My |
-        Where-Object { $_.Subject -eq $publisher -and $_.FriendlyName -eq 'BeatStamp test (self-signed)' } |
+        Where-Object { $_.Subject -eq $publisher -and $_.FriendlyName -eq 'Sigelith Desktop test (self-signed)' } |
         Select-Object -First 1
     if (-not $existing) {
         Note "tworze certyfikat testowy dla Subject: $publisher"
         $existing = New-SelfSignedCertificate `
             -Type Custom -Subject $publisher `
             -KeyUsage DigitalSignature -KeyAlgorithm RSA -KeyLength 2048 `
-            -FriendlyName 'BeatStamp test (self-signed)' `
+            -FriendlyName 'Sigelith Desktop test (self-signed)' `
             -CertStoreLocation 'Cert:\CurrentUser\My' `
             -TextExtension @('2.5.29.37={text}1.3.6.1.5.5.7.3.3', '2.5.29.19={text}Subject Type:End Entity')
     } else {
@@ -246,7 +274,7 @@ Nie znaleziono signtool.exe. To ten sam Windows SDK co makeappx — skladnik
 
   Odinstalowanie:
 
-    Get-AppxPackage *BeatStamp* | Remove-AppxPackage
+    Get-AppxPackage *SigelithDesktop* | Remove-AppxPackage
 
   UWAGA: certyfikat testowy NIE MA nic wspolnego z paczka wysylana do Sklepu.
   Do Sklepu idzie plik NIEPODPISANY — Microsoft podpisuje go sam. Przed
@@ -262,7 +290,7 @@ Nie znaleziono signtool.exe. To ten sam Windows SDK co makeappx — skladnik
         }
         Add-AppxPackage -Path $msix
         if (-not $?) { Stop-Build 'Add-AppxPackage nie powiodlo sie.' }
-        Write-Host 'Zainstalowano. Aplikacja jest w menu Start jako „BeatStamp".' -ForegroundColor Green
+        Write-Host 'Zainstalowano. Aplikacja jest w menu Start jako „Sigelith Desktop".' -ForegroundColor Green
     }
 }
 

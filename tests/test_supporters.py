@@ -3,7 +3,7 @@ Okno podziekowan i dokumenty prawne w aplikacji.
 
 Trzy rodzaje awarii, ktorych zaden inny test nie zobaczy.
 
-**Odpowiedz serwera.** Lista nazw przychodzi z sieci, a BeatStamp jest
+**Odpowiedz serwera.** Lista nazw przychodzi z sieci, a Sigelith Desktop jest
 zainstalowany u ludzi i nie aktualizuje sie razem z serwerem. Musi wiec
 przezyc odpowiedz zepsuta (blad wdrozenia), cudza (DNS, proxy, firmowa
 inspekcja TLS) i zlosliwa: zbyt dluga, o zlych typach, z nazwa udajaca
@@ -44,7 +44,13 @@ from PySide6.QtWidgets import QApplication, QMenu, QPushButton  # noqa: E402
 
 from beatstamp import i18n, supporters  # noqa: E402
 from beatstamp.api import ApiError  # noqa: E402
-from beatstamp.config import IMPRESSUM_URL, PRIVACY_POLICY_URL, Settings  # noqa: E402
+from beatstamp.config import (  # noqa: E402
+    IMPRESSUM_URL,
+    PRIVACY_POLICY_URL,
+    Settings,
+    privacy_policy_url,
+)
+from beatstamp.i18n import current_language  # noqa: E402
 
 # Jezyk przypiety tak samo jak w `test_gui_smoke`: sprawdzamy ZNACZENIE
 # napisu, a oczekiwany tekst bierzemy z tego samego katalogu, ktorego uzywa
@@ -85,14 +91,14 @@ class DataDirMixin:
     def setUp(self):
         super().setUp()
         self._tmp = tempfile.TemporaryDirectory()
-        self._saved_dir = os.environ.get('BEATSTAMP_DATA_DIR')
-        os.environ['BEATSTAMP_DATA_DIR'] = self._tmp.name
+        self._saved_dir = os.environ.get('SIGELITH_DATA_DIR')
+        os.environ['SIGELITH_DATA_DIR'] = self._tmp.name
 
     def tearDown(self):
         if self._saved_dir is None:
-            os.environ.pop('BEATSTAMP_DATA_DIR', None)
+            os.environ.pop('SIGELITH_DATA_DIR', None)
         else:
-            os.environ['BEATSTAMP_DATA_DIR'] = self._saved_dir
+            os.environ['SIGELITH_DATA_DIR'] = self._saved_dir
         self._tmp.cleanup()
         super().tearDown()
 
@@ -330,7 +336,7 @@ class ThanksDialogTests(DataDirMixin, unittest.TestCase):
         self.assertNotIn(_('Loading the list…'), dialog.status.text())
 
     def test_no_network_shows_the_reason_and_leaves_the_window_usable(self):
-        reason = _('No connection to beattime.live. Check your internet access '
+        reason = _('No connection to sigelith.org. Check your internet access '
                    'and firewall settings.')
         dialog = self._open(FakeClient(error=ApiError(reason)))
         self._settle()
@@ -436,8 +442,8 @@ class LegalDocumentsTests(unittest.TestCase):
     def setUpClass(cls):
         cls._tmp = tempfile.TemporaryDirectory()
         cls._saved = {name: os.environ.get(name)
-                      for name in ('BEATSTAMP_DATA_DIR', 'LOCALAPPDATA')}
-        os.environ['BEATSTAMP_DATA_DIR'] = cls._tmp.name
+                      for name in ('SIGELITH_DATA_DIR', 'LOCALAPPDATA')}
+        os.environ['SIGELITH_DATA_DIR'] = cls._tmp.name
         os.environ['LOCALAPPDATA'] = cls._tmp.name
         (Path(cls._tmp.name) / '.tvs-zaimportowano').write_text('test')
         from beatstamp.ui.main_window import MainWindow
@@ -484,19 +490,33 @@ class LegalDocumentsTests(unittest.TestCase):
         self.assertIn('Impressum', action.text())
         self.assertIn(IMPRESSUM_URL, action.toolTip())
 
-    def test_the_privacy_policy_is_two_clicks_from_the_main_window(self):
-        action = self._action_for(PRIVACY_POLICY_URL)
-        self.assertTrue(action.text())
-        self.assertIn(PRIVACY_POLICY_URL, action.toolTip())
+    def _privacy_url(self) -> str:
+        return privacy_policy_url(current_language())
 
-    def test_both_documents_point_at_the_german_pages(self):
-        self.assertEqual(IMPRESSUM_URL, 'https://beattime.live/de/impressum/')
-        self.assertEqual(PRIVACY_POLICY_URL, 'https://beattime.live/de/datenschutz/')
+    def test_the_privacy_policy_is_two_clicks_from_the_main_window(self):
+        action = self._action_for(self._privacy_url())
+        self.assertTrue(action.text())
+        self.assertIn(self._privacy_url(), action.toolTip())
+
+    def test_the_documents_point_at_the_german_originals(self):
+        # sigelith.org i beattime.live to ta sama instancja i ten sam wydawca
+        # (Adam Koch, Hagen) — od 3.0.0 program linkuje pod sigelith.org.
+        self.assertEqual(IMPRESSUM_URL, 'https://sigelith.org/de/impressum/')
+        self.assertEqual(PRIVACY_POLICY_URL, 'https://sigelith.org/de/datenschutz/')
+
+    def test_the_privacy_policy_follows_the_interface_language(self):
+        """Niemiecki interfejs — oryginal; kazdy inny — tlumaczenie angielskie
+        (innych wersji tej strony nie ma, a angielska odsyla do oryginalu)."""
+        self.assertEqual(privacy_policy_url('de'), PRIVACY_POLICY_URL)
+        for language in ('en', 'pl', 'zh', 'ar', ''):
+            with self.subTest(language=language):
+                self.assertEqual(privacy_policy_url(language),
+                                 'https://sigelith.org/privacy/')
 
     def test_the_links_do_not_follow_the_server_from_the_settings(self):
         """Wlasny serwer w Ustawieniach nie podmienia impressum wydawcy."""
         self.assertEqual(self.window.settings.base_url, 'https://wlasny.example')
-        for url in (IMPRESSUM_URL, PRIVACY_POLICY_URL):
+        for url in (IMPRESSUM_URL, self._privacy_url()):
             self.assertNotIn('wlasny.example', self._action_for(url).data())
 
     def test_triggering_the_item_opens_the_browser_at_that_address(self):
@@ -508,10 +528,10 @@ class LegalDocumentsTests(unittest.TestCase):
             lambda url: opened.append(url.toString()) or True)
         try:
             self._action_for(IMPRESSUM_URL).trigger()
-            self._action_for(PRIVACY_POLICY_URL).trigger()
+            self._action_for(self._privacy_url()).trigger()
         finally:
             dialogs.QDesktopServices.openUrl = real
-        self.assertEqual(opened, [IMPRESSUM_URL, PRIVACY_POLICY_URL])
+        self.assertEqual(opened, [IMPRESSUM_URL, self._privacy_url()])
 
     def test_the_about_dialog_repeats_both_documents(self):
         from beatstamp.ui.dialogs import AboutDialog
@@ -520,7 +540,7 @@ class LegalDocumentsTests(unittest.TestCase):
         try:
             urls = {b.property('url') for b in dialog.findChildren(QPushButton)}
             self.assertIn(IMPRESSUM_URL, urls)
-            self.assertIn(PRIVACY_POLICY_URL, urls)
+            self.assertIn(self._privacy_url(), urls)
         finally:
             dialog.deleteLater()
 

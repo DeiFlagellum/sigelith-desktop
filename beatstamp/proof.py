@@ -6,12 +6,12 @@ to, co przyszlo w odpowiedzi HTTP, i na tym konczyl: "signature" bylo sklejka
 `czas.sha256(czegos)`, której nie dało się niczym sprawdzić. Kto kontrolowal
 serwer (albo połączenie), kontrolowal tresc certyfikatu.
 
-BeatStamp sprawdza trzy niezależne rzeczy:
+Sigelith Desktop sprawdza trzy niezależne rzeczy:
 
 1. INKLUZJA (merkle.py) — czy digest naprawdę wisi pod korzeniem tygodnia.
    Czysta arytmetyka: SHA-256 powtorzone `len(proof)` razy.
-2. PODPIS (Ed25519) — czy korzeń tygodnia podpisał wlasciciel klucza BeatTime.
-3. Tożsamość KLUCZA — czy podpisal klucz z AKTUALNEJ listy kluczy BeatTime
+2. PODPIS (Ed25519) — czy korzeń tygodnia podpisał wlasciciel klucza Sigelith.
+3. Tożsamość KLUCZA — czy podpisal klucz z AKTUALNEJ listy kluczy Sigelith
    wbudowanej w aplikacje (keys.py).
 
 Punkt 3 jest tym, co nadaje sens punktowi 2. Serwer zwraca `public_key` razem
@@ -59,7 +59,7 @@ from enum import Enum
 from . import beatcore, keys, merkle
 from .i18n import _, date_format, format_iso_date, short_date_format
 
-# Aktualny (najnowszy) klucz publiczny BeatTime — nazwa zostaje dla zgodnosci
+# Aktualny (najnowszy) klucz publiczny Sigelith — nazwa zostaje dla zgodnosci
 # i do tekstow dla czlowieka. O zaufaniu NIE decyduje ta stala, tylko pelna
 # historia kluczy w keys.py (aktualne vs wycofane).
 PINNED_PUBLIC_KEY = keys.primary_key()
@@ -110,19 +110,19 @@ def level_label(level: 'Level') -> str:
 def level_description(level: 'Level') -> str:
     """Zdanie wyjasniajace, co ten poziom znaczy i czego jeszcze brakuje."""
     return {
-        Level.NONE: _('This digest does not appear in the public BeatTime register.'),
+        Level.NONE: _('This digest does not appear in the public Sigelith register.'),
         Level.RECORDED: _(
             'The digest is in the public, append-only register. The current week '
             'is still running, so the Merkle root has not been frozen yet — the '
             'signature and the anchor arrive once it closes (Monday 00:00 UTC).'
         ),
         Level.SIGNED: _(
-            'Week closed: the Merkle root is frozen and signed with the BeatTime '
+            'Week closed: the Merkle root is frozen and signed with the Sigelith '
             'Ed25519 key, and the digest was confirmed locally to belong to that '
             'root. The external anchor is on its way.'
         ),
         Level.ANCHORED: _(
-            'Highest level: the week root is anchored outside BeatTime — in the '
+            'Highest level: the week root is anchored outside Sigelith — in the '
             'Bitcoin chain (OpenTimestamps) and/or by a bank confirmation. '
             'Undoing this timestamp would require rewriting other parties\' '
             'registers.'
@@ -163,6 +163,14 @@ class VerificationResult:
     # nie da sie zweryfikowac offline — czyli cala funkcja tracilaby sens.
     root_signature: str = ''
     inclusion_proof: list[dict] = field(default_factory=list)
+
+    # Dziennik globalny (LOG.md) — uzupelniane przez `witness.py`, nie przez
+    # `verify_payload`: sciezke do checkpointu sprawdzamy wzgledem PLIKU
+    # checkpointu zweryfikowanego przez aplikacje, a ten zna tylko swiadek.
+    log_index: int | None = None       # pozycja wpisu w drzewie globalnym
+    checkpoint: dict = field(default_factory=dict)   # n, hash, sciezka, verified
+    time_bounds: dict = field(default_factory=dict)  # recorded / not_before / not_after
+    witness_mode: str = ''             # 'private' | 'fast' | '' (bez swiadka)
 
     problems: list[str] = field(default_factory=list)
     warnings: list[str] = field(default_factory=list)
@@ -277,7 +285,7 @@ def _clean(value: object, pattern, *, lower: bool = False) -> str:
 def _as_int(value: object) -> int | None:
     try:
         return int(value)  # type: ignore[arg-type]
-    except (TypeError, ValueError):
+    except (TypeError, ValueError, OverflowError):
         return None
 
 
@@ -428,7 +436,7 @@ def retired_key_warning(public_key: str, week: str, *, hint: str = '') -> str:
     hint = hint or _('Refresh the proof online (History -> Refresh statuses, F5) '
                      'to fetch a signature made with the current key.')
     return _(
-        'The root of week%(week)s was signed with a BeatTime key retired on '
+        'The root of week%(week)s was signed with a Sigelith key retired on '
         '%(when)s. A signature from a retired key is no longer a proof, so the '
         'level stays "Recorded" — the external anchor is also waiting for '
         'confirmation. %(hint)s'
@@ -549,9 +557,9 @@ def verify_payload(payload: dict, *, expected_digest: str = '',
             else:
                 r.problems.append(_(
                     'The server signed the root with a key OTHER than the '
-                    'BeatTime keys built into the application. The signature may '
+                    'Sigelith keys built into the application. The signature may '
                     'be technically valid, but it does not prove it comes from '
-                    'BeatTime.'
+                    'Sigelith.'
                 ))
 
     # --- Poziom dowodu ---

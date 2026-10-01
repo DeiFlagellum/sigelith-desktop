@@ -1,4 +1,4 @@
-# BeatStamp (desktop/ w monorepo BeatTime). Wzorce dzialaja wzgledem tego
+# Sigelith Desktop (desktop/ w monorepo BeatTime). Wzorce dzialaja wzgledem tego
 # katalogu: desktop/.venv, desktop/build, desktop/dist itd.
 
 # --- Srodowiska i artefakty kompilacji ---
@@ -17,7 +17,8 @@ dist/
 # i byl wczesniej trzymany w repozytorium. To dane osobiste, nie kod:
 # skrot sam w sobie nie zdradza tresci, ale zestawiony z podejrzewanym
 # plikiem POTWIERDZA, ze to wlasnie ten plik byl stemplowany i kiedy.
-# BeatStamp trzyma historie w %USERPROFILE%\BeatStamp\, poza repozytorium.
+# Program trzyma historie w %USERPROFILE%\Sigelith\ (do 2.2.0: ...\BeatStamp\),
+# poza repozytorium.
 history.json
 historia.uszkodzona-*.json
 *.beatproof

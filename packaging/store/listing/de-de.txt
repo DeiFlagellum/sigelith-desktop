@@ -1,0 +1,73 @@
+# Sigelith Desktop — de-de
+
+## Short description
+Versieh Dateien mit Zeitstempel, ohne sie hochzuladen, prüfe jeden Nachweis offline, behalte die unabhängigen Zeugen des öffentlichen Logs im Blick — und übergib Dateien mit Übergabenachweis. Kostenlos, ohne Konto, quelloffen.
+
+## Description
+Sigelith Desktop weist nach, dass eine Datei zu einem bestimmten Zeitpunkt existierte — und die Datei verlässt deinen Computer nie.
+
+Dateien stempeln
+Zieh Dateien auf das Fenster. Die App berechnet den SHA-256-Hash jeder Datei auf deinem Computer und sendet nur diesen Hash an das öffentliche Sigelith-Log. Du bekommst ein PDF-Zertifikat und einen Offline-Nachweis .beatproof.
+
+Prüfen, ohne uns zu vertrauen
+Leg eine beliebige Datei ab, um zu sehen, ob und wann sie gestempelt wurde. Die App prüft den Einschlusspfad und die Signatur selbst — mit Schlüsseln, die im Programm eingebaut sind. Im privaten Modus hält sie eine eigene Kopie des öffentlichen Logs, sodass der Server nie erfährt, welche Datei du prüfst.
+
+Zeugen
+Solange die App läuft, prüft sie das Log selbst: signierte Checkpoints, die Kette dazwischen, Kopien bei GitHub, im Internet Archive und bei Zenodo sowie die darin genannten Bitcoin-Blöcke. Jede Abweichung löst einen Alarm aus.
+
+Dateien mit Übergabenachweis übergeben
+Der Empfänger bestätigt den Erhalt mit seinem eigenen Schlüssel (Windows Hello), und der Zeitpunkt der Übergabe wird im öffentlichen Log erfasst. Die Sendung reist zwischen euch; der Sigelith-Server speichert nichts.
+Für Lesende ohne Prüfprogramm — Rechtsvertretung, Sachverständige, Gericht: Öffne den Nachweis mit „Nachweis prüfen…“ und speichere einen PDF-Bericht — jede Prüfung in Worten, mit einer Anleitung zur unabhängigen Prüfung.
+Lässt sich eine Sendung nicht so öffnen, wie sie angeboten wurde, ist die Annahme des Empfängers wirkungslos. Die App sagt das und speichert einen Fehlernachweis, den jeder nachrechnen kann.
+
+Standardmäßig privat
+Der private Modus hält eine Kopie des gesamten öffentlichen Logs (nur Hashes, die ohnehin öffentlich sind), sodass das Aktualisieren eines Nachweises dem Server nie verrät, welcher deiner ist.
+
+Was ein Zeitstempel beweist
+Ein Zeitstempel zeigt, dass eine Datei mit genau diesen Bytes spätestens zum erfassten Zeitpunkt existierte. Er zeigt nicht, wer die Datei erstellt hat oder was sie bedeutet. Der Nachweis hängt an genau diesen Bytes. Eine Kopie, die ein Editor neu gespeichert oder ein Messenger neu komprimiert hat, hat einen anderen Hash — behalte das Original zusammen mit seinem Zertifikat.
+
+Sigelith Desktop ist kostenlos und quelloffen (Apache-2.0). Kein Konto, keine Werbung, keine Telemetrie.
+Verfügbar auf Englisch, Polnisch, Deutsch, Spanisch, Französisch, Russisch, Türkisch, Japanisch, Koreanisch, Chinesisch und Arabisch.
+
+## What's new in this version
+• Prüft Zeitnachweise für einzelne Dateien aus Sigelith Backup (.sigelith-proof-Dateien): Der Nachweis zeigt, dass eine Datei zu diesem Zeitpunkt in einer versiegelten Sicherung war — ohne die anderen Dateien preiszugeben.
+• Ein Doppelklick auf eine .beatproof- oder .sigelith-proof-Datei öffnet die App im Reiter „Prüfung“ — eine Nachweisdatei wird nie versehentlich gestempelt.
+• Sigelith Backup kann eine Datei aus der Sicherung direkt an Sigelith Handover übergeben.
+
+## Product features
+Zeitstempel für jede Datei, ohne sie hochzuladen — erfasst wird nur ihr SHA-256-Hash
+PDF-Zertifikat und offline prüfbarer .beatproof-Nachweis für jede Datei
+Viele Dateien oder ganze Ordner auf einmal stempeln
+Dateien und Nachweise offline prüfen, mit Schlüsseln, die in die App eingebaut sind
+Privater Modus: eigene Kopie des öffentlichen Logs, damit niemand erfährt, was du prüfst
+Eingebaute Zeugen: signierte Checkpoints, unabhängige Kopien und Bitcoin-Anker
+Übergabenachweis, signiert mit dem Schlüssel des Empfängers und Windows Hello
+Verschlüsselte Sendungen reisen per E-Mail, Messenger, USB-Stick oder geteiltem Ordner
+Beweispaket und PDF-Bericht für Rechtsvertretung, Sachverständige und Gerichte
+Verlauf aller Stempel mit dem Stand ihres Nachweises
+Optionaler Tor-Modus
+Kostenlos — ohne Konto, Werbung und Telemetrie
+Quelloffen (Apache-2.0)
+In 11 Sprachen
+
+## Screenshots and captions
+01-stamp.png: Dateien stempeln: Nur der SHA-256-Hash verlässt deinen Computer.
+02-history.png: Verlauf: jeder Stempel mit dem Stand seines Nachweises.
+03-witnesses.png: Zeugen: was die App im öffentlichen Log selbst bestätigt hat.
+04-handover.png: Handover: Dateien senden, empfangen, Nachweise behalten.
+05-evidence.png: Beweisprüfung: das Ergebnis und jede einzelne Prüfung, in deiner Sprache.
+
+## Additional system requirements (recommended hardware)
+Windows 10 (22H2) oder Windows 11, 64 Bit. Handover funktioniert am besten mit Windows Hello.
+
+## Keywords (up to 7)
+Zeitstempel
+Existenznachweis
+Beweissicherung
+digitaler Beweis
+Übergabenachweis
+SHA-256
+Hashwert
+
+## Copyright and trademark info
+© 2026 Adam Koch

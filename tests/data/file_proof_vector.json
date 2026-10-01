@@ -1,0 +1,143 @@
+{
+ "about": "Sigelith Backup file proof (sigelith-file-proof-v1) made by cleanvault.fileproof; week root signed with a TEST key — accept it only via key_override.",
+ "test_public_key": "YzJ7+JoTPI49HWn3p0W6slm1I9khgnHQ2NTUaS/pF5M=",
+ "document_hex": "556d6f7761206e616a6d75202d20776572736a6120706f64706973616e612e0a",
+ "proof": {
+  "format": "sigelith-file-proof-v1",
+  "generator": "Sigelith Backup 3.0.0",
+  "created": "2026-09-30T16:31:17Z",
+  "file": {
+   "name": "umowa.pdf",
+   "size": 32,
+   "sha256": "e4f4771c19ed25ff047080f6b57b4c1ec3ac4f3d3728810d9e1479ea05d6341f",
+   "path": "Dokumenty/umowa.pdf"
+  },
+  "leaf": {
+   "salt": "958a238b411629c2485407ea99e099b33788b78e14d021eaaabb93d715cb6978",
+   "path_sha256": "18edc4eee11060120b37e469cb7b4f4ad28a7b64ee1c9c29cadcf721934dac39"
+  },
+  "files_root": "cd86cdde5dd39acd205e68ba4170242728d6bf387ae1e322b8b363c742be31e5",
+  "files": 5,
+  "merkle_path": [
+   {
+    "side": "L",
+    "hash": "06ecea44730f551a246151793a6052d47f3ec2331c4c10fcc379c0d30a783455"
+   },
+   {
+    "side": "R",
+    "hash": "13d4406e2773f892cb3d9d402c8c3bd886066a75bfc1d03f86af31b03677510b"
+   },
+   {
+    "side": "R",
+    "hash": "9d53f38a589acb94bb096c4d6c985a10f16d60dd653b818cb95b167fd99cc4c1"
+   }
+  ],
+  "statement": "SIGELITH-BACKUP-SEAL 1\nindex-sha256 ca739f95c6d4d9b80b8c26e326b82f507f08bc8dcce4ea54d94fcdd39b4ff0f4\nfiles-root cd86cdde5dd39acd205e68ba4170242728d6bf387ae1e322b8b363c742be31e5\nfiles 5\n",
+  "beatproof": {
+   "format": "beatproof-v1",
+   "generator": "Sigelith Backup 3.0.0",
+   "authority": "https://sigelith.org",
+   "digest": "347cf9b85b4f2b4c709d8e51ca261b41a9bfeb160880b32f636c97593c78b17e",
+   "beat": "@511.80",
+   "utc": "2026-09-27T12:17:00Z",
+   "seq": 4242,
+   "week": "2026-W39",
+   "week_closed": true,
+   "week_root": "f67ba58753e2f3aa0eb36086df98e1cd8a7aefa0298ea43a118e3bcdeb41af72",
+   "inclusion_proof": [
+    {
+     "side": "L",
+     "hash": "d9de27625445003d8a9739a851e3ff8d41c0683630b4d63a88327a6aaa37c409"
+    },
+    {
+     "side": "R",
+     "hash": "00c30d52856f3a163b8c3f1f55d6e1bebfb7a73a231e10df0de72daf32213338"
+    },
+    {
+     "side": "R",
+     "hash": "36e4970e7c84e559ed7290304c3c0672289a6918e7746d48397b0e122db7748f"
+    }
+   ],
+   "root_signature": "Wn/sbi1nPQdUoLkMRUSXWhcal+pMNYn9JDk8dMDzhOTK5+rHfvV1kef3+j5HQBW+0UvZ6WipMKfUefwZFzc0Dw==",
+   "public_key": "YzJ7+JoTPI49HWn3p0W6slm1I9khgnHQ2NTUaS/pF5M=",
+   "chain_hash": "",
+   "ots_status": "pending",
+   "ots_bitcoin_height": null,
+   "anchors": [],
+   "level": "",
+   "file_name": "",
+   "note": "",
+   "time": {}
+  },
+  "how_to_verify": "1) SHA-256 of the file must equal file.sha256 and its length file.size. 2) If file.path is present, SHA-256 of its UTF-8 bytes must equal leaf.path_sha256. 3) leaf = SHA-256(0x00 || leaf.salt || file.sha256 || size as 8-byte big-endian || leaf.path_sha256); fold merkle_path with SHA-256(0x01 || left || right) (\"side\" is the side of the sibling) — the result must equal files_root. 4) statement must say \"files-root <files_root>\" and \"files <files>\". 5) SHA-256 of statement (UTF-8) must equal beatproof.digest, and the beatproof must verify as described in its own how_to_verify. Spec: https://sigelith.org/spec/#file-proof"
+ },
+ "hidden_path_document_hex": "6e696520646f20706f6b617a616e69610a",
+ "hidden_path_proof": {
+  "format": "sigelith-file-proof-v1",
+  "generator": "Sigelith Backup 3.0.0",
+  "created": "2026-09-30T16:31:17Z",
+  "file": {
+   "name": "notatka.txt",
+   "size": 17,
+   "sha256": "ed74e7a18e52d0c0180a807d525bf3c0fb7d47b5f0439ef4b7abbe61a0eb2ce3"
+  },
+  "leaf": {
+   "salt": "4579fea40b578026874d68bf98bdca3731bbc8a68cc439efe724682d68e796ca",
+   "path_sha256": "376dd03c99ed9d68735ac97e37a9ffbba5ad90023ce14b658198774121dc5068"
+  },
+  "files_root": "cd86cdde5dd39acd205e68ba4170242728d6bf387ae1e322b8b363c742be31e5",
+  "files": 5,
+  "merkle_path": [
+   {
+    "side": "R",
+    "hash": "fb2ba6d01aff2b3889541e8c3ec821756618818ff1e06b3c6a64d09179c73b06"
+   },
+   {
+    "side": "L",
+    "hash": "3576cd211589dfd3b9c4f8a5a1d1947049e6a35f646df1a0c8fc05d41b85e8fb"
+   },
+   {
+    "side": "R",
+    "hash": "9d53f38a589acb94bb096c4d6c985a10f16d60dd653b818cb95b167fd99cc4c1"
+   }
+  ],
+  "statement": "SIGELITH-BACKUP-SEAL 1\nindex-sha256 ca739f95c6d4d9b80b8c26e326b82f507f08bc8dcce4ea54d94fcdd39b4ff0f4\nfiles-root cd86cdde5dd39acd205e68ba4170242728d6bf387ae1e322b8b363c742be31e5\nfiles 5\n",
+  "beatproof": {
+   "format": "beatproof-v1",
+   "generator": "Sigelith Backup 3.0.0",
+   "authority": "https://sigelith.org",
+   "digest": "347cf9b85b4f2b4c709d8e51ca261b41a9bfeb160880b32f636c97593c78b17e",
+   "beat": "@511.80",
+   "utc": "2026-09-27T12:17:00Z",
+   "seq": 4242,
+   "week": "2026-W39",
+   "week_closed": true,
+   "week_root": "f67ba58753e2f3aa0eb36086df98e1cd8a7aefa0298ea43a118e3bcdeb41af72",
+   "inclusion_proof": [
+    {
+     "side": "L",
+     "hash": "d9de27625445003d8a9739a851e3ff8d41c0683630b4d63a88327a6aaa37c409"
+    },
+    {
+     "side": "R",
+     "hash": "00c30d52856f3a163b8c3f1f55d6e1bebfb7a73a231e10df0de72daf32213338"
+    },
+    {
+     "side": "R",
+     "hash": "36e4970e7c84e559ed7290304c3c0672289a6918e7746d48397b0e122db7748f"
+    }
+   ],
+   "root_signature": "Wn/sbi1nPQdUoLkMRUSXWhcal+pMNYn9JDk8dMDzhOTK5+rHfvV1kef3+j5HQBW+0UvZ6WipMKfUefwZFzc0Dw==",
+   "public_key": "YzJ7+JoTPI49HWn3p0W6slm1I9khgnHQ2NTUaS/pF5M=",
+   "chain_hash": "",
+   "ots_status": "pending",
+   "ots_bitcoin_height": null,
+   "anchors": [],
+   "level": "",
+   "file_name": "",
+   "note": "",
+   "time": {}
+  },
+  "how_to_verify": "1) SHA-256 of the file must equal file.sha256 and its length file.size. 2) If file.path is present, SHA-256 of its UTF-8 bytes must equal leaf.path_sha256. 3) leaf = SHA-256(0x00 || leaf.salt || file.sha256 || size as 8-byte big-endian || leaf.path_sha256); fold merkle_path with SHA-256(0x01 || left || right) (\"side\" is the side of the sibling) — the result must equal files_root. 4) statement must say \"files-root <files_root>\" and \"files <files>\". 5) SHA-256 of statement (UTF-8) must equal beatproof.digest, and the beatproof must verify as described in its own how_to_verify. Spec: https://sigelith.org/spec/#file-proof"
+ }
+}

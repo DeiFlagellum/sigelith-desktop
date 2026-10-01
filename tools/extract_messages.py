@@ -1,5 +1,5 @@
 """
-Wyciaga napisy do przetlumaczenia z kodu BeatStamp.
+Wyciaga napisy do przetlumaczenia z kodu Sigelith Desktop.
 
     python tools/extract_messages.py            # locale/beatstamp.pot
     python tools/extract_messages.py --update   # + scala do locale/<lang>/…/*.po
@@ -53,12 +53,23 @@ SKIP_MARK = '# i18n: skip'
 
 #: Jezyki, dla ktorych utrzymujemy katalog. Angielski jest jezykiem `msgid`
 #: i katalogu nie potrzebuje.
-CATALOGS = ('pl', 'de')
+CATALOGS = ('pl', 'de', 'es', 'fr', 'ru', 'tr', 'ja', 'ko', 'zh', 'ar')
 
 PLURAL_FORMS = {
     # Regula CLDR dla polskiego — ta sama, ktora zapisuje `plural.polish_plural`.
     'pl': 'nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);',
     'de': 'nplurals=2; plural=(n != 1);',
+    'es': 'nplurals=2; plural=(n != 1);',
+    # Francuski: 0 i 1 to liczba pojedyncza.
+    'fr': 'nplurals=2; plural=(n > 1);',
+    'ru': 'nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && '
+          '(n%100<10 || n%100>=20) ? 1 : 2);',
+    'tr': 'nplurals=2; plural=(n != 1);',
+    'ja': 'nplurals=1; plural=0;',
+    'ko': 'nplurals=1; plural=0;',
+    'zh': 'nplurals=1; plural=0;',
+    'ar': 'nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && '
+          'n%100<=10 ? 3 : n%100>=11 ? 4 : 5);',
 }
 
 
@@ -141,7 +152,7 @@ def collect() -> tuple[list[po.Entry], list[str]]:
 def _header(language: str = '') -> po.Entry:
     stamp = time.strftime('%Y-%m-%d %H:%M%z')
     lines = [
-        'Project-Id-Version: BeatStamp\\n',
+        'Project-Id-Version: Sigelith Desktop\\n',
         f'POT-Creation-Date: {stamp}\\n',
         'MIME-Version: 1.0\\n',
         'Content-Type: text/plain; charset=UTF-8\\n',

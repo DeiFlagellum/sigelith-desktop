@@ -5,3 +5,6 @@
 # dla nas, ale opisuje rzeczy wewnetrzne, a czesc z niego dezaktualizuje sie
 # z chwila publikacji. Publiczne README pisane jest osobno, po angielsku.
 ROZWOJ.md export-ignore
+# Instrukcja publikacji w Partner Center krok po kroku (po polsku, z lokalnymi
+# sciezkami komputera wydawcy) — wewnetrzna, jak ROZWOJ.md.
+packaging/store/PUBLIKACJA.md export-ignore

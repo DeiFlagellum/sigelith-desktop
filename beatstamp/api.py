@@ -1,5 +1,6 @@
 """
-Klient HTTP publicznego API BeatTime (beattime.live/api/proof/*).
+Klient HTTP publicznego API Sigelith (sigelith.org/api/proof/*; te same
+sciezki dzialaja pod beattime.live — to ta sama instancja).
 
 Zastepuje cztery osobne, doraznie sklecone wywolania `requests` z poprzednika:
 `TVS_API_STAMP`, `get_google_http_time()`, `get_worldtimeapi_time()` i brak
@@ -22,16 +23,20 @@ from __future__ import annotations
 
 import json
 import logging
+import socket
 from dataclasses import dataclass
 from typing import Any
-from urllib.parse import urlparse
+from urllib.parse import urljoin, urlparse
 
 import requests
 from requests.adapters import HTTPAdapter
+from urllib3.exceptions import LocationParseError, ReadTimeoutError
+from urllib3.util import connection as _urllib3_connection
 from urllib3.util.retry import Retry
+from urllib3.util.timeout import _DEFAULT_TIMEOUT as _URLLIB3_DEFAULT_TIMEOUT
 
 from . import __version__, merkle
-from .config import Settings
+from .config import Settings, json_loads
 from .i18n import _
 
 log = logging.getLogger(__name__)
@@ -45,11 +50,133 @@ MAX_RESPONSE_BYTES = 8 * 1024 * 1024
 # ma prawo potrwac dluzej.
 CONNECT_TIMEOUT = 5.0
 
+#: Ile czekamy na polaczenie z JEDNYM adresem serwera, zanim sprobujemy
+#: nastepnego — patrz `_create_connection`.
+FALLBACK_CONNECT_SECONDS = 1.5
+
+#: Pomiar zegara: najwyzej tyle prob, konczymy wczesniej, gdy obieg jest krotki.
+SYNC_SAMPLES = 3
+SYNC_GOOD_ROUND_TRIP = 0.3
+
+#: Przekierowania u osob trzecich (GitHub oddaje pliki wydan przez dwa).
+MAX_REDIRECTS = 5
+
+#: Rodzina adresow (IPv4/IPv6), ktora ostatnio zadzialala dla danego hosta.
+_FAMILY_THAT_WORKED: dict[str, int] = {}
+#: Fabryka gniazd — podmieniana w testach.
+_socket_factory = socket.socket
+
+
+def _interleave(infos: list, preferred: int | None) -> list:
+    """Adresy na przemian z obu rodzin, zaczynajac od `preferred`.
+
+    Bez wskazowki zaczynamy od rodziny, ktora system podal jako pierwsza
+    (Windows stosuje RFC 6724, wiec zwykle IPv6).
+    """
+    if not infos:
+        return []
+    families = {info[0] for info in infos}
+    first = preferred if preferred in families else infos[0][0]
+    ours = [info for info in infos if info[0] == first]
+    other = [info for info in infos if info[0] != first]
+    ordered = []
+    while ours or other:
+        if ours:
+            ordered.append(ours.pop(0))
+        if other:
+            ordered.append(other.pop(0))
+    return ordered
+
+
+def _create_connection(address, timeout=_URLLIB3_DEFAULT_TIMEOUT, source_address=None,
+                       socket_options=None):
+    """Zamiennik `urllib3.util.connection.create_connection` („Happy Eyeballs").
+
+    urllib3 probuje adresow z DNS po kolei i na KAZDY czeka pelny limit
+    polaczenia. W sieci z zepsutym IPv6 (router oglasza IPv6, a ruch nie
+    przechodzi — czeste u operatorow i w sieciach firmowych) kazdy rekord
+    AAAA to 5 s ciszy: pomiar 2026-09-27 — beattime.live +5 s, mempool.space
+    (7 rekordow AAAA) 35 s, w tym czasie stemplowanie stalo w kolejce.
+
+    Tutaj adresy ida NA PRZEMIAN z obu rodzin (RFC 8305, wersja sekwencyjna),
+    kazdy poza ostatnim dostaje najwyzej `FALLBACK_CONNECT_SECONDS`, a rodzina,
+    ktora zadzialala, idzie przy tym hoscie pierwsza. Zdrowa siec niczego nie
+    zauwaza: pierwszy adres laczy sie w milisekundach.
+    """
+    host, port = address
+    if host.startswith('['):
+        host = host.strip('[]')
+    try:
+        host.encode('idna')
+    except UnicodeError:
+        raise LocationParseError(f"'{host}', label empty or too long") from None
+    family = _urllib3_connection.allowed_gai_family()
+    infos = socket.getaddrinfo(host, port, family, socket.SOCK_STREAM)
+    ordered = _interleave(infos, _FAMILY_THAT_WORKED.get(host))
+    error: OSError | None = None
+    for index, (af, socktype, proto, _canonname, sockaddr) in enumerate(ordered):
+        last = index == len(ordered) - 1
+        attempt = timeout
+        if not last:
+            if timeout is _URLLIB3_DEFAULT_TIMEOUT or timeout is None:
+                attempt = FALLBACK_CONNECT_SECONDS
+            else:
+                attempt = min(float(timeout), FALLBACK_CONNECT_SECONDS)
+        sock = None
+        try:
+            sock = _socket_factory(af, socktype, proto)
+            _urllib3_connection._set_socket_options(sock, socket_options)
+            if attempt is not _URLLIB3_DEFAULT_TIMEOUT:
+                sock.settimeout(attempt)
+            if source_address:
+                sock.bind(source_address)
+            sock.connect(sockaddr)
+            # Po polaczeniu wraca limit wywolujacego — obowiazuje dalej odczyt.
+            sock.settimeout(socket.getdefaulttimeout()
+                            if timeout is _URLLIB3_DEFAULT_TIMEOUT else timeout)
+            _FAMILY_THAT_WORKED[host] = af
+            return sock
+        except OSError as e:
+            error = e
+            if sock is not None:
+                sock.close()
+    if error is not None:
+        raise error
+    raise OSError('getaddrinfo returns an empty list')
+
+
+# urllib3 siega po `connection.create_connection` przy KAZDYM nowym polaczeniu
+# (urllib3/connection.py, `_new_conn`), wiec podmiana dziala dla calego
+# procesu — takze dla requests. Polaczen przez SOCKS (Tor) to nie dotyczy:
+# PySocks laczy sie z lokalnym proxy wlasna funkcja.
+_urllib3_connection.create_connection = _create_connection
+
+
+class _Retry(Retry):
+    """`Retry` z gornym limitem na naglowek Retry-After.
+
+    urllib3 czeka tyle, ile kaze serwer — bez limitu. Watek roboczy jest
+    jeden, wiec „Retry-After: 120" zatrzymywal wszystko na dwie minuty. Po
+    `RETRY_AFTER_MAX` sekundach i tak konczy sie proba, a uzytkownik dostaje
+    czytelny komunikat z czasem od serwera.
+    """
+
+    RETRY_AFTER_MAX = 30.0
+
+    def get_retry_after(self, response):
+        seconds = super().get_retry_after(response)
+        return None if seconds is None else min(float(seconds), self.RETRY_AFTER_MAX)
+
 # Kontrakt okna podziekowan (apps/support/views.py: SupportersThanksView,
 # straznik w apps/support/tests_desktop_contract.py). Sciezka stoi TUTAJ,
 # a nie w `supporters.py`, zeby ten modul nie musial importowac tamtego:
 # zaleznosc idzie w jedna strone (`supporters` -> `api`).
 SUPPORTERS_THANKS_PATH = '/api/supporters/thanks'
+
+#: Naglowek User-Agent KAZDEGO zapytania (API i osoby trzecie). Nazwa
+#: programu bez spacji (RFC 9110: product = token) i adres, pod ktorym
+#: operator serwera albo archiwum znajdzie, kto pyta.
+USER_AGENT = f'SigelithDesktop/{__version__} (+https://sigelith.org)'
 
 
 class ApiError(Exception):
@@ -73,7 +200,10 @@ class SyncResult:
 
 
 class BeatTimeClient:
-    """Sesja HTTP do API BeatTime. Bezpieczna do uzycia z watkow roboczych.
+    """Sesja HTTP do API Sigelith. Bezpieczna do uzycia z watkow roboczych.
+
+    Nazwa klasy zostaje z czasow, gdy usluga nazywala sie BeatTime proof —
+    uzywaja jej testy i moduly w calym pakiecie.
 
     Jedna instancja utrzymuje pule polaczen, więc kolejne stemple nie placa za
     nowy uscisk TLS — przy stemplowaniu katalogu to różnica rzedu sekund.
@@ -83,15 +213,10 @@ class BeatTimeClient:
 
     def __init__(self, settings: Settings):
         self._settings = settings
-        self._session = requests.Session()
-        self._session.headers.update({
-            'User-Agent': f'BeatStamp/{__version__} (+https://beattime.live)',
-            'Accept': 'application/json',
-        })
         # Ponawiamy tylko to, co ma sens ponawiac: chwilowe bledy serwera i
         # przekroczony limit zapytan. Blad 4xx (poza 429) ponawiany w kolko
         # bylby tylko halasem — i szybciej wyczerpalby limit.
-        retry = Retry(
+        self._session = self._new_session(_Retry(
             total=3,
             connect=3,
             read=2,
@@ -101,13 +226,34 @@ class BeatTimeClient:
             allowed_methods=frozenset({'GET', 'POST'}),
             respect_retry_after_header=True,
             raise_on_status=False,
-        )
+        ))
+        # Zapytania, w ktorych kod odpowiedzi JEST trescia (stan potoku: 503
+        # przy alercie) — ponawiamy tylko nieudane polaczenie, nie status.
+        self._session_once = self._new_session(_Retry(
+            total=2, connect=2, read=0, status=0, backoff_factor=0.6,
+            raise_on_status=False))
+        # Osoby trzecie (GitHub, Internet Archive, Zenodo, eksploratory
+        # Bitcoina): bez ponawiania. To kontrola w tle, ktora i tak wroci za
+        # kwadrans — a indeks CDX archiwum potrafi odpowiadac po 15 s, wiec
+        # trzy proby to prawie minuta zajetego watku.
+        self._external = self._new_session(_Retry(
+            total=1, connect=1, read=0, status=0, redirect=0, raise_on_status=False))
+
+    @staticmethod
+    def _new_session(retry: Retry) -> requests.Session:
+        session = requests.Session()
+        session.headers.update({
+            'User-Agent': USER_AGENT,
+            'Accept': 'application/json',
+        })
         adapter = HTTPAdapter(max_retries=retry, pool_connections=4, pool_maxsize=8)
-        self._session.mount('https://', adapter)
-        self._session.mount('http://', adapter)
+        session.mount('https://', adapter)
+        session.mount('http://', adapter)
+        return session
 
     def close(self) -> None:
-        self._session.close()
+        for session in (self._session, self._session_once, self._external):
+            session.close()
 
     def __enter__(self) -> 'BeatTimeClient':
         return self
@@ -133,11 +279,13 @@ class BeatTimeClient:
         return url
 
     def _request(self, method: str, path: str, *, json_body: dict | None = None,
-                 params: dict | None = None, expect_json: bool = True) -> tuple[int, Any]:
+                 params: dict | None = None, expect_json: bool = True,
+                 retry_status: bool = True) -> tuple[int, Any]:
         url = self._url(path)
         timeout = (CONNECT_TIMEOUT, max(3.0, float(self._settings.timeout_seconds)))
+        session = self._session if retry_status else self._session_once
         try:
-            response = self._session.request(
+            response = session.request(
                 method,
                 url,
                 json=json_body,
@@ -157,22 +305,39 @@ class BeatTimeClient:
             )) from e
         except requests.exceptions.ProxyError as e:
             log.warning('proxy: %s', e)
+            if self._settings.use_tor:
+                raise ApiError(_(
+                    'No connection to the Tor proxy at %(proxy)s. Start Tor Browser '
+                    'or the tor service, or turn off Tor mode in the settings.'
+                ) % {'proxy': self._settings.tor_proxy}) from e
+            # Proxy z ustawien Windows albo ze zmiennej HTTPS_PROXY (requests
+            # czyta oba) — typowo siec firmowa. Komunikat o Torze, ktory
+            # padal tu do 2.2.0 przy KAZDYM proxy, wprowadzal w blad.
             raise ApiError(_(
-                'No connection to the Tor proxy at %(proxy)s. Start Tor Browser '
-                'or the tor service, or turn off Tor mode in the settings.'
-            ) % {'proxy': self._settings.tor_proxy}) from e
+                'No connection through the proxy server set on this computer '
+                '(Windows proxy settings or the HTTPS_PROXY variable). Check '
+                'those settings or ask your network administrator.')) from e
         except requests.exceptions.ConnectTimeout as e:
+            log.warning('połączenie: przekroczony czas nawiązania: %s', e)
             raise ApiError(_(
                 'The server did not answer in time (limit %(seconds)s s to '
                 'connect).') % {'seconds': f'{CONNECT_TIMEOUT:.0f}'}) from e
         except requests.exceptions.ReadTimeout as e:
+            log.warning('połączenie: brak odpowiedzi w czasie: %s', e)
             raise ApiError(_(
                 'The server accepted the connection but sent no answer in '
                 'time.')) from e
         except requests.exceptions.ConnectionError as e:
             log.warning('połączenie: %s', e)
+            # Po wyczerpaniu ponowien odczytu requests zglasza ConnectionError,
+            # nie ReadTimeout — przyczyna siedzi w MaxRetryError.reason.
+            reason = getattr(e.args[0], 'reason', None) if e.args else None
+            if isinstance(reason, ReadTimeoutError):
+                raise ApiError(_(
+                    'The server accepted the connection but sent no answer in '
+                    'time.')) from e
             raise ApiError(_(
-                'No connection to beattime.live. Check your internet access '
+                'No connection to sigelith.org. Check your internet access '
                 'and firewall settings.')) from e
         except requests.exceptions.RequestException as e:
             log.warning('zapytanie: %s', e)
@@ -187,35 +352,46 @@ class BeatTimeClient:
             body = self._read_capped(response)
             if response.status_code == 429:
                 retry_after = _int_or_none(response.headers.get('Retry-After'))
+                # Limit 20/min dotyczy WYLACZNIE stemplowania; pozostale
+                # adresy maja wlasne (apps/tsa, DEFAULT_THROTTLE_RATES).
+                limit = (_('The API request limit was exceeded (20 stamps per minute '
+                           'per IP address). ')
+                         if path.rstrip('/').endswith('/api/proof/stamp') else
+                         _('The server received too many requests from this '
+                           'address. '))
                 raise ApiError(
-                    _('The API request limit was exceeded (20 stamps per minute '
-                      'per IP address). ')
+                    limit
                     + (_('Try again in %(seconds)s s.') % {'seconds': retry_after}
                        if retry_after else _('Wait a moment.')),
                     status=429, retry_after=retry_after,
                 )
             if not expect_json:
                 return response.status_code, body
-            if response.status_code >= 500:
-                raise ApiError(
-                    _('The BeatTime server returned error %(code)s. Try again '
-                      'in a moment.') % {'code': response.status_code},
-                    status=response.status_code)
-            try:
-                data = json.loads(body.decode('utf-8'))
-            except (UnicodeDecodeError, ValueError) as e:
-                raise ApiError(
-                    _('The server sent back an answer that cannot be read as '
-                      'JSON.'), status=response.status_code) from e
-            if response.status_code >= 400:
-                detail = ''
-                if isinstance(data, dict):
-                    detail = str(data.get('error') or data.get('detail') or '')
-                raise ApiError(
-                    detail or _('The server rejected the request (HTTP '
-                                '%(code)s).') % {'code': response.status_code},
-                    status=response.status_code)
-            return response.status_code, data
+            return response.status_code, self._json_answer(response.status_code, body)
+
+    @staticmethod
+    def _json_answer(status: int, body: bytes) -> Any:
+        """Tresc odpowiedzi jako JSON — te same bledy dla kazdej metody."""
+        if status >= 500:
+            raise ApiError(
+                _('The Sigelith server returned error %(code)s. Try again '
+                  'in a moment.') % {'code': status},
+                status=status)
+        try:
+            data = json_loads(body.decode('utf-8'))
+        except (UnicodeDecodeError, ValueError) as e:
+            raise ApiError(
+                _('The server sent back an answer that cannot be read as '
+                  'JSON.'), status=status) from e
+        if status >= 400:
+            detail = ''
+            if isinstance(data, dict):
+                detail = str(data.get('error') or data.get('detail') or '')
+            raise ApiError(
+                detail or _('The server rejected the request (HTTP '
+                            '%(code)s).') % {'code': status},
+                status=status)
+        return data
 
     @staticmethod
     def _read_capped(response: requests.Response) -> bytes:
@@ -261,12 +437,24 @@ class BeatTimeClient:
 
     def verify(self, digest: str) -> dict:
         """Odpytuje o istniejacy stempel. `{'found': False}` gdy go nie ma."""
+        return self.verify_raw(digest)[1]
+
+    def verify_raw(self, digest: str) -> tuple[bytes, dict]:
+        """Jak `verify`, ale oddaje tez tresc odpowiedzi DOKLADNIE tak, jak przyszla.
+
+        Pakiet dowodowy Handover (HANDOVER_SPEC.md §11.1) zapisuje odpowiedz
+        /api/proof/verify „as received": podpisany jest w niej tylko kwit
+        (§9.2), a weryfikator czyta ten sam tekst co my. Ta sama sciezka HTTP
+        co zawsze (Tor, limit rozmiaru, odmowa przekierowan, 429).
+        """
         digest = _require_digest(digest)
-        _status, data = self._request('GET', '/api/proof/verify', params={'digest': digest})
+        status, body = self._request('GET', '/api/proof/verify', params={'digest': digest},
+                                     expect_json=False)
+        data = self._json_answer(status, body)
         if not isinstance(data, dict):
             raise ApiError(_(
                 'The server returned an answer in an unexpected format.'))
-        return data
+        return body, data
 
     def latest_root(self) -> dict:
         """Ostatni Zamknięty korzeń tygodnia wraz z podpisem."""
@@ -299,23 +487,36 @@ class BeatTimeClient:
     def sync(self) -> SyncResult:
         """Mierzy roznice miedzy zegarem lokalnym a serwerem (model SNTP).
 
-        Serwer odpytywany jest RAZ; offset liczymy z polowy czasu obiegu, tak
-        jak robi to klient SNTP. Dalej aplikacja tyka lokalnie — inaczej niż
-        poprzednik, który przy Każdym pliku szedl po czas do dwoch serwisow
-        HTTP, blokujac przy tym okno.
+        Offset liczymy z polowy czasu obiegu, tak jak robi to klient SNTP.
+        Dalej aplikacja tyka lokalnie — inaczej niż poprzednik, który przy
+        Każdym pliku szedl po czas do dwoch serwisow HTTP, blokujac przy tym
+        okno.
+
+        Pomiar powtarzamy (do `SYNC_SAMPLES` razy) i bierzemy ten z NAJKROTSZYM
+        obiegiem. Pierwsze zapytanie sesji placi za DNS, polaczenie TCP i
+        uscisk TLS — w sieci z zepsutym IPv6 takze za probe IPv6 — wiec jego
+        obieg bywa o sekundy dluzszy od prawdziwego, a polowa tej roznicy
+        wchodzi w offset. Przy starcie programu dawalo to falszywe
+        ostrzezenie „zegar rozjechany" (+2,7 s; diagnostyka 2026-09-27).
+        Kolejne proby ida juz gotowym polaczeniem.
         """
         import time
-        t0 = time.time()
-        _status, data = self._request('GET', '/api/sync/')
-        t1 = time.time()
-        if not isinstance(data, dict) or 'server_unix_ms' not in data:
-            raise ApiError(_('The server did not return a synchronisation time.'))
-        try:
-            server_ms = int(data['server_unix_ms'])
-        except (TypeError, ValueError) as e:
-            raise ApiError(_('The server returned a time in an invalid '
-                             'format.')) from e
-        rtt = t1 - t0
+        best: tuple[float, int, float] | None = None
+        for attempt in range(SYNC_SAMPLES):
+            try:
+                t0 = time.time()
+                _status, data = self._request('GET', '/api/sync/')
+                t1 = time.time()
+                server_ms = self._sync_time(data)
+            except ApiError:
+                if best is None:
+                    raise
+                break
+            if best is None or t1 - t0 < best[0]:
+                best = (t1 - t0, server_ms, t1)
+            if attempt >= 1 and best[0] <= SYNC_GOOD_ROUND_TRIP:
+                break
+        rtt, server_ms, t1 = best
         # Szacowany czas serwera w chwili ODBIORU odpowiedzi to moment jego
         # odpowiedzi + droga powrotna (polowa obiegu).
         server_now = server_ms / 1000.0 + rtt / 2.0
@@ -325,11 +526,21 @@ class BeatTimeClient:
             offset_seconds=server_now - t1,
         )
 
+    @staticmethod
+    def _sync_time(data: object) -> int:
+        if not isinstance(data, dict) or 'server_unix_ms' not in data:
+            raise ApiError(_('The server did not return a synchronisation time.'))
+        try:
+            return int(data['server_unix_ms'])
+        except (TypeError, ValueError) as e:
+            raise ApiError(_('The server returned a time in an invalid '
+                             'format.')) from e
+
     def certificate_pdf(self, digest: str) -> bytes:
         """Oficjalny certyfikat PDF wystawiony przez serwer (404 gdy brak).
 
         Alternatywa dla certyfikatu skladanego lokalnie: ten jest podpisany
-        trescia serwera i wyglada identycznie jak ten z beattime.live/proof.
+        trescia serwera i wyglada identycznie jak ten z sigelith.org/proof.
         Limit po stronie serwera jest ostry (10/min) — to kosztowny endpoint.
         """
         digest = _require_digest(digest)
@@ -346,11 +557,166 @@ class BeatTimeClient:
                 'The server sent back data that is not a PDF file.'))
         return body
 
+    # --- Dziennik publiczny (LOG.md) ------------------------------------------
+
+    def entries(self, start: int, limit: int = 1000) -> dict:
+        """Strona dziennika: `{'entries': [...], 'next': seq | None}`."""
+        _status, data = self._request(
+            'GET', '/api/proof/entries',
+            params={'from': max(1, int(start)), 'limit': max(1, min(1000, int(limit)))})
+        if not isinstance(data, dict) or not isinstance(data.get('entries'), list):
+            raise ApiError(_(
+                'The server returned an answer in an unexpected format.'))
+        return data
+
+    def checkpoint_latest(self) -> dict | None:
+        """Ostatni checkpoint (rozpakowany) albo None, gdy jeszcze zadnego nie ma."""
+        try:
+            _status, data = self._request('GET', '/api/proof/checkpoints/latest')
+        except ApiError as e:
+            if e.status == 404:
+                return None
+            raise
+        return data if isinstance(data, dict) else None
+
+    def checkpoint(self, n: int) -> dict | None:
+        """Checkpoint nr `n` w postaci API (stan OTS, czasy blokow, kopie)."""
+        try:
+            _status, data = self._request('GET', f'/api/proof/checkpoints/{int(n)}')
+        except ApiError as e:
+            if e.status == 404:
+                return None
+            raise
+        return data if isinstance(data, dict) else None
+
+    def checkpoint_file(self, n: int) -> bytes:
+        """DOKLADNE bajty pliku checkpointu — to na nich sprawdza sie podpis."""
+        name = f'{int(n):06d}.json'
+        status, body = self._request('GET', f'/checkpoints/{name}', expect_json=False)
+        if status >= 400:
+            raise ApiError(_('The checkpoint file could not be downloaded (HTTP '
+                             '%(code)s).') % {'code': status}, status=status)
+        return body
+
+    def consistency(self, first: int, second: int) -> dict:
+        """Dowod spojnosci RFC 9162 miedzy dwoma opublikowanymi rozmiarami."""
+        _status, data = self._request(
+            'GET', '/api/proof/consistency',
+            params={'first': int(first), 'second': int(second)})
+        if not isinstance(data, dict) or not isinstance(data.get('proof'), list):
+            raise ApiError(_(
+                'The server returned an answer in an unexpected format.'))
+        return data
+
+    def week(self, week_key: str) -> dict | None:
+        """Dane tygodnia (`/api/proof/weeks/<week>`) albo None.
+
+        None znaczy „ten serwer nie zna takiego adresu" — endpoint doszedl
+        2026-09-26, wiec starsza instancja odpowiada 404 strona HTML. Tryb
+        prywatny ma na to droge zapasowa (`witness.PrivateVerifier`).
+        """
+        try:
+            _status, data = self._request('GET', f'/api/proof/weeks/{week_key}')
+        except ApiError as e:
+            if e.status == 404:
+                return None
+            raise
+        return data if isinstance(data, dict) else None
+
+    def proof_status(self) -> dict:
+        """Stan potoku dowodowego (`/api/proof/status`).
+
+        HTTP 503 to tutaj TRESC, nie awaria: serwer odpowiada nim, gdy ktores
+        sprawdzenie ma stan `alert` (apps/tsa/views_log.py, ProofStatusView),
+        a cialo niesie pelny stan. Do 2.2.0 503 szedl w ponawianie, konczyl
+        sie bledem i panel pokazywal dalej stary wynik „11 z 11".
+        """
+        status, body = self._request('GET', '/api/proof/status', expect_json=False,
+                                     retry_status=False)
+        if status not in (200, 503):
+            raise ApiError(_('The server rejected the request (HTTP '
+                             '%(code)s).') % {'code': status}, status=status)
+        try:
+            data = json_loads(body.decode('utf-8'))
+        except (UnicodeDecodeError, ValueError) as e:
+            raise ApiError(_('The server sent back an answer that cannot be read as '
+                             'JSON.'), status=status) from e
+        return data if isinstance(data, dict) else {}
+
+    # --- Osoby trzecie --------------------------------------------------------
+
+    def fetch_external(self, url: str, *, max_bytes: int = 2 * 1024 * 1024,
+                       accept: str = '*/*') -> bytes | None:
+        """Pobiera plik od OSOBY TRZECIEJ (GitHub, Internet Archive, Zenodo...).
+
+        Zasady inne niz przy API Sigelith, bo inny jest cel:
+
+        * przekierowania SA dozwolone (GitHub wydaje pliki wydan przez
+          przekierowanie na swoj serwer plikow), ale KAZDY krok musi byc
+          HTTPS z pelna weryfikacja certyfikatu — zejscie na HTTP przerywa;
+        * niczego nie wysylamy poza samym adresem: zadnego skrotu, zadnego
+          naglowka z danymi uzytkownika;
+        * 404 to zwykla odpowiedz „tego jeszcze nie opublikowano" — wraca
+          jako None, a nie jako blad.
+
+        Zwracane bajty sa danymi, nie prawda: wywolujacy sprawdza je sam
+        (hash, podpis), zanim cokolwiek z nich wyniknie.
+        """
+        if not url.lower().startswith('https://'):
+            raise ApiError(_('Only HTTPS addresses can be used.'))
+        timeout = (CONNECT_TIMEOUT, max(3.0, float(self._settings.timeout_seconds)))
+        current = url
+        try:
+            # Przekierowania prowadzimy SAMI: adres kolejnego kroku sprawdzamy
+            # PRZED zapytaniem. `allow_redirects=True` sprawdzal je dopiero po
+            # fakcie — krok `http://` zdazyl juz pojsc otwartym tekstem.
+            for _hop in range(MAX_REDIRECTS + 1):
+                response = self._external.get(
+                    current, timeout=timeout, proxies=self._settings.proxies,
+                    verify=_ca_bundle(), allow_redirects=False, stream=True,
+                    headers={'Accept': accept})
+                if not response.is_redirect:
+                    break
+                target = urljoin(current, response.headers.get('Location') or '')
+                response.close()
+                if not target.lower().startswith('https://'):
+                    raise ApiError(_('%(host)s redirected to an unencrypted address '
+                                     '— rejected.') % {'host': urlparse(current).hostname})
+                current = target
+            else:
+                raise ApiError(_('%(host)s redirected too many times.')
+                               % {'host': urlparse(url).hostname or url})
+        except requests.exceptions.RequestException as e:
+            log.info('osoba trzecia %s: %s', urlparse(current).hostname, e)
+            raise ApiError(_('No connection to %(host)s.')
+                           % {'host': urlparse(current).hostname or url}) from e
+        with response:
+            if response.status_code == 404:
+                return None
+            if response.status_code >= 400:
+                raise ApiError(_('%(host)s answered with error %(code)s.')
+                               % {'host': urlparse(url).hostname,
+                                  'code': response.status_code},
+                               status=response.status_code)
+            declared = _int_or_none(response.headers.get('Content-Length'))
+            if declared is not None and declared > max_bytes:
+                raise ApiError(_('The file from %(host)s is unnaturally large.')
+                               % {'host': urlparse(url).hostname})
+            chunks: list[bytes] = []
+            total = 0
+            for chunk in response.iter_content(64 * 1024):
+                total += len(chunk)
+                if total > max_bytes:
+                    raise ApiError(_('The file from %(host)s is unnaturally large.')
+                                   % {'host': urlparse(url).hostname})
+                chunks.append(chunk)
+            return b''.join(chunks)
+
     def ots_proof(self, week_key: str) -> bytes:
         """Dowód OpenTimestamps (.ots) dla tygodnia — do niezaleznej kontroli.
 
         Plik `.ots` weryfikuje się narzędziem `ots verify` (klient
-        OpenTimestamps), całkowicie poza BeatTime i poza ta aplikacja. To
+        OpenTimestamps), całkowicie poza Sigelith i poza ta aplikacja. To
         koncowy punkt łańcucha zaufania: dowód, ze korzeń tygodnia istniał
         przed konkretnym blokiem Bitcoina.
         """
@@ -365,6 +731,17 @@ class BeatTimeClient:
             raise ApiError(_('The .ots proof could not be downloaded (HTTP '
                              '%(code)s).') % {'code': status}, status=status)
         return body
+
+
+def _ca_bundle() -> str:
+    """Magazyn CA dla osob trzecich — ZAWSZE certifi, takze w trybie Tor.
+
+    `Settings.verify_tls` zwraca False dla uslugi `.onion` Sigelith (tam
+    tozsamosc niesie sam adres). Osoby trzecie sa zwyklymi adresami HTTPS
+    i przez Tora tez ida z pelna weryfikacja certyfikatu.
+    """
+    import certifi
+    return certifi.where()
 
 
 def _require_digest(digest: str) -> str:

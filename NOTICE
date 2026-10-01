@@ -1,43 +1,43 @@
-BeatStamp
+Sigelith Desktop
 Copyright 2026 Adam Koch
 
-This file lists every file of the released BeatStamp package, and every
-library compiled into BeatStamp.exe, with the license it is distributed under.
-It is generated from the built package by tools/make_notice.py; do not edit it
-by hand.
+This file lists every file of the released Sigelith Desktop package, and every
+library compiled into SigelithDesktop.exe, with the license it is distributed
+under. It is generated from the built package by tools/make_notice.py; do not
+edit it by hand.
 
-BeatStamp.exe is not one program in one license. It is the PyInstaller
+SigelithDesktop.exe is not one program in one license. It is the PyInstaller
 bootloader with an archive appended to it, and that archive holds this program
 together with its Python dependencies. Libraries that have no file of their
 own in the package -- ReportLab, requests, urllib3, idna, PySocks -- live
-there, and BeatStamp.exe is listed among the files of every component whose
-code is inside it.
+there, and SigelithDesktop.exe is listed among the files of every component
+whose code is inside it.
 
-Package:  BeatStamp 2.1.0
-Files:    221 (plus the legal documents listed at the end)
-Modules:  104 top-level packages inside BeatStamp.exe
+Package:  Sigelith Desktop 3.0.1
+Files:    252 (plus the legal documents listed at the end)
+Modules:  110 top-level packages inside SigelithDesktop.exe
 
 ==============================================================================
 SOURCES OF THE LGPL LIBRARIES
 ==============================================================================
 
-BeatStamp uses Qt and PySide6 as shared libraries under the GNU Lesser General
-Public License, version 3. That license requires the source code of the
-libraries themselves to be available. The exact versions used to build this
-package are:
+Sigelith Desktop uses Qt and PySide6 as shared libraries under the GNU Lesser
+General Public License, version 3. That license requires the source code of
+the libraries themselves to be available. The exact versions used to build
+this package are:
 
-  Qt 6.9.1
-    https://download.qt.io/archive/qt/6.9/6.9.1/single/qt-everywhere-src-6.9.1.tar.xz
+  Qt 6.11.2
+    https://download.qt.io/archive/qt/6.11/6.11.2/single/qt-everywhere-src-6.11.2.tar.xz
 
-  PySide6 / Shiboken6 6.9.1
-    https://download.qt.io/official_releases/QtForPython/pyside6/PySide6-6.9.1-src/pyside-setup-everywhere-src-6.9.1.tar.xz
+  PySide6 / Shiboken6 6.11.2
+    https://download.qt.io/official_releases/QtForPython/pyside6/PySide6-6.11.2-src/pyside-setup-everywhere-src-6.11.2.tar.xz
 
 Written offer, valid for at least three years from the date this copy of
-BeatStamp was distributed: on request, Adam Koch will supply to anyone who has
-this program a complete machine-readable copy of the source code of the above
-libraries, and of this version of BeatStamp itself in the form needed to
-relink it against them, for no more than the cost of the distribution. Write
-to kontakt@advena-partners.com.
+Sigelith Desktop was distributed: on request, Adam Koch will supply to anyone
+who has this program a complete machine-readable copy of the source code of
+the above libraries, and of this version of Sigelith Desktop itself in the
+form needed to relink it against them, for no more than the cost of the
+distribution. Write to kontakt@advena-partners.com.
 
 ==============================================================================
 RELINKING AGAINST YOUR OWN BUILD OF QT
@@ -47,10 +47,10 @@ Qt and PySide6 are not modified here and they are linked dynamically. How you
 put your own build of them under this program depends on how this copy was
 installed, and the two ways are not the same:
 
-  Portable installation (the BeatStamp folder with BeatStamp.exe in it). The
-  libraries sit in the _internal directory next to the executable. Replace the
-  corresponding files with your own build of the same version; nothing else
-  has to be done.
+  Portable installation (the SigelithDesktop folder with SigelithDesktop.exe
+  in it). The libraries sit in the _internal directory next to the executable.
+  Replace the corresponding files with your own build of the same version;
+  nothing else has to be done.
 
   Installation from the Microsoft Store (MSIX). The program is installed under
   C:\Program Files\WindowsApps, where the files cannot be replaced: the
@@ -59,8 +59,8 @@ installed, and the two ways are not the same:
   notice does not pretend otherwise. Use the portable release of the same
   version instead: it is the same program, built from the same source, with
   the libraries in a directory you own. Ask for it with the written offer
-  above, or take it from the address of the BeatStamp source given under this
-  program in the component list below.
+  above, or take it from the address of the Sigelith Desktop source given
+  under this program in the component list below.
 
 The full texts of the GNU General Public License v3 and of the GNU Lesser
 General Public License v3 are delivered with this program, in
@@ -77,7 +77,7 @@ license, so they are removed from the package at build time (beatstamp.spec)
 and their absence is checked by the test suite (tests/test_licensing.py):
 
   Qt Virtual Keyboard - available only under GPLv3 or a commercial Qt license
-  (an on-screen keyboard; nothing in BeatStamp uses it)
+  (an on-screen keyboard; nothing in Sigelith Desktop uses it)
   Qt Charts - available only under GPLv3 or a commercial Qt license
   Qt Data Visualization - available only under GPLv3 or a commercial Qt
   license
@@ -95,45 +95,75 @@ third-party notices into a release that has no use for it:
   backend, which stays
   OpenSSL for QtNetwork - picked up from the build machine system directory,
   not from a pinned dependency; nothing in the package links against it
+  Universal C Runtime - picked up from a JDK directory on the build machine
+  PATH; Windows 10 and 11 ship the Universal CRT as part of the system
+  Universal C Runtime API sets - picked up from a JDK directory on the build
+  machine PATH; the system resolves these API sets itself on Windows 10 and 11
   Pillow AVIF codec - carries a full AOMedia AV1 encoder (3.14.1) and dav1d
   inside, with their own BSD and patent-license notices, for a format this
   program never reads or writes
+  Mesa llvmpipe (software OpenGL) - loaded only when a program creates an
+  OpenGL context on a machine without a GPU driver; Sigelith Desktop draws
+  only with Qt Widgets (raster) and never creates one
+  Qt PDF (PDFium) - only the qpdf image-format plugin links it; Sigelith
+  Desktop never reads PDF files — the certificate is written by reportlab
+  Qt PDF image-format plugin - lets Qt open PDF pages as images, which
+  Sigelith Desktop never does
+  Zstandard (compression.zstd) - the standard library imports it only inside
+  try/except ImportError (shutil, zipfile, tarfile); Sigelith Desktop never
+  compresses or decompresses zstd data
 
 ==============================================================================
 THIRD-PARTY COMPONENTS
 ==============================================================================
 
 ------------------------------------------------------------------------------
-BeatStamp 2.1.0
+Sigelith Desktop 3.0.1
 License: Apache-2.0
 ------------------------------------------------------------------------------
 
 Copyright 2026 Adam Koch
 
-Homepage: https://beattime.live
+Homepage: https://sigelith.org
 
 License text: _internal/licenses/Apache-2.0.txt
 
-Source: https://github.com/DeiFlagellum/beatstamp
+Source: https://github.com/DeiFlagellum/sigelith-desktop
 
-When BeatStamp is installed from the Microsoft Store, the package additionally
-contains its MSIX manifest, the application logos generated from the program
-icon and the compiled .pri resources. Those files are part of this program and
-are covered by the same license.
+When Sigelith Desktop is installed from the Microsoft Store, the package
+additionally contains its MSIX manifest, the application logos generated from
+the program icon and the compiled .pri resources. Those files are part of this
+program and are covered by the same license.
 
-Files (4):
+Files (12):
   (package root)
-    BeatStamp.exe
+    SigelithDesktop.exe
   _internal/
     beatstamp.ico
+  _internal/locale/ar/LC_MESSAGES/
+    beatstamp.mo
   _internal/locale/de/LC_MESSAGES/
+    beatstamp.mo
+  _internal/locale/es/LC_MESSAGES/
+    beatstamp.mo
+  _internal/locale/fr/LC_MESSAGES/
+    beatstamp.mo
+  _internal/locale/ja/LC_MESSAGES/
+    beatstamp.mo
+  _internal/locale/ko/LC_MESSAGES/
     beatstamp.mo
   _internal/locale/pl/LC_MESSAGES/
     beatstamp.mo
+  _internal/locale/ru/LC_MESSAGES/
+    beatstamp.mo
+  _internal/locale/tr/LC_MESSAGES/
+    beatstamp.mo
+  _internal/locale/zh/LC_MESSAGES/
+    beatstamp.mo
 
 ------------------------------------------------------------------------------
-PyInstaller bootloader and runtime modules 6.14.2
-License: GPL-2.0-or-later WITH Bootloader-exception
+PyInstaller bootloader and runtime modules 6.22.3
+License: GPL-2.0-or-later WITH Bootloader-exception AND Apache-2.0
 ------------------------------------------------------------------------------
 
 Copyright (c) 2010-2023, PyInstaller Development Team; Copyright (c)
@@ -143,25 +173,31 @@ Enterprises, Inc.
 Homepage: https://pyinstaller.org/
 
 License text: _internal/licenses/PyInstaller-bootloader.txt,
-_internal/licenses/GPL-2.0.txt
+_internal/licenses/GPL-2.0.txt, _internal/licenses/Apache-2.0.txt
 
 Source: https://github.com/pyinstaller/pyinstaller
 
-BeatStamp.exe is the PyInstaller bootloader with an archive appended to it.
-The archive holds this program, its Python dependencies and a few PyInstaller
-runtime modules; everything that is inside it is listed under its own
-component in this file, with BeatStamp.exe named among that component's files.
-The bootloader is licensed under the GNU GPL v2 or later WITH the bootloader
-exception, which expressly permits linking or embedding the compiled
-bootloader into programs under other licenses, including proprietary ones. The
-exception does not extend the GPL to the rest of BeatStamp.exe.
+SigelithDesktop.exe is the PyInstaller bootloader with an archive appended to
+it. The archive holds this program, its Python dependencies and a few
+PyInstaller runtime modules; everything that is inside it is listed under its
+own component in this file, with SigelithDesktop.exe named among that
+component's files. The bootloader and its loader modules are licensed under
+the GNU GPL v2 or later WITH the bootloader exception, which expressly permits
+linking or embedding the compiled bootloader into programs under other
+licenses, including proprietary ones. The exception does not extend the GPL to
+the rest of SigelithDesktop.exe. The run-time hooks in the archive
+(pyi_rth_inspect, pyi_rth_pkgutil, pyi_rth_multiprocessing and
+pyi_rth_pyside6, and pyi_rth_cryptography_openssl from
+pyinstaller-hooks-contrib 2026.7) and the run-time module _pyi_rth_utils are
+licensed under the Apache License 2.0, as PyInstaller-bootloader.txt and the
+license of pyinstaller-hooks-contrib say.
 
 Files (1):
   (package root)
-    BeatStamp.exe
+    SigelithDesktop.exe
 
 ------------------------------------------------------------------------------
-Qt 6.9.1
+Qt 6.11.2
 License: LGPL-3.0-only
 ------------------------------------------------------------------------------
 
@@ -170,10 +206,11 @@ Copyright (C) The Qt Company Ltd. and other contributors.
 Homepage: https://www.qt.io/
 
 License text: _internal/licenses/LGPL-3.0.txt, _internal/licenses/GPL-3.0.txt,
-_internal/licenses/Qt-third-party.txt
+_internal/licenses/Qt-third-party.txt, _internal/licenses/Apache-2.0.txt,
+_internal/licenses/MPL-2.0.txt
 
 Source:
-https://download.qt.io/archive/qt/6.9/6.9.1/single/qt-everywhere-src-6.9.1.tar.xz
+https://download.qt.io/archive/qt/6.11/6.11.2/single/qt-everywhere-src-6.11.2.tar.xz
 (the complete source of the exact version used here). A written offer to
 supply that source is in the "Sources of the LGPL libraries" section of this
 file.
@@ -181,25 +218,30 @@ file.
 Qt is used as a shared library and is not modified. How to relink the program
 against your own build of Qt depends on how this copy was installed; see the
 "Relinking against your own build of Qt" section above. Qt vendors and
-compiles in third-party code of its own -- PCRE2, FreeType, HarfBuzz, libpng,
-zlib, libjpeg-turbo, libtiff, libwebp, OpenJPEG and ICU were found in the
-binaries of this package. Complying with the LGPL does not discharge their own
-notice requirements, so their copyright notices and license texts are in
+compiles in third-party code of its own. Found in the Qt 6.11.2 binaries of
+this package were, among others, PCRE2, zlib, double-conversion, TinyCBOR,
+Unicode data (UCD and CLDR) and the Apache Tika MIME type definitions in
+Qt6Core.dll; FreeType, HarfBuzz, libpng, MD4C and the Emoji Segmenter in
+Qt6Gui.dll; the Public Suffix List in Qt6Network.dll; libjpeg-turbo, libtiff
+and libwebp in the image format plugins. Complying with the LGPL does not
+discharge their own notice requirements, so the complete list, with the file
+each one was found in, their copyright notices and their license texts, is in
 Qt-third-party.txt next to this file. The FreeType License asks for this
-sentence: "Portions of this software are copyright (c) 2025 The FreeType
-Project (https://freetype.org). All rights reserved."
+sentence: "Portions of this software are copyright (c) 2026 The FreeType
+Project (https://freetype.org). All rights reserved." The IJG License of
+libjpeg-turbo asks for this one: "This software is based in part on the work
+of the Independent JPEG Group."
 
-Files (118):
+Files (120):
   _internal/PySide6/
-    Qt6Core.dll, Qt6Gui.dll, Qt6Network.dll, Qt6Pdf.dll, Qt6Svg.dll,
-    Qt6Widgets.dll
+    Qt6Core.dll, Qt6Gui.dll, Qt6Network.dll, Qt6Svg.dll, Qt6Widgets.dll
   _internal/PySide6/plugins/generic/
     qtuiotouchplugin.dll
   _internal/PySide6/plugins/iconengines/
     qsvgicon.dll
   _internal/PySide6/plugins/imageformats/
-    qgif.dll, qicns.dll, qico.dll, qjpeg.dll, qpdf.dll, qsvg.dll, qtga.dll,
-    qtiff.dll, qwbmp.dll, qwebp.dll
+    qgif.dll, qicns.dll, qico.dll, qjpeg.dll, qsvg.dll, qtga.dll, qtiff.dll,
+    qwbmp.dll, qwebp.dll
   _internal/PySide6/plugins/networkinformation/
     qnetworklistmanager.dll
   _internal/PySide6/plugins/platforms/
@@ -216,142 +258,106 @@ Files (118):
     qt_help_hr.qm, qt_help_hu.qm, qt_help_it.qm, qt_help_ja.qm, qt_help_ka.qm,
     qt_help_ko.qm, qt_help_nl.qm, qt_help_nn.qm, qt_help_pl.qm,
     qt_help_pt_BR.qm, qt_help_ru.qm, qt_help_sk.qm, qt_help_sl.qm,
-    qt_help_tr.qm, qt_help_uk.qm, qt_help_zh_CN.qm, qt_help_zh_TW.qm,
-    qt_hr.qm, qt_hu.qm, qt_it.qm, qt_ja.qm, qt_ka.qm, qt_ko.qm, qt_lt.qm,
-    qt_lv.qm, qt_nl.qm, qt_nn.qm, qt_pl.qm, qt_pt_BR.qm, qt_pt_PT.qm,
-    qt_ru.qm, qt_sk.qm, qt_sl.qm, qt_sv.qm, qt_tr.qm, qt_uk.qm, qt_zh_CN.qm,
-    qt_zh_TW.qm, qtbase_ar.qm, qtbase_bg.qm, qtbase_ca.qm, qtbase_cs.qm,
-    qtbase_da.qm, qtbase_de.qm, qtbase_en.qm, qtbase_es.qm, qtbase_fa.qm,
-    qtbase_fi.qm, qtbase_fr.qm, qtbase_gd.qm, qtbase_he.qm, qtbase_hr.qm,
-    qtbase_hu.qm, qtbase_it.qm, qtbase_ja.qm, qtbase_ka.qm, qtbase_ko.qm,
-    qtbase_lv.qm, qtbase_nl.qm, qtbase_nn.qm, qtbase_pl.qm, qtbase_pt_BR.qm,
-    qtbase_ru.qm, qtbase_sk.qm, qtbase_tr.qm, qtbase_uk.qm, qtbase_zh_CN.qm,
-    qtbase_zh_TW.qm
+    qt_help_sv.qm, qt_help_tr.qm, qt_help_uk.qm, qt_help_zh_CN.qm,
+    qt_help_zh_TW.qm, qt_hr.qm, qt_hu.qm, qt_it.qm, qt_ja.qm, qt_ka.qm,
+    qt_ko.qm, qt_lg.qm, qt_lt.qm, qt_lv.qm, qt_nl.qm, qt_nn.qm, qt_pl.qm,
+    qt_pt_BR.qm, qt_pt_PT.qm, qt_ru.qm, qt_sk.qm, qt_sl.qm, qt_sv.qm,
+    qt_tr.qm, qt_uk.qm, qt_zh_CN.qm, qt_zh_TW.qm, qtbase_ar.qm, qtbase_bg.qm,
+    qtbase_ca.qm, qtbase_cs.qm, qtbase_da.qm, qtbase_de.qm, qtbase_en.qm,
+    qtbase_es.qm, qtbase_fa.qm, qtbase_fi.qm, qtbase_fr.qm, qtbase_gd.qm,
+    qtbase_he.qm, qtbase_hr.qm, qtbase_hu.qm, qtbase_it.qm, qtbase_ja.qm,
+    qtbase_ka.qm, qtbase_ko.qm, qtbase_lg.qm, qtbase_lv.qm, qtbase_nl.qm,
+    qtbase_nn.qm, qtbase_pl.qm, qtbase_pt_BR.qm, qtbase_ru.qm, qtbase_sk.qm,
+    qtbase_sv.qm, qtbase_tr.qm, qtbase_uk.qm, qtbase_zh_CN.qm, qtbase_zh_TW.qm
 
 ------------------------------------------------------------------------------
-PySide6 (Qt for Python) 6.9.1
+PySide6 (Qt for Python) 6.11.2
 License: LGPL-3.0-only
 ------------------------------------------------------------------------------
 
-Copyright (C) 2025 The Qt Company Ltd.
+Copyright (C) 2022 The Qt Company Ltd.
 
 Homepage: https://doc.qt.io/qtforpython/
 
 License text: _internal/licenses/LGPL-3.0.txt, _internal/licenses/GPL-3.0.txt
 
 Source:
-https://download.qt.io/official_releases/QtForPython/pyside6/PySide6-6.9.1-src/pyside-setup-everywhere-src-6.9.1.tar.xz
+https://download.qt.io/official_releases/QtForPython/pyside6/PySide6-6.11.2-src/pyside-setup-everywhere-src-6.11.2.tar.xz
 (the complete source of the exact version used here). A written offer to
 supply that source is in the "Sources of the LGPL libraries" section of this
 file.
 
 Files (6):
   (package root)
-    BeatStamp.exe
+    SigelithDesktop.exe
   _internal/PySide6/
     QtCore.pyd, QtGui.pyd, QtNetwork.pyd, QtWidgets.pyd, pyside6.abi3.dll
 
 ------------------------------------------------------------------------------
-Shiboken6 6.9.1
+Shiboken6 6.11.2
 License: LGPL-3.0-only
 ------------------------------------------------------------------------------
 
-Copyright (C) 2025 The Qt Company Ltd.
+Copyright (C) 2022 The Qt Company Ltd.
 
 Homepage: https://doc.qt.io/qtforpython/shiboken6/
 
 License text: _internal/licenses/LGPL-3.0.txt, _internal/licenses/GPL-3.0.txt
 
 Source:
-https://download.qt.io/official_releases/QtForPython/pyside6/PySide6-6.9.1-src/pyside-setup-everywhere-src-6.9.1.tar.xz
+https://download.qt.io/official_releases/QtForPython/pyside6/PySide6-6.11.2-src/pyside-setup-everywhere-src-6.11.2.tar.xz
 (Shiboken6 is part of the PySide6 source package).
 
 Files (3):
   (package root)
-    BeatStamp.exe
+    SigelithDesktop.exe
   _internal/shiboken6/
     Shiboken.pyd, shiboken6.abi3.dll
 
 ------------------------------------------------------------------------------
-PDFium as shipped inside Qt 6.9.1 (Qt6Pdf)
-License: BSD-3-Clause AND Apache-2.0
-------------------------------------------------------------------------------
-
-Copyright 2014 The PDFium Authors. All rights reserved.
-
-Homepage: https://pdfium.googlesource.com/pdfium/
-
-License text: _internal/licenses/PDFium.txt
-
-Source:
-https://download.qt.io/archive/qt/6.9/6.9.1/single/qt-everywhere-src-6.9.1.tar.xz
-(PDFium is vendored in the Qt source tree, under qtwebengine/src/3rdparty).
-
-Qt6Pdf.dll is built from PDFium and carries its third-party notices. It is in
-the package because the Qt image plugin qpdf.dll depends on it.
-
-Files (2):
-  _internal/PySide6/
-    Qt6Pdf.dll
-  _internal/PySide6/plugins/imageformats/
-    qpdf.dll
-
-------------------------------------------------------------------------------
-Mesa 3D (llvmpipe software OpenGL) with LLVM Mesa 11.2.2 with LLVM 3.6.2, as shipped in the Qt release
-License: MIT AND NCSA
-------------------------------------------------------------------------------
-
-Copyright (C) 1999-2007 Brian Paul. All Rights Reserved. Copyright (c)
-2003-2014 University of Illinois at Urbana-Champaign. All rights reserved.
-
-Homepage: https://www.mesa3d.org/
-
-License text: _internal/licenses/Mesa.txt, _internal/licenses/NCSA.txt
-
-opengl32sw.dll is loaded only on machines without a usable OpenGL driver. The
-llvmpipe driver links LLVM statically, and the build string inside the file
-reads "llvm-mc (based on LLVM 3.6.2)". LLVM was relicensed to Apache-2.0 WITH
-LLVM-exception only with LLVM 9; the 3.6 series is under the University of
-Illinois/NCSA Open Source License, whose text is in NCSA.txt next to this
-file.
-
-Files (1):
-  _internal/PySide6/
-    opengl32sw.dll
-
-------------------------------------------------------------------------------
-Python (CPython) 3.12.10
+Python (CPython) 3.14.7
 License: PSF-2.0
 ------------------------------------------------------------------------------
 
-Copyright (c) 2001-2025 Python Software Foundation. All Rights Reserved.
+Copyright (c) 2001 Python Software Foundation. All Rights Reserved. Copyright
+(c) 2000 BeOpen.com. All Rights Reserved. Copyright (c) 1995-2001 Corporation
+for National Research Initiatives. All Rights Reserved. Copyright (c)
+1991-1995 Stichting Mathematisch Centrum, Amsterdam. All Rights Reserved.
 
 Homepage: https://www.python.org/
 
-License text: _internal/licenses/Python-PSF.txt
+License text: _internal/licenses/Python-PSF.txt,
+_internal/licenses/Python-third-party.txt
 
-Source: https://www.python.org/downloads/release/python-31210/
+Source: https://www.python.org/downloads/release/python-3147/
 
-The CPython distribution incorporates third-party code (among others Expat,
-libffi, bzip2, XZ Utils/liblzma and libmpdec). Their notices are in the Python
-license text shipped next to this file; the extension modules built from them
-are listed above under this component.
+Python-PSF.txt is the license file of the Windows build of CPython 3.14.7.
+Besides the Python license it carries the notices of bzip2 (_bz2.pyd) and
+libffi (libffi-8.dll), the license of OpenSSL and the terms for the Microsoft
+Distributable Code. The release compiles in more third-party code than that
+file names -- Expat (pyexpat.pyd), libmpdec (_decimal.pyd), mimalloc, HACL*,
+zlib-ng, the Mersenne Twister and the Unicode Character Database
+(python314.dll), among others -- and the standard library in
+SigelithDesktop.exe includes modules with notices of their own (http.cookies,
+xmlrpc.client, asyncio). Those notices, taken from the documentation of the
+same release, are in Python-third-party.txt. _lzma.pyd contains liblzma from
+XZ Utils 5.2.5, which is in the public domain.
 
 Files (20):
   (package root)
-    BeatStamp.exe
+    SigelithDesktop.exe
   _internal/
     _asyncio.pyd, _bz2.pyd, _ctypes.pyd, _decimal.pyd, _elementtree.pyd,
     _hashlib.pyd, _lzma.pyd, _multiprocessing.pyd, _overlapped.pyd,
     _queue.pyd, _socket.pyd, _ssl.pyd, _wmi.pyd, base_library.zip,
-    pyexpat.pyd, python3.dll, python312.dll, select.pyd, unicodedata.pyd
+    pyexpat.pyd, python3.dll, python314.dll, select.pyd, unicodedata.pyd
 
 ------------------------------------------------------------------------------
-OpenSSL 3.0.16 (the build shipped with CPython 3.12.10)
+OpenSSL 3.5.7 (the build shipped with CPython 3.14.7)
 License: Apache-2.0
 ------------------------------------------------------------------------------
 
-Copyright 1998-2025 The OpenSSL Project Authors. Copyright (c) 1995-1998 Eric
+Copyright 1998-2026 The OpenSSL Project Authors. Copyright (c) 1995-1998 Eric
 A. Young, Tim J. Hudson. All rights reserved.
 
 Homepage: https://www.openssl.org/
@@ -370,11 +376,11 @@ Files (4):
     _hashlib.pyd, _ssl.pyd, libcrypto-3.dll, libssl-3.dll
 
 ------------------------------------------------------------------------------
-OpenSSL 3.5.1 (statically linked into the cryptography wheel)
+OpenSSL 4.0.2 (statically linked into the cryptography wheel)
 License: Apache-2.0
 ------------------------------------------------------------------------------
 
-Copyright 1998-2025 The OpenSSL Project Authors. Copyright (c) 1995-1998 Eric
+Copyright 1998-2026 The OpenSSL Project Authors. Copyright (c) 1995-1998 Eric
 A. Young, Tim J. Hudson. All rights reserved.
 
 Homepage: https://www.openssl.org/
@@ -384,8 +390,8 @@ License text: _internal/licenses/Apache-2.0.txt
 Source: https://github.com/openssl/openssl
 
 A second, different build of OpenSSL. It is not a file of its own: it is
-compiled into _rust.pyd, which carries the version string "OpenSSL 3.5.1 1 Jul
-2025" and the OpenSSL assembler routines, and which imports neither
+compiled into _rust.pyd, which carries the version string "OpenSSL 4.0.2 25
+Aug 2026" and the OpenSSL assembler routines, and which imports neither
 libcrypto-3.dll nor libssl-3.dll. Attribution required by section 4 of the
 Apache License 2.0: this product includes software developed by the OpenSSL
 Project for use in the OpenSSL Toolkit (https://www.openssl.org/), and
@@ -396,7 +402,7 @@ Files (1):
     _rust.pyd
 
 ------------------------------------------------------------------------------
-libffi as shipped with CPython 3.12.10 (libffi-8.dll)
+libffi as shipped with CPython 3.14.7 (libffi-8.dll)
 License: MIT
 ------------------------------------------------------------------------------
 
@@ -419,7 +425,7 @@ License: MIT-CMU
 ------------------------------------------------------------------------------
 
 Copyright (c) 1997-2011 by Secret Labs AB; Copyright (c) 1995-2011 by Fredrik
-Lundh and contributors; Copyright (c) 2010-2025 by Jeffrey A. Clark and
+Lundh and contributors; Copyright (c) 2010 by Jeffrey 'Alex' Clark and
 contributors.
 
 Homepage: https://python-pillow.github.io/
@@ -427,26 +433,27 @@ Homepage: https://python-pillow.github.io/
 License text: _internal/licenses/Pillow.txt
 
 Pillow is in the package because reportlab.lib.utils imports it
-unconditionally; BeatStamp itself draws the QR code as vectors. The binary
-modules statically link libtiff, libjpeg-turbo, zlib-ng, OpenJPEG, libwebp,
-Little CMS and FreeType; the notices of all of them are in the license text
-named above, which is the LICENSE file of the Pillow wheel verbatim. The AVIF
-module, which would have added the AOMedia AV1 encoder and dav1d on top of
-that, is removed from the package (see "Deliberately not in this package").
-libimagequant, the only GPL component Pillow can be built with, is NOT in this
-build: PIL.features reports it as not installed and no imagequant symbol
-appears in the binaries.
+unconditionally; Sigelith Desktop itself draws the QR code as vectors. The
+binary modules in this package statically link libtiff, libjpeg-turbo,
+zlib-ng, OpenJPEG, libwebp and Little CMS (Pillow's FreeType module,
+_imagingft, is not in the package); the notices of all of them are in the
+license text named above, which is the LICENSE file of the Pillow wheel
+verbatim. The AVIF module, which would have added the AOMedia AV1 encoder and
+dav1d on top of that, is removed from the package (see "Deliberately not in
+this package"). libimagequant, the only GPL component Pillow can be built
+with, is NOT in this build: PIL.features reports it as not installed and no
+imagequant symbol appears in the binaries.
 
 Files (6):
   (package root)
-    BeatStamp.exe
+    SigelithDesktop.exe
   _internal/PIL/
-    _imaging.cp312-win_amd64.pyd, _imagingcms.cp312-win_amd64.pyd,
-    _imagingmath.cp312-win_amd64.pyd, _imagingtk.cp312-win_amd64.pyd,
-    _webp.cp312-win_amd64.pyd
+    _imaging.cp314-win_amd64.pyd, _imagingcms.cp314-win_amd64.pyd,
+    _imagingmath.cp314-win_amd64.pyd, _imagingtk.cp314-win_amd64.pyd,
+    _webp.cp314-win_amd64.pyd
 
 ------------------------------------------------------------------------------
-ReportLab PDF Toolkit 4.4.2
+ReportLab PDF Toolkit 4.4.10
 License: BSD-3-Clause
 ------------------------------------------------------------------------------
 
@@ -456,39 +463,40 @@ Homepage: https://www.reportlab.com/
 
 License text: _internal/licenses/reportlab.txt
 
-Source: https://pypi.org/project/reportlab/4.4.2/
+Source: https://pypi.org/project/reportlab/4.4.10/
 
-BeatStamp draws the PDF certificate with reportlab. The library is not a file
-of its own in this package: its 159 modules are compiled into the archive
-inside BeatStamp.exe.
+Sigelith Desktop draws the PDF certificate with reportlab. The library is not
+a file of its own in this package: its 159 modules are compiled into the
+archive inside SigelithDesktop.exe.
 
 Files (1):
   (package root)
-    BeatStamp.exe
+    SigelithDesktop.exe
 
 ------------------------------------------------------------------------------
-requests 2.32.4
+requests 2.34.2
 License: Apache-2.0
 ------------------------------------------------------------------------------
 
-Copyright Kenneth Reitz and the requests contributors.
+Copyright 2019 Kenneth Reitz
 
 Homepage: https://requests.readthedocs.io/
 
 License text: _internal/licenses/Apache-2.0.txt,
 _internal/licenses/requests-NOTICE.txt
 
-Source: https://pypi.org/project/requests/2.32.4/
+Source: https://pypi.org/project/requests/2.34.2/
 
 Section 4 of the Apache License 2.0 requires this attribution notice to travel
-with every copy of the work, including the copy compiled into BeatStamp.exe.
+with every copy of the work, including the copy compiled into
+SigelithDesktop.exe.
 
 Files (1):
   (package root)
-    BeatStamp.exe
+    SigelithDesktop.exe
 
 ------------------------------------------------------------------------------
-urllib3 2.5.0
+urllib3 2.8.0
 License: MIT
 ------------------------------------------------------------------------------
 
@@ -498,13 +506,13 @@ Homepage: https://urllib3.readthedocs.io/
 
 License text: _internal/licenses/urllib3.txt
 
-Source: https://pypi.org/project/urllib3/2.5.0/
+Source: https://pypi.org/project/urllib3/2.8.0/
 
-The HTTP transport under requests. Compiled into BeatStamp.exe.
+The HTTP transport under requests. Compiled into SigelithDesktop.exe.
 
 Files (1):
   (package root)
-    BeatStamp.exe
+    SigelithDesktop.exe
 
 ------------------------------------------------------------------------------
 idna 3.20
@@ -519,11 +527,12 @@ License text: _internal/licenses/idna.txt
 
 Source: https://pypi.org/project/idna/3.20/
 
-Internationalised domain names for requests. Compiled into BeatStamp.exe.
+Internationalised domain names for requests. Compiled into
+SigelithDesktop.exe.
 
 Files (1):
   (package root)
-    BeatStamp.exe
+    SigelithDesktop.exe
 
 ------------------------------------------------------------------------------
 PySocks 1.7.1
@@ -538,15 +547,15 @@ License text: _internal/licenses/PySocks.txt
 
 Source: https://pypi.org/project/PySocks/1.7.1/
 
-The SOCKS5 proxy support that requests uses when BeatStamp talks to the
-register over Tor. Compiled into BeatStamp.exe.
+The SOCKS5 proxy support that requests uses when Sigelith Desktop talks to the
+register over Tor. Compiled into SigelithDesktop.exe.
 
 Files (1):
   (package root)
-    BeatStamp.exe
+    SigelithDesktop.exe
 
 ------------------------------------------------------------------------------
-cryptography 45.0.5
+cryptography 50.0.1
 License: Apache-2.0 OR BSD-3-Clause
 ------------------------------------------------------------------------------
 
@@ -558,35 +567,43 @@ License text: _internal/licenses/Apache-2.0.txt,
 _internal/licenses/cryptography-rust-crates.txt
 
 The package also carries its own license files at
-_internal/cryptography-45.0.5.dist-info/licenses/. Its binary module _rust.pyd
-is a statically linked Rust binary: the crates compiled into it, with their
+_internal/cryptography-50.0.1.dist-info/licenses/, and the software bills of
+materials of the wheel at sboms/ next to them. Its binary module _rust.pyd is
+a statically linked Rust binary: the crates compiled into it, with their
 versions and licenses, are listed in cryptography-rust-crates.txt next to this
 file, and the OpenSSL build inside it is a separate component above.
 
-Files (10):
+Files (12):
   (package root)
-    BeatStamp.exe
-  _internal/cryptography-45.0.5.dist-info/
+    SigelithDesktop.exe
+  _internal/cryptography-50.0.1.dist-info/
     INSTALLER, METADATA, RECORD, REQUESTED, WHEEL
-  _internal/cryptography-45.0.5.dist-info/licenses/
+  _internal/cryptography-50.0.1.dist-info/licenses/
     LICENSE, LICENSE.APACHE, LICENSE.BSD
+  _internal/cryptography-50.0.1.dist-info/sboms/
+    cryptography-rust.cyclonedx.json, sbom.json
   _internal/cryptography/hazmat/bindings/
     _rust.pyd
 
 ------------------------------------------------------------------------------
 cffi 2.1.1
-License: MIT-0
+License: MIT-0 AND MIT
 ------------------------------------------------------------------------------
 
 Copyright (c) 2012-2025 Armin Rigo, Maciej Fijalkowski and contributors.
 
 Homepage: https://cffi.readthedocs.io/
 
-License text: _internal/licenses/cffi.txt
+License text: _internal/licenses/cffi.txt, _internal/licenses/cffi-libffi.txt
+
+cffi itself is under the MIT No Attribution license. Its binary module
+_cffi_backend.pyd also contains the copy of libffi that cffi carries for
+Windows builds; the copyright notices and the MIT license of that code are in
+cffi-libffi.txt next to this file.
 
 Files (1):
   _internal/
-    _cffi_backend.cp312-win_amd64.pyd
+    _cffi_backend.cp314-win_amd64.pyd
 
 ------------------------------------------------------------------------------
 charset-normalizer 3.5.1
@@ -601,12 +618,12 @@ License text: _internal/licenses/charset-normalizer.txt
 
 Files (3):
   (package root)
-    BeatStamp.exe
+    SigelithDesktop.exe
   _internal/charset_normalizer/
-    cd.cp312-win_amd64.pyd, md.cp312-win_amd64.pyd
+    cd.cp314-win_amd64.pyd, md.cp314-win_amd64.pyd
 
 ------------------------------------------------------------------------------
-certifi (Mozilla CA bundle) 2025.07.14
+certifi (Mozilla CA bundle) 2026.07.22
 License: MPL-2.0
 ------------------------------------------------------------------------------
 
@@ -621,9 +638,90 @@ Source: https://github.com/certifi/python-certifi
 
 Files (3):
   (package root)
-    BeatStamp.exe
+    SigelithDesktop.exe
   _internal/certifi/
     cacert.pem, py.typed
+
+------------------------------------------------------------------------------
+Inter (typeface) 4.1
+License: OFL-1.1
+------------------------------------------------------------------------------
+
+Copyright (c) 2016 The Inter Project Authors (https://github.com/rsms/inter)
+
+Homepage: https://rsms.me/inter/
+
+License text: _internal/licenses/OFL-1.1-Inter.txt
+
+Source: https://github.com/rsms/inter/releases/tag/v4.1
+
+Four static TrueType weights (Regular, Medium, SemiBold, Bold), unmodified.
+They set the text of the interface, and subsets of them are embedded in every
+PDF certificate the program issues. The SIL Open Font License 1.1 permits
+bundling the fonts with software and embedding them in documents; they are not
+sold on their own.
+
+Files (4):
+  _internal/fonts/
+    Inter-Bold.ttf, Inter-Medium.ttf, Inter-Regular.ttf, Inter-SemiBold.ttf
+
+------------------------------------------------------------------------------
+JetBrains Mono (typeface) 2.304
+License: OFL-1.1
+------------------------------------------------------------------------------
+
+Copyright 2020 The JetBrains Mono Project Authors
+(https://github.com/JetBrains/JetBrainsMono)
+
+Homepage: https://www.jetbrains.com/lp/mono/
+
+License text: _internal/licenses/OFL-1.1-JetBrainsMono.txt
+
+Source: https://github.com/JetBrains/JetBrainsMono/releases/tag/v2.304
+
+Three static TrueType weights (Regular, Medium, Bold), unmodified. They set
+the digests, the clock and the technical data, and subsets of them are
+embedded in the PDF certificates. Licensed under the SIL Open Font License
+1.1.
+
+Files (3):
+  _internal/fonts/
+    JetBrainsMono-Bold.ttf, JetBrainsMono-Medium.ttf,
+    JetBrainsMono-Regular.ttf
+
+------------------------------------------------------------------------------
+Bootstrap Icons 1.13.1
+License: MIT
+------------------------------------------------------------------------------
+
+Copyright (c) 2019-2024 The Bootstrap Authors
+
+Homepage: https://icons.getbootstrap.com/
+
+License text: _internal/licenses/Bootstrap-Icons-MIT.txt
+
+Source: https://github.com/twbs/icons/releases/tag/v1.13.1
+
+A selection of the SVG icons, unmodified. Sigelith Desktop recolours them at
+run time to the colours of the theme (the fill "currentColor" is replaced
+before drawing); the files themselves stay as released.
+
+Files (53):
+  _internal/icons/
+    activity.svg, archive.svg, arrow-clockwise.svg, arrow-repeat.svg,
+    bank.svg, bookmark-check.svg, box-arrow-right.svg, box-arrow-up-right.svg,
+    building.svg, check-circle-fill.svg, check2.svg, chevron-down.svg,
+    chevron-up.svg, clock-history.svg, copy.svg, currency-bitcoin.svg,
+    database.svg, download.svg, exclamation-octagon.svg,
+    exclamation-triangle-fill.svg, eye.svg, file-earmark-lock.svg,
+    file-earmark-pdf.svg, file-earmark-text.svg, fingerprint.svg,
+    folder-symlink.svg, folder.svg, folder2-open.svg, gear.svg, github.svg,
+    globe2.svg, heart.svg, hourglass-split.svg, info-circle.svg,
+    journal-check.svg, journal-text.svg, key.svg, link-45deg.svg, list-ul.svg,
+    lock-fill.svg, patch-check-fill.svg, patch-question.svg,
+    pencil-square.svg, people.svg, person-check.svg, search.svg,
+    shield-check.svg, shield-lock.svg, sliders.svg, trash3.svg, wifi.svg,
+    x-circle.svg, x-lg.svg
 
 ------------------------------------------------------------------------------
 Microsoft Visual C++ runtime from the Visual C++ Redistributable used to build the dependencies
@@ -645,47 +743,6 @@ Files (10):
     VCRUNTIME140_1.dll
   _internal/shiboken6/
     MSVCP140.dll, VCRUNTIME140.dll, VCRUNTIME140_1.dll
-
-------------------------------------------------------------------------------
-Microsoft Universal C Runtime from the Windows SDK / Windows 11
-License: LicenseRef-Microsoft-Redistributable
-------------------------------------------------------------------------------
-
-Copyright (c) Microsoft Corporation. All rights reserved.
-
-Homepage: https://learn.microsoft.com/cpp/windows/universal-crt-deployment
-
-ucrtbase.dll and the api-ms-win-* forwarders are the app-local deployment of
-the Universal CRT, shipped under the redistribution rights granted by the
-Windows SDK license terms. Not open source.
-
-Files (40):
-  _internal/
-    api-ms-win-core-console-l1-1-0.dll, api-ms-win-core-datetime-l1-1-0.dll,
-    api-ms-win-core-debug-l1-1-0.dll,
-    api-ms-win-core-errorhandling-l1-1-0.dll,
-    api-ms-win-core-fibers-l1-1-0.dll, api-ms-win-core-file-l1-1-0.dll,
-    api-ms-win-core-file-l1-2-0.dll, api-ms-win-core-file-l2-1-0.dll,
-    api-ms-win-core-handle-l1-1-0.dll, api-ms-win-core-heap-l1-1-0.dll,
-    api-ms-win-core-interlocked-l1-1-0.dll,
-    api-ms-win-core-libraryloader-l1-1-0.dll,
-    api-ms-win-core-localization-l1-2-0.dll,
-    api-ms-win-core-memory-l1-1-0.dll, api-ms-win-core-namedpipe-l1-1-0.dll,
-    api-ms-win-core-processenvironment-l1-1-0.dll,
-    api-ms-win-core-processthreads-l1-1-0.dll,
-    api-ms-win-core-processthreads-l1-1-1.dll,
-    api-ms-win-core-profile-l1-1-0.dll, api-ms-win-core-rtlsupport-l1-1-0.dll,
-    api-ms-win-core-string-l1-1-0.dll, api-ms-win-core-synch-l1-1-0.dll,
-    api-ms-win-core-synch-l1-2-0.dll, api-ms-win-core-sysinfo-l1-1-0.dll,
-    api-ms-win-core-timezone-l1-1-0.dll, api-ms-win-core-util-l1-1-0.dll,
-    api-ms-win-crt-conio-l1-1-0.dll, api-ms-win-crt-convert-l1-1-0.dll,
-    api-ms-win-crt-environment-l1-1-0.dll,
-    api-ms-win-crt-filesystem-l1-1-0.dll, api-ms-win-crt-heap-l1-1-0.dll,
-    api-ms-win-crt-locale-l1-1-0.dll, api-ms-win-crt-math-l1-1-0.dll,
-    api-ms-win-crt-process-l1-1-0.dll, api-ms-win-crt-runtime-l1-1-0.dll,
-    api-ms-win-crt-stdio-l1-1-0.dll, api-ms-win-crt-string-l1-1-0.dll,
-    api-ms-win-crt-time-l1-1-0.dll, api-ms-win-crt-utility-l1-1-0.dll,
-    ucrtbase.dll
 
 ==============================================================================
 LEGAL DOCUMENTS INSIDE THIS PACKAGE

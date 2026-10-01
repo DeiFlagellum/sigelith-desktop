@@ -1,3 +1,6 @@
 -r requirements.txt
 
-pyinstaller==6.14.2     # kompilacja do pojedynczego pliku .exe
+pyinstaller==6.22.3     # kompilacja do katalogu dist\SigelithDesktop (SigelithDesktop.exe + _internal)
+# Haki decyduja, co PyInstaller wklada do paczki — bez przypiecia ta sama
+# wersja PyInstallera mogla dac inny zestaw plikow (i inne noty licencyjne).
+pyinstaller-hooks-contrib==2026.7

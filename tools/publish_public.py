@@ -17,7 +17,7 @@ wyklucza publikacje. `git archive` bierze wylacznie pliki SLEDZONE i honoruje
 w repozytorium, a nie to, co akurat lezy na dysku.
 
 Uruchomienie:
-    python desktop/tools/publish_public.py --repo DeiFlagellum/beatstamp
+    python desktop/tools/publish_public.py --repo DeiFlagellum/sigelith-desktop
     python desktop/tools/publish_public.py --repo ... --dry-run   (tylko kontrola)
 """
 from __future__ import annotations
@@ -55,6 +55,17 @@ ZAKAZANE_WZORCE = [
     re.compile(b'STRIPE_SECRET' + b'_KEY' + rb'\s*=\s*["\']?sk_'),
     re.compile(b'X-Internal' + b'-Secret:' + rb'\s*\S'),
 ]
+#: Pliki spoza desktop/ dolaczane do migawki: (sciezka w monorepo, w migawce).
+#: Specyfikacja Handover mieszka przy serwerze (apps/tsa/), ale czyta ja kazdy,
+#: kto sprawdza dowod doreczenia — raport PDF dla bieglego i strona weryfikatora
+#: odsylaja do tego repozytorium (decyzja wlasciciela 2026-09-29).
+DOLACZANE = (('apps/tsa/HANDOVER_SPEC.md', 'docs/HANDOVER_SPEC.md'),)
+NAGLOWEK_DOLACZONYCH = (
+    '> Published with Sigelith Desktop from the Sigelith monorepo\n'
+    '> (`{zrodlo}`). Paths in this document are relative to that monorepo:\n'
+    '> `desktop/` is the root of this repository, and the web verifier\n'
+    '> (`apps/web/static/web/handover/verify.js`) runs at\n'
+    '> <https://sigelith.org/handover/verify/>.\n\n')
 TEKSTOWE = {'.py', '.md', '.txt', '.ps1', '.spec', '.xml', '.po', '.pot',
             '.json', '.cfg', '.toml', '.yml', '.yaml', '.gitattributes'}
 
@@ -79,7 +90,8 @@ def wersja() -> str:
 
 def drzewo_czyste() -> None:
     """Publikujemy ze ZRODLA PRAWDY, a nie z niezapisanych zmian."""
-    brudne = subprocess.run(['git', 'status', '--porcelain', '--', PODKATALOG],
+    brudne = subprocess.run(['git', 'status', '--porcelain', '--', PODKATALOG,
+                             *(zrodlo for zrodlo, _cel in DOLACZANE)],
                             cwd=KORZEN, capture_output=True, text=True).stdout.strip()
     if brudne:
         raise SystemExit('desktop/ ma niezacommitowane zmiany — najpierw commit:\n' + brudne)
@@ -101,6 +113,19 @@ def migawka(cel: Path) -> None:
         tar_sciezka.unlink(missing_ok=True)
 
 
+def dolacz(cel: Path) -> None:
+    """Pliki spoza desktop/ — takze z HEAD, nie z dysku (ta sama zasada co migawka)."""
+    for zrodlo, sciezka in DOLACZANE:
+        wynik = subprocess.run(['git', 'show', f'HEAD:{zrodlo}'], cwd=KORZEN,
+                               capture_output=True)
+        if wynik.returncode != 0:
+            raise SystemExit(f'brak {zrodlo} w HEAD')
+        docelowy = cel / sciezka
+        docelowy.parent.mkdir(parents=True, exist_ok=True)
+        docelowy.write_bytes(NAGLOWEK_DOLACZONYCH.format(zrodlo=zrodlo).encode('utf-8')
+                             + wynik.stdout)
+
+
 def skontroluj(katalog: Path) -> list[str]:
     zarzuty = []
     for sciezka in sorted(katalog.rglob('*')):
@@ -120,7 +145,7 @@ def skontroluj(katalog: Path) -> list[str]:
             for wzorzec in ZAKAZANE_WZORCE:
                 if wzorzec.search(dane):
                     zarzuty.append(f'sekret w tresci ({wzorzec.pattern.decode()}): {wzgledna}')
-    for wymagany in ('LICENSE', 'NOTICE', 'README.md'):
+    for wymagany in ('LICENSE', 'NOTICE', 'README.md', *(c for _z, c in DOLACZANE)):
         if not (katalog / wymagany).is_file():
             zarzuty.append(f'brak pliku wymaganego przy publikacji: {wymagany}')
     if (katalog / 'ROZWOJ.md').exists():
@@ -130,19 +155,20 @@ def skontroluj(katalog: Path) -> list[str]:
 
 def main() -> int:
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument('--repo', required=True, help='np. DeiFlagellum/beatstamp')
+    p.add_argument('--repo', required=True, help='np. DeiFlagellum/sigelith-desktop')
     p.add_argument('--dry-run', action='store_true', help='tylko zbuduj i skontroluj migawke')
-    p.add_argument('--message', default='', help='tresc commita (domyslnie: BeatStamp <wersja>)')
+    p.add_argument('--message', default='', help='tresc commita (domyslnie: Sigelith Desktop <wersja>)')
     args = p.parse_args()
 
     drzewo_czyste()
     v = wersja()
-    print(f'BeatStamp {v} — migawka z HEAD:{PODKATALOG}')
+    print(f'Sigelith Desktop {v} — migawka z HEAD:{PODKATALOG}')
 
     with tempfile.TemporaryDirectory() as tmp:
         snap = Path(tmp) / 'snapshot'
         snap.mkdir()
         migawka(snap)
+        dolacz(snap)
         pliki = [s for s in snap.rglob('*') if s.is_file()]
         print(f'plikow w migawce: {len(pliki)}')
 
@@ -182,7 +208,7 @@ def main() -> int:
         if not stan:
             print('publiczne repozytorium jest juz aktualne — nic do wyslania')
             return 0
-        uruchom(['git', 'commit', '-m', args.message or f'BeatStamp {v}'], cwd=praca)
+        uruchom(['git', 'commit', '-m', args.message or f'Sigelith Desktop {v}'], cwd=praca)
         uruchom(['git', 'push', 'origin', 'HEAD'], cwd=praca)
         print(f'\nwyslano do https://github.com/{args.repo}')
     return 0

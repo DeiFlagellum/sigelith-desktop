@@ -42,7 +42,7 @@ PACKAGE = ROOT / 'beatstamp'
 POT = LOCALE / 'beatstamp.pot'
 
 #: Nazwy jezykow, dla ktorych utrzymujemy plik `.po`.
-CATALOGS = ('pl', 'de')
+CATALOGS = ('pl', 'de', 'es', 'fr', 'ru', 'tr', 'ja', 'ko', 'zh', 'ar')
 
 #: Wszystkie jezyki, ktore aplikacja deklaruje — razem z angielskim, ktory
 #: pliku nie ma i miec nie bedzie (`msgid` SA jego tlumaczeniem).
@@ -188,7 +188,7 @@ class EveryLanguageIsCompleteTests(unittest.TestCase):
     #: Znaki spoza ASCII dopuszczalne w `msgid`. Angielski nie potrzebuje
     #: zadnej litery z diakrytykiem — tylko typografii, ktora jest w calym
     #: serwisie: pauza, kropka srodkowa i wielokropek.
-    TYPOGRAPHY = frozenset('—·…')
+    TYPOGRAPHY = frozenset('—·…✓')
 
     def test_every_catalog_translates_every_message(self):
         for language in CATALOGS:
@@ -386,7 +386,7 @@ class LanguageResolutionTests(unittest.TestCase):
 
         Oba zwracaja FORMAT REGIONALNY. Na maszynie deweloperskiej tego
         projektu daja `de_DE`, mimo ze jezykiem interfejsu jest polski —
-        naiwne wykrycie uruchomiloby BeatStamp po niemiecku u polskiego
+        naiwne wykrycie uruchomiloby program po niemiecku u polskiego
         uzytkownika i zaden test tego nie zauwazyl.
         """
         ui = i18n._windows_ui_languages()
@@ -549,14 +549,14 @@ class SettingsTests(unittest.TestCase):
     def setUp(self):
         os.environ.setdefault('QT_QPA_PLATFORM', 'offscreen')
         self._tmp = tempfile.TemporaryDirectory()
-        self._saved = os.environ.get('BEATSTAMP_DATA_DIR')
-        os.environ['BEATSTAMP_DATA_DIR'] = self._tmp.name
+        self._saved = os.environ.get('SIGELITH_DATA_DIR')
+        os.environ['SIGELITH_DATA_DIR'] = self._tmp.name
 
     def tearDown(self):
         if self._saved is None:
-            os.environ.pop('BEATSTAMP_DATA_DIR', None)
+            os.environ.pop('SIGELITH_DATA_DIR', None)
         else:
-            os.environ['BEATSTAMP_DATA_DIR'] = self._saved
+            os.environ['SIGELITH_DATA_DIR'] = self._saved
         self._tmp.cleanup()
 
     def test_language_survives_save_and_load(self):

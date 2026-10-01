@@ -23,7 +23,7 @@ from PySide6.QtGui import QColor, QFont
 from .. import beatcore
 from ..history import SOURCE_TVS_LEGACY, Entry
 from ..hashing import human_size
-from ..i18n import _
+from ..i18n import _, ltr
 from ..proof import Level
 from . import theme
 from .widgets import plain_tooltip
@@ -39,13 +39,13 @@ def headers() -> list[tuple[str, str]]:
     """(naglowek, podpowiedz) dla kazdej kolumny — w jezyku interfejsu."""
     return [
         (_('Local time'), _('When the stamp was created, in your time zone')),
-        ('@beat', _('The same moment in @beat time — without time zones')),
+        (ltr('@beat'), _('The same moment in @beat time — without time zones')),
         (_('File'), _('Document name. It was never sent to the server')),
         ('SHA-256', _('Document digest — the only information that reached the '
                       'register')),
         (_('Level'), _('How far the proof has matured: recorded -> signed -> '
                        'anchored')),
-        (_('Anchor'), _('Where the week root was preserved outside BeatTime')),
+        (_('Anchor'), _('Where the week root was preserved outside Sigelith')),
         (_('Note'), _('Your own description. It stays on this computer')),
     ]
 
@@ -116,7 +116,7 @@ class HistoryModel(QAbstractTableModel):
         if column == COL_WHEN:
             return entry.when_local
         if column == COL_BEAT:
-            return entry.beat or '—'
+            return ltr(entry.beat or '—')
         if column == COL_FILE:
             return entry.file_name or '—'
         if column == COL_DIGEST:
@@ -147,7 +147,7 @@ class HistoryModel(QAbstractTableModel):
                          'Stamp this file again to get a proof that\n'
                          'can be checked independently.')
             if entry.signed_by_retired_key:
-                return _('The week root was signed with a BeatTime key that '
+                return _('The week root was signed with a Sigelith key that '
                          'has been\nretired — such a signature is no longer a '
                          'proof, so the level\nstays "Recorded".\n\n'
                          'Refresh statuses (F5) to fetch a signature made with '
@@ -242,13 +242,18 @@ class HistoryFilter(QSortFilterProxyModel):
         self._level = ''            # pusty = wszystkie
         self.setSortRole(Qt.InitialSortOrderRole)
 
+    # Qt 6.10+: zmiana kryteriow miedzy `beginFilterChange` a
+    # `endFilterChange` zamiast przestarzalego `invalidateFilter()`. Filtr
+    # dotyczy tylko wierszy, wiec kolumn Qt nie musi przeliczac.
     def set_text(self, text: str) -> None:
+        self.beginFilterChange()
         self._text = (text or '').strip().lower()
-        self.invalidateFilter()
+        self.endFilterChange(QSortFilterProxyModel.Direction.Rows)
 
     def set_level(self, level: str) -> None:
+        self.beginFilterChange()
         self._level = level or ''
-        self.invalidateFilter()
+        self.endFilterChange(QSortFilterProxyModel.Direction.Rows)
 
     def filterAcceptsRow(self, row: int, parent: QModelIndex) -> bool:
         model = self.sourceModel()

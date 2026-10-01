@@ -1,11 +1,30 @@
-# BeatStamp — zaleznosci srodowiska uruchomieniowego.
-# Python 3.12. Wersje przypiete swiadomie: powtarzalny build = powtarzalny exe.
+# Sigelith Desktop — zaleznosci srodowiska uruchomieniowego.
+# Python 3.14. Wersje przypiete swiadomie: powtarzalny build = powtarzalny exe.
+#
+# 2026-09-27 (diagnostyka przed Microsoft Store): urllib3 2.5.0 -> 2.8.0
+# (bomby dekompresyjne CVE-2025-66471, CVE-2025-66418, CVE-2026-21441 —
+# odpowiedz serwera rozpakowywana bez limitu), requests, cryptography i certifi
+# podniesione razem; zaleznosci posrednie przypiete, zeby nie wchodzily
+# w wersji, jaka akurat jest na PyPI.
+#
+# 2026-09-27: Python 3.12.10 -> 3.14.7. HTTPS idzie przez OpenSSL z wydania
+# CPythona, a 3.12 nie dostaje juz instalatorow Windows i zostal na OpenSSL
+# 3.0.16 — seria 3.0 stracila wsparcie 2026-09-07. 3.14.7 ma OpenSSL 3.5.7
+# (LTS). UWAGA: 3.14.0–3.14.3 wciaz maja OpenSSL 3.0 — budowac na >= 3.14.7.
+# PySide6 6.9.1 nie dziala na 3.14 (od 6.10.1), stad Qt 6.11.2; reportlab
+# 4.4.10 to ostatnie wydanie serii 4.x (5.0 zmienia API).
 
-PySide6==6.9.1          # Qt 6 — warstwa GUI (docelowa technologia projektu)
-requests==2.32.4        # klient HTTP (TLS przez urllib3 + certifi)
-urllib3==2.5.0          # retry/backoff, pula polaczen
-certifi==2025.7.14      # magazyn CA — jedyne zrodlo zaufania TLS
-cryptography==45.0.5    # weryfikacja podpisu Ed25519 korzenia Merkle (offline)
-reportlab==4.4.2        # certyfikat PDF + kod QR (rysowany wektorowo)
+PySide6==6.11.2         # Qt 6 — warstwa GUI (docelowa technologia projektu)
+requests==2.34.2        # klient HTTP (TLS przez urllib3 + certifi)
+urllib3==2.8.0          # retry/backoff, pula polaczen; api.py podmienia create_connection
+certifi==2026.7.22      # magazyn CA — jedyne zrodlo zaufania TLS
+cryptography==50.0.1    # weryfikacja podpisu Ed25519 korzenia Merkle (offline)
+reportlab==4.4.10       # certyfikat PDF + kod QR (rysowany wektorowo)
 pillow==12.3.0          # twarda zaleznosc reportlaba (reportlab.lib.utils)
 PySocks==1.7.1          # opcjonalne wyjscie przez Tor (SOCKS5h) na .onion
+
+# Zaleznosci posrednie (requests, cryptography):
+idna==3.20
+charset-normalizer==3.5.1
+cffi==2.1.1
+pycparser==3.0

@@ -1,0 +1,73 @@
+# Sigelith Desktop — pl-pl
+
+## Short description
+Stempluj pliki bez ich wysyłania, weryfikuj każdy dowód offline, obserwuj niezależnych świadków publicznego dziennika — i przekazuj pliki z dowodem doręczenia. Za darmo, bez konta, z otwartym kodem.
+
+## Description
+Sigelith Desktop dowodzi, że plik istniał w danej chwili — a sam plik nigdy nie opuszcza Twojego komputera.
+
+Stemplowanie plików
+Przeciągnij pliki na okno. Aplikacja liczy skrót SHA-256 każdego pliku na Twoim komputerze i wysyła do publicznego dziennika Sigelith tylko ten skrót. Dostajesz certyfikat PDF i dowód offline .beatproof.
+
+Weryfikacja bez zaufania do nas
+Upuść dowolny plik, żeby sprawdzić, czy i kiedy został ostemplowany. Aplikacja sama sprawdza ścieżkę inkluzji i podpis — kluczami wbudowanymi w program. W trybie prywatnym trzyma własną kopię publicznego dziennika, więc serwer nigdy nie wie, który plik sprawdzasz.
+
+Świadkowie
+Gdy aplikacja działa, sama audytuje dziennik: podpisane punkty kontrolne, łańcuch między nimi, kopie na GitHubie, w Internet Archive i Zenodo oraz wskazane w nich bloki Bitcoina. Każda niezgodność podnosi alarm.
+
+Przekazuj pliki z dowodem doręczenia
+Odbiorca potwierdza odbiór własnym kluczem (Windows Hello), a chwila doręczenia zostaje zapisana w publicznym dzienniku. Przesyłka wędruje między wami; serwer Sigelith niczego nie przechowuje.
+Dla kogoś bez weryfikatora — kancelarii, biegłych, sądu — otwórz dowód przez „Sprawdź dowód…” i zapisz raport PDF: każda kontrola opisana słowami, z instrukcją niezależnego sprawdzenia.
+Jeśli przesyłka nie otwiera się tak, jak ją zaoferowano, przyjęcie odbiorcy nie wywołuje skutków. Aplikacja to mówi i zapisuje dowód wady, który każdy może przeliczyć.
+
+Prywatność domyślnie
+Tryb prywatny trzyma kopię całego publicznego dziennika (same skróty, które i tak są publiczne), więc odświeżenie dowodu nigdy nie mówi serwerowi, który jest Twój.
+
+Czego dowodzi stempel
+Stempel pokazuje, że plik o dokładnie tych bajtach istniał nie później niż w zapisanej chwili. Nie pokazuje, kto go stworzył ani co oznacza. Dowód jest związany z dokładnymi bajtami. Kopia zapisana ponownie przez edytor albo skompresowana przez komunikator ma inny skrót — trzymaj oryginał razem z certyfikatem.
+
+Sigelith Desktop jest darmowy i ma otwarty kod (Apache-2.0). Bez konta, bez reklam, bez telemetrii.
+Dostępny po angielsku, polsku, niemiecku, hiszpańsku, francusku, rosyjsku, turecku, japońsku, koreańsku, chińsku i arabsku.
+
+## What's new in this version
+• Sprawdza dowody czasu pojedynczych plików z Sigelith Backup (pliki .sigelith-proof): dowód pokazuje, że plik był w zapieczętowanej kopii w danej chwili — bez ujawniania pozostałych plików.
+• Dwuklik na pliku .beatproof albo .sigelith-proof otwiera program w zakładce Weryfikacja — plik dowodu nigdy nie zostanie ostemplowany przez pomyłkę.
+• Sigelith Backup może przekazać plik z kopii prosto do Sigelith Handover.
+
+## Product features
+Stempel czasu dla każdego pliku bez wysyłania go — zapisywany jest tylko skrót SHA-256
+Certyfikat PDF i dowód .beatproof do sprawdzenia bez sieci dla każdego pliku
+Wiele plików albo całe foldery naraz
+Sprawdzanie plików i dowodów bez sieci, kluczami wbudowanymi w aplikację
+Tryb prywatny: własna kopia publicznego dziennika, więc nikt nie wie, co sprawdzasz
+Wbudowani świadkowie: podpisane punkty kontrolne, niezależne kopie i kotwice w Bitcoinie
+Dowód doręczenia podpisany kluczem odbiorcy i Windows Hello
+Zaszyfrowane przesyłki wędrują e-mailem, komunikatorem, pendrive’em albo wspólnym folderem
+Pakiet dowodowy i raport PDF dla kancelarii, biegłych i sądów
+Historia każdego stempla ze stanem jego dowodu
+Opcjonalny tryb Tor
+Za darmo — bez konta, reklam i telemetrii
+Otwarty kod (Apache-2.0)
+W 11 językach
+
+## Screenshots and captions
+01-stamp.png: Stemplowanie plików: z komputera wychodzi tylko skrót SHA-256.
+02-history.png: Historia: każdy stempel ze stanem jego dowodu.
+03-witnesses.png: Świadkowie: co aplikacja sama potwierdziła w publicznym dzienniku.
+04-handover.png: Handover: wysyłaj pliki, odbieraj je, zachowuj dowody.
+05-evidence.png: Sprawdzenie dowodu: werdykt i każda kontrola w Twoim języku.
+
+## Additional system requirements (recommended hardware)
+Windows 10 (22H2) albo Windows 11, 64-bit. Handover działa najlepiej z Windows Hello.
+
+## Keywords (up to 7)
+znacznik czasu
+stempel czasu
+dowód istnienia pliku
+SHA-256
+dowód cyfrowy
+dowód doręczenia
+timestamp
+
+## Copyright and trademark info
+© 2026 Adam Koch

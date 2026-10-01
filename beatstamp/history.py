@@ -31,7 +31,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from . import beatcore, keys, merkle, proof
-from .config import history_path, write_atomic
+from .config import history_path, json_loads, verify_url, write_atomic
 from .i18n import _
 
 log = logging.getLogger(__name__)
@@ -69,6 +69,14 @@ class Entry:
     ots_height: int | None = None
     anchors: list[dict] = field(default_factory=list)
 
+    # Dziennik globalny (od 2.2): pozycja, checkpoint obejmujacy wpis i trzy
+    # czasy. Starsze wersje programu pomijaja nieznane pola przy odczycie,
+    # wiec historia zapisana przez 2.2 otwiera sie takze w 2.1.
+    log_index: int | None = None
+    checkpoint: dict = field(default_factory=dict)
+    time_bounds: dict = field(default_factory=dict)
+    witness_mode: str = ''
+
     level: str = 'recorded'
     verified_ok: bool = False          # ostatnia weryfikacja lokalna wypadla OK
     source: str = SOURCE_BEATTIME      # beattime | tvs-legacy
@@ -99,7 +107,7 @@ class Entry:
     def verify_url(self) -> str:
         if self.source == SOURCE_TVS_LEGACY:
             return str(self.legacy.get('verify_url') or '')
-        return f'https://beattime.live/proof/?h={self.digest}'
+        return verify_url(self.digest)
 
     def to_dict(self) -> dict:
         return asdict(self)
@@ -130,7 +138,7 @@ class Entry:
                     kwargs[key] = value if isinstance(value, dict) else {}
                 else:
                     kwargs[key] = '' if value is None else str(value)
-            except (TypeError, ValueError):
+            except (TypeError, ValueError, OverflowError):
                 continue
         entry = cls(**kwargs)
         return entry if entry.digest or entry.legacy else None
@@ -158,6 +166,10 @@ def entry_from_verification(result, *, file_name: str = '', file_path: str = '',
         ots_status=result.ots_status,
         ots_height=result.ots_height,
         anchors=list(result.anchors),
+        log_index=result.log_index,
+        checkpoint=dict(result.checkpoint or {}),
+        time_bounds=dict(result.time_bounds or {}),
+        witness_mode=str(result.witness_mode or ''),
         level=str(result.level.value),
         verified_ok=bool(result.trusted),
         source=SOURCE_BEATTIME,
@@ -227,7 +239,7 @@ class History:
         if not self.path.exists():
             return self
         try:
-            raw = json.loads(self.path.read_text(encoding='utf-8'))
+            raw = json_loads(self.path.read_text(encoding='utf-8'))
         except OSError as e:
             self.load_problem = _(
                 'The history file could not be opened: %(reason)s.') % {
@@ -393,7 +405,7 @@ class History:
         """Wciaga stary `history.json` klienta TVS jako wpisy archiwalne.
 
         Stare wpisy zostaja oznaczone `source='tvs-legacy'` i NIE udaja
-        dowodów BeatTime — ich "signature" to sklejka `czas.sha256`, której
+        dowodów Sigelith — ich "signature" to sklejka `czas.sha256`, której
         nie da się zweryfikować. Sa widoczne jako archiwum, żeby uzytkownik
         nie stracil zapisu tego, co kiedys stemplowal, i żeby mogl te pliki
         ostemplować ponownie w rejestrze, który cos dowodzi.

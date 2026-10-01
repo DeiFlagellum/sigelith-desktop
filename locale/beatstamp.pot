@@ -1,24 +1,24 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: BeatStamp\n"
-"POT-Creation-Date: 2026-09-23 22:05+0200\n"
+"Project-Id-Version: Sigelith Desktop\n"
+"POT-Creation-Date: 2026-09-30 18:54+0200\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: beatstamp/ui/widgets.py:307
+#: beatstamp/ui/widgets.py:1063
 msgid " (not synchronised)"
 msgstr ""
 
-#: beatstamp/certificate.py:281
+#: beatstamp/certificate.py:407
 msgid " · confirmation no. %(ref)s"
 msgstr ""
 
-#: beatstamp/certificate.py:242
-msgid " — .ots file for independent verification: beattime.live/api/proof/ots/%(week)s"
+#: beatstamp/certificate.py:368
+msgid " — .ots file for independent verification: sigelith.org/api/proof/ots/%(week)s"
 msgstr ""
 
-#: beatstamp/proof.py:221
+#: beatstamp/proof.py:229
 msgid " — a different root, not accepted"
 msgstr ""
 
@@ -30,7 +30,23 @@ msgstr ""
 msgid "\"%(name)s\" is not a file."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1355
+#: beatstamp/ui/details.py:251
+msgid "#%(n)s — path NOT confirmed"
+msgstr ""
+
+#: beatstamp/ui/details.py:250
+msgid "#%(n)s — path checked by Sigelith Desktop"
+msgstr ""
+
+#: beatstamp/certificate.py:666
+msgid "#%(n)s — the path of this entry to its signed root was checked by Sigelith Desktop (file hash %(hash)s)"
+msgstr ""
+
+#: beatstamp/certificate.py:669
+msgid "#%(n)s — the path of this entry was NOT confirmed"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:1778
 msgid "%(count)s anchored"
 msgstr ""
 
@@ -55,7 +71,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: beatstamp/ui/main_window.py:1357
+#: beatstamp/ui/main_window.py:1784
 msgid "%(count)s from the TVS archive"
 msgstr ""
 
@@ -73,195 +89,419 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: beatstamp/ui/main_window.py:1656
+#: beatstamp/ui/main_window.py:1782
+msgid "%(count)s with independent copies"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:2058
 msgid "%(entries)s exported"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1602
+#: beatstamp/ui/main_window.py:2020
+msgid "%(entries)s matured in the background."
+msgstr ""
+
+#: beatstamp/ui/main_window.py:1994
 msgid "%(entries)s removed from the history."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:871
+#: beatstamp/ui/main_window.py:1156
 msgid "%(files)s could not be stamped:<br><br>%(list)s"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:823
+#: beatstamp/ui/main_window.py:1108
 msgid "%(files)s queued"
 msgstr ""
 
-#: beatstamp/certificate.py:415
+#: beatstamp/api.py:697
+msgid "%(host)s answered with error %(code)s."
+msgstr ""
+
+#: beatstamp/api.py:683
+msgid "%(host)s redirected to an unencrypted address — rejected."
+msgstr ""
+
+#: beatstamp/api.py:687
+msgid "%(host)s redirected too many times."
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:538
+msgid "%(inside)s of %(all)s inside a signed checkpoint · %(pinned)s kept by independent parties"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:429
+msgid "%(kind)s · signature and key ✓ · chain from #1 ✓ · consistency ✓ · issued %(when)s"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:55
+msgid "%(n)s B"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:60
+msgid "%(n)s GB"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:59
+msgid "%(n)s MB"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:47
+msgid "%(n)s days ago"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:46
+msgid "%(n)s h ago"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:57
+msgid "%(n)s kB"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:44
+msgid "%(n)s min ago"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:472
+msgid "%(n)s weeks"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:512
+msgid "%(name)s did not answer — checked %(when)s; Sigelith Desktop tries again every 3 h"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:608
+msgid "%(ok)s of %(all)s checks OK"
+msgstr ""
+
+#: beatstamp/certificate.py:655
 msgid "%(steps)s to the week root"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:635
+#: beatstamp/ui/handover_controller.py:329
+msgid "%(title)s — the files are saved in:"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:821
+msgid "%(what)s: the log proof was not accepted (%(code)s)"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:841
 msgid "&File"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:651
+#: beatstamp/ui/main_window.py:867
 msgid "&Tools"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:899
+#: beatstamp/ui/main_window.py:1185
 msgid "(%(count)s files in this batch)"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:447
+#: beatstamp/ui/handover_controller.py:330
+#: beatstamp/ui/handover_dialogs.py:380
+#: beatstamp/ui/handover_dialogs.py:520
+msgid "(no title)"
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:467
 msgid ".onion address:"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1320
+#: beatstamp/ui/main_window.py:1717
 msgid ".ots proof saved"
 msgstr ""
 
-#: beatstamp/bundle.py:97
-msgid "1) Compute the SHA-256 of the document and compare it with \"digest\". 2) Fold \"inclusion_proof\" from the leaf SHA-256(0x00||digest), computing SHA-256(0x01||left||right) at every step — the result must equal \"week_root\". 3) Check the Ed25519 signature \"root_signature\" over the text \"beattime-proof-v1|<week>|<week_root>\" with the key \"public_key\". 4) Compare \"public_key\" with the current BeatTime key: %(key)s — the key history (including retired keys, whose signature is no longer binding): https://beattime.live/spec/#keys. 5) The signature covers the week, not the exact moment: \"utc\" (and \"beat\") must lie within the ISO week \"week\". What is confirmed is that the document existed no later than the end of that week; the exact time is given by the BeatTime register."
+#: beatstamp/bundle.py:131
+msgid "1) Compute the SHA-256 of the document and compare it with \"digest\". 2) Fold \"inclusion_proof\" from the leaf SHA-256(0x00||digest), computing SHA-256(0x01||left||right) at every step — the result must equal \"week_root\". 3) Check the Ed25519 signature \"root_signature\" over the text \"beattime-proof-v1|<week>|<week_root>\" with the key \"public_key\". 4) Compare \"public_key\" with the current Sigelith key: %(key)s — the key history (including retired keys, whose signature is no longer binding): https://sigelith.org/spec/#keys. 5) The signature covers the week, not the exact moment: \"utc\" (and \"beat\") must lie within the ISO week \"week\". What is confirmed is that the document existed no later than the end of that week; the exact time is given by the Sigelith register."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1511
-msgid "<b>%(entries)s</b> from the old TVS client were added to the history.<br><br>They are marked as an <b>archive</b>: their former \"signature\" is a concatenation of a time and a digest that cannot be verified. To get a proof that can be checked independently, stamp those files again — BeatTime will write a new entry and the old one will stay in the history."
+#: beatstamp/bundle.py:149
+msgid "6) \"checkpoint.file\" is the exact signed checkpoint of the whole Sigelith log (beattime-checkpoint-v1): check its Ed25519 signature over \"beattime-checkpoint-v1|\" + the file without \"sig\", and that SHA-256 of the file equals \"checkpoint.hash\". 7) The leaf of this entry is SHA-256(0x00 || \"beattime-entry-v1|<seq>|<digest>|<utc with six fraction digits>Z\"); fold \"checkpoint.audit_path\" with \"leaf_index\" and \"tree_size\" (RFC 9162) — the result must equal \"root\" in the file. 8) Compare the file with an independent copy: https://github.com/DeiFlagellum/sigelith-log/releases, the Internet Archive or Zenodo."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1625
+#: beatstamp/ui/main_window.py:1899
+msgid "<b>%(entries)s</b> from the old TVS client were added to the history.<br><br>They are marked as an <b>archive</b>: their former \"signature\" is a concatenation of a time and a digest that cannot be verified. To get a proof that can be checked independently, stamp those files again — Sigelith will write a new entry and the old one will stay in the history."
+msgstr ""
+
+#: beatstamp/ui/main_window.py:2026
 msgid "<b>%(entries)s</b> updated — the proofs have matured."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1269
+#: beatstamp/ui/main_window.py:1662
 msgid "<b>%(name)s</b> was saved."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1247
-msgid "<b>%(name)s</b> was saved.<br><br>The root of this week is signed with a <b>retired</b> key, so the recipient will not accept this proof. Refresh the statuses (History -> Refresh statuses, F5) and export the proof again — it will get a signature made with the current BeatTime key."
+#: beatstamp/ui/main_window.py:1640
+msgid "<b>%(name)s</b> was saved.<br><br>The root of this week is signed with a <b>retired</b> key, so the recipient will not accept this proof. Refresh the statuses (History -> Refresh statuses, F5) and export the proof again — it will get a signature made with the current Sigelith key."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1256
+#: beatstamp/ui/main_window.py:1649
 msgid "<b>%(name)s</b> was saved.<br><br>The week is still running, so the proof contains no root signature and <b>cannot be verified offline for now</b>. Export it again once the week has closed (the coming Monday, 00:00 UTC) — then it will be complete."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1321
-msgid "<b>%(name)s</b> was saved.<br><br>You can check it with an OpenTimestamps client:<br><code>ots verify %(command)s</code><br><br>That verification goes through the Bitcoin chain — entirely outside BeatTime and outside this application."
+#: beatstamp/ui/main_window.py:1718
+msgid "<b>%(name)s</b> was saved.<br><br>You can check it with an OpenTimestamps client:<br><code>ots verify %(command)s</code><br><br>That verification goes through the Bitcoin chain — entirely outside Sigelith and outside this application."
 msgstr ""
 
-#: beatstamp/certificate.py:465
-msgid "<b>Entry from the archive of the old TVS client.</b> Its former \"signature\" is a concatenation of a time and a digest that cannot be verified. Stamp the file again in BeatStamp to get a proof that can be checked independently."
+#: beatstamp/certificate.py:717
+msgid "<b>Entry from the archive of the old TVS client.</b> Its former \"signature\" is a concatenation of a time and a digest that cannot be verified. Stamp the file again in Sigelith Desktop to get a proof that can be checked independently."
 msgstr ""
 
-#: beatstamp/certificate.py:453
+#: beatstamp/certificate.py:705
 msgid "<b>The proof did not pass the local check.</b> "
 msgstr ""
 
-#: beatstamp/certificate.py:472
+#: beatstamp/certificate.py:724
 msgid "<b>The proof is not closed yet.</b> The Ed25519 signature, the Bitcoin attestation (OpenTimestamps) and the bank anchor are added <i>after the current week closes</i> (the coming Monday, 00:00 UTC). Issue the certificate again after that date — the fields will fill in. <b>The timestamp itself will no longer change.</b>"
 msgstr ""
 
-#: beatstamp/certificate.py:441
-msgid "<b>The proof needs refreshing.</b> The root of this week was signed with a BeatTime key retired on %(when)s — such a signature is no longer binding. BeatTime has re-signed every published root with the current key: refresh the proof in BeatStamp (History -> Refresh statuses) and issue the certificate again. <b>The timestamp itself does not change.</b>"
+#: beatstamp/certificate.py:693
+msgid "<b>The proof needs refreshing.</b> The root of this week was signed with a Sigelith key retired on %(when)s — such a signature is no longer binding. Sigelith has re-signed every published root with the current key: refresh the proof in Sigelith Desktop (History -> Refresh statuses) and issue the certificate again. <b>The timestamp itself does not change.</b>"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:493
+#: beatstamp/ui/dialogs.py:576
 msgid "<b>current</b> since %(date)s: <span style=\"font-family:monospace\">%(key)s</span>"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:870
-msgid "<p><b>Third-party software.</b> BeatStamp uses the <b>Qt</b> and <b>PySide6</b> libraries (copyright (C) The Qt Company Ltd. and other contributors) under the <b>GNU Lesser General Public License, version 3</b>. %(relinking)s</p><p>Qt itself contains third-party code, among others FreeType: portions of this software are copyright (c) 2025 The FreeType Project (https://freetype.org), all rights reserved. The notices of the other components are delivered with the program.</p><p>The full licence texts — including the GNU GPL and the GNU LGPL — and the list of every file in this package with its licence are delivered together with the program, and the button below opens them. The rest of BeatStamp is published under the Apache License 2.0.</p>"
+#: beatstamp/ui/dialogs.py:1099
+msgid "<p><b>Third-party software.</b> Sigelith Desktop uses the <b>Qt</b> and <b>PySide6</b> libraries (copyright (C) The Qt Company Ltd. and other contributors) under the <b>GNU Lesser General Public License, version 3</b>. %(relinking)s</p><p>Qt itself contains third-party code, among others FreeType: portions of this software are copyright (c) 2026 The FreeType Project (https://freetype.org), all rights reserved. The notices of the other components are delivered with the program.</p><p>The typefaces <b>Inter</b> (copyright (c) 2016 The Inter Project Authors) and <b>JetBrains Mono</b> (copyright 2020 The JetBrains Mono Project Authors) are used under the <b>SIL Open Font License 1.1</b>; subsets of them are embedded in the PDF certificates. The icons are <b>Bootstrap Icons</b> (copyright (c) 2019-2024 The Bootstrap Authors), used under the <b>MIT License</b>.</p><p>The full licence texts — including the GNU GPL and the GNU LGPL — and the list of every file in this package with its licence are delivered together with the program, and the button below opens them. The rest of Sigelith Desktop is published under the Apache License 2.0.</p>"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:803
-msgid "<p>Registers the SHA-256 digest of a document in the public, append-only <b>BeatTime</b> register, giving proof that the file existed at a given moment and has not been changed since.</p><p><b>The document never leaves this computer.</b> Only the 64-character digest goes to the network — the content, or even the file name, cannot be recovered from it.</p><p><b>How the proof matures</b><br>1. <b>Recorded</b> — the digest reaches the register, the timestamp is already final.<br>2. <b>Signed</b> — after the week closes (Monday 00:00 UTC) the Merkle root is frozen and signed with an Ed25519 key.<br>3. <b>Anchored</b> — the root goes into the Bitcoin chain (OpenTimestamps) and is confirmed by an independent bank transfer.</p><p><b>What the proof does NOT attest:</b> the authorship of the document or the truth of its content. It attests only existence in time and integrity.</p><p>Verification is possible <b>without this application</b>: at beattime.live/proof, from a <code>.beatproof</code> file with any tool that computes SHA-256 and Ed25519, or from an <code>.ots</code> file with an OpenTimestamps client.</p>"
+#: beatstamp/ui/dialogs.py:1029
+msgid "<p>Registers the SHA-256 digest of a document in the public, append-only <b>Sigelith</b> register, giving proof that the file existed at a given moment and has not been changed since.</p><p><b>The document never leaves this computer.</b> Only the 64-character digest goes to the network — the content, or even the file name, cannot be recovered from it.</p><p><b>How the proof matures</b><br>1. <b>Recorded</b> — the digest reaches the register, the timestamp is already final.<br>2. <b>Signed</b> — after the week closes (Monday 00:00 UTC) the Merkle root is frozen and signed with an Ed25519 key.<br>3. <b>Anchored</b> — the root goes into the Bitcoin chain (OpenTimestamps) and is confirmed by an independent bank transfer.</p><p><b>What the proof does NOT attest:</b> the authorship of the document or the truth of its content. It attests only existence in time and integrity.</p><p>Verification is possible <b>without this application</b>: at sigelith.org/proof, from a <code>.beatproof</code> file with any tool that computes SHA-256 and Ed25519, or from an <code>.ots</code> file with an OpenTimestamps client.</p>"
 msgstr ""
 
-#: beatstamp/certificate.py:394
-#: beatstamp/history.py:454
+#: beatstamp/history.py:466
+#: beatstamp/ui/details.py:164
 msgid "@beat time"
 msgstr ""
 
-#: beatstamp/ui/widgets.py:262
+#: beatstamp/ui/widgets.py:976
 msgid ""
 "@beat time: the day split into 1000 beats (1 beat = 86.4 s),\n"
 "anchored in UTC. @000 is UTC midnight, @500 — UTC noon.\n"
 "No time zones: @523 means the same all over the world."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:206
-msgid "@beat timestamps %(version)s — BeatStamp"
+#: beatstamp/ui/main_window.py:270
+msgid "@beat timestamps %(version)s — Sigelith Desktop"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:800
+#: beatstamp/ui/dialogs.py:1026
 msgid "@beat timestamps for local files"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1014
+#: beatstamp/ui/handover_dialogs.py:602
+msgid "A .sigelith-answer file."
+msgstr ""
+
+#: beatstamp/ui/main_window.py:858
+msgid "A .sigelith-handover file someone sent you"
+msgstr ""
+
+#: beatstamp/ui/details.py:168
+msgid ""
+"A Bitcoin block named in the last checkpoint issued BEFORE this entry.\n"
+"That checkpoint could not exist before the block was mined,\n"
+"and the entry came after the checkpoint."
+msgstr ""
+
+#: beatstamp/ui/main_window.py:1351
 msgid "A SHA-256 digest is exactly <b>64 hexadecimal characters</b> (digits 0-9 and letters a-f).<br><br>%(typed)s were entered."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1879
+#: beatstamp/ui/main_window.py:2524
 msgid "A background task is still running. Close the program and stop it?"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:326
+#: beatstamp/ui/journey.py:114
+msgid "A bank transfer with the week root follows within a few days."
+msgstr ""
+
+#: beatstamp/licensing.py:137
+msgid "A binding the cryptography library is built on."
+msgstr ""
+
+#: beatstamp/ui/journey.py:122
+msgid "A checkpoint containing this entry is kept, byte for byte, by parties that Sigelith does not control. Sigelith Desktop compared the copies itself."
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:268
+msgid "A courtesy only — the recipient identifies you by your card, not by this name."
+msgstr ""
+
+#: beatstamp/ui/handover_report.py:324
+msgid "A defect proof settles whether the package was what the sender offered: anyone can recompute it, and a false claim fails the same computation."
+msgstr ""
+
+#: beatstamp/ui/main_window.py:530
 msgid "A description visible only to you"
 msgstr ""
 
-#: beatstamp/api.py:373
+#: beatstamp/api.py:750
 msgid "A digest must be exactly 64 hexadecimal characters (SHA-256)."
 msgstr ""
 
-#: beatstamp/config.py:633
+#: beatstamp/ui/journey.py:106
+msgid "A few hours after the week closes the root reaches a Bitcoin block."
+msgstr ""
+
+#: beatstamp/handover_tasks.py:79
+msgid "A file name is not allowed — rename the file and try again."
+msgstr ""
+
+#: beatstamp/config.py:794
 msgid "A file of that name was already there, so the version from the old location was saved next to it as: %(names)s"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:810
+#: beatstamp/ui/handover_dialogs.py:294
+msgid "A folder I choose — I send the file myself"
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:743
+msgid ""
+"A folder you share with the other person (OneDrive, Dropbox, Google Drive,\n"
+"Syncthing). Packages and answers in it are encrypted to their recipient and\n"
+"picked up automatically while the program is open."
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:293
+msgid "A folder you share with the other person (OneDrive, Dropbox, Google Drive, Syncthing). Packages and answers in it are picked up automatically."
+msgstr ""
+
+#: beatstamp/ui/main_window.py:1093
 msgid "A large number of files"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:558
+#: beatstamp/ui/handover_controller.py:157
+msgid "A new card"
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:201
+msgid "A new key in Windows Hello and a card with its public part. Windows Hello asks twice."
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:635
+msgid "A package is defective"
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:624
+msgid "A package is open: %(title)s"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:751
 msgid ""
 "A proof MATURES: a stamp from this week gets its signature once the\n"
 "week closes, and the Bitcoin attestation a few hours later.\n"
-"This operation asks the register about entries that are not yet\n"
-"anchored or are signed with a retired key. (F5)"
+"While the program is open this happens by itself every 15 minutes;\n"
+"this button does it right now. (F5)"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:686
+#: beatstamp/handover_tasks.py:57
+#: beatstamp/handover_tasks.py:66
+msgid "A protected key of Sigelith Handover cannot be read on this Windows account."
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:263
+msgid ""
+"A quarterly version of the complete log in Zenodo (CERN), with a DOI.\n"
+"Sigelith Desktop compares the checkpoint files from the record."
+msgstr ""
+
+#: beatstamp/ui/main_window.py:920
 msgid "A record of errors — useful when reporting a problem"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1878
+#: beatstamp/ui/handover_dialogs.py:187
+msgid "A short note inside the signed binding record."
+msgstr ""
+
+#: beatstamp/ui/main_window.py:2523
 msgid "A task is running"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:987
+#: beatstamp/ui/dialogs.py:1244
 msgid "A thank-you at our discretion — not an entitlement and not something a payment buys."
 msgstr ""
 
-#: beatstamp/certificate.py:169
-msgid "ANCHORED — the week root is preserved outside BeatTime"
+#: beatstamp/ui/witness_panel.py:553
+msgid "ALARM — the log does not add up"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:430
+#: beatstamp/certificate.py:295
+msgid "ANCHORED — the week root is preserved outside Sigelith"
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:449
 msgid "API address:"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:903
+#: beatstamp/ui/dialogs.py:1140
 msgid "API documentation"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:666
+#: beatstamp/ui/main_window.py:888
 msgid "About"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:796
-msgid "About — BeatStamp"
+#: beatstamp/ui/dialogs.py:1022
+msgid "About — Sigelith Desktop"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:426
+#: beatstamp/ui/handover_dialogs.py:446
+msgid "Accept with Windows Hello"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:768
+msgid "Acceptance"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:670
+#: beatstamp/ui/handover_report.py:215
+msgid "Acceptance recorded in the log"
+msgstr ""
+
+#: beatstamp/ui/handover_report.py:217
+msgid "Acceptance valid until"
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:59
+msgid "Accepted — waiting for the key part"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:333
+msgid "Add a contact first."
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:221
+msgid "Add a contact from a card file…"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:514
+msgid "Add a note to this stamp — e.g. \"client contract, signed version\""
+msgstr ""
+
+#: beatstamp/ui/details.py:201
+msgid "Add a note — visible only on this computer"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:246
+msgid "Add files…"
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:238
+msgid "Add the recipient first: load their card file and record how you verified it."
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:445
 msgid ""
-"Address of the BeatTime server. It must start with https://\n"
+"Address of the Sigelith server. It must start with https://\n"
 "Default value: %(default)s\n"
 "\n"
 "Change it only if you use your own instance."
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:451
+#: beatstamp/ui/dialogs.py:471
 msgid ""
 "Address of the local SOCKS proxy. Default: %(default)s\n"
 "\n"
@@ -271,36 +511,55 @@ msgid ""
 "the address would leak to your internet provider)."
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:579
+#: beatstamp/ui/handover_dialogs.py:282
+msgid "After an acceptance, how long this application has to publish the key part. Keep it open now and then."
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:662
 msgid ""
 "After the digest is registered the application immediately checks\n"
 "the inclusion path and the signature — locally, without another request."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:550
+#: beatstamp/ui/main_window.py:2152
+msgid "Alarm"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:830
+#: beatstamp/ui/handover_dialogs.py:967
+#: beatstamp/ui/handover_report.py:273
+#: beatstamp/ui/handover_report.py:321
+msgid "All checks"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:743
 msgid "All levels"
 msgstr ""
 
-#: beatstamp/proof.py:394
+#: beatstamp/proof.py:402
 msgid "An @beat time was given without a UTC date — such a time cannot be checked."
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:719
-msgid "An Ed25519 public key is 32 bytes written in canonical base64 — 44 characters ending with \"=\".<br><br>Leave the field empty to use the built-in list of BeatTime keys (recommended)."
+#: beatstamp/ui/dialogs.py:937
+msgid "An Ed25519 public key is 32 bytes written in canonical base64 — 44 characters ending with \"=\".<br><br>Leave the field empty to use the built-in list of Sigelith keys (recommended)."
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:521
+#: beatstamp/ui/dialogs.py:604
 msgid ""
 "An additional Ed25519 public key in base64 (32 bytes).\n"
 "\n"
-"Leave it empty — the program knows the BeatTime keys itself.\n"
-"Fill it in only when BeatTime announces a new key before a new\n"
+"Leave it empty — the program knows the Sigelith keys itself.\n"
+"Fill it in only when Sigelith announces a new key before a new\n"
 "version of the program is released — and only with a value\n"
 "confirmed from an independent source. A retired key cannot be\n"
 "entered."
 msgstr ""
 
-#: beatstamp/__main__.py:113
+#: beatstamp/licensing.py:128
+msgid "An image library that ReportLab needs."
+msgstr ""
+
+#: beatstamp/__main__.py:140
 msgid "An unexpected error occurred."
 msgstr ""
 
@@ -316,22 +575,60 @@ msgstr ""
 msgid "Anchored"
 msgstr ""
 
-#: beatstamp/__main__.py:112
-msgid "Application error — BeatStamp"
+#: beatstamp/ui/handover_dialogs.py:443
+msgid "Answer by %(when)s. Nothing is sent anywhere until you decide."
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:594
+#: beatstamp/ui/handover_controller.py:366
+msgid "Answer saved"
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:347
+msgid "Answer sent"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:679
+#: beatstamp/ui/handover_dialogs.py:703
+msgid "Answer signed by the recipient"
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:600
+msgid "Answers processed from the exchange folder: %(n)s"
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:468
+msgid "Anyone can check it at sigelith.org/handover/verify/ or in Sigelith Desktop (Verify evidence…)."
+msgstr ""
+
+#: beatstamp/__main__.py:139
+msgid "Application error — Sigelith Desktop"
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:701
 msgid "Ask before overwriting an existing file"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:457
-msgid ""
-"Asks the BeatTime register about this digest and checks the answer\n"
-"locally: the inclusion path, the root signature and the identity of\n"
-"the key. It records nothing and changes nothing."
+#: beatstamp/ui/main_window.py:2320
+msgid "Asking the Sigelith server about its database, cache and clock"
 msgstr ""
 
-#: beatstamp/certificate.py:423
+#: beatstamp/ui/dialogs.py:538
+msgid ""
+"At start and every 15 minutes. No notifications — the result is shown in the\n"
+"Witnesses tab and in the History, and nothing happens while the program is closed."
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:782
+msgid "Attach the hardware attestation (TPM) of my card to my card file and to evidence packages"
+msgstr ""
+
+#: beatstamp/ui/details.py:242
+#: beatstamp/ui/journey.py:110
+#: beatstamp/ui/witness_panel.py:252
+msgid "Bank"
+msgstr ""
+
+#: beatstamp/certificate.py:663
 msgid "Bank anchor"
 msgstr ""
 
@@ -339,333 +636,639 @@ msgstr ""
 msgid "Bank anchor: %(details)s"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:367
-msgid "BeatStamp can write to this folder again:"
+#: beatstamp/config.py:788
+msgid "BeatStamp is now Sigelith Desktop — your data has been moved to: %(path)s"
 msgstr ""
 
-#: beatstamp/config.py:489
-msgid "BeatStamp cannot save data"
-msgstr ""
-
-#: beatstamp/ui/main_window.py:1388
-msgid "BeatStamp cannot save data in %(path)s — new stamps will not be recorded in the history until the folder is changed (Settings -> Data)."
-msgstr ""
-
-#: beatstamp/config.py:666
-msgid ""
-"BeatStamp data (stamp history, settings) has been moved to:\n"
-"\n"
-"    %(path)s\n"
-"\n"
-"This folder is no longer in use. The files were kept here as a copy — you can delete them once you are sure everything is in the new place.\n"
-msgstr ""
-
-#: beatstamp/config.py:628
-msgid "BeatStamp data has been moved to: %(path)s"
-msgstr ""
-
-#: beatstamp/ui/dialogs.py:628
-msgid "BeatStamp keeps the stamp history, the settings and the event log in one folder. The proofs themselves live in the public BeatTime register, but the history is the only record of WHAT you stamped and when — it exists nowhere else."
-msgstr ""
-
-#: beatstamp/ui/main_window.py:1232
-msgid "BeatStamp proof (*.beatproof)"
-msgstr ""
-
-#: beatstamp/ui/main_window.py:1086
-msgid "BeatStamp proof (*.beatproof);;JSON files (*.json);;All files (*)"
-msgstr ""
-
-#: beatstamp/ui/main_window.py:111
-msgid "BeatTime key RETIRED — the proof needs refreshing"
-msgstr ""
-
-#: beatstamp/ui/main_window.py:107
-msgid "BeatTime key from the list built into the application"
-msgstr ""
-
-#: beatstamp/ui/main_window.py:1700
-msgid "BeatTime service status"
-msgstr ""
-
-#: beatstamp/ui/dialogs.py:477
-msgid "BeatTime signs weekly Merkle roots with an Ed25519 key. The application checks that signature <b>locally</b> and compares the key with the <b>built-in list of BeatTime keys</b> — never with whatever the server sends.<br><br>Without that, the signature alone would prove nothing: a fake server would send its own key together with a matching signature and everything would add up. A signature from a <b>retired</b> key is not enough either — such a proof has to be refreshed online so that it gets a signature made with the current key."
-msgstr ""
-
-#: beatstamp/certificate.py:331
-msgid "BeatTime — proof of existence %(digest)s"
-msgstr ""
-
-#: beatstamp/ui/dialogs.py:401
+#: beatstamp/ui/dialogs.py:416
 msgid "Behaviour"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1759
-msgid "Besides the built-in list of BeatTime keys, the application will now also accept signatures made with <b>the key you entered</b>.<br><br>Whoever gave you that key can sign any \"proof\" with it. The status bar will keep reminding you. To go back to the built-in list alone, clear the field in Settings -> Trust."
+#: beatstamp/ui/main_window.py:2416
+msgid "Besides the built-in list of Sigelith keys, the application will now also accept signatures made with <b>the key you entered</b>.<br><br>Whoever gave you that key can sign any \"proof\" with it. The status bar will keep reminding you. To go back to the built-in list alone, clear the field in Settings -> Trust."
 msgstr ""
 
-#: beatstamp/history.py:463
+#: beatstamp/ui/handover_dialogs.py:678
+#: beatstamp/ui/handover_dialogs.py:701
+msgid "Binding of the recipient's card"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:772
+msgid "Binding record"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:672
+msgid "Binding recorded before the offer"
+msgstr ""
+
+#: beatstamp/history.py:475
 msgid "Bitcoin block"
 msgstr ""
 
-#: beatstamp/certificate.py:239
+#: beatstamp/certificate.py:365
 msgid "Bitcoin block %(height)s"
 msgstr ""
 
-#: beatstamp/proof.py:210
+#: beatstamp/ui/journey.py:149
+msgid "Bitcoin block %(height)s from checkpoint #%(n)s"
+msgstr ""
+
+#: beatstamp/certificate.py:432
+msgid "Bitcoin block %(height)s named in checkpoint #%(n)s"
+msgstr ""
+
+#: beatstamp/proof.py:218
 msgid "Bitcoin — block %(height)s"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:507
+#: beatstamp/ui/witness_panel.py:221
+msgid ""
+"Both conflicting signed files are kept there. Together they are a\n"
+"cryptographic proof — keep a copy somewhere safe."
+msgstr ""
+
+#: beatstamp/ui/main_window.py:695
 msgid "Builds a certificate for the checked digest"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:386
+#: beatstamp/ui/main_window.py:575
 msgid ""
 "Builds the certificate on this computer — it works without the internet too.\n"
 "It contains the digest, the time, the week root and a QR code for verification."
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:491
-msgid "Built-in BeatTime keys"
+#: beatstamp/ui/dialogs.py:574
+msgid "Built-in Sigelith keys"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1641
+#: beatstamp/ui/main_window.py:2042
 msgid "CSV sheet for Excel (*.csv);;JSON file (*.json)"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:407
+#: beatstamp/ui/dialogs.py:426
+#: beatstamp/ui/handover_controller.py:422
+#: beatstamp/ui/handover_controller.py:458
+#: beatstamp/ui/handover_dialogs.py:131
+#: beatstamp/ui/handover_dialogs.py:199
+#: beatstamp/ui/handover_dialogs.py:309
+#: beatstamp/ui/handover_dialogs.py:606
 msgid "Cancel"
 msgstr ""
 
-#: beatstamp/certificate.py:510
-msgid "Certificate issued %(utc)s (%(beat)s) by BeatStamp %(version)s · beattime.live"
+#: beatstamp/ui/handover_dialogs.py:150
+#: beatstamp/ui/handover_panel.py:220
+msgid "Card fingerprint"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1222
+#: beatstamp/ui/handover_controller.py:190
+msgid "Card saved"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:676
+#: beatstamp/ui/handover_dialogs.py:699
+msgid "Cards of both parties"
+msgstr ""
+
+#: beatstamp/certificate.py:745
+msgid "Certificate issued %(utc)s (%(beat)s) by Sigelith Desktop %(version)s · sigelith.org"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:1610
 msgid "Certificate saved"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:647
+#: beatstamp/ui/dialogs.py:830
 msgid "Change…"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:250
+#: beatstamp/ui/handover_panel.py:178
+msgid "Check a Sigelith Handover evidence package or defect proof (.zip) — yours or someone else's."
+msgstr ""
+
+#: beatstamp/ui/main_window.py:349
 msgid "Check a file, a SHA-256 digest or a .beatproof proof"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:643
+#: beatstamp/ui/main_window.py:849
 msgid "Check a stand-alone proof — without the network"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:322
+#: beatstamp/ui/dialogs.py:334
 msgid "Check again"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:455
+#: beatstamp/ui/main_window.py:660
 msgid "Check digest"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:398
-#: beatstamp/ui/main_window.py:1548
+#: beatstamp/ui/main_window.py:587
+#: beatstamp/ui/main_window.py:1742
+#: beatstamp/ui/main_window.py:1936
 msgid "Check in the browser"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1044
+#: beatstamp/ui/handover_panel.py:298
+#: beatstamp/ui/witness_panel.py:172
+msgid "Check now"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:1383
 msgid "Check that the digest was pasted in full."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:658
+#: beatstamp/ui/dialogs.py:535
+msgid "Check the log and refresh the proofs while the program is open"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:875
 msgid "Check the service status"
 msgstr ""
 
-#: beatstamp/bundle.py:216
+#: beatstamp/ui/main_window.py:878
+msgid "Check the witnesses now"
+msgstr ""
+
+#: beatstamp/bundle.py:264
 msgid "Check this digest in the register (Verification tab -> Check digest) and export the proof again — it will get a signature made with the current key."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:430
+#: beatstamp/ui/main_window.py:634
 msgid "Check whether a document already has a timestamp — and whether the proof is consistent. Verification records nothing and changes nothing."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:640
+#: beatstamp/ui/main_window.py:846
 msgid "Check whether a file already has a stamp"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:654
+#: beatstamp/ui/main_window.py:870
 msgid "Check whether the proofs have matured"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1001
+#: beatstamp/ui/details.py:262
+msgid "Checked"
+msgstr ""
+
+#: beatstamp/workers.py:267
+msgid "Checking against your copy of the public log…"
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:379
+msgid "Checking the answer…"
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:489
+msgid "Checking the defect proof…"
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:506
+msgid "Checking the evidence…"
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:585
+msgid "Checking the exchange folder…"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:1338
 msgid "Checking the first of %(count)s files — verification works on one file at a time."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1108
+#: beatstamp/ui/witness_panel.py:360
+msgid "Checking the log…"
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:276
+msgid "Checking the package…"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:1455
 msgid "Checking the proof…"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1691
-#: beatstamp/workers.py:405
+#: beatstamp/ui/main_window.py:2109
+#: beatstamp/ui/witness_panel.py:387
+msgid "Checking the public log…"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:2319
+#: beatstamp/ui/main_window.py:2323
+#: beatstamp/workers.py:526
 msgid "Checking the service status…"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:464
+#: beatstamp/ui/journey.py:70
+#: beatstamp/ui/journey.py:74
+#: beatstamp/ui/journey.py:78
+msgid "Checkpoint"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:436
+msgid "Checkpoint archive"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:242
+msgid "Checkpoints"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:880
+msgid "Checkpoints, their chain and the independent copies"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:671
 msgid ""
 "Checks a stand-alone proof file. The verification happens\n"
 "entirely locally — without connecting to anything."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:991
+#: beatstamp/licensing.py:135
+msgid "Checks the Ed25519 signatures of the week roots and of the log checkpoints."
+msgstr ""
+
+#: beatstamp/ui/main_window.py:662
+msgid ""
+"Checks this digest and the answer locally: the inclusion path, the root\n"
+"signature, the identity of the key and the path to the signed checkpoint.\n"
+"In private mode the server is not even told which digest you check."
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:164
+msgid "Choose a contact and files; the package is encrypted to the contact's card."
+msgstr ""
+
+#: beatstamp/handover_tasks.py:74
+msgid "Choose a contact first."
+msgstr ""
+
+#: beatstamp/ui/main_window.py:1328
 msgid "Choose a file to check"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:205
-msgid "Choose a folder for BeatStamp data"
+#: beatstamp/ui/dialogs.py:217
+msgid "Choose a folder for Sigelith Desktop data"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1084
+#: beatstamp/ui/main_window.py:1429
 msgid "Choose a proof file"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:637
-#: beatstamp/ui/main_window.py:796
+#: beatstamp/handover_tasks.py:76
+#: beatstamp/ui/handover_dialogs.py:335
+msgid "Choose at least one file."
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:327
+msgid "Choose files to send"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:843
+#: beatstamp/ui/main_window.py:1079
 msgid "Choose files to stamp"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1101
+#: beatstamp/ui/main_window.py:1448
 msgid "Choose the document"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:532
+#: beatstamp/ui/dialogs.py:750
+#: beatstamp/ui/handover_controller.py:567
+msgid "Choose the exchange folder"
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:292
+msgid "Choose the exchange folder…"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:247
+msgid "Choose the files to send."
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:747
+#: beatstamp/ui/dialogs.py:768
+msgid "Choose…"
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:615
 msgid "Clears your own key — verification then uses only the keys shipped with this version of the program"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1684
+#: beatstamp/ui/main_window.py:2315
+msgid "Clock synchronised"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:2309
 msgid "Clock synchronised (difference %(offset)s s, round trip %(rtt)s ms)."
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:327
-#: beatstamp/ui/dialogs.py:923
-#: beatstamp/ui/dialogs.py:1030
-#: beatstamp/ui/dialogs.py:1177
-#: beatstamp/ui/dialogs.py:1234
-#: beatstamp/ui/dialogs.py:1286
-#: beatstamp/ui/main_window.py:1274
+#: beatstamp/ui/details.py:310
+#: beatstamp/ui/dialogs.py:339
+#: beatstamp/ui/dialogs.py:1160
+#: beatstamp/ui/dialogs.py:1287
+#: beatstamp/ui/dialogs.py:1527
+#: beatstamp/ui/dialogs.py:1630
+#: beatstamp/ui/handover_controller.py:339
+#: beatstamp/ui/handover_dialogs.py:490
+#: beatstamp/ui/handover_dialogs.py:571
+#: beatstamp/ui/handover_dialogs.py:848
+#: beatstamp/ui/handover_dialogs.py:974
+#: beatstamp/ui/main_window.py:1671
 msgid "Close"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:574
+#: beatstamp/ui/handover_dialogs.py:491
+#: beatstamp/ui/handover_dialogs.py:572
+#: beatstamp/ui/handover_dialogs.py:849
+#: beatstamp/ui/handover_dialogs.py:975
+msgid "Close this window."
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:430
+msgid "Collecting the log proofs…"
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:657
 msgid "Colour theme. The change takes effect at once."
 msgstr ""
 
-#: beatstamp/workers.py:200
-#: beatstamp/workers.py:263
-#: beatstamp/workers.py:359
+#: beatstamp/ui/witness_panel.py:287
+msgid "Coming up — it happens by itself"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:154
+msgid "Compare it with the person — in person, or at least the first four groups aloud on a call. A card from an e-mail alone proves only who controls that mailbox."
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:544
+msgid "Compare with copies kept by third parties (GitHub, Internet Archive, Zenodo, mempool.space)"
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:1439
+msgid "Component"
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:1519
+msgid "Components"
+msgstr ""
+
+#: beatstamp/ui/handover_report.py:144
+msgid "Compute the SHA-256 of the file and compare it with the value above. On Windows:"
+msgstr ""
+
+#: beatstamp/workers.py:210
+#: beatstamp/workers.py:289
+#: beatstamp/workers.py:459
 msgid "Computing SHA-256: %(name)s"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1007
-#: beatstamp/workers.py:196
+#: beatstamp/ui/main_window.py:1344
+#: beatstamp/workers.py:206
 msgid "Computing digest: %(name)s"
 msgstr ""
 
-#: beatstamp/workers.py:353
+#: beatstamp/workers.py:453
 msgid "Computing the document digest: %(name)s"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1065
+#: beatstamp/ui/main_window.py:1405
 msgid "Confirmed"
 msgstr ""
 
-#: beatstamp/certificate.py:398
+#: beatstamp/certificate.py:638
 msgid "Confirmed by signature"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:432
+#: beatstamp/ui/handover_report.py:241
+msgid "Confirmed outside Sigelith"
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:451
 msgid "Connect through the Tor network (.onion service)"
 msgstr ""
 
-#: beatstamp/workers.py:209
-msgid "Connecting to beattime.live…"
+#: beatstamp/workers.py:219
+msgid "Connecting to sigelith.org…"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:399
+#: beatstamp/ui/dialogs.py:413
 msgid "Connection"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:663
-msgid "Connection, trust, behaviour"
+#: beatstamp/ui/main_window.py:885
+msgid "Connection, witnesses, trust, behaviour"
 msgstr ""
 
-#: beatstamp/ui/widgets.py:361
+#: beatstamp/licensing.py:117
+msgid "Connects the Python code of the program to Qt."
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:233
+msgid "Contacts"
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:197
+msgid "Contacts are bound with your own card — create it first."
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:963
+#: beatstamp/ui/handover_report.py:320
+msgid "Content: %(value)s"
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:883
+msgid "Contract"
+msgstr ""
+
+#: beatstamp/ui/widgets.py:987
+msgid "Coordinated Universal Time — the time the register counts in"
+msgstr ""
+
+#: beatstamp/ui/widgets.py:1098
+#: beatstamp/ui/widgets.py:1124
 msgid "Copied"
 msgstr ""
 
-#: beatstamp/ui/widgets.py:331
+#: beatstamp/ui/journey.py:128
+msgid "Copies at GitHub and in the Internet Archive follow every week, in Zenodo every quarter."
+msgstr ""
+
+#: beatstamp/ui/widgets.py:1093
 msgid "Copies the contents to the clipboard"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:605
+#: beatstamp/ui/main_window.py:801
 msgid "Copies the full SHA-256 digest to the clipboard"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:1173
+#: beatstamp/ui/details.py:305
 msgid "Copies the whole JSON document to the clipboard"
 msgstr ""
 
-#: beatstamp/ui/widgets.py:330
+#: beatstamp/ui/widgets.py:1091
+#: beatstamp/ui/widgets.py:1098
 msgid "Copy"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:604
+#: beatstamp/ui/main_window.py:800
 msgid "Copy digest"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:1172
+#: beatstamp/ui/details.py:303
 msgid "Copy everything"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1544
+#: beatstamp/ui/main_window.py:1932
 msgid "Copy the SHA-256 digest"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:570
+#: beatstamp/ui/handover_dialogs.py:464
+msgid "Copy the answer text"
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:329
+msgid "Create a new card"
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:158
+msgid "Create a new card? The current one will be archived; packages sent to it can still be opened here."
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:199
+#: beatstamp/ui/handover_panel.py:329
+msgid "Create my card"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:130
+msgid "Create the card"
+msgstr ""
+
+#: beatstamp/handover_tasks.py:64
+msgid "Create your Sigelith card first."
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:196
+msgid "Create your card first"
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:167
+msgid "Creating your card…"
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:653
 msgid "Dark"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:402
+#: beatstamp/ui/dialogs.py:418
 msgid "Data"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:258
-#: beatstamp/ui/dialogs.py:366
+#: beatstamp/ui/dialogs.py:270
+#: beatstamp/ui/dialogs.py:378
 msgid "Data folder"
 msgstr ""
 
-#: beatstamp/config.py:629
-#: beatstamp/ui/main_window.py:1403
+#: beatstamp/config.py:790
+#: beatstamp/ui/main_window.py:1822
 msgid "Data folder: %(path)s"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:402
-#: beatstamp/ui/main_window.py:517
-#: beatstamp/ui/main_window.py:601
-#: beatstamp/ui/main_window.py:1550
+#: beatstamp/ui/handover_dialogs.py:707
+msgid "Data format"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:285
+msgid "Days to answer"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:286
+msgid "Days to complete after an acceptance"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:274
+msgid "Deadlines"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:455
+msgid "Decide later. Without an answer the offer simply expires."
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:772
+msgid "Default"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:932
+msgid "Defect check — Sigelith Desktop"
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:451
+#: beatstamp/ui/handover_dialogs.py:691
+msgid "Defect proof"
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:468
+msgid "Defect proof saved"
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:464
+msgid "Defect proofs (*.zip)"
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:63
+msgid "Defective package"
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:385
+#: beatstamp/ui/handover_dialogs.py:646
+#: beatstamp/ui/handover_panel.py:70
+msgid "Delivered"
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:399
+msgid "Delivered %(when)s"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:523
+msgid "Delivered %(when)s — the key part is in the public log."
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:632
+msgid "Delivered: %(title)s"
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:386
+msgid "Delivered: the key part is in the public log (%(when)s). Save the evidence package now? Sigelith keeps no copy."
+msgstr ""
+
+#: beatstamp/ui/main_window.py:591
+#: beatstamp/ui/main_window.py:705
+#: beatstamp/ui/main_window.py:796
+#: beatstamp/ui/main_window.py:1938
 msgid "Details…"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1574
+#: beatstamp/ui/details.py:125
+msgid "Digest %(short)s…"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:1962
 msgid "Digest copied to the clipboard."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:492
-msgid "Digest:"
+#: beatstamp/ui/handover_report.py:268
+msgid "Disclosed content"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1091
+#: beatstamp/ui/handover_dialogs.py:675
+msgid "Disclosed content matches the package"
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:494
+msgid "Do you also have the other party's copy of the same handover? It settles the case where the recipient signed two different answers."
+msgstr ""
+
+#: beatstamp/ui/main_window.py:1438
 msgid "Do you also want to point to the <b>document</b> this proof is about?<br><br>Without the document we check only whether the proof itself is consistent. With the document we additionally check whether the proof really is about <i>this</i> file and whether the file has been changed."
 msgstr ""
 
-#: beatstamp/certificate.py:392
+#: beatstamp/certificate.py:621
+#: beatstamp/ui/details.py:189
 msgid "Document"
 msgstr ""
 
@@ -677,52 +1280,63 @@ msgstr ""
 msgid "Document name. It was never sent to the server"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:854
+#: beatstamp/ui/main_window.py:1139
 msgid "Done — %(files)s stamped."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:855
+#: beatstamp/ui/main_window.py:1140
 msgid "Done — the file has a timestamp."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:512
+#: beatstamp/ui/main_window.py:700
 msgid "Download the .ots proof"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:1120
+#: beatstamp/ui/dialogs.py:1377
 msgid "Downloaded: %(when)s"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1305
-#: beatstamp/workers.py:443
+#: beatstamp/ui/main_window.py:2109
+msgid "Downloading new checkpoints and checking the signature, the chain, consistency and the independent copies"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:1702
+#: beatstamp/workers.py:564
 msgid "Downloading the .ots proof for %(week)s…"
 msgstr ""
 
-#: beatstamp/workers.py:393
-msgid "Downloading the certificate from beattime.live…"
+#: beatstamp/workers.py:514
+msgid "Downloading the certificate from sigelith.org…"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:1016
-msgid "Downloads the list from beattime.live again"
+#: beatstamp/ui/witness_panel.py:174
+msgid ""
+"Downloads new checkpoints and checks them right away: the signature,\n"
+"the chain of files, consistency with the previous one and the copies\n"
+"kept by third parties. (F8)"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:437
+#: beatstamp/ui/dialogs.py:1273
+msgid "Downloads the list from sigelith.org again"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:641
 msgid "Drag a file here to check it"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:488
+#: beatstamp/ui/main_window.py:686
 msgid "Drag a file in, paste a digest, or load a .beatproof file."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:362
+#: beatstamp/ui/main_window.py:565
 msgid "Drag a file into the area above to give it a timestamp."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:98
+#: beatstamp/ui/main_window.py:132
 msgid "Drag files here"
 msgstr ""
 
-#: beatstamp/ui/widgets.py:116
+#: beatstamp/ui/widgets.py:778
 msgid ""
 "Drag files here, or click to pick them from disk.\n"
 "You can drop several files at once — a whole folder too.\n"
@@ -731,24 +1345,51 @@ msgid ""
 "SHA-256 digest, computed on this computer, goes to the network."
 msgstr ""
 
-#: beatstamp/certificate.py:203
+#: beatstamp/licensing.py:129
+msgid "Draws the PDF certificate and its QR code."
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:247
+msgid ""
+"Each checkpoint names a Bitcoin block — so it could not have been\n"
+"issued before that block. Sigelith Desktop asks an independent explorer\n"
+"(mempool.space, blockstream.info) whether that block really exists."
+msgstr ""
+
+#: beatstamp/certificate.py:329
 msgid "Ed25519 — root signed with YOUR OWN key from the settings (outside the built-in list), checked locally"
 msgstr ""
 
-#: beatstamp/certificate.py:205
-msgid "Ed25519 — root signed with a BeatTime key, checked locally"
+#: beatstamp/certificate.py:331
+msgid "Ed25519 — root signed with a Sigelith key, checked locally"
 msgstr ""
 
-#: beatstamp/certificate.py:201
+#: beatstamp/certificate.py:327
 msgid "Ed25519 — the signature was not confirmed by the local check"
 msgstr ""
 
-#: beatstamp/certificate.py:198
-msgid "Ed25519 — with a key outside the BeatTime list, signature not binding"
+#: beatstamp/certificate.py:324
+msgid "Ed25519 — with a key outside the Sigelith list, signature not binding"
 msgstr ""
 
-#: beatstamp/certificate.py:195
+#: beatstamp/certificate.py:321
 msgid "Ed25519 — with a key retired on %(when)s, signature not binding"
+msgstr ""
+
+#: beatstamp/ui/handover_report.py:314
+msgid "Encrypted package"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:954
+msgid "Encrypted package: %(size)s"
+msgstr ""
+
+#: beatstamp/handover_tasks.py:184
+msgid "Encrypting the files and signing the offer…"
+msgstr ""
+
+#: beatstamp/licensing.py:125
+msgid "Encryption of the HTTPS connections and the cryptography behind the signature checks."
 msgstr ""
 
 #: beatstamp/ui/history_model.py:144
@@ -759,136 +1400,348 @@ msgid ""
 "can be checked independently."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1568
+#: beatstamp/ui/main_window.py:1956
 msgid "Entry details"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:878
+#: beatstamp/ui/details.py:143
+msgid "Entry no. %(seq)s in the public Sigelith register"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:1163
 msgid "Error"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:1264
-msgid "Event log — BeatStamp"
+#: beatstamp/ui/dialogs.py:1608
+msgid "Event log — Sigelith Desktop"
 msgstr ""
 
-#: beatstamp/workers.py:305
+#: beatstamp/ui/handover_dialogs.py:635
+msgid "Every check in plain words, with instructions for an expert. The report is not evidence — give it together with the checked file."
+msgstr ""
+
+#: beatstamp/workers.py:354
 msgid "Every entry is already anchored — there is nothing to refresh."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:645
+#: beatstamp/ui/witness_panel.py:238
+msgid ""
+"Every entry of the public Sigelith log. In private mode Sigelith Desktop keeps\n"
+"a copy, checks the hash chain of every entry and recomputes the root\n"
+"of every checkpoint from scratch."
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:252
+msgid ""
+"Every week the Merkle root goes into the title of a bank transfer\n"
+"(MROOT). The weekly checkpoint lists those transfers."
+msgstr ""
+
+#: beatstamp/ui/main_window.py:797
+msgid "Everything about the selected entry, in plain words — and the note to edit"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:592
+#: beatstamp/ui/main_window.py:706
+msgid "Everything about this proof: when, how far it has come and who confirms it"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:796
+msgid "Evidence check — Sigelith Desktop"
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:416
+#: beatstamp/ui/handover_dialogs.py:699
+msgid "Evidence package"
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:435
+msgid "Evidence packages (*.zip)"
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:499
+msgid "Evidence packages (*.zip);;All files (*)"
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:476
+msgid "Evidence packages and defect proofs (*.zip);;All files (*)"
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:443
+msgid "Evidence saved"
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:306
+msgid "Exchange folder"
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:759
+msgid "Exchange folder:"
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:62
+msgid "Expired"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:860
 msgid "Export history…"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1638
+#: beatstamp/ui/main_window.py:2039
 msgid "Export the history"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:617
+#: beatstamp/ui/main_window.py:817
 msgid "Export…"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:112
-msgid "FOREIGN key — outside the BeatTime keys built into the application"
+#: beatstamp/ui/main_window.py:146
+msgid "FOREIGN key — outside the Sigelith keys built into the application"
 msgstr ""
 
-#: beatstamp/history.py:456
+#: beatstamp/ui/main_window.py:2217
+msgid "Fast mode: the server is asked about each digest."
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:184
+msgid "Fast — ask only about my digests"
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:514
+msgid "Fast — ask the server about each of my digests"
+msgstr ""
+
+#: beatstamp/history.py:468
+#: beatstamp/ui/details.py:193
 #: beatstamp/ui/history_model.py:43
 msgid "File"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1654
+#: beatstamp/ui/handover_dialogs.py:775
+msgid "File %(name)s"
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:697
+msgid "File names:"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:2055
 msgid "File write error:<br>%(reason)s"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:544
+#: beatstamp/ui/handover_dialogs.py:241
+#: beatstamp/ui/handover_dialogs.py:417
+#: beatstamp/ui/handover_dialogs.py:921
+msgid "Files"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:737
 msgid ""
 "Filters entries as you type. It also searches the full digest,\n"
 "so you can paste a whole hash."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:248
-msgid "Give files a timestamp in the BeatTime register"
+#: beatstamp/ui/handover_controller.py:320
+msgid "Folder not found"
 msgstr ""
 
-#: beatstamp/api.py:179
+#: beatstamp/ui/handover_controller.py:445
+msgid "For a reader without a verifier — a lawyer, an expert, a court — open it with Verify evidence… and save a PDF report."
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:172
+msgid "For example: Anna Kowalska, ACME legal"
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:240
+msgid "From"
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:1520
+msgid "Full licence texts"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:347
+msgid "Give files a timestamp in the Sigelith register"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:206
+msgid "Give the contact a name."
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:205
+msgid "Give this file to people who will send you packages. It holds only public keys."
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:752
+msgid "Go back to sending the files yourself (e-mail, messenger, USB stick). Nothing is deleted."
+msgstr ""
+
+#: beatstamp/licensing.py:130
+msgid "HTTP connections to sigelith.org and to the independent archives."
+msgstr ""
+
+#: beatstamp/api.py:344
 msgid "HTTP request error: %(kind)s."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1807
+#: beatstamp/ui/main_window.py:2455
 msgid "HTTPS connection with full certificate verification (certifi)."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:665
+#: beatstamp/ui/handover_panel.py:140
+#: beatstamp/ui/main_window.py:355
+msgid "Hand over files with proof of delivery"
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:417
+#: beatstamp/ui/main_window.py:345
+msgid "Handover"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:702
+msgid "Hardware attestation"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:828
+msgid "Hardware attestation of the %(role)s: %(what)s"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:162
+#: beatstamp/ui/handover_panel.py:348
+msgid "Hardware attestation: %(what)s."
+msgstr ""
+
+#: beatstamp/ui/main_window.py:887
 msgid "Hel&p"
 msgstr ""
 
 #: beatstamp/proof.py:124
-msgid "Highest level: the week root is anchored outside BeatTime — in the Bitcoin chain (OpenTimestamps) and/or by a bank confirmation. Undoing this timestamp would require rewriting other parties' registers."
+msgid "Highest level: the week root is anchored outside Sigelith — in the Bitcoin chain (OpenTimestamps) and/or by a bank confirmation. Undoing this timestamp would require rewriting other parties' registers."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:246
+#: beatstamp/ui/main_window.py:335
 msgid "History"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1510
+#: beatstamp/ui/main_window.py:1898
 msgid "History carried over from TVS"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:612
+#: beatstamp/ui/dialogs.py:719
 msgid "History limit:"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:78
+#: beatstamp/ui/dialogs.py:87
 msgid ""
 "History, settings and the event log:\n"
 "%(path)s"
+msgstr ""
+
+#: beatstamp/ui/details.py:153
+msgid "How far the proof has come"
 msgstr ""
 
 #: beatstamp/ui/history_model.py:46
 msgid "How far the proof has matured: recorded -> signed -> anchored"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:668
-msgid "How it works — beattime.live"
+#: beatstamp/ui/handover_panel.py:220
+msgid "How it was bound"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:464
+#: beatstamp/ui/handover_panel.py:186
+msgid "How it works"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:892
+msgid "How it works — sigelith.org"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:278
+msgid "How long the recipient can answer."
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:484
 msgid ""
 "How long to wait for the server answer. Over Tor it is worth\n"
 "raising to 30-60 s — the traffic goes through several relays."
 msgstr ""
 
-#: beatstamp/certificate.py:500
-msgid "How to check independently: compute the SHA-256 of your document and enter the result at <b>beattime.live/proof</b>. The weekly Merkle root is signed with an Ed25519 key and anchored outside BeatTime — in the Bitcoin chain (OpenTimestamps) and by an independent bank confirmation. The certificate attests <i>the existence of the document at a given moment</i> and its integrity — it does not attest authorship or the truth of the content."
+#: beatstamp/ui/handover_report.py:198
+#: beatstamp/ui/handover_report.py:203
+msgid "How the sender bound the recipient's card"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:302
+#: beatstamp/ui/handover_dialogs.py:825
+msgid "How the sender bound the recipient's card: %(level)s"
+msgstr ""
+
+#: beatstamp/certificate.py:735
+msgid "How to check independently: compute the SHA-256 of your document and enter the result at <b>sigelith.org/proof</b>. The weekly Merkle root is signed with an Ed25519 key and anchored outside Sigelith — in the Bitcoin chain (OpenTimestamps) and by an independent bank confirmation. The certificate attests <i>the existence of the document at a given moment</i> and its integrity — it does not attest authorship or the truth of the content."
+msgstr ""
+
+#: beatstamp/ui/handover_report.py:157
+msgid "How to check this independently"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:178
+msgid "How you made sure that this card belongs to this person. The record is signed with your key and stamped."
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:64
+msgid "I confirm that I have received package %(offer)s from %(sender)s and that I hold its encrypted content. This confirmation takes effect at the moment the key part committed in the offer is recorded in the Sigelith log, provided that happens no later than %(deadline)s. Otherwise it has no effect."
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:72
+msgid "I refuse to accept package %(offer)s from %(sender)s."
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:255
+msgid ""
+"Immutable weekly releases in the public repository\n"
+"DeiFlagellum/sigelith-log. Sigelith Desktop downloads the checkpoint files\n"
+"from there and compares them byte for byte."
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:314
 msgid "In Windows Security open: Virus & threat protection > Ransomware protection > Allow an app through Controlled folder access."
 msgstr ""
 
-#: beatstamp/certificate.py:414
+#: beatstamp/ui/handover_controller.py:416
+msgid "Include the delivered files in the evidence? Then it shows exactly what was delivered — and anyone who gets the evidence can read the files."
+msgstr ""
+
+#: beatstamp/certificate.py:654
 msgid "Inclusion path"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1173
+#: beatstamp/ui/main_window.py:1542
 msgid "Incomplete"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1172
+#: beatstamp/ui/main_window.py:1541
 msgid "Incomplete proof"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:884
-#: beatstamp/ui/main_window.py:1051
-#: beatstamp/ui/main_window.py:1161
+#: beatstamp/ui/main_window.py:1170
+#: beatstamp/ui/main_window.py:1391
+#: beatstamp/ui/main_window.py:1530
 msgid "Inconsistent proof"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1832
+#: beatstamp/certificate.py:674
+#: beatstamp/ui/details.py:254
+#: beatstamp/ui/journey.py:120
+#: beatstamp/ui/journey.py:127
+msgid "Independent copies"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:2471
 msgid "Interface language"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:561
+#: beatstamp/ui/dialogs.py:644
 msgid ""
 "Interface language. \"Same as system\" follows the language of the\n"
 "Windows interface (not the regional format).\n"
@@ -897,99 +1750,233 @@ msgid ""
 "the program is restarted."
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:712
+#: beatstamp/licensing.py:133
+msgid "International domain names in addresses."
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:930
 msgid "Invalid address"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1013
+#: beatstamp/ui/main_window.py:1350
 msgid "Invalid digest"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:718
+#: beatstamp/ui/dialogs.py:936
 msgid "Invalid key"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:596
+#: beatstamp/ui/main_window.py:791
 msgid "Issues a certificate for the selected entry"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1218
-#: beatstamp/ui/main_window.py:1239
-#: beatstamp/ui/main_window.py:1317
-#: beatstamp/ui/main_window.py:1653
+#: beatstamp/ui/main_window.py:1738
+msgid "Issues a certificate for this entry"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:1595
+#: beatstamp/ui/main_window.py:1602
+#: beatstamp/ui/main_window.py:1632
+#: beatstamp/ui/main_window.py:1714
+#: beatstamp/ui/main_window.py:2054
 msgid "It could not be saved"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:780
+#: beatstamp/ui/handover_controller.py:188
+#: beatstamp/ui/handover_controller.py:209
+#: beatstamp/ui/handover_controller.py:364
+#: beatstamp/ui/handover_controller.py:441
+#: beatstamp/ui/handover_controller.py:484
+#: beatstamp/ui/handover_controller.py:526
+#: beatstamp/ui/handover_controller.py:559
+#: beatstamp/ui/main_window.py:1021
 msgid "It did not work"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:566
+#: beatstamp/ui/handover_report.py:284
+msgid "It does not prove that anyone read or understood the content, or who stands behind a key — that is what binding a card to a person is for. It is not a formal service of documents under any particular law; what it weighs in a dispute is for a court to decide. Silence proves nothing: an offer without an answer is a status, not evidence."
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:114
+msgid "Keep the signing key in Windows Hello (recommended)"
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:443
+msgid "Keep this file safe — Sigelith keeps no copy. Anyone can check it at sigelith.org/handover/verify/ or in Sigelith Desktop."
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:704
+msgid "Key part matches the offer"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:671
+#: beatstamp/ui/handover_report.py:219
+msgid "Key part recorded in the log"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:770
+msgid "Key part — the moment of delivery"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:686
+msgid "Key parts and encrypted package are the ones in the offer"
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:649
 msgid "Language:"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:913
-#: beatstamp/ui/main_window.py:682
+#: beatstamp/ui/handover_dialogs.py:454
+msgid "Later"
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:1150
+#: beatstamp/ui/main_window.py:914
 msgid "Legal notice (Impressum)"
 msgstr ""
 
+#: beatstamp/ui/dialogs.py:516
+msgid ""
+"Less data to download, but every refresh and every check tells the server\n"
+"which digest you are interested in."
+msgstr ""
+
+#: beatstamp/handover_tasks.py:104
+msgid "Less than an hour is left before the acceptance expires, so the key part was not published and the delivery did not happen. Send a new package."
+msgstr ""
+
+#: beatstamp/licensing.py:127
+msgid "Lets Python call Windows system libraries."
+msgstr ""
+
+#: beatstamp/ui/handover_report.py:241
 #: beatstamp/ui/history_model.py:46
 msgid "Level"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:895
+#: beatstamp/ui/dialogs.py:1439
+#: beatstamp/ui/dialogs.py:1558
+msgid "Licence"
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:1131
 msgid "Licences and notices"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:1201
-msgid "Licences and notices — BeatStamp"
+#: beatstamp/ui/dialogs.py:1420
+msgid "Licences and notices — Sigelith Desktop"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:570
+#: beatstamp/ui/dialogs.py:653
 msgid "Light"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:463
-#: beatstamp/ui/main_window.py:641
+#: beatstamp/ui/handover_dialogs.py:599
+msgid "Line breaks and spaces from e-mail do not matter."
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:605
+msgid "Load"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:670
+#: beatstamp/ui/main_window.py:847
 msgid "Load a .beatproof proof…"
 msgstr ""
 
-#: beatstamp/workers.py:348
+#: beatstamp/ui/handover_dialogs.py:589
+msgid "Load an answer — Sigelith Desktop"
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:172
+msgid "Load an answer…"
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:222
+msgid "Load someone's .sigelith-card file and record how you verified that it is theirs."
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:173
+msgid "Load the answer file, or paste the answer text, that the recipient sent back."
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:562
+msgid "Load the answer…"
+msgstr ""
+
+#: beatstamp/workers.py:447
 msgid "Loading proof: %(name)s"
 msgstr ""
 
-#: beatstamp/workers.py:429
+#: beatstamp/workers.py:550
 msgid "Loading the list of supporters…"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:1053
-#: beatstamp/ui/dialogs.py:1069
+#: beatstamp/ui/dialogs.py:1310
+#: beatstamp/ui/dialogs.py:1326
 msgid "Loading the list…"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:377
-#: beatstamp/ui/main_window.py:500
+#: beatstamp/ui/main_window.py:505
 msgid "Local check:"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1456
+#: beatstamp/ui/main_window.py:1857
 msgid "Local history"
 msgstr ""
 
-#: beatstamp/certificate.py:397
 #: beatstamp/ui/history_model.py:41
 msgid "Local time"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:657
+#: beatstamp/ui/witness_panel.py:367
+msgid "Log checked · checkpoint #%(n)s"
+msgstr ""
+
+#: beatstamp/certificate.py:670
+#: beatstamp/ui/details.py:249
+#: beatstamp/ui/details.py:258
+msgid "Log checkpoint"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:363
+msgid "Log not checked yet"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:812
+#: beatstamp/ui/handover_report.py:259
+msgid "Log proofs"
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:299
+msgid "Look for new packages and answers in the exchange folder, and for key parts in the public log."
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:616
+msgid "Looking for key parts in the log…"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:473
+msgid "MROOT transfers are listed in the weekly checkpoints — the transfer titles can be checked on a bank statement"
+msgstr ""
+
+#: beatstamp/ui/handover_report.py:130
+msgid "Made by Sigelith Desktop %(version)s on %(when)s."
+msgstr ""
+
+#: beatstamp/ui/main_window.py:873
 msgid "Measure the clock drift of this computer"
 msgstr ""
 
-#: beatstamp/history.py:461
+#: beatstamp/ui/main_window.py:2232
+msgid "Measuring the difference between this computer and the Sigelith server"
+msgstr ""
+
+#: beatstamp/history.py:473
 msgid "Merkle root"
 msgstr ""
 
-#: beatstamp/certificate.py:411
+#: beatstamp/certificate.py:651
 msgid "Merkle root of the week"
 msgstr ""
 
@@ -997,28 +1984,95 @@ msgstr ""
 msgid "Merkle root: %(root)s"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:586
-msgid "Name certificates after the source file"
+#: beatstamp/certificate.py:626
+msgid "Moment of stamping"
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:212
+msgid "My card"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:189
+#: beatstamp/ui/handover_panel.py:220
+#: beatstamp/ui/handover_report.py:137
+msgid "Name"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:121
+msgid "Name in the Windows Hello window"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:111
+msgid "Name shown in the Windows Hello window"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:96
+msgid "New card — Sigelith Desktop"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:145
+msgid "New contact — Sigelith Desktop"
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:597
+msgid "New packages in the exchange folder: %(n)s"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:657
+msgid "No acceptance took effect: the key part was not recorded in the log after the acceptance and before its deadline."
 msgstr ""
 
 #: beatstamp/ui/history_model.py:233
 msgid "No anchor — the week is still running."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1629
+#: beatstamp/ui/main_window.py:2030
 msgid "No change — none of the proofs has moved to another stage yet."
 msgstr ""
 
-#: beatstamp/api.py:174
-msgid "No connection to beattime.live. Check your internet access and firewall settings."
+#: beatstamp/ui/main_window.py:2154
+msgid "No connection"
 msgstr ""
 
-#: beatstamp/api.py:160
+#: beatstamp/api.py:316
+msgid "No connection through the proxy server set on this computer (Windows proxy settings or the HTTPS_PROXY variable). Check those settings or ask your network administrator."
+msgstr ""
+
+#: beatstamp/api.py:691
+msgid "No connection to %(host)s."
+msgstr ""
+
+#: beatstamp/api.py:339
+msgid "No connection to sigelith.org. Check your internet access and firewall settings."
+msgstr ""
+
+#: beatstamp/api.py:309
 msgid "No connection to the Tor proxy at %(proxy)s. Start Tor Browser or the tor service, or turn off Tor mode in the settings."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:806
+#: beatstamp/ui/witness_panel.py:391
+msgid "No connection — showing the last check"
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:237
+msgid "No contacts yet"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:888
+msgid "No defect"
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:411
+msgid "No exchange folder: you save and send the files yourself (e-mail, messenger, USB stick). A shared folder makes it automatic."
+msgstr ""
+
+#: beatstamp/ui/main_window.py:1089
 msgid "No file was found. Folders are expanded automatically — perhaps the chosen folder is empty."
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:167
+#: beatstamp/ui/handover_panel.py:349
+msgid "No hardware attestation."
 msgstr ""
 
 #: beatstamp/ui/history_model.py:169
@@ -1029,81 +2083,240 @@ msgstr ""
 msgid "No permission to read the file \"%(name)s\"."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:354
-#: beatstamp/ui/main_window.py:480
+#: beatstamp/ui/main_window.py:464
 msgid "No result"
 msgstr ""
 
 #: beatstamp/proof.py:103
-#: beatstamp/ui/main_window.py:1035
+#: beatstamp/ui/main_window.py:1374
 msgid "No stamp"
 msgstr ""
 
-#: beatstamp/api.py:359
+#: beatstamp/api.py:725
 msgid "No week identifier was given."
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:1118
+#: beatstamp/ui/dialogs.py:1375
 msgid "Nobody is named here right now."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1036
+#: beatstamp/ui/handover_dialogs.py:891
+msgid "Not a valid defect proof"
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:72
+msgid "Not collected"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:656
+msgid "Not completed"
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:73
+msgid "Not delivered"
+msgstr ""
+
+#: beatstamp/certificate.py:635
+#: beatstamp/ui/details.py:168
+msgid "Not earlier than"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:1375
 msgid "Not found"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:877
+#: beatstamp/certificate.py:637
+#: beatstamp/ui/details.py:172
+msgid "Not later than"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:1162
 msgid "Not registered"
 msgstr ""
 
-#: beatstamp/certificate.py:425
-#: beatstamp/history.py:458
+#: beatstamp/ui/widgets.py:991
+msgid "Not synchronised with the Sigelith server yet"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:659
+msgid "Not valid evidence"
+msgstr ""
+
+#: beatstamp/certificate.py:676
+#: beatstamp/history.py:470
+#: beatstamp/ui/details.py:207
+#: beatstamp/ui/handover_dialogs.py:192
+#: beatstamp/ui/handover_dialogs.py:414
+#: beatstamp/ui/handover_dialogs.py:913
 #: beatstamp/ui/history_model.py:49
 msgid "Note"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:982
+#: beatstamp/ui/handover_dialogs.py:262
+msgid "Note (optional)"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:1305
+#: beatstamp/ui/main_window.py:1319
 msgid "Note saved."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:325
+#: beatstamp/ui/main_window.py:530
 msgid "Note:"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:805
+#: beatstamp/ui/handover_controller.py:581
+msgid "Nothing to check: no package is waiting for an answer or a key part."
+msgstr ""
+
+#: beatstamp/ui/main_window.py:1088
 msgid "Nothing to stamp"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:598
+#: beatstamp/ui/handover_dialogs.py:915
+msgid "Number of files"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:766
+#: beatstamp/ui/handover_dialogs.py:947
+#: beatstamp/ui/handover_report.py:206
+#: beatstamp/ui/handover_report.py:313
+msgid "Offer"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:883
+msgid "Offer defective"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:669
+#: beatstamp/ui/handover_report.py:207
+msgid "Offer recorded in the log"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:410
+msgid "Offer recorded in the log: %(when)s"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:677
+#: beatstamp/ui/handover_dialogs.py:700
+msgid "Offer signed by the sender"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:793
+#: beatstamp/ui/main_window.py:1740
 msgid "Offline proof"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:391
-#: beatstamp/ui/main_window.py:509
+#: beatstamp/ui/main_window.py:580
+#: beatstamp/ui/main_window.py:697
 msgid "Offline proof (.beatproof)"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1547
+#: beatstamp/ui/main_window.py:1935
 msgid "Offline proof (.beatproof)…"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:278
-msgid "Only the SHA-256 digest, computed on this computer, reaches the BeatTime register."
+#: beatstamp/ui/handover_dialogs.py:191
+msgid "On"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:69
+#: beatstamp/api.py:666
+msgid "Only HTTPS addresses can be used."
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:112
+msgid "Only for the Windows Hello window on this computer. It is not part of the card."
+msgstr ""
+
+#: beatstamp/ui/main_window.py:397
+msgid "Only the SHA-256 digest, computed on this computer, reaches the Sigelith register."
+msgstr ""
+
+#: beatstamp/ui/handover_report.py:146
+msgid "Open %(url)s in a current browser and drop the file in. The page recomputes everything in the browser and uploads nothing. Sigelith Desktop does the same offline (Verify evidence…)."
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:169
+msgid "Open a .sigelith-handover file someone sent you."
+msgstr ""
+
+#: beatstamp/ui/main_window.py:856
+msgid "Open a Handover package…"
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:201
+msgid "Open a card file"
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:270
+msgid "Open a package"
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:168
+msgid "Open a package…"
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:475
+msgid "Open an evidence package"
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:78
 msgid "Open data folder"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1272
+#: beatstamp/ui/handover_dialogs.py:614
+msgid "Open the answer file"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:601
+msgid "Open the answer file…"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:500
+#: beatstamp/ui/witness_panel.py:508
+msgid "Open the copy"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:220
+msgid "Open the evidence folder"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:1669
 msgid "Open the file"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1311
+#: beatstamp/ui/dialogs.py:1534
+#: beatstamp/ui/handover_controller.py:338
+msgid "Open the folder"
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:250
+msgid "Open the folder where the files of the selected package were saved."
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:469
+#: beatstamp/ui/handover_panel.py:249
+msgid "Open the folder with the files"
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:498
+msgid "Open the other party's copy"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:1708
 msgid "OpenTimestamps proof (*.ots)"
 msgstr ""
 
-#: beatstamp/proof.py:213
+#: beatstamp/certificate.py:435
+msgid "OpenTimestamps — Bitcoin block %(height)s"
+msgstr ""
+
+#: beatstamp/proof.py:221
 msgid "OpenTimestamps — waiting for a block"
+msgstr ""
+
+#: beatstamp/ui/journey.py:154
+msgid "OpenTimestamps, Bitcoin block %(height)s"
 msgstr ""
 
 #: beatstamp/ui/history_model.py:220
@@ -1114,226 +2327,433 @@ msgstr ""
 msgid "OpenTimestamps: submitted, waiting for a Bitcoin block"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:316
-msgid "Opens Windows Security, where BeatStamp can be allowed to write to protected folders."
+#: beatstamp/ui/handover_panel.py:61
+msgid "Opened"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:784
-#: beatstamp/ui/main_window.py:705
+#: beatstamp/ui/dialogs.py:779
+msgid "Opened packages:"
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:328
+msgid "Opens Windows Security, where Sigelith Desktop can be allowed to write to protected folders."
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:1010
+#: beatstamp/ui/main_window.py:947
+#: beatstamp/ui/witness_panel.py:134
 msgid "Opens in the browser: %(url)s"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:399
+#: beatstamp/ui/main_window.py:1742
+msgid "Opens sigelith.org/proof with this digest"
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:1536
+msgid "Opens the folder with the licence files in the file manager"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:588
 msgid ""
-"Opens the public verification page beattime.live/proof\n"
+"Opens the public verification page sigelith.org/proof\n"
 "with the digest filled in — an independent confirmation."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1701
+#: beatstamp/ui/witness_panel.py:100
+msgid "Opens the source of this check in the browser"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:186
+msgid "Optional: where and how"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:2338
 msgid "Overall state: <b>%(status)s</b><br>Database: %(database)s<br>Cache: %(cache)s<br>Server clock against NTP: %(offset)s (source: %(source)s)"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:385
-#: beatstamp/ui/main_window.py:506
-#: beatstamp/ui/main_window.py:595
+#: beatstamp/ui/main_window.py:574
+#: beatstamp/ui/main_window.py:694
+#: beatstamp/ui/main_window.py:790
+#: beatstamp/ui/main_window.py:1738
 msgid "PDF certificate"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1545
+#: beatstamp/ui/main_window.py:1933
 msgid "PDF certificate…"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1210
+#: beatstamp/ui/main_window.py:1586
 msgid "PDF document (*.pdf)"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:982
-msgid "People who support BeatTime and agreed to be named here"
+#: beatstamp/ui/handover_controller.py:520
+msgid "PDF documents (*.pdf)"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:673
-msgid "People who support BeatTime — the list is loaded from beattime.live"
+#: beatstamp/ui/handover_controller.py:335
+msgid "Package opened"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:309
+#: beatstamp/ui/handover_controller.py:261
+msgid "Package ready"
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:257
+msgid "Package sent"
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:409
+msgid "Packages and answers are exchanged through: %(path)s"
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:729
+msgid "Packages travel between the two of you — the Sigelith server stores no files and no messages. A shared folder only makes the exchange automatic."
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:595
+msgid "Paste the answer text (it starts with sigelith:answer:) or open the answer file."
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:1239
+msgid "People who support Sigelith and agreed to be named here"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:908
+msgid "People who support Sigelith — the list is loaded from sigelith.org"
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:321
 msgid "Pick another folder…"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:910
+#: beatstamp/ui/main_window.py:1195
 msgid "Please note:"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1090
+#: beatstamp/ui/main_window.py:1437
 msgid "Point to the document?"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:827
+#: beatstamp/ui/handover_controller.py:248
+msgid "Preparing the package…"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:1112
 msgid "Preparing…"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:914
-#: beatstamp/ui/main_window.py:683
+#: beatstamp/ui/handover_dialogs.py:962
+#: beatstamp/ui/handover_report.py:319
+msgid "Preview: %(value)s"
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:1151
+#: beatstamp/ui/main_window.py:916
 msgid "Privacy policy"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1150
+#: beatstamp/ui/main_window.py:2215
+msgid "Private mode: Sigelith Desktop keeps a copy of the whole public log."
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:507
+msgid "Private — keep a copy of the whole public log (recommended)"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:182
+msgid "Private — the whole log on this computer"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:185
+msgid ""
+"Private: Sigelith Desktop keeps a copy of the whole public log and computes\n"
+"every proof itself. The server never learns which entries are yours\n"
+"— not when statuses are refreshed and not when you check a file.\n"
+"\n"
+"Fast: Sigelith Desktop asks the server about each digest separately. Less\n"
+"data, but the server sees what you ask about.\n"
+"\n"
+"Stamping always sends the digest — that is its only purpose."
+msgstr ""
+
+#: beatstamp/ui/details.py:211
+msgid "Proof"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:1519
 msgid "Proof confirmed — %(name)s"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1337
-#: beatstamp/ui/main_window.py:1345
+#: beatstamp/ui/details.py:144
+msgid "Proof data"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:1757
+#: beatstamp/ui/main_window.py:1763
+#: beatstamp/ui/main_window.py:1767
 msgid "Proof details"
 msgstr ""
 
-#: beatstamp/history.py:459
+#: beatstamp/history.py:471
+#: beatstamp/ui/details.py:213
 msgid "Proof level"
 msgstr ""
 
-#: beatstamp/certificate.py:382
+#: beatstamp/certificate.py:611
 msgid "Proof level: %(level)s"
 msgstr ""
 
-#: beatstamp/certificate.py:361
+#: beatstamp/certificate.py:581
 msgid "Proof of existence of a document"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1263
+#: beatstamp/ui/main_window.py:1656
 msgid "Proof saved"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1246
+#: beatstamp/ui/main_window.py:1639
 msgid "Proof saved — it needs refreshing"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1255
+#: beatstamp/ui/main_window.py:1648
 msgid "Proof saved — not closed yet"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:276
+#: beatstamp/ui/main_window.py:395
 msgid "Proof that a file existed in time — without sending the file"
 msgstr ""
 
-#: beatstamp/certificate.py:420
+#: beatstamp/ui/handover_dialogs.py:473
+msgid "Proves when the package became readable for you."
+msgstr ""
+
+#: beatstamp/certificate.py:660
 msgid "Public key"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:904
+#: beatstamp/ui/witness_panel.py:238
+msgid "Public log"
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:1141
 msgid "Public register"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:891
+#: beatstamp/ui/dialogs.py:1127
 msgid "PySide6 sources"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:890
+#: beatstamp/ui/dialogs.py:1126
 msgid "Qt sources"
 msgstr ""
 
-#: beatstamp/workers.py:245
-msgid "Querying the BeatTime register…"
+#: beatstamp/workers.py:272
+msgid "Querying the Sigelith register…"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1027
+#: beatstamp/ui/main_window.py:1366
 msgid "Querying the register…"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:649
+#: beatstamp/ui/main_window.py:864
 msgid "Quit"
 msgstr ""
 
-#: beatstamp/certificate.py:161
+#: beatstamp/certificate.py:287
 msgid "RECORDED — root signed with a retired key, the proof needs refreshing"
 msgstr ""
 
-#: beatstamp/certificate.py:174
+#: beatstamp/certificate.py:300
 msgid "RECORDED — the week is still running, the anchor is on its way"
 msgstr ""
 
-#: beatstamp/certificate.py:173
+#: beatstamp/certificate.py:299
 msgid "RECORDED — week closed, the root signature is on its way"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:263
+#: beatstamp/ui/dialogs.py:1577
+msgid "Read %(name)s"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:374
 msgid "Ready. Drag files in to give them a timestamp."
 msgstr ""
 
+#: beatstamp/ui/handover_panel.py:240
+msgid "Received"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:370
+msgid "Received package — Sigelith Desktop"
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:260
+msgid "Received packages"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:238
+msgid "Recipient"
+msgstr ""
+
+#: beatstamp/ui/handover_report.py:163
+msgid "Recipient's card"
+msgstr ""
+
+#: beatstamp/licensing.py:138
+msgid "Recognises text encodings for requests."
+msgstr ""
+
 #: beatstamp/proof.py:104
+#: beatstamp/ui/journey.py:63
 msgid "Recorded"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:1015
+#: beatstamp/ui/handover_dialogs.py:674
+msgid "Recorded after the acceptance"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:673
+msgid "Recorded before the acceptance deadline"
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:1272
 msgid "Refresh"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:652
+#: beatstamp/ui/main_window.py:868
 msgid "Refresh proof statuses"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:557
+#: beatstamp/ui/main_window.py:750
 msgid "Refresh statuses"
 msgstr ""
 
-#: beatstamp/certificate.py:460
-msgid "Refresh the proof in BeatStamp (History -> Refresh statuses, F5) and issue the certificate again. <b>Until then this document certifies nothing.</b>"
+#: beatstamp/certificate.py:712
+msgid "Refresh the proof in Sigelith Desktop (History -> Refresh statuses, F5) and issue the certificate again. <b>Until then this document certifies nothing.</b>"
 msgstr ""
 
-#: beatstamp/proof.py:428
+#: beatstamp/proof.py:436
 msgid "Refresh the proof online (History -> Refresh statuses, F5) to fetch a signature made with the current key."
 msgstr ""
 
-#: beatstamp/workers.py:314
+#: beatstamp/workers.py:368
 msgid "Refreshing %(index)s of %(total)s…"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1615
+#: beatstamp/ui/main_window.py:2009
 msgid "Refreshing statuses…"
 msgstr ""
 
-#: beatstamp/certificate.py:401
-#: beatstamp/history.py:464
+#: beatstamp/ui/handover_dialogs.py:768
+msgid "Refusal"
+msgstr ""
+
+#: beatstamp/ui/handover_report.py:221
+msgid "Refusal recorded in the log"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:451
+msgid "Refuse"
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:298
+msgid "Refuse the package"
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:299
+msgid "Refuse this package? The refusal is signed with your card, and the package is deleted from this computer."
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:392
+#: beatstamp/ui/handover_dialogs.py:651
+#: beatstamp/ui/handover_panel.py:60
+#: beatstamp/ui/handover_panel.py:71
+msgid "Refused"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:526
+msgid "Refused %(when)s. The key part is never published."
+msgstr ""
+
+#: beatstamp/certificate.py:641
+#: beatstamp/history.py:476
 msgid "Register no."
 msgstr ""
 
-#: beatstamp/workers.py:207
-msgid "Registering in BeatTime: %(name)s"
+#: beatstamp/workers.py:217
+msgid "Registering in Sigelith: %(name)s"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1162
+#: beatstamp/ui/main_window.py:1531
 msgid "Rejected"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1587
-msgid "Remove <b>%(entries)s</b> from the local history?<br><br>The stamp <b>stays in the public BeatTime register</b> — the register is append-only and nothing can be removed from it. Only this list on this computer changes."
+#: beatstamp/ui/handover_dialogs.py:249
+#: beatstamp/ui/handover_panel.py:226
+msgid "Remove"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:607
-#: beatstamp/ui/main_window.py:1552
+#: beatstamp/ui/handover_controller.py:225
+msgid "Remove %(name)s from this application? Packages already sent stay."
+msgstr ""
+
+#: beatstamp/ui/main_window.py:1979
+msgid "Remove <b>%(entries)s</b> from the local history?<br><br>The stamp <b>stays in the public Sigelith register</b> — the register is append-only and nothing can be removed from it. Only this list on this computer changes."
+msgstr ""
+
+#: beatstamp/ui/main_window.py:803
+#: beatstamp/ui/main_window.py:1940
 msgid "Remove from history"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1586
+#: beatstamp/ui/main_window.py:1978
 msgid "Remove from history?"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:608
+#: beatstamp/ui/handover_controller.py:224
+msgid "Remove the contact"
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:227
+msgid "Remove the selected contact from this application. Sent packages stay."
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:250
+msgid "Remove the selected file from the package."
+msgstr ""
+
+#: beatstamp/ui/main_window.py:804
 msgid ""
 "Removes the entry from this list ONLY.\n"
-"The stamp in the public BeatTime register\n"
+"The stamp in the public Sigelith register\n"
 "stays — it cannot be undone."
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:408
+#: beatstamp/ui/handover_controller.py:528
+msgid "Report saved"
+msgstr ""
+
+#: beatstamp/licensing.py:120
+msgid "Required by a Qt image plugin that comes with Qt. Sigelith Desktop does not open PDF files with it."
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:427
 msgid "Restore defaults"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:531
+#: beatstamp/ui/dialogs.py:614
 msgid "Restore the built-in list"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:725
-#: beatstamp/ui/main_window.py:892
-#: beatstamp/ui/main_window.py:1060
-#: beatstamp/ui/main_window.py:1168
+#: beatstamp/ui/handover_report.py:189
+#: beatstamp/ui/handover_report.py:308
+msgid "Result"
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:943
+#: beatstamp/ui/main_window.py:1178
+#: beatstamp/ui/main_window.py:1400
+#: beatstamp/ui/main_window.py:1537
 msgid "Retired key"
 msgstr ""
 
@@ -1341,13 +2761,15 @@ msgstr ""
 msgid "Right-click to copy."
 msgstr ""
 
-#: beatstamp/certificate.py:417
+#: beatstamp/certificate.py:657
+#: beatstamp/ui/details.py:231
+#: beatstamp/ui/details.py:233
 msgid "Root signature"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:434
+#: beatstamp/ui/dialogs.py:453
 msgid ""
-"Routes traffic through a local Tor proxy to the BeatTime hidden service.\n"
+"Routes traffic through a local Tor proxy to the Sigelith hidden service.\n"
 "\n"
 "What for: the server does not learn your IP address, so stamps\n"
 "cannot be tied to you through the connection. The digest itself\n"
@@ -1356,157 +2778,544 @@ msgid ""
 "Requires a running Tor Browser or tor service on this computer."
 msgstr ""
 
-#: beatstamp/certificate.py:393
+#: beatstamp/certificate.py:623
+#: beatstamp/ui/details.py:199
 msgid "SHA-256 digest"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:366
+#: beatstamp/ui/main_window.py:493
 msgid "SHA-256 digest:"
 msgstr ""
 
-#: beatstamp/certificate.py:171
+#: beatstamp/certificate.py:297
 msgid "SIGNED — the week root is frozen and signed with Ed25519"
 msgstr ""
 
-#: beatstamp/i18n.py:250
-#: beatstamp/ui/dialogs.py:569
+#: beatstamp/i18n.py:383
+#: beatstamp/ui/dialogs.py:652
 msgid "Same as system"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:406
+#: beatstamp/ui/dialogs.py:425
 msgid "Save"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1310
+#: beatstamp/ui/handover_dialogs.py:634
+msgid "Save a PDF report…"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:555
+#: beatstamp/ui/handover_panel.py:274
+msgid "Save evidence…"
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:180
+msgid "Save my card"
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:204
+msgid "Save my card file…"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:472
+msgid "Save my evidence copy…"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:1707
 msgid "Save the OpenTimestamps proof"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1207
+#: beatstamp/ui/main_window.py:1584
 msgid "Save the PDF certificate"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:647
+#: beatstamp/ui/handover_controller.py:357
+msgid "Save the answer"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:460
+msgid "Save the answer file…"
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:463
+msgid "Save the defect proof"
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:457
+#: beatstamp/ui/handover_dialogs.py:485
+msgid "Save the defect proof…"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:844
+msgid "Save the disclosed files…"
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:434
+msgid "Save the evidence"
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:275
+msgid "Save the evidence package of the selected handover. Sigelith keeps no copy — keep it safe."
+msgstr ""
+
+#: beatstamp/ui/main_window.py:862
 msgid "Save the history to CSV or JSON"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1229
+#: beatstamp/ui/main_window.py:1623
 msgid "Save the offline proof"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:599
+#: beatstamp/ui/handover_controller.py:519
+msgid "Save the report"
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:172
+msgid "Save your card file and give it to the people who will send you packages. It holds only public keys."
+msgstr ""
+
+#: beatstamp/ui/main_window.py:1283
+msgid "Saved automatically · visible only on this computer"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:794
+#: beatstamp/ui/main_window.py:1740
 msgid "Saves a stand-alone .beatproof proof"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:510
+#: beatstamp/ui/main_window.py:698
 msgid "Saves a stand-alone proof for the checked digest"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:618
+#: beatstamp/ui/main_window.py:820
 msgid "Saves the history to a CSV (Excel) or JSON file"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:392
+#: beatstamp/ui/main_window.py:581
 msgid ""
 "Saves the proof in a form that can be checked WITHOUT this application\n"
-"and without access to beattime.live: the digest, the inclusion path, the\n"
+"and without access to sigelith.org: the digest, the inclusion path, the\n"
 "week root and the Ed25519 signature in one JSON file."
 msgstr ""
 
-#: beatstamp/certificate.py:481
-msgid "Scan to verify at beattime.live/proof"
+#: beatstamp/ui/handover_controller.py:471
+msgid "Saving the defect proof…"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:542
+#: beatstamp/certificate.py:563
+msgid "Scan to verify at sigelith.org/proof"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:735
 msgid "Search: file name, digest, note, week…"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1765
+#: beatstamp/ui/main_window.py:2152
+msgid "See the Witnesses tab"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:457
+msgid "See the block"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:852
+msgid "Send files with proof of delivery…"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:223
+msgid "Send files — Sigelith Desktop"
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:162
+msgid "Send files…"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:295
+msgid "Send the file by e-mail, a messenger or a USB stick."
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:366
+#: beatstamp/ui/handover_dialogs.py:461
+msgid "Send this file back to the sender, the same way the package came."
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:261
+msgid "Send this file to %(who)s by e-mail, a messenger or a USB stick. It is encrypted to their card; nobody else can open it."
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:396
+msgid "Sender"
+msgstr ""
+
+#: beatstamp/ui/handover_report.py:162
+msgid "Sender's card"
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:266
+msgid "Sent"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:514
+msgid "Sent package — Sigelith Desktop"
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:284
+msgid "Sent packages"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:548
+msgid "Sent: %(when)s"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:2422
 msgid "Settings saved."
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:394
-msgid "Settings — BeatStamp"
+#: beatstamp/ui/dialogs.py:406
+msgid "Settings — Sigelith Desktop"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:661
+#: beatstamp/ui/main_window.py:883
 msgid "Settings…"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1273
+#: beatstamp/ui/main_window.py:1670
 msgid "Show in folder"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:554
+#: beatstamp/ui/main_window.py:747
 msgid "Show only entries at the selected proof stage"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:685
+#: beatstamp/ui/main_window.py:919
 msgid "Show the event log"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:896
+#: beatstamp/ui/handover_dialogs.py:567
+msgid "Show the package file"
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:270
+msgid "Show the selected package and its status."
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:244
+msgid "Show the selected package: decide, send the answer again, open the files."
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:260
+#: beatstamp/ui/handover_dialogs.py:263
+msgid "Shown to the recipient before they accept."
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:1133
 msgid ""
 "Shows the full licence texts delivered with the program:\n"
 "%(path)s"
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:1579
+msgid "Shows the full text of this licence"
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:243
+#: beatstamp/ui/handover_panel.py:269
+msgid "Show…"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:1502
+msgid "Sigelith Backup file proof: %(name)s — the path in the backup tree leads to the sealed root."
+msgstr ""
+
+#: beatstamp/config.py:838
+msgid ""
+"Sigelith Desktop (formerly BeatStamp) has moved its data (stamp history, settings) to:\n"
+"\n"
+"    %(path)s\n"
+"\n"
+"This folder is no longer in use. The files were kept here as a copy — you can delete them once you are sure everything is in the new place.\n"
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:379
+msgid "Sigelith Desktop can write to this folder again:"
+msgstr ""
+
+#: beatstamp/config.py:632
+msgid "Sigelith Desktop cannot save data"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:1806
+msgid "Sigelith Desktop cannot save data in %(path)s — new stamps will not be recorded in the history until the folder is changed (Settings -> Data)."
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:509
+msgid ""
+"Sigelith Desktop downloads the whole public log (only digests, which are public anyway)\n"
+"and computes every proof itself. The server never learns which entries\n"
+"are yours — not when statuses are refreshed and not when you check a file."
+msgstr ""
+
+#: beatstamp/ui/main_window.py:2146
+msgid "Sigelith Desktop found something in the public log that must not happen: <b>%(what)s</b>.<br><br>The conflicting files were kept as evidence in the data folder. Details are in the Witnesses tab."
+msgstr ""
+
+#: beatstamp/__main__.py:250
+msgid "Sigelith Desktop is already running. Switch to its window — a second copy would work on the same data folder."
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:1427
+msgid "Sigelith Desktop is built from open-source components. Each one is listed with its licence and with what it does in this program. The full licence texts are delivered with the program — in the second tab — and the file NOTICE lists every file of the package with its licence."
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:811
+msgid "Sigelith Desktop keeps the stamp history, the settings and the event log in one folder. The proofs themselves live in the public Sigelith register, but the history is the only record of WHAT you stamped and when — it exists nowhere else."
+msgstr ""
+
+#: beatstamp/handover_tasks.py:115
+msgid "Sigelith Handover could not finish this step (%(code)s)."
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:514
+#: beatstamp/ui/handover_report.py:307
+#: beatstamp/ui/handover_report.py:330
+msgid "Sigelith Handover — report on a defect proof"
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:546
+#: beatstamp/ui/handover_report.py:188
+#: beatstamp/ui/handover_report.py:289
+msgid "Sigelith Handover — report on an evidence package"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:854
+msgid "Sigelith Handover: the recipient confirms receipt with their key"
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:358
+msgid "Sigelith answers (*%(suffix)s)"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:615
+msgid "Sigelith answers (*.sigelith-answer);;All files (*)"
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:181
+msgid "Sigelith cards (*%(suffix)s)"
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:202
+msgid "Sigelith cards (*%(suffix)s);;All files (*)"
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:40
+msgid "Sigelith handshake between the two devices"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:145
+msgid "Sigelith key RETIRED — the proof needs refreshing"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:141
+msgid "Sigelith key from the list built into the application"
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:271
+msgid "Sigelith packages (*%(suffix)s);;All files (*)"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:1625
+msgid "Sigelith proof (*.beatproof)"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:1426
+msgid "Sigelith proof (*.beatproof);;JSON files (*.json);;All files (*)"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:296
+msgid "Sigelith proof pipeline"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:558
+msgid "Sigelith served two DIFFERENT signed files under the same checkpoint number"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:2337
+msgid "Sigelith service status"
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:560
+msgid "Sigelith signs weekly Merkle roots with an Ed25519 key. The application checks that signature <b>locally</b> and compares the key with the <b>built-in list of Sigelith keys</b> — never with whatever the server sends.<br><br>Without that, the signature alone would prove nothing: a fake server would send its own key together with a matching signature and everything would add up. A signature from a <b>retired</b> key is not enough either — such a proof has to be refreshed online so that it gets a signature made with the current key."
+msgstr ""
+
+#: beatstamp/certificate.py:515
+msgid "Sigelith — proof of existence %(digest)s"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:198
+msgid "Sign and add"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:308
+msgid "Sign and send"
 msgstr ""
 
 #: beatstamp/proof.py:105
 msgid "Signed"
 msgstr ""
 
-#: beatstamp/history.py:457
+#: beatstamp/ui/witness_panel.py:242
+msgid ""
+"Signed states of the whole log, chained by the hash of the previous\n"
+"file. Sigelith Desktop checks the Ed25519 signature, the key, the chain and\n"
+"the RFC 9162 consistency proof between consecutive checkpoints."
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:345
+msgid "Signing key in Windows Hello (TPM), used only after you unlock it."
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:158
+msgid "Signing key in hardware, used only after the person unlocks it."
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:347
+msgid "Signing key stored in software, protected by your Windows account."
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:160
+msgid "Signing key stored in software."
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:295
+msgid "Signing the acceptance…"
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:217
+msgid "Signing the binding record…"
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:303
+msgid "Signing the refusal…"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:452
+msgid "Signs a refusal. The package is deleted from this computer."
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:448
+msgid "Signs the acceptance with your card and records it in the log before it leaves this computer."
+msgstr ""
+
+#: beatstamp/ui/handover_report.py:138
+msgid "Size"
+msgstr ""
+
+#: beatstamp/history.py:469
 msgid "Size (B)"
 msgstr ""
 
-#: beatstamp/history.py:266
+#: beatstamp/history.py:278
 msgid "Skipped %(count)s damaged history entries; the rest were read correctly."
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:251
+#: beatstamp/ui/witness_panel.py:259
+msgid ""
+"Snapshots in the Wayback Machine of the non-profit Internet Archive.\n"
+"Sigelith Desktop compares the archived checkpoint file byte for byte."
+msgstr ""
+
+#: beatstamp/licensing.py:122
+msgid "Software drawing, used only on computers without a working graphics driver."
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:263
 msgid "Some files could not be copied: %(names)s. The originals stayed in the previous folder."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:870
+#: beatstamp/ui/main_window.py:1155
 msgid "Some files did not work out"
 msgstr ""
 
-#: beatstamp/history.py:465
+#: beatstamp/ui/dialogs.py:676
+msgid ""
+"Sorting the folder by name then sorts it by time, and two versions of one\n"
+"document never get the same name."
+msgstr ""
+
+#: beatstamp/history.py:477
 msgid "Source"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:636
+#: beatstamp/ui/dialogs.py:1566
+msgid "Source code"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:842
 msgid "Stamp files…"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:244
+#: beatstamp/ui/main_window.py:333
 msgid "Stamping"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:659
-msgid "State of the BeatTime server"
+#: beatstamp/ui/dialogs.py:527
+msgid "Stamping always sends the digest of the file — that is its only purpose. The file itself never leaves this computer."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1624
+#: beatstamp/licensing.py:144
+msgid "Standard Windows runtime libraries."
+msgstr ""
+
+#: beatstamp/licensing.py:115
+msgid "Starts the program and unpacks its code — the executable file SigelithDesktop.exe itself."
+msgstr ""
+
+#: beatstamp/ui/main_window.py:876
+msgid "State of the Sigelith server"
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:240
+#: beatstamp/ui/handover_panel.py:266
+msgid "Status"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:2025
 msgid "Statuses refreshed"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:301
+#: beatstamp/ui/main_window.py:442
 msgid "Stop"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:789
+#: beatstamp/ui/dialogs.py:751
+msgid "Stop using it"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:1072
 msgid "Stopping…"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:302
+#: beatstamp/ui/main_window.py:444
 msgid "Stops the current task (Esc)"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:655
+#: beatstamp/ui/main_window.py:871
 msgid "Synchronise the clock"
 msgstr ""
 
-#: beatstamp/certificate.py:156
+#: beatstamp/ui/widgets.py:995
+msgid "Synchronise the clock with the Sigelith server (F6)"
+msgstr ""
+
+#: beatstamp/ui/widgets.py:1028
+msgid "Synchronised with the Sigelith server — difference %(offset)s s"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:2232
+msgid "Synchronising the clock…"
+msgstr ""
+
+#: beatstamp/certificate.py:282
 msgid "TVS ARCHIVE — entry from the old client, without verifiable proof"
 msgstr ""
 
@@ -1514,106 +3323,196 @@ msgstr ""
 msgid "TVS archive"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:790
+#: beatstamp/ui/main_window.py:1073
 msgid "Task stopped."
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:981
+#: beatstamp/ui/details.py:270
+msgid "Technical data (JSON) for experts"
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:1238
 msgid "Thank you"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:671
+#: beatstamp/ui/main_window.py:904
 msgid "Thank you to the supporters…"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:974
-msgid "Thank you — BeatStamp"
+#: beatstamp/ui/dialogs.py:1231
+msgid "Thank you — Sigelith Desktop"
 msgstr ""
 
-#: beatstamp/api.py:365
+#: beatstamp/api.py:731
 msgid "The .ots proof could not be downloaded (HTTP %(code)s)."
 msgstr ""
 
-#: beatstamp/proof.py:402
+#: beatstamp/proof.py:410
 msgid "The @beat time %(beat)s does not match the UTC time %(utc)s (it should be %(expected)s)."
 msgstr ""
 
-#: beatstamp/proof.py:391
+#: beatstamp/proof.py:399
 msgid "The @beat time has an invalid format."
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:713
+#: beatstamp/ui/dialogs.py:931
 msgid "The API address must start with <b>https://</b>.<br><br>An unencrypted connection exposes digests and answers to being swapped on the way."
 msgstr ""
 
-#: beatstamp/api.py:191
+#: beatstamp/api.py:357
 msgid "The API request limit was exceeded (20 stamps per minute per IP address). "
 msgstr ""
 
-#: beatstamp/api.py:201
-msgid "The BeatTime server returned error %(code)s. Try again in a moment."
-msgstr ""
-
-#: beatstamp/bundle.py:208
-#: beatstamp/proof.py:536
+#: beatstamp/bundle.py:256
+#: beatstamp/proof.py:544
 msgid "The Ed25519 signature of the week root is invalid."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:513
-msgid ""
-"The OpenTimestamps proof of the week — to be checked with an\n"
-"OpenTimestamps client, entirely outside BeatTime and outside this application."
+#: beatstamp/licensing.py:132
+msgid "The HTTP transport under requests."
 msgstr ""
 
-#: beatstamp/__main__.py:115
+#: beatstamp/ui/journey.py:88
+msgid "The Merkle root of the week is frozen and signed with the Sigelith Ed25519 key; Sigelith Desktop checked the signature and the inclusion path."
+msgstr ""
+
+#: beatstamp/ui/main_window.py:701
+msgid ""
+"The OpenTimestamps proof of the week — to be checked with an\n"
+"OpenTimestamps client, entirely outside Sigelith and outside this application."
+msgstr ""
+
+#: beatstamp/fileproof.py:107
+msgid "The Sigelith confirmation in the file proof is not about this backup seal."
+msgstr ""
+
+#: beatstamp/handover_tasks.py:114
+msgid "The Sigelith log answered for a different digest."
+msgstr ""
+
+#: beatstamp/ui/main_window.py:902
+msgid "The Sigelith manifesto"
+msgstr ""
+
+#: beatstamp/api.py:377
+msgid "The Sigelith server returned error %(code)s. Try again in a moment."
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:160
+msgid "The Sigelith server stores nothing — no files, no messages, no contacts; only digests go to the public log."
+msgstr ""
+
+#: beatstamp/handover_tasks.py:53
+msgid "The Windows Hello key of this card is no longer on this computer. Create a new card."
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:563
+msgid "The answer file or text the recipient sent back."
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:308
+msgid "The answer text is in the clipboard."
+msgstr ""
+
+#: beatstamp/__main__.py:142
 msgid ""
 "The application will try to carry on. The details were written to the event log:\n"
 "%(path)s"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1219
+#: beatstamp/ui/main_window.py:898
+msgid "The archive of signed checkpoints"
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:785
+msgid ""
+"The attestation proves that the signing key of your card lives in the TPM chip\n"
+"of this computer and is used only after Windows Hello. It names the maker and\n"
+"model of the TPM. Without it, the card only declares Windows Hello."
+msgstr ""
+
+#: beatstamp/fileproof.py:128
+msgid "The backup seal statement does not confirm this file tree."
+msgstr ""
+
+#: beatstamp/handover_tasks.py:72
+msgid "The binding record could not be made (%(code)s)."
+msgstr ""
+
+#: beatstamp/licensing.py:118
+msgid "The bridge between Python and C++ used by PySide6."
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:338
+msgid "The card holds only public keys. The signing key is created in Windows Hello and never leaves this computer."
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:101
+msgid "The card holds two public keys: one for your signature and one that people use to encrypt packages to you. It contains no name — the people you exchange it with know whose it is."
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:670
+msgid "The certificate and the .beatproof proof are named after the stamped file."
+msgstr ""
+
+#: beatstamp/ui/main_window.py:1596
+#: beatstamp/ui/main_window.py:1603
 msgid "The certificate could not be saved:<br>%(reason)s"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:588
-msgid ""
-"The certificate gets the name \"document_beattime.pdf\" instead of\n"
-"asking for it every time."
+#: beatstamp/ui/main_window.py:1608
+msgid "The certificate is in English: a PDF cannot reproduce this script faithfully."
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:255
+#: beatstamp/ui/main_window.py:2178
+msgid "The check did not work"
+msgstr ""
+
+#: beatstamp/bundle.py:307
+msgid "The checkpoint description does not match the checkpoint file inside the proof."
+msgstr ""
+
+#: beatstamp/api.py:597
+msgid "The checkpoint file could not be downloaded (HTTP %(code)s)."
+msgstr ""
+
+#: beatstamp/bundle.py:302
+msgid "The checkpoint in the proof is not signed with a Sigelith key valid at that time."
+msgstr ""
+
+#: beatstamp/bundle.py:297
+msgid "The checkpoint section of the proof is damaged."
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:267
 msgid "The choice could not be written down, so the next start will go back to the previous folder."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1671
+#: beatstamp/ui/main_window.py:2315
+msgid "The clock is out of step"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:2295
+msgid "The clock was not synchronised"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:2293
 msgid "The clock was not synchronised: %(reason)s"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:602
-msgid "The complete entry data (JSON)"
-msgstr ""
-
-#: beatstamp/ui/main_window.py:518
-msgid "The complete proof data (JSON)"
-msgstr ""
-
-#: beatstamp/ui/dialogs.py:1160
-msgid "The complete proof data in JSON. The <b>.beatproof</b> export writes the same values — you can check them with your own tool."
-msgstr ""
-
-#: beatstamp/ui/main_window.py:403
-msgid "The complete technical proof data in JSON"
-msgstr ""
-
-#: beatstamp/ui/dialogs.py:641
+#: beatstamp/ui/dialogs.py:824
 msgid "The current data folder. Changing it copies the files to the new place and checks straight away that writing works there — the old folder is left untouched."
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:310
+#: beatstamp/ui/dialogs.py:322
 msgid "The data are copied to the new folder; nothing is deleted from the old one."
 msgstr ""
 
-#: beatstamp/config.py:507
+#: beatstamp/handover_tasks.py:59
+msgid "The data does not meet the rules of the format (%(code)s)."
+msgstr ""
+
+#: beatstamp/config.py:650
 msgid ""
 "The data folder does not accept writes:\n"
 "%(path)s\n"
@@ -1623,20 +3522,64 @@ msgid ""
 "Pick another folder for the data — nothing is deleted, whatever is already in the old folder stays there."
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:246
+#: beatstamp/ui/dialogs.py:258
 msgid "The data folder is now:"
 msgstr ""
 
-#: beatstamp/certificate.py:483
+#: beatstamp/handover_tasks.py:110
+msgid "The deadline of this package has passed, so the key part is never published. Send a new package."
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:451
+#: beatstamp/ui/handover_report.py:326
+msgid "The defect proof holds the offer, both key parts and the encrypted package. Anyone who gets it can open the package as far as it opens — give it only to those who must judge the defect: the sender, a lawyer, an expert or a court."
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:482
+msgid "The defect proof lets anyone check the defect, without you or the sender — at sigelith.org/handover/verify/ or in Sigelith Desktop."
+msgstr ""
+
+#: beatstamp/certificate.py:565
 msgid "The digest in this entry has an invalid format — the QR code was skipped"
+msgstr ""
+
+#: beatstamp/ui/journey.py:65
+msgid "The digest is in the public, append-only register — the time of the entry will never change."
 msgstr ""
 
 #: beatstamp/proof.py:114
 msgid "The digest is in the public, append-only register. The current week is still running, so the Merkle root has not been frozen yet — the signature and the anchor arrive once it closes (Monday 00:00 UTC)."
 msgstr ""
 
-#: beatstamp/bundle.py:179
+#: beatstamp/bundle.py:227
+#: beatstamp/fileproof.py:117
 msgid "The digest of the selected file does NOT match the digest in the proof. The file was changed, or the proof is about a different document."
+msgstr ""
+
+#: beatstamp/ui/details.py:172
+msgid ""
+"The earliest anchor covering this entry: a Bitcoin block (OpenTimestamps)\n"
+"or a bank transfer. The entry must have existed before it."
+msgstr ""
+
+#: beatstamp/ui/journey.py:71
+msgid "The entry is inside a signed checkpoint of the whole log, and Sigelith Desktop checked its path to the checkpoint root itself."
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:557
+msgid "The evidence package: offer, answer and log proofs with their receipts. Sigelith keeps no copy — keep it safe."
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:845
+msgid "The exact files of the package, checked against the offer."
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:291
+msgid "The exchange folder (not set)"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:290
+msgid "The exchange folder: %(path)s"
 msgstr ""
 
 #: beatstamp/hashing.py:161
@@ -1655,90 +3598,163 @@ msgstr ""
 msgid "The file \"%(name)s\" is open in another program and locked for reading. Close it and try again."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1195
+#: beatstamp/ui/main_window.py:1567
 msgid "The file <b>%(name)s</b> already exists in this folder.<br><br>Overwrite it?"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1194
+#: beatstamp/ui/main_window.py:1566
 msgid "The file already exists"
 msgstr ""
 
-#: beatstamp/bundle.py:145
+#: beatstamp/ui/handover_report.py:136
+msgid "The file checked"
+msgstr ""
+
+#: beatstamp/handover_tasks.py:133
+msgid "The file could not be read or written: %(error)s"
+msgstr ""
+
+#: beatstamp/bundle.py:193
 msgid "The file does not contain a valid JSON object."
 msgstr ""
 
-#: beatstamp/bundle.py:249
+#: beatstamp/api.py:703
+#: beatstamp/api.py:710
+msgid "The file from %(host)s is unnaturally large."
+msgstr ""
+
+#: beatstamp/bundle.py:342
 msgid "The file is not a valid JSON document."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1040
+#: beatstamp/fileproof.py:123
+msgid "The file path in the proof does not match the leaf of the backup tree."
+msgstr ""
+
+#: beatstamp/fileproof.py:100
+msgid "The file proof is damaged — fields are missing or malformed."
+msgstr ""
+
+#: beatstamp/ui/main_window.py:1379
 msgid "The file was never stamped, or it was changed after stamping — even a single changed byte gives a completely different digest."
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:248
+#: beatstamp/ui/handover_controller.py:350
+msgid "The files open as soon as the sender publishes the key part."
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:244
+msgid "The files travel encrypted. Their names and contents are visible only to the recipient."
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:260
 msgid "The files were copied. The previous folder was left untouched: %(path)s"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:669
+#: beatstamp/ui/dialogs.py:866
 msgid "The folder is set for this run by the %(name)s environment variable, so it cannot be changed here."
 msgstr ""
 
-#: beatstamp/history.py:232
+#: beatstamp/ui/handover_controller.py:321
+msgid "The folder with the files of this package no longer exists: %(path)s"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:164
+msgid "The hardware attestation does not verify (%(code)s); the card itself is valid."
+msgstr ""
+
+#: beatstamp/history.py:244
 msgid "The history file could not be opened: %(reason)s."
 msgstr ""
 
-#: beatstamp/history.py:252
+#: beatstamp/history.py:264
 msgid "The history file had an unexpected structure and has been set aside as \"%(name)s\"."
 msgstr ""
 
-#: beatstamp/history.py:241
+#: beatstamp/history.py:253
 msgid "The history file was damaged and has been set aside as \"%(name)s\". The history starts over — the previous entries are in that file."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1634
+#: beatstamp/ui/main_window.py:2035
 msgid "The history is empty"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1608
+#: beatstamp/ui/main_window.py:2000
 msgid "The history is empty — there is nothing to refresh."
 msgstr ""
 
-#: beatstamp/proof.py:520
+#: beatstamp/ui/dialogs.py:849
+msgid "The history limit (Behaviour tab) removes the oldest entries from the history; a backup keeps them. Sigelith Backup (coming soon to Microsoft Store) can back up this folder together with the exact bytes of every stamped document — it only reads here and never changes anything."
+msgstr ""
+
+#: beatstamp/licensing.py:141
+msgid "The icons of the interface."
+msgstr ""
+
+#: beatstamp/proof.py:528
 msgid "The inclusion path does NOT lead to the given week root — the proof data is inconsistent."
 msgstr ""
 
-#: beatstamp/bundle.py:196
+#: beatstamp/bundle.py:244
 msgid "The inclusion path does not lead to the week root."
 msgstr ""
 
-#: beatstamp/certificate.py:458
+#: beatstamp/certificate.py:710
 msgid "The inclusion path, the root signature or the stamp time do not agree with the proof data. "
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:509
+#: beatstamp/ui/dialogs.py:592
 msgid ""
 "The key history shipped with this version of the program.\n"
-"Public list: beattime.live/spec/#keys"
+"Public list: sigelith.org/spec/#keys"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:1226
+#: beatstamp/ui/handover_dialogs.py:117
+msgid "The key is created in the TPM and each signature needs your PIN, face or fingerprint."
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:536
+msgid "The key part could not be published before the acceptance expired, so the delivery did not happen. Send a new package."
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:540
+msgid "The key part may have reached the log operator without being recorded. The contents could therefore become readable without a proof of delivery."
+msgstr ""
+
+#: beatstamp/handover_tasks.py:112
+msgid "The key part was not published (%(code)s)."
+msgstr ""
+
+#: beatstamp/ui/handover_report.py:280
+msgid "The key part was recorded in the public log after the acceptance and before its deadline. From that moment the recipient could open the package: that is the time of delivery."
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:892
+msgid "The key parts or the encrypted package in this file are not the ones the offer commits to, or the file breaks the format. It proves nothing about the offer."
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:544
+msgid "The last answer could not be completed (%(code)s)."
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:1510
 msgid "The licence texts are missing from this installation: %(path)s"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:1092
+#: beatstamp/ui/dialogs.py:1349
 msgid "The list could not be loaded. %(reason)s"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:1090
+#: beatstamp/ui/dialogs.py:1347
 msgid "The list could not be refreshed. %(reason)s"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:1099
+#: beatstamp/ui/dialogs.py:1356
 msgid "The list did not arrive in time. Please try again in a moment."
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:1004
-msgid "The list is downloaded from beattime.live — it is not part of the installed program."
+#: beatstamp/ui/dialogs.py:1261
+msgid "The list is downloaded from sigelith.org — it is not part of the installed program."
 msgstr ""
 
 #: beatstamp/supporters.py:155
@@ -1747,114 +3763,290 @@ msgstr ""
 msgid "The list of supporters came back in an unexpected format."
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:1273
+#: beatstamp/licensing.py:139
+msgid "The list of trusted root certificates for HTTPS."
+msgstr ""
+
+#: beatstamp/ui/main_window.py:2158
+msgid "The log checks out"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:385
+msgid "The log does not add up — see the alarm below"
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:1617
 msgid "The log is still empty."
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:992
-msgid "The names come from a public list on beattime.live. Everyone on it asked to be named and can withdraw at any time, so BeatStamp reloads the list at least once a day and keeps no copy older than that."
+#: beatstamp/ui/dialogs.py:1249
+msgid "The names come from a public list on sigelith.org. Everyone on it asked to be named and can withdraw at any time, so Sigelith Desktop reloads the list at least once a day and keeps no copy older than that."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1833
-msgid "The new language applies to texts drawn from now on. The whole window switches after BeatStamp is restarted."
+#: beatstamp/ui/main_window.py:2472
+msgid "The new language applies to texts drawn from now on. The whole window switches after Sigelith Desktop is restarted."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:330
+#: beatstamp/ui/journey.py:79
+msgid "The next daily checkpoint (after 00:00 UTC) will contain this entry."
+msgstr ""
+
+#: beatstamp/ui/main_window.py:1280
+msgid "The note applies to all %(count)s files of this batch."
+msgstr ""
+
+#: beatstamp/ui/main_window.py:516
 msgid ""
 "The note stays ONLY on this computer, in the local history.\n"
-"It is not sent to the register and does not reach the server certificate.\n"
-"It is saved together with the stamp and on every change of the text."
+"It is not sent to the register and does not reach the server.\n"
+"You can add or change it at any time — also later, in the History."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:369
-msgid "The only information that reaches the BeatTime register"
+#: beatstamp/ui/details.py:202
+msgid "The note stays only in the local history. It is not sent anywhere."
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:411
+msgid "The offer is not in the log."
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:486
+msgid "The offer, both key parts and the encrypted package in one file."
+msgstr ""
+
+#: beatstamp/ui/details.py:196
+msgid "The only information that reached the Sigelith register"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:492
+msgid "The only information that reaches the Sigelith register"
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:333
+#: beatstamp/ui/handover_dialogs.py:477
+msgid "The opened files differ from what the preview showed — the offer was defective, so your acceptance has no effect."
+msgstr ""
+
+#: beatstamp/licensing.py:134
+msgid "The optional connection through the Tor network."
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:493
+msgid "The other party's copy"
+msgstr ""
+
+#: beatstamp/handover_tasks.py:82
+msgid "The package could not be prepared (%(code)s)."
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:391
+msgid "The package did not open the way the sender offered it (%(code)s). The offer was defective, so your acceptance has no effect."
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:660
+msgid "The package does not hold up: its format or a signature is wrong."
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:884
+msgid "The package does not match what the sender signed in the offer: %(what)s. The recipient's acceptance of this offer has no effect."
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:258
+msgid "The package for %(who)s is in the exchange folder. Their application will pick it up; the answer comes back the same way."
+msgstr ""
+
+#: beatstamp/handover_tasks.py:86
+msgid "The package is defective, so the acceptance has no effect (%(code)s)."
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:236
+msgid "The package is encrypted to this card; only its owner can open it."
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:684
+#: beatstamp/ui/handover_dialogs.py:692
+#: beatstamp/ui/handover_dialogs.py:693
+#: beatstamp/ui/handover_dialogs.py:694
+#: beatstamp/ui/handover_dialogs.py:695
+#: beatstamp/ui/handover_dialogs.py:696
+msgid "The package opens as offered"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:889
+msgid "The package opens with the key parts committed in the offer and matches its preview. The claim of a defect is unfounded."
+msgstr ""
+
+#: beatstamp/fileproof.py:126
+msgid "The path in the backup tree does not lead to the sealed root."
+msgstr ""
+
+#: beatstamp/witness.py:1107
+msgid "The path of this entry does NOT lead to the root of checkpoint #%(n)s, which this application verified itself."
+msgstr ""
+
+#: beatstamp/bundle.py:323
+msgid "The path of this entry does not lead to the root of the checkpoint inside the proof."
+msgstr ""
+
+#: beatstamp/ui/journey.py:75
+msgid "The path to the checkpoint did not check out."
 msgstr ""
 
 #: beatstamp/hashing.py:152
 msgid "The path to the file \"%(name)s\" is too long."
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:596
+#: beatstamp/ui/handover_dialogs.py:685
+#: beatstamp/ui/handover_dialogs.py:690
+msgid "The preview matches the content"
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:703
 msgid ""
 "The previous version of the program overwrote certificates silently\n"
 "when a file of the same name was already in the folder."
 msgstr ""
 
-#: beatstamp/bundle.py:225
+#: beatstamp/bundle.py:273
 msgid "The proof contains no public key for the signature."
 msgstr ""
 
-#: beatstamp/bundle.py:228
+#: beatstamp/bundle.py:276
 msgid "The proof contains no root signature. Export it again once the week has closed so that it is complete."
 msgstr ""
 
-#: beatstamp/bundle.py:199
+#: beatstamp/bundle.py:247
 msgid "The proof contains no week root — the week was still open when it was exported."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1240
+#: beatstamp/ui/main_window.py:1633
 msgid "The proof could not be saved:<br>%(reason)s"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1055
+#: beatstamp/ui/main_window.py:1395
 msgid "The proof data did not pass the local check:"
 msgstr ""
 
-#: beatstamp/bundle.py:161
+#: beatstamp/bundle.py:209
 msgid "The proof does not contain a valid SHA-256 digest."
 msgstr ""
 
-#: beatstamp/bundle.py:241
+#: beatstamp/bundle.py:334
 msgid "The proof file could not be opened: %(reason)s."
 msgstr ""
 
-#: beatstamp/bundle.py:251
+#: beatstamp/bundle.py:344
 msgid "The proof file has an unexpected structure."
 msgstr ""
 
-#: beatstamp/bundle.py:245
+#: beatstamp/bundle.py:338
 msgid "The proof file is unnaturally large — rejected."
 msgstr ""
 
-#: beatstamp/bundle.py:167
+#: beatstamp/bundle.py:215
 msgid "The proof gives the week in an invalid format."
 msgstr ""
 
-#: beatstamp/bundle.py:170
+#: beatstamp/bundle.py:218
 msgid "The proof gives the week root in an invalid format."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1174
+#: beatstamp/ui/main_window.py:1543
 msgid "The proof is consistent but not closed yet — it was exported before the week ended. Check the digest in the register (the <b>Check digest</b> button) and export the proof again."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:891
-#: beatstamp/ui/main_window.py:1058
+#: beatstamp/ui/main_window.py:1177
+#: beatstamp/ui/main_window.py:1398
 msgid "The proof needs refreshing"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1166
+#: beatstamp/ui/main_window.py:1535
 msgid "The proof needs refreshing — %(name)s"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1153
-msgid "The proof was checked <b>entirely locally</b> — without connecting to beattime.live and without trusting anyone. The inclusion path, the root signature, the identity of the key and the week of the stamp all add up. The signature confirms that the document existed no later than the end of the week; the exact moment is given by the register."
+#: beatstamp/ui/main_window.py:1522
+msgid "The proof was checked <b>entirely locally</b> — without connecting to sigelith.org and without trusting anyone. The inclusion path, the root signature, the identity of the key and the week of the stamp all add up. The signature confirms that the document existed no later than the end of the week; the exact moment is given by the register."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1799
+#: beatstamp/ui/main_window.py:2447
 msgid "The proxy \"%(proxy)s\" is not a local address. Traffic to the .onion service goes over plain HTTP, so it reaches that machine in clear text — this is NOT anonymisation."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:670
+#: beatstamp/ui/main_window.py:897
+msgid "The public log and its checkpoints"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:393
+msgid "The public log checked by this application"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:165
+#: beatstamp/ui/witness_panel.py:389
+msgid "The public log has not been checked yet"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:893
 msgid "The public verification page"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:880
+#: beatstamp/ui/handover_dialogs.py:530
+msgid "The recipient did not answer before %(when)s. This is a status, not evidence of anything."
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:652
+msgid "The recipient refused the package (%(when)s)."
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:392
+msgid "The recipient refused the package. The key part is never published."
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:654
+msgid "The recipient refused the package; the refusal is not in the log."
+msgstr ""
+
+#: beatstamp/handover_tasks.py:108
+msgid "The recipient refused this package, so the key part is never published."
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:150
+msgid "The recipient sees the title and the list of files, but can open them only after signing the receipt with their own key (Windows Hello)."
+msgstr ""
+
+#: beatstamp/ui/handover_report.py:232
+msgid "The recipient signed a structured answer; this is its fixed reading, not free text."
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:293
+msgid "The recipient's application picks it up automatically."
+msgstr ""
+
+#: beatstamp/ui/handover_report.py:278
+msgid "The recipient's key signed an acceptance, stating that it holds that encrypted package."
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:647
+msgid "The recipient's signed acceptance took effect at %(when)s, when the key part was recorded in the Sigelith log."
+msgstr ""
+
+#: beatstamp/ui/main_window.py:1165
 msgid "The register did not confirm the write. Try again."
 msgstr ""
 
-#: beatstamp/proof.py:430
-msgid "The root of week%(week)s was signed with a BeatTime key retired on %(when)s. A signature from a retired key is no longer a proof, so the level stays \"Recorded\" — the external anchor is also waiting for confirmation. %(hint)s"
+#: beatstamp/ui/details.py:181
+msgid "The register gives the exact moment. The two bounds do not depend on the Sigelith clock at all — they can be checked in Bitcoin and at the bank."
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:528
+msgid "The report is a reading, not evidence — give it together with the checked file."
+msgstr ""
+
+#: beatstamp/ui/journey.py:104
+msgid "The root is in the Bitcoin chain (OpenTimestamps) — rewriting it would mean rewriting Bitcoin."
+msgstr ""
+
+#: beatstamp/proof.py:438
+msgid "The root of week%(week)s was signed with a Sigelith key retired on %(when)s. A signature from a retired key is no longer a proof, so the level stays \"Recorded\" — the external anchor is also waiting for confirmation. %(hint)s"
 msgstr ""
 
 #: beatstamp/ui/history_model.py:156
@@ -1865,336 +4057,550 @@ msgid ""
 "Refresh statuses (F5) to check the proof again."
 msgstr ""
 
-#: beatstamp/bundle.py:221
-msgid "The root was signed with a key other than the BeatTime keys built into the application — the signature does not prove its origin."
+#: beatstamp/bundle.py:269
+msgid "The root was signed with a key other than the Sigelith keys built into the application — the signature does not prove its origin."
+msgstr ""
+
+#: beatstamp/licensing.py:124
+msgid "The runtime the program is written in."
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:465
+msgid "The same answer as text, for pasting into a message."
 msgstr ""
 
 #: beatstamp/ui/history_model.py:42
 msgid "The same moment in @beat time — without time zones"
 msgstr ""
 
-#: beatstamp/api.py:169
+#: beatstamp/ui/dialogs.py:681
+msgid "The same moment in @beat — the same everywhere in the world."
+msgstr ""
+
+#: beatstamp/ui/details.py:274
+msgid "The same values the .beatproof export writes — to be checked with your own tool"
+msgstr ""
+
+#: beatstamp/ui/handover_report.py:269
+msgid "The sender attached the exact content of the package. It matches the hash committed in the offer, so these are the files the recipient could open."
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:407
+msgid "The sender calls themselves: %(name)s"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:384
+msgid "The sender did not publish the key part before your acceptance expired, so the acceptance has no effect. The encrypted content was deleted from this computer."
+msgstr ""
+
+#: beatstamp/ui/handover_report.py:276
+msgid "The sender's key signed an offer to the recipient's key, committing to the exact encrypted package."
+msgstr ""
+
+#: beatstamp/api.py:327
+#: beatstamp/api.py:336
 msgid "The server accepted the connection but sent no answer in time."
 msgstr ""
 
-#: beatstamp/api.py:129
+#: beatstamp/api.py:275
 msgid "The server address must start with https:// — an unencrypted connection is allowed only for an .onion address."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:888
+#: beatstamp/ui/main_window.py:1174
 msgid "The server answer did not pass the local check."
 msgstr ""
 
-#: beatstamp/api.py:239
+#: beatstamp/api.py:415
 msgid "The server answer exceeded the allowed size — the download was aborted."
 msgstr ""
 
-#: beatstamp/proof.py:452
+#: beatstamp/proof.py:460
 msgid "The server answer is not a valid JSON object."
 msgstr ""
 
-#: beatstamp/api.py:232
+#: beatstamp/api.py:408
 msgid "The server answer is unnaturally large — aborted."
 msgstr ""
 
-#: beatstamp/proof.py:461
+#: beatstamp/proof.py:469
 msgid "The server answered with a proof for a DIFFERENT digest than the one sent — the answer was rejected."
 msgstr ""
 
-#: beatstamp/api.py:153
+#: beatstamp/api.py:301
 msgid "The server certificate could not be verified. The connection was aborted. Check whether something is intercepting the traffic (corporate firewall, antivirus with HTTPS inspection)."
 msgstr ""
 
-#: beatstamp/proof.py:595
+#: beatstamp/proof.py:603
 msgid "The server claims the week root is anchored, but it did not supply the complete data (inclusion path + signature), so this could not be confirmed locally. The proof level stays \"Recorded\"."
 msgstr ""
 
-#: beatstamp/api.py:165
+#: beatstamp/witness.py:1088
+msgid "The server describes checkpoint #%(n)s with a different tree size than the signed checkpoint file this application verified."
+msgstr ""
+
+#: beatstamp/api.py:322
 msgid "The server did not answer in time (limit %(seconds)s s to connect)."
 msgstr ""
 
-#: beatstamp/proof.py:547
+#: beatstamp/proof.py:555
 msgid "The server did not give a public key for the signature."
 msgstr ""
 
-#: beatstamp/api.py:342
+#: beatstamp/api.py:553
 msgid "The server did not issue a certificate (HTTP %(code)s)."
 msgstr ""
 
-#: beatstamp/api.py:312
+#: beatstamp/api.py:532
 msgid "The server did not return a synchronisation time."
 msgstr ""
 
-#: beatstamp/proof.py:609
+#: beatstamp/proof.py:617
 msgid "The server did not supply an inclusion path — membership in the root could not be confirmed locally."
 msgstr ""
 
-#: beatstamp/proof.py:584
+#: beatstamp/proof.py:592
 msgid "The server gave a confirmed bank anchor for a root other than the root of this week — that anchor was not accepted."
 msgstr ""
 
-#: beatstamp/proof.py:499
+#: beatstamp/proof.py:507
 msgid "The server gave the week root in an invalid format — the answer was rejected."
 msgstr ""
 
-#: beatstamp/api.py:215
+#: beatstamp/api.py:360
+msgid "The server received too many requests from this address. "
+msgstr ""
+
+#: beatstamp/api.py:391
+#: beatstamp/api.py:637
 msgid "The server rejected the request (HTTP %(code)s)."
 msgstr ""
 
-#: beatstamp/proof.py:473
+#: beatstamp/proof.py:481
 msgid "The server returned a digest in an invalid format."
 msgstr ""
 
-#: beatstamp/api.py:316
+#: beatstamp/api.py:536
 msgid "The server returned a time in an invalid format."
 msgstr ""
 
-#: beatstamp/api.py:258
-#: beatstamp/api.py:267
-#: beatstamp/api.py:295
+#: beatstamp/api.py:434
+#: beatstamp/api.py:455
+#: beatstamp/api.py:483
+#: beatstamp/api.py:568
+#: beatstamp/api.py:607
 msgid "The server returned an answer in an unexpected format."
 msgstr ""
 
-#: beatstamp/api.py:208
+#: beatstamp/api.py:384
+#: beatstamp/api.py:642
 msgid "The server sent back an answer that cannot be read as JSON."
 msgstr ""
 
-#: beatstamp/api.py:345
+#: beatstamp/api.py:556
 msgid "The server sent back data that is not a PDF file."
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:1127
+#: beatstamp/ui/dialogs.py:1384
 msgid "The server sent more names than this window shows."
 msgstr ""
 
-#: beatstamp/proof.py:550
-msgid "The server signed the root with a key OTHER than the BeatTime keys built into the application. The signature may be technically valid, but it does not prove it comes from BeatTime."
+#: beatstamp/proof.py:558
+msgid "The server signed the root with a key OTHER than the Sigelith keys built into the application. The signature may be technically valid, but it does not prove it comes from Sigelith."
 msgstr ""
 
-#: beatstamp/api.py:184
+#: beatstamp/api.py:349
 msgid "The server tried to redirect the request — rejected for security reasons."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:118
-msgid "The signature comes from a retired BeatTime key."
+#: beatstamp/ui/main_window.py:152
+msgid "The signature comes from a retired Sigelith key."
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:234
+#: beatstamp/ui/handover_report.py:155
+msgid "The source code of the verifier and of the reference implementation is open (Apache-2.0), with test vectors: %(url)s"
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:246
 msgid ""
 "The stamp history is a list of your documents: their names and their digests. In this folder OneDrive will copy it to the cloud and to your other computers.\n"
 "\n"
 "Use this folder anyway?"
 msgstr ""
 
-#: beatstamp/proof.py:414
+#: beatstamp/proof.py:422
 msgid "The stamp time (%(utc)s) lies outside week %(week)s (%(range)s UTC), whose root the proof covers. The signature confirms only the week, so a time outside it has no backing in the proof — the data is inconsistent."
 msgstr ""
 
-#: beatstamp/proof.py:387
+#: beatstamp/proof.py:395
 msgid "The stamp time (UTC) has an invalid format."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:779
+#: beatstamp/ui/main_window.py:411
+msgid ""
+"The state of the public log as checked by this application. Click to see\n"
+"the witnesses: checkpoints, Bitcoin, the bank and the independent copies."
+msgstr ""
+
+#: beatstamp/ui/main_window.py:1018
 msgid "The task ended with an error."
 msgstr ""
 
-#: beatstamp/proof.py:604
+#: beatstamp/handover_tasks.py:93
+msgid "The time to answer this package has passed, so it can no longer be accepted or refused."
+msgstr ""
+
+#: beatstamp/ui/handover_report.py:151
+msgid "The times rest on receipts signed with the Sigelith log key (Ed25519): %(key)s. Within a day each entry is also confirmed outside Sigelith's control — by a checkpoint in public archives, then in Bitcoin."
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:808
+msgid "The times rest on the Sigelith log's signatures (receipts). Below: what this application confirmed outside Sigelith's control."
+msgstr ""
+
+#: beatstamp/handover_tasks.py:81
+msgid "The title or the note contains characters that are not allowed."
+msgstr ""
+
+#: beatstamp/licensing.py:142
+msgid "The typeface of the digests, of the clock and of the technical data."
+msgstr ""
+
+#: beatstamp/licensing.py:140
+msgid "The typeface of the interface and of the PDF certificate."
+msgstr ""
+
+#: beatstamp/ui/journey.py:95
+msgid "The week closes on Monday at 00:00 UTC; then its root is signed."
+msgstr ""
+
+#: beatstamp/proof.py:612
 msgid "The week is closed, but the root has no signature yet. This usually means the closing is under way."
 msgstr ""
 
-#: beatstamp/proof.py:410
+#: beatstamp/proof.py:418
 msgid "The week of the proof does not exist in the ISO calendar."
+msgstr ""
+
+#: beatstamp/witness.py:1251
+msgid "The week root given by the server does not match the root computed from the public log itself — the server presents two different versions of week %(week)s."
+msgstr ""
+
+#: beatstamp/ui/journey.py:112
+msgid "The week root is in the title of a bank transfer (MROOT) — confirmed by the bank."
 msgstr ""
 
 #: beatstamp/ui/history_model.py:150
 msgid ""
-"The week root was signed with a BeatTime key that has been\n"
+"The week root was signed with a Sigelith key that has been\n"
 "retired — such a signature is no longer a proof, so the level\n"
 "stays \"Recorded\".\n"
 "\n"
 "Refresh statuses (F5) to fetch a signature made with the current key."
 msgstr ""
 
-#: beatstamp/certificate.py:454
-msgid "The week root was signed with a key outside the BeatTime key list built into the application — such a signature does not prove its origin. "
+#: beatstamp/certificate.py:706
+msgid "The week root was signed with a key outside the Sigelith key list built into the application — such a signature does not prove its origin. "
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:575
+#: beatstamp/licensing.py:119
+msgid "The whole user interface: windows, buttons, text and drawing."
+msgstr ""
+
+#: beatstamp/ui/main_window.py:2145
+msgid "The witnesses raised an alarm"
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:658
 msgid "Theme:"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1635
+#: beatstamp/handover_tasks.py:101
+msgid "There is no answer yet."
+msgstr ""
+
+#: beatstamp/ui/main_window.py:2036
 msgid "There is nothing to export yet."
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:855
+#: beatstamp/ui/dialogs.py:1084
 msgid "They are used unmodified and linked dynamically. This copy comes from the Microsoft Store, so its files cannot be exchanged in place — the package is installed read-only and bound to its signature. To run this program against your own build of Qt, use the portable release of the same version, where the libraries sit in the <code>_internal</code> folder next to the program; the notices below say how to obtain it."
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:864
+#: beatstamp/ui/dialogs.py:1093
 msgid "They are used unmodified and linked dynamically: the libraries sit in the <code>_internal</code> folder next to the program and may be replaced with your own build of the same version."
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:726
-msgid "This BeatTime key was retired on %(date)s and cannot be accepted — a signature made with it is no longer a proof.<br><br>Leave the field empty to use the built-in list of keys."
+#: beatstamp/ui/dialogs.py:944
+msgid "This Sigelith key was retired on %(date)s and cannot be accepted — a signature made with it is no longer a proof.<br><br>Leave the field empty to use the built-in list of keys."
 msgstr ""
 
-#: beatstamp/certificate.py:373
-msgid "This certificate attests that the document with the SHA-256 digest given below was registered in the public, append-only BeatTime register at the moment shown — in <b>@beat</b> time (1000 beats per day, anchored in UTC). The document itself <b>never left the computer</b>: only its cryptographic digest went to the register."
+#: beatstamp/handover_tasks.py:96
+msgid "This answer cannot be read, or it does not belong to a package sent from this application."
 msgstr ""
 
-#: beatstamp/ui/widgets.py:296
-msgid "This computer's clock is %(direction)s the BeatTime server time by %(seconds)s s. Timestamps are issued by the server, so the proof is correct — but the clock shown next to it may differ from the real @beat."
+#: beatstamp/certificate.py:602
+msgid "This certificate attests that the document with the SHA-256 digest given below was registered in the public, append-only Sigelith register at the moment shown — in <b>@beat</b> time (1000 beats per day, anchored in UTC). The document itself <b>never left the computer</b>: only its cryptographic digest went to the register."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1038
-msgid "This digest <b>does not appear</b> in the BeatTime register.<br><br>"
+#: beatstamp/ui/handover_dialogs.py:943
+#: beatstamp/ui/handover_report.py:309
+msgid "This check is arithmetic only: it needs neither the log nor the network, and anyone who repeats it gets the same result."
+msgstr ""
+
+#: beatstamp/ui/widgets.py:1050
+msgid "This computer's clock is %(direction)s the Sigelith server time by %(seconds)s s. Timestamps are issued by the server, so the proof is correct — but the clock shown next to it may differ from the real @beat."
+msgstr ""
+
+#: beatstamp/ui/main_window.py:1377
+msgid "This digest <b>does not appear</b> in the Sigelith register.<br><br>"
 msgstr ""
 
 #: beatstamp/proof.py:113
-msgid "This digest does not appear in the public BeatTime register."
+msgid "This digest does not appear in the public Sigelith register."
 msgstr ""
 
-#: beatstamp/api.py:338
+#: beatstamp/api.py:549
 msgid "This digest has no stamp yet, so there is no certificate for it on the server."
 msgstr ""
 
-#: beatstamp/certificate.py:367
+#: beatstamp/certificate.py:596
 msgid "This document describes an entry whose proof was <b>not confirmed</b> by the local check. <b>It does not certify a timestamp</b> — the values below are merely the data stored in the entry."
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:1254
+#: beatstamp/ui/dialogs.py:1598
 msgid "This file could not be read: %(name)s"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:897
+#: beatstamp/ui/main_window.py:1183
 msgid "This file had already been stamped"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:233
+#: beatstamp/ui/dialogs.py:245
 msgid "This folder is inside OneDrive"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:181
+#: beatstamp/ui/dialogs.py:193
 msgid "This folder is outside OneDrive and outside Windows Backup, so the stamp history is not copied anywhere by itself. If it matters to you, make your own copy of the folder."
 msgstr ""
 
-#: beatstamp/supporters.py:205
-msgid "This version of BeatStamp cannot read the list of supporters (the server speaks version %(version)s). A newer version of the application can."
+#: beatstamp/ui/witness_panel.py:577
+msgid "This is exactly what the witnesses exist for. Sigelith Desktop kept the conflicting files as evidence. Do not delete them; report the case to Sigelith and keep your own copy."
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:467
+#: beatstamp/ui/dialogs.py:685
+msgid "This is how the next certificate will be named. If a file of that name already exists, Sigelith Desktop adds \"(2)\" — it never proposes to overwrite it."
+msgstr ""
+
+#: beatstamp/handover_tasks.py:68
+msgid "This is not a valid Sigelith card file."
+msgstr ""
+
+#: beatstamp/handover_tasks.py:70
+msgid "This is your own card."
+msgstr ""
+
+#: beatstamp/handover_tasks.py:84
+msgid "This package cannot be opened: %(why)s"
+msgstr ""
+
+#: beatstamp/handover_tasks.py:91
+msgid "This package has already been answered."
+msgstr ""
+
+#: beatstamp/handover_tasks.py:99
+msgid "This package is not known to this application."
+msgstr ""
+
+#: beatstamp/handover_tasks.py:89
+msgid "This package opened as offered, so there is no defect to prove."
+msgstr ""
+
+#: beatstamp/licensing.py:113
+msgid "This program. Its source code is public under the Apache License 2.0."
+msgstr ""
+
+#: beatstamp/ui/handover_report.py:133
+msgid "This report is a reading of the file below. It is not evidence itself: the evidence is the file, and anyone can check it again — see the last section."
+msgstr ""
+
+#: beatstamp/supporters.py:205
+msgid "This version of Sigelith Desktop cannot read the list of supporters (the server speaks version %(version)s). A newer version of the application can."
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:548
+msgid ""
+"Those services learn only that someone downloads public Sigelith files —\n"
+"nothing about your documents. Without this, the witnesses compare Sigelith\n"
+"only with itself."
+msgstr ""
+
+#: beatstamp/ui/handover_report.py:241
+msgid "Time (UTC)"
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:487
 msgid "Time limit:"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:836
-msgid "TimeVaultSecure (timevaultsecure.com) is an earlier product by the same author, and BeatStamp carries over the history it left behind."
-msgstr ""
-
-#: beatstamp/certificate.py:333
+#: beatstamp/certificate.py:517
 msgid "Timestamp certificate"
 msgstr ""
 
-#: beatstamp/certificate.py:362
-msgid "Timestamp certificate · beattime.live"
+#: beatstamp/certificate.py:582
+msgid "Timestamp certificate · sigelith.org"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:896
+#: beatstamp/ui/main_window.py:1182
 msgid "Timestamp granted"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:372
-#: beatstamp/ui/main_window.py:496
+#: beatstamp/ui/main_window.py:498
 msgid "Timestamp:"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:457
+#: beatstamp/ui/handover_dialogs.py:911
+#: beatstamp/ui/handover_panel.py:240
+#: beatstamp/ui/handover_panel.py:266
+msgid "Title"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:259
+msgid "Title, for example: Annex to the lease"
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:266
+msgid "To"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:547
+msgid "To: %(who)s"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:432
+msgid "Together: %(size)s"
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:477
 msgid "Tor proxy:"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1793
+#: beatstamp/ui/handover_dialogs.py:918
+msgid "Total size"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:2441
 msgid ""
-"Traffic goes through the Tor network to the BeatTime hidden service.\n"
+"Traffic goes through the Tor network to the Sigelith hidden service.\n"
 "The server does not learn your IP address."
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:323
+#: beatstamp/ui/dialogs.py:335
 msgid "Tries to write a test file to the folder once more."
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:400
+#: beatstamp/ui/dialogs.py:415
 msgid "Trust"
 msgstr ""
 
-#: beatstamp/api.py:193
+#: beatstamp/api.py:364
 msgid "Try again in %(seconds)s s."
 msgstr ""
 
-#: beatstamp/certificate.py:164
-msgid "UNCONFIRMED — root signed with a key outside the BeatTime list, signature not binding"
+#: beatstamp/certificate.py:290
+msgid "UNCONFIRMED — root signed with a key outside the Sigelith list, signature not binding"
 msgstr ""
 
-#: beatstamp/certificate.py:167
+#: beatstamp/certificate.py:293
 msgid "UNCONFIRMED — the proof did not pass the local check"
 msgstr ""
 
-#: beatstamp/certificate.py:396
-#: beatstamp/history.py:453
+#: beatstamp/history.py:465
+#: beatstamp/ui/details.py:163
 msgid "UTC time"
 msgstr ""
 
-#: beatstamp/workers.py:226
+#: beatstamp/workers.py:238
 msgid "Unexpected error: %(kind)s."
 msgstr ""
 
-#: beatstamp/bundle.py:148
+#: beatstamp/ui/handover_dialogs.py:400
+msgid "Unknown card. Compare the fingerprint with the sender before you accept — anybody can send you a package."
+msgstr ""
+
+#: beatstamp/bundle.py:196
+#: beatstamp/fileproof.py:86
 msgid "Unknown proof format (expected \"%(format)s\")."
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:607
+#: beatstamp/ui/dialogs.py:1064
+msgid "Until version 2.2 this program was called BeatStamp. TimeVaultSecure (timevaultsecure.com) is an earlier product by the same author, and Sigelith Desktop carries over the history it left behind."
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:714
 msgid ""
 "Upper ceiling on the number of entries in the local history. Above\n"
 "it the OLDEST entries are removed. 0 = no limit.\n"
 "\n"
-"The proof itself is in the public BeatTime register — removing an\n"
+"The proof itself is in the public Sigelith register — removing an\n"
 "entry from the local history does not delete the stamp."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:245
+#: beatstamp/ui/main_window.py:334
 msgid "Verification"
 msgstr ""
 
-#: beatstamp/history.py:466
+#: beatstamp/history.py:478
 msgid "Verification address"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1152
+#: beatstamp/ui/handover_dialogs.py:190
+msgid "Verified by"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:1521
 msgid "Verified offline"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:638
+#: beatstamp/ui/main_window.py:844
 msgid "Verify a file…"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:577
+#: beatstamp/ui/handover_panel.py:177
+msgid "Verify evidence…"
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:660
 msgid "Verify the proof right after stamping"
 msgstr ""
 
-#: beatstamp/api.py:194
+#: beatstamp/api.py:365
 msgid "Wait a moment."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:735
+#: beatstamp/ui/main_window.py:975
 msgid "Wait for the current task to finish, or stop it (Esc)."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:885
-#: beatstamp/ui/main_window.py:1052
+#: beatstamp/ui/handover_panel.py:69
+msgid "Waiting for the answer"
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:58
+msgid "Waiting for your decision"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:1171
+#: beatstamp/ui/main_window.py:1392
 msgid "Warning"
 msgstr ""
 
-#: beatstamp/certificate.py:409
-#: beatstamp/history.py:460
+#: beatstamp/ui/witness_panel.py:554
+msgid "Warning from the witnesses"
+msgstr ""
+
+#: beatstamp/certificate.py:649
+#: beatstamp/history.py:472
+#: beatstamp/ui/details.py:219
 msgid "Week"
 msgstr ""
 
@@ -2202,154 +4608,635 @@ msgstr ""
 msgid "Week %(week)s (%(state)s)"
 msgstr ""
 
-#: beatstamp/api.py:362
+#: beatstamp/api.py:728
 msgid "Week %(week)s has no OpenTimestamps proof yet."
 msgstr ""
 
 #: beatstamp/proof.py:119
-msgid "Week closed: the Merkle root is frozen and signed with the BeatTime Ed25519 key, and the digest was confirmed locally to belong to that root. The external anchor is on its way."
+msgid "Week closed: the Merkle root is frozen and signed with the Sigelith Ed25519 key, and the digest was confirmed locally to belong to that root. The external anchor is on its way."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:378
+#: beatstamp/ui/journey.py:83
+#: beatstamp/ui/journey.py:87
+#: beatstamp/ui/journey.py:94
+msgid "Week signed"
+msgstr ""
+
+#: beatstamp/ui/handover_report.py:241
+msgid "What"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:894
+msgid "What a timestamp proves"
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:1439
+msgid "What it does in Sigelith Desktop"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:505
 msgid "What the application computed ITSELF, without trusting the server"
+msgstr ""
+
+#: beatstamp/ui/handover_report.py:222
+#: beatstamp/ui/handover_report.py:315
+msgid "What the package shows"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:958
+#: beatstamp/ui/handover_report.py:318
+msgid "What the preview showed — and what the package holds"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:895
+msgid "What the proof says in a dispute — and what it does not"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:256
+msgid "What the recipient sees before accepting"
+msgstr ""
+
+#: beatstamp/ui/handover_report.py:230
+msgid "What the recipient signed"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:353
+msgid "What this application checks in the public log by itself"
+msgstr ""
+
+#: beatstamp/ui/handover_report.py:275
+#: beatstamp/ui/handover_report.py:323
+msgid "What this proves — and what it does not"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:438
+msgid "What you sign when you accept"
+msgstr ""
+
+#: beatstamp/ui/details.py:158
+msgid "When"
 msgstr ""
 
 #: beatstamp/ui/history_model.py:41
 msgid "When the stamp was created, in your time zone"
 msgstr ""
 
-#: beatstamp/ui/history_model.py:48
-msgid "Where the week root was preserved outside BeatTime"
+#: beatstamp/ui/handover_dialogs.py:183
+msgid "When you verified the card."
 msgstr ""
 
-#: beatstamp/config.py:495
+#: beatstamp/ui/dialogs.py:765
+msgid ""
+"Where the files of an opened package are saved. Each package gets its own\n"
+"folder, and the files are marked as coming from the internet."
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:289
+msgid "Where the package goes"
+msgstr ""
+
+#: beatstamp/ui/history_model.py:48
+msgid "Where the week root was preserved outside Sigelith"
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:771
+#: beatstamp/ui/handover_controller.py:549
+msgid "Where to save the files"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:337
+msgid "Where to save the package"
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:499
+msgid "While Sigelith Desktop is open it checks the public Sigelith log by itself: every new signed checkpoint, the chain between them and the copies kept by third parties. Choose how it checks YOUR proofs."
+msgstr ""
+
+#: beatstamp/ui/main_window.py:903
+msgid "Why Sigelith exists"
+msgstr ""
+
+#: beatstamp/handover_tasks.py:147
+msgid "Windows Hello asks twice: for the new key and for signing the card."
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:340
+msgid "Windows Hello is not available here: the signing key will be kept in software, protected by your Windows account — the card says so."
+msgstr ""
+
+#: beatstamp/handover_tasks.py:51
+#: beatstamp/ui/handover_dialogs.py:119
+msgid "Windows Hello is not available on this computer."
+msgstr ""
+
+#: beatstamp/handover_tasks.py:55
+msgid "Windows Hello reported an error: %(detail)s"
+msgstr ""
+
+#: beatstamp/handover_tasks.py:49
+msgid "Windows Hello was cancelled, so nothing was signed."
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:124
+msgid "Windows Hello will ask twice: for the new key and for signing the card."
+msgstr ""
+
+#: beatstamp/config.py:638
 msgid ""
 "Windows is blocking writes to this folder:\n"
 "%(path)s\n"
 "\n"
 "This is almost always ransomware protection in Windows Security (\"Controlled folder access\"). It lets only applications it already knows write to folders such as Documents, Pictures or Videos — a newly installed program is not one of them yet.\n"
 "\n"
-"There are two ways out: allow BeatStamp in the Windows ransomware protection settings, or pick another folder for the data. Nothing is deleted either way — whatever is already in the old folder stays there."
+"There are two ways out: allow Sigelith Desktop in the Windows ransomware protection settings, or pick another folder for the data. Nothing is deleted either way — whatever is already in the old folder stays there."
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:315
+#: beatstamp/ui/dialogs.py:327
 msgid "Windows protection settings…"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:756
-#: beatstamp/ui/main_window.py:822
+#: beatstamp/ui/handover_report.py:283
+msgid "With the disclosed content, anyone can check which files the package held."
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:420
+msgid "With the files"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:126
+msgid "Without Windows Hello the key is stored in software, protected by your Windows account. The card says so, and so does every evidence package."
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:421
+msgid "Without the files"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:358
+msgid "Witness alarm"
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:414
+#: beatstamp/ui/main_window.py:340
+msgid "Witnesses"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:2166
+msgid "Witnesses: %(n)s new checkpoints checked"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:997
+#: beatstamp/ui/main_window.py:1107
 msgid "Working…"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1786
-msgid "YOUR OWN public key is set — besides the built-in list of BeatTime keys the application also accepts signatures made with that key."
+#: beatstamp/ui/main_window.py:2434
+msgid "YOUR OWN public key is set — besides the built-in list of Sigelith keys the application also accepts signatures made with that key."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:811
+#: beatstamp/ui/main_window.py:1094
 msgid "You are about to stamp <b>%(files)s</b>.<br><br>The server accepts 20 stamps per minute, so the operation will take about %(minutes)s. Continue?"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:450
+#: beatstamp/ui/main_window.py:655
 msgid ""
 "You can check any digest — including one you did not stamp\n"
 "from this computer. Enter starts the check."
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:147
+msgid "You choose a contact and files. The application encrypts them into a package that only this person can open. The package travels by e-mail, a messenger, a USB stick or a shared folder — never through the Sigelith server."
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:387
+msgid "You did not answer before the deadline, so the offer lapsed. The encrypted content was deleted from this computer."
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:335
+msgid "You have no card yet"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:100
+msgid "Your Sigelith card"
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:348
+msgid "Your answer is signed, recorded in the log and placed in the exchange folder."
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:152
+msgid "Your application then records the missing key part in the public Sigelith log — that is the moment of delivery. The recipient's application finds it and opens the files by itself; you keep the evidence package."
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:343
+msgid "Your card fingerprint — compare it aloud, group by group:"
+msgstr ""
+
+#: beatstamp/ui/handover_controller.py:171
+msgid "Your card is ready"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:106
+msgid "Your current card will be archived. Packages sent to it can still be opened here, but give people your new card file."
+msgstr ""
+
+#: beatstamp/ui/details.py:161
+msgid "Your local time"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:498
+msgid ""
+"Your local time, UTC and @beat — the same moment. Below: the two bounds\n"
+"that do not depend on the Sigelith clock at all."
+msgstr ""
+
+#: beatstamp/ui/widgets.py:983
+msgid "Your local time, with the time zone of this computer"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:267
+msgid "Your name as the recipient should see it"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:173
+msgid "Your name for this contact. It stays on this computer."
 msgstr ""
 
 #: beatstamp/ui/history_model.py:49
 msgid "Your own description. It stays on this computer"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:541
+#: beatstamp/ui/dialogs.py:624
 msgid "Your own key is accepted <b>alongside</b> the built-in list and is permanently visible in the status bar. Whoever slips you their key can sign any \"proof\" with it."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1758
+#: beatstamp/ui/main_window.py:2415
 msgid "Your own public key"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:515
+#: beatstamp/ui/dialogs.py:598
 msgid "Your own public key (advanced)"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:252
+#: beatstamp/ui/witness_panel.py:266
+msgid "Your proofs"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:351
 msgid "Your stamps and the stage their proof has reached"
 msgstr ""
 
-#: beatstamp/ui/widgets.py:295
+#: beatstamp/ui/witness_panel.py:266
+msgid ""
+"Your stamps from the History, measured against the witnesses:\n"
+"how many are already inside a signed checkpoint and how many are\n"
+"kept by parties that Sigelith does not control."
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:557
+msgid "a checkpoint does not continue the chain of the previous one"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:556
+msgid "a checkpoint file is not signed with a Sigelith key"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:566
+msgid "a copy kept by a third party differs from what Sigelith served"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:560
+msgid "a new checkpoint does not extend the previous one — something was removed or rewritten"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:423
+msgid "a program or script: open it only if you trust the sender"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:743
+msgid "acceptance"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:748
+msgid "acceptance: %(accepted)s, key part: %(recorded)s"
+msgstr ""
+
+#: beatstamp/ui/journey.py:78
+msgid "after 00:00 UTC"
+msgstr ""
+
+#: beatstamp/ui/details.py:240
+msgid "after the week closes"
+msgstr ""
+
+#: beatstamp/ui/widgets.py:1049
 msgid "ahead of"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:951
+#: beatstamp/ui/witness_panel.py:496
+msgid "alarm"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:542
+msgid "all pinned"
+msgstr ""
+
+#: beatstamp/ui/handover_report.py:294
+msgid "also in the root of week %(week)s, which the log declares anchored"
+msgstr ""
+
+#: beatstamp/ui/handover_report.py:297
+msgid "also in the signed root of week %(week)s"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:1248
 msgid "anchor (according to the register): %(anchors)s"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1640
-msgid "beatstamp-history.csv"
+#: beatstamp/ui/witness_panel.py:57
+msgid "any moment now"
 msgstr ""
 
-#: beatstamp/ui/widgets.py:295
+#: beatstamp/ui/details.py:234
+msgid "arrives once the week closes (Monday 00:00 UTC)"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:610
+msgid "attention: %(names)s"
+msgstr ""
+
+#: beatstamp/ui/handover_report.py:167
+msgid "attested: %(what)s"
+msgstr ""
+
+#: beatstamp/certificate.py:438
+msgid "bank transfer %(bank)s, booked %(date)s"
+msgstr ""
+
+#: beatstamp/ui/journey.py:157
+msgid "bank transfer, %(bank)s"
+msgstr ""
+
+#: beatstamp/ui/widgets.py:1049
 msgid "behind"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:520
+#: beatstamp/ui/journey.py:103
+msgid "block %(h)s"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:452
+msgid "block from checkpoint #%(n)s confirmed by %(source)s · mined %(when)s"
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:603
 msgid "built-in list of keys"
 msgstr ""
 
-#: beatstamp/certificate.py:535
-#: beatstamp/ui/main_window.py:1209
+#: beatstamp/ui/details.py:265
+msgid "by asking the server about this digest"
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:42
+msgid "card received over a channel the person controls"
+msgstr ""
+
+#: beatstamp/certificate.py:770
 msgid "certificate"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1679
+#: beatstamp/ui/main_window.py:1251
+msgid "checked privately — the server was not told which digest this is"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:2159
+msgid "checkpoint #%(n)s · %(new)s new · %(copies)s independent copies confirmed"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:462
+#: beatstamp/ui/witness_panel.py:490
+msgid "checks with outside services are turned off in the settings"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:2301
 msgid "clock out of step"
 msgstr ""
 
-#: beatstamp/certificate.py:403
+#: beatstamp/certificate.py:643
+#: beatstamp/ui/details.py:221
 #: beatstamp/ui/history_model.py:214
 msgid "closed"
 msgstr ""
 
-#: beatstamp/certificate.py:270
+#: beatstamp/ui/witness_panel.py:414
+msgid "computed locally"
+msgstr ""
+
+#: beatstamp/certificate.py:396
 msgid "concerns a root other than the week root — not accepted"
 msgstr ""
 
-#: beatstamp/certificate.py:273
+#: beatstamp/ui/details.py:244
+msgid "confirmation no."
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:455
+msgid "confirmed"
+msgstr ""
+
+#: beatstamp/certificate.py:399
 msgid "confirmed according to the register"
 msgstr ""
 
-#: beatstamp/certificate.py:245
+#: beatstamp/certificate.py:371
 msgid "confirmed according to the register — %(where)s%(ots)s"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:329
-msgid "e.g. \"client contract, signed version\" — optional"
+#: beatstamp/ui/journey.py:152
+msgid "confirmed by %(source)s"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:940
+#: beatstamp/ui/handover_dialogs.py:783
+msgid "confirmed outside Sigelith: %(sources)s"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:432
+msgid "daily"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:591
+msgid "daily checkpoint"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:2305
+msgid "difference %(offset)s s, round trip %(rtt)s ms"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:460
+#: beatstamp/ui/witness_panel.py:494
+msgid "differs"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:533
+msgid "empty"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:564
+msgid "entries of the public log that were already downloaded have changed"
+msgstr ""
+
+#: beatstamp/ui/handover_report.py:248
+msgid "entry"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:420
+msgid "fast mode"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:419
+msgid "fast mode — the log is not downloaded; each digest is asked about separately"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:383
+msgid "fast mode — the server is asked about each digest"
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:38
+msgid "fingerprint QR code scanned in person"
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:41
+msgid "fingerprint compared by voice (at least 4 groups)"
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:39
+msgid "fingerprint named in a document signed by the person"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:500
+msgid "identical"
+msgstr ""
+
+#: beatstamp/certificate.py:457
+msgid "identical copies checked by Sigelith Desktop at: %(list)s"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:498
+msgid "identical copy checked byte for byte · %(when)s"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:62
+msgid "in %(d)s d %(h)s h"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:64
+msgid "in %(h)s h %(m)s min"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:65
+msgid "in %(m)s min"
+msgstr ""
+
+#: beatstamp/ui/details.py:238
+msgid "in block %(h)s (OpenTimestamps)"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:475
+msgid "in the log"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:1226
 msgid "inclusion path — the week is still open"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:109
+#: beatstamp/ui/witness_panel.py:435
+msgid "inconsistent"
+msgstr ""
+
+#: beatstamp/handover_tasks.py:42
+msgid "it does not meet the rules of the format (%(code)s)."
+msgstr ""
+
+#: beatstamp/handover_tasks.py:39
+msgid "it is addressed to someone else."
+msgstr ""
+
+#: beatstamp/handover_tasks.py:41
+msgid "its creation time lies in the future."
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:42
+msgid "just now"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:143
 msgid "key accepted thanks to YOUR OWN key from the settings"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:1124
+#: beatstamp/ui/handover_report.py:164
+msgid "key in hardware, used only after the person unlocks it"
+msgstr ""
+
+#: beatstamp/ui/details.py:230
+msgid "key outside the built-in list"
+msgstr ""
+
+#: beatstamp/ui/handover_report.py:165
+msgid "key stored in software"
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:1381
 msgid "last change on the server: %(when)s"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1123
+#: beatstamp/ui/witness_panel.py:396
+msgid "last check %(when)s"
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:52
+msgid "level %(level)s of 5 (1 = strongest) — %(method)s"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:176
+msgid "level %(level)s: %(method)s"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:1244
+msgid "log checkpoint — the next daily one will contain this entry"
+msgstr ""
+
+#: beatstamp/ui/details.py:228
+msgid "made with a RETIRED key — the proof needs refreshing"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:543
+msgid "maturing"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:398
+msgid "next %(when)s"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:447
+msgid "no block in the checkpoints yet"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:2163
+msgid "no checkpoint has been issued yet"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:1483
 msgid "no document was pointed to — only the proof itself was checked"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:606
+#: beatstamp/ui/dialogs.py:713
 msgid "no limit"
 msgstr ""
 
-#: beatstamp/certificate.py:191
+#: beatstamp/certificate.py:317
 msgid "no root signature"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1130
+#: beatstamp/ui/main_window.py:1490
 msgid "no valid root signature"
 msgstr ""
 
@@ -2357,142 +5244,432 @@ msgstr ""
 msgid "no. %(ref)s"
 msgstr ""
 
-#: beatstamp/certificate.py:227
+#: beatstamp/certificate.py:353
 msgid "none — the time comes from the register alone, without confirmation by a signature."
 msgstr ""
 
-#: beatstamp/certificate.py:237
-#: beatstamp/certificate.py:267
-msgid "not binding — root without a confirmed BeatTime signature"
+#: beatstamp/ui/dialogs.py:742
+msgid "none — you send the files yourself"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:368
+#: beatstamp/ui/handover_report.py:250
+msgid "not accepted (%(code)s)"
+msgstr ""
+
+#: beatstamp/certificate.py:363
+#: beatstamp/certificate.py:393
+msgid "not binding — root without a confirmed Sigelith signature"
+msgstr ""
+
+#: beatstamp/ui/handover_panel.py:50
+msgid "not bound"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:781
+msgid "not checked"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:491
 msgid "not computed yet"
 msgstr ""
 
-#: beatstamp/certificate.py:250
+#: beatstamp/ui/handover_report.py:204
+msgid "not documented — the package does not show who holds the recipient's card"
+msgstr ""
+
+#: beatstamp/ui/journey.py:183
+msgid "not earlier than"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:711
+#: beatstamp/ui/handover_dialogs.py:719
+#: beatstamp/ui/handover_report.py:58
+msgid "not in the log"
+msgstr ""
+
+#: beatstamp/ui/journey.py:184
+msgid "not later than"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:517
+msgid "not published there yet — checked %(when)s; Sigelith Desktop tries again every 3 h"
+msgstr ""
+
+#: beatstamp/certificate.py:455
+msgid "not published yet — they follow in their own rhythm (GitHub weekly, Internet Archive weekly, Zenodo quarterly)"
+msgstr ""
+
+#: beatstamp/ui/details.py:256
+msgid "not published yet — they follow on their own"
+msgstr ""
+
+#: beatstamp/ui/handover_report.py:201
+msgid "not recorded in the log before the offer"
+msgstr ""
+
+#: beatstamp/certificate.py:376
 msgid "not submitted yet"
 msgstr ""
 
-#: beatstamp/certificate.py:404
+#: beatstamp/ui/witness_panel.py:532
+msgid "nothing stamped on this computer yet"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:463
+#: beatstamp/ui/witness_panel.py:491
+msgid "off"
+msgstr ""
+
+#: beatstamp/certificate.py:644
 #: beatstamp/ui/history_model.py:214
 msgid "open"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:99
+#: beatstamp/ui/main_window.py:133
 msgid "or click to pick them from disk · you can drop many files and whole folders"
 msgstr ""
 
-#: beatstamp/certificate.py:275
+#: beatstamp/certificate.py:401
 msgid "pending"
 msgstr ""
 
-#: beatstamp/bundle.py:128
+#: beatstamp/ui/witness_panel.py:381
+msgid "private mode — the whole log is on this computer"
+msgstr ""
+
+#: beatstamp/ui/details.py:263
+msgid "privately — from the copy of the public log on this computer"
+msgstr ""
+
+#: beatstamp/bundle.py:176
 msgid "proof"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1803
+#: beatstamp/ui/main_window.py:2451
 msgid "proxy outside this computer"
 msgstr ""
 
-#: beatstamp/ui/dialogs.py:498
+#: beatstamp/ui/witness_panel.py:594
+msgid "quarterly version %(quarter)s in Zenodo (at the latest)"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:740
+#: beatstamp/ui/handover_dialogs.py:829
+msgid "recipient"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:745
+msgid "recorded %(at)s, valid until %(until)s"
+msgstr ""
+
+#: beatstamp/ui/handover_report.py:200
+msgid "recorded in the log before the offer"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:743
+msgid "refusal"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:593
+msgid "release %(week)s on GitHub (at the latest)"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:611
+msgid "reported by sigelith.org/api/proof/status %(when)s"
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:581
 msgid "retired %(date)s: <span style=\"font-family:monospace\">%(key)s</span>"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:947
+#: beatstamp/ui/main_window.py:1233
 msgid "root signature — it arrives once the week closes"
 msgstr ""
 
-#: beatstamp/certificate.py:248
+#: beatstamp/ui/handover_dialogs.py:740
+#: beatstamp/ui/handover_dialogs.py:829
+msgid "sender"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:729
+#: beatstamp/ui/handover_dialogs.py:948
+msgid "sender %(sender)s, recipient %(recipient)s"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:2041
+msgid "sigelith-history.csv"
+msgstr ""
+
+#: beatstamp/ui/handover_report.py:298
+msgid "signed receipt of the log"
+msgstr ""
+
+#: beatstamp/ui/details.py:221
+msgid "still running"
+msgstr ""
+
+#: beatstamp/certificate.py:374
 msgid "submitted to the OpenTimestamps calendars, waiting for a block"
 msgstr ""
 
-#: beatstamp/certificate.py:240
+#: beatstamp/ui/dialogs.py:679
+msgid "the @beat time of the stamp"
+msgstr ""
+
+#: beatstamp/certificate.py:366
 msgid "the Bitcoin chain"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:942
-#: beatstamp/ui/main_window.py:1128
+#: beatstamp/ui/witness_panel.py:568
+msgid "the Bitcoin explorer knows a different block"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:1228
+#: beatstamp/ui/main_window.py:1488
 msgid "the Ed25519 root signature is valid"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:944
+#: beatstamp/ui/main_window.py:1230
 msgid "the Ed25519 signature is invalid"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:911
+#: beatstamp/ui/main_window.py:1196
 msgid "the ORIGINAL timestamp was returned. The first stamp wins — the date on an already registered document cannot be refreshed."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:438
+#: beatstamp/ui/witness_panel.py:412
+msgid "the chain of every entry and the root of %(k)s checkpoints recomputed on this computer"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:1498
+msgid "the checkpoint in the proof does not check out"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:876
+msgid "the content breaks the format rules (file list, names or sizes)"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:504
+msgid "the copy at %(name)s cannot be read — it proves nothing either way; checked %(when)s, Sigelith Desktop tries again in a day"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:494
+msgid "the copy at %(name)s differs from what Sigelith served — see the alarm"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:416
+msgid "the copy of the log is downloaded at the first check"
+msgstr ""
+
+#: beatstamp/ui/dialogs.py:673
+msgid "the date and time of the stamp (your local time)"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:873
+msgid "the decrypted content is not the content committed in the offer"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:642
 msgid "the digest will be computed locally and looked up in the register"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1121
+#: beatstamp/ui/main_window.py:1481
 msgid "the document digest does NOT match the proof"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1119
+#: beatstamp/ui/main_window.py:1479
 msgid "the document digest matches the proof"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:938
+#: beatstamp/ui/handover_dialogs.py:871
+msgid "the encrypted package does not decrypt with the key committed in the offer"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:459
+msgid "the explorer knows a different block at this height"
+msgstr ""
+
+#: beatstamp/handover_tasks.py:37
+msgid "the file is damaged or incomplete."
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:425
+msgid "the first check downloads every checkpoint and verifies the whole chain"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:524
+msgid "the first quarterly version: 2026-Q3, early October"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:477
+msgid "the first weekly checkpoint lists every bank anchor so far"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:521
+msgid "the first weekly release follows the weekly checkpoint (Monday)"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:1224
 msgid "the inclusion path does NOT lead to the root"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1127
+#: beatstamp/ui/main_window.py:1487
 msgid "the inclusion path does not match"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1125
+#: beatstamp/ui/main_window.py:1485
 msgid "the inclusion path leads to the week root"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:936
+#: beatstamp/ui/main_window.py:1222
 msgid "the inclusion path matches the week root"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:137
+#: beatstamp/ui/dialogs.py:668
+msgid "the name of the source file"
+msgstr ""
+
+#: beatstamp/ui/details.py:259
+msgid "the next daily checkpoint will contain this entry"
+msgstr ""
+
+#: beatstamp/handover_tasks.py:35
+msgid "the offer has expired."
+msgstr ""
+
+#: beatstamp/ui/main_window.py:1241
+msgid "the path to checkpoint #%(n)s does NOT check out"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:1237
+msgid "the path to signed checkpoint #%(n)s checks out — against the checkpoint file this application verified"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:875
+msgid "the preview cannot be read with the key part committed in the offer"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:869
+msgid "the preview the recipient saw before accepting differs from the content"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:1494
+msgid "the proof carries signed checkpoint #%(n)s and the path of the entry to its root checks out"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:562
+msgid "the root recomputed from the public log differs from the signed checkpoint"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:171
 msgid "the signature covers week %(week)s (%(range)s UTC) — the document existed no later than %(end)s; the exact moment is given by the register"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:142
+#: beatstamp/ui/witness_panel.py:523
+msgid "the snapshot follows the GitHub release"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:615
+msgid "the state of the Sigelith pipeline arrives with the first check"
+msgstr ""
+
+#: beatstamp/ui/details.py:246
+msgid "the transfer with the week root follows"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:176
 msgid "time according to the register — week %(week)s without a confirmed signature"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1698
+#: beatstamp/ui/main_window.py:2335
 msgid "unavailable"
 msgstr ""
 
-#: beatstamp/certificate.py:332
-#: beatstamp/ui/main_window.py:1709
+#: beatstamp/ui/handover_dialogs.py:787
+msgid "under a checkpoint this application verified; copies at third parties follow"
+msgstr ""
+
+#: beatstamp/certificate.py:516
+#: beatstamp/ui/main_window.py:2346
 msgid "unknown"
 msgstr ""
 
-#: beatstamp/certificate.py:192
+#: beatstamp/ui/handover_panel.py:368
+msgid "unknown card %(fingerprint)s"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:508
+msgid "unreadable"
+msgstr ""
+
+#: beatstamp/ui/details.py:226
+msgid "valid, Sigelith key from the list built into the application"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:435
+msgid "verified"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:417
+#: beatstamp/ui/witness_panel.py:426
+#: beatstamp/ui/witness_panel.py:447
+#: beatstamp/ui/witness_panel.py:466
+#: beatstamp/ui/witness_panel.py:478
+#: beatstamp/ui/witness_panel.py:515
+#: beatstamp/ui/witness_panel.py:519
+#: beatstamp/ui/witness_panel.py:526
+#: beatstamp/ui/witness_panel.py:543
+msgid "waiting"
+msgstr ""
+
+#: beatstamp/ui/details.py:239
+msgid "waiting for a block"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:465
+msgid "waiting for the independent explorer"
+msgstr ""
+
+#: beatstamp/ui/handover_dialogs.py:788
+msgid "waiting for the next checkpoint (within a day)"
+msgstr ""
+
+#: beatstamp/certificate.py:318
 msgid "waiting for the week to close"
 msgstr ""
 
-#: beatstamp/certificate.py:218
-msgid "week %(week)s (%(range)s UTC) — root signed and checked: the document existed no later than %(end)s. The exact moment within that week is given by the BeatTime register."
+#: beatstamp/certificate.py:344
+msgid "week %(week)s (%(range)s UTC) — root signed and checked: the document existed no later than %(end)s. The exact moment within that week is given by the Sigelith register."
 msgstr ""
 
-#: beatstamp/certificate.py:224
-msgid "week %(week)s is still running — the signature will cover it once it closes; the exact time is given by the BeatTime register."
+#: beatstamp/certificate.py:350
+msgid "week %(week)s is still running — the signature will cover it once it closes; the exact time is given by the Sigelith register."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:1698
+#: beatstamp/ui/witness_panel.py:432
+msgid "weekly"
+msgstr ""
+
+#: beatstamp/ui/witness_panel.py:592
+msgid "weekly checkpoint closing %(week)s"
+msgstr ""
+
+#: beatstamp/ui/main_window.py:2335
 msgid "working"
 msgstr ""
 
-#: beatstamp/certificate.py:251
+#: beatstamp/certificate.py:377
 msgid "— (the week is still running)"
 msgstr ""
 
-#: beatstamp/ui/main_window.py:867
+#: beatstamp/ui/main_window.py:1152
 msgid "…and %(count)s more."
 msgstr ""
 
-#: beatstamp/ui/main_window.py:449
+#: beatstamp/ui/handover_dialogs.py:430
+msgid "…and %(files)s more."
+msgstr ""
+
+#: beatstamp/ui/main_window.py:654
 msgid "…or paste a SHA-256 digest here (64 hex characters)"
 msgstr ""

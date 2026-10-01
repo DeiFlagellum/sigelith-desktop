@@ -1,6 +1,11 @@
 # -*- mode: python ; coding: utf-8 -*-
 """
-Przepis kompilacji BeatStampa do KATALOGU (`dist/BeatStamp/`).
+Przepis kompilacji Sigelith Desktop do KATALOGU (`dist/SigelithDesktop/`).
+
+Nazwa pliku `.exe` i katalogu wydania idzie za nazwa programu (od 3.0.0:
+`SigelithDesktop.exe`, wczesniej `BeatStamp.exe`). Nazwy wewnetrzne —
+pakiet `beatstamp/`, ten plik, ikona `beatstamp.ico`, katalogi
+`beatstamp.mo` — zostaja do osobnej zmiany (ROZWOJ.md, „Sigelith Desktop").
 
 Do wersji 2.1.0 budowalismy tryb jednoplikowy (`onefile`). Zmiana na tryb
 katalogowy (`onedir`) nie jest kwestia gustu — wymusza ja sposob dystrybucji:
@@ -71,6 +76,12 @@ sys.path.insert(0, str(Path(SPECPATH) / 'tools'))
 import licenses as _licenses          # noqa: E402  (sciezka ustawiona wyzej)
 
 datas = [('beatstamp.ico', '.')]
+# Czcionki interfejsu i certyfikatu PDF (`beatstamp/fonts.py`, OFL-1.1).
+datas += [(str(font), 'fonts')
+          for font in sorted((Path(SPECPATH) / 'fonts').glob('*.ttf'))]
+# Ikony interfejsu (Bootstrap Icons, MIT) — `beatstamp/ui/icons.py`.
+datas += [(str(svg), 'icons')
+          for svg in sorted((Path(SPECPATH) / 'icons').glob('*.svg'))]
 datas += collect_data_files('certifi')          # cacert.pem — kotwica zaufania TLS
 
 # Skompilowane katalogi tlumaczen. Sciezka docelowa odtwarza uklad
@@ -178,7 +189,7 @@ exe = EXE(
     a.scripts,
     [],
     exclude_binaries=True,
-    name='BeatStamp',
+    name='SigelithDesktop',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
@@ -191,6 +202,9 @@ exe = EXE(
     entitlements_file=None,
     icon=['beatstamp.ico'],
     version='version_info.txt',
+    # Wlasny manifest: domyslny PyInstallera + DPI PerMonitorV2 (WACK
+    # „DPIAwarenessValidation") — uzasadnienie w samym pliku.
+    manifest='packaging/SigelithDesktop.exe.manifest',
 )
 
 coll = COLLECT(
@@ -206,5 +220,5 @@ coll = COLLECT(
     # i skasowac. Nazwa jest tez zapisana w kodzie rozruchowym — zmiana
     # wymaga przebudowy, nie przeniesienia katalogu.
     contents_directory='_internal',
-    name='BeatStamp',
+    name='SigelithDesktop',
 )

@@ -293,16 +293,16 @@ class SettingsTests(TempDirTest):
 
     def setUp(self):
         super().setUp()
-        # Katalog danych wskazuje teraz `BEATSTAMP_DATA_DIR` — sciezka do
+        # Katalog danych wskazuje teraz `SIGELITH_DATA_DIR` — sciezka do
         # samego katalogu, nie do jego rodzica (patrz `config.app_data_dir`).
-        self._old = os.environ.get('BEATSTAMP_DATA_DIR')
-        os.environ['BEATSTAMP_DATA_DIR'] = str(self.dir)
+        self._old = os.environ.get('SIGELITH_DATA_DIR')
+        os.environ['SIGELITH_DATA_DIR'] = str(self.dir)
 
     def tearDown(self):
         if self._old is None:
-            os.environ.pop('BEATSTAMP_DATA_DIR', None)
+            os.environ.pop('SIGELITH_DATA_DIR', None)
         else:
-            os.environ['BEATSTAMP_DATA_DIR'] = self._old
+            os.environ['SIGELITH_DATA_DIR'] = self._old
         super().tearDown()
 
     def test_roundtrip(self):
