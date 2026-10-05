@@ -30,9 +30,9 @@ Sigelith Desktop ücretsiz ve açık kaynaktır (Apache-2.0). Hesap yok, reklam 
 İngilizce, Lehçe, Almanca, İspanyolca, Fransızca, Rusça, Türkçe, Japonca, Korece, Çince ve Arapça olarak kullanılabilir.
 
 ## What's new in this version
-• Sigelith Backup’tan gelen tek dosya zaman kanıtlarını (.sigelith-proof dosyaları) doğrular: kanıt, bir dosyanın o anda mühürlü bir yedekte olduğunu diğer dosyaları açığa çıkarmadan gösterir.
-• Bir .beatproof veya .sigelith-proof dosyasına çift tıklamak uygulamayı Doğrulama sekmesinde açar — kanıt dosyası asla yanlışlıkla damgalanmaz.
-• Sigelith Backup, yedekteki bir dosyayı doğrudan Sigelith Handover’a aktarabilir.
+• Birden çok dosya aynı anda: Bir grup damgalandıktan sonra “PDF sertifikaları” ve “Çevrimdışı kanıtlar” düğmeleri gruptaki her dosya için seçtiğiniz klasöre bir sertifika veya .beatproof kanıtı kaydeder. Şimdiye kadar bu yalnızca son dosya için yapılıyordu.
+• Geçmiş: Her biri için sertifika veya kanıt kaydetmek üzere birden çok kayıt seçin.
+• Birden çok dosya kaydedilirken hiçbir şeyin üzerine yazılmaz: Ad zaten kullanılıyorsa yeni dosya bir numara alır ve tek bir özet kaç dosyanın kaydedildiğini gösterir.
 
 ## Product features
 Her dosyayı yüklemeden damgalayın — yalnızca SHA-256 özeti kaydedilir

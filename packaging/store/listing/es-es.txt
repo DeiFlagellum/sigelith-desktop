@@ -30,9 +30,9 @@ Sigelith Desktop es gratuito y de código abierto (Apache-2.0). Sin cuenta, sin 
 Disponible en inglés, polaco, alemán, español, francés, ruso, turco, japonés, coreano, chino y árabe.
 
 ## What's new in this version
-• Comprueba pruebas de tiempo de archivos individuales de Sigelith Backup (archivos .sigelith-proof): la prueba muestra que un archivo estaba en una copia sellada en ese momento, sin revelar los demás archivos.
-• Al hacer doble clic en un archivo .beatproof o .sigelith-proof, la app se abre en la pestaña Verificación: un archivo de prueba nunca se sella por error.
-• Sigelith Backup puede entregar un archivo de la copia directamente a Sigelith Handover.
+• Varios archivos a la vez: tras sellar un lote, los botones «Certificados PDF» y «Pruebas sin conexión» guardan un certificado o una prueba .beatproof de cada archivo del lote en la carpeta que elijas. Hasta ahora solo se hacía para el último archivo.
+• Historial: selecciona varias entradas para guardar un certificado o una prueba de cada una.
+• Al guardar varios archivos no se sobrescribe nada: si un nombre ya está en uso, el archivo nuevo recibe un número, y un único resumen muestra cuántos archivos se guardaron.
 
 ## Product features
 Sella cualquier archivo sin subirlo: solo se registra su resumen SHA-256

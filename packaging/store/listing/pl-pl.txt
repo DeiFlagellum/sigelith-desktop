@@ -30,9 +30,9 @@ Sigelith Desktop jest darmowy i ma otwarty kod (Apache-2.0). Bez konta, bez rekl
 Dostępny po angielsku, polsku, niemiecku, hiszpańsku, francusku, rosyjsku, turecku, japońsku, koreańsku, chińsku i arabsku.
 
 ## What's new in this version
-• Sprawdza dowody czasu pojedynczych plików z Sigelith Backup (pliki .sigelith-proof): dowód pokazuje, że plik był w zapieczętowanej kopii w danej chwili — bez ujawniania pozostałych plików.
-• Dwuklik na pliku .beatproof albo .sigelith-proof otwiera program w zakładce Weryfikacja — plik dowodu nigdy nie zostanie ostemplowany przez pomyłkę.
-• Sigelith Backup może przekazać plik z kopii prosto do Sigelith Handover.
+• Kilka plików naraz: po ostemplowaniu serii przyciski „Certyfikaty PDF” i „Dowody offline” zapisują certyfikat albo dowód .beatproof dla każdego pliku serii, w wybranym katalogu. Dotąd dostawał go tylko ostatni plik serii.
+• Historia: zaznacz kilka wpisów, aby zapisać certyfikat albo dowód dla każdego z nich.
+• Przy zapisie wielu plików nic nie jest nadpisywane: jeśli nazwa jest zajęta, nowy plik dostaje numer, a jedno podsumowanie pokazuje, ile plików zapisano.
 
 ## Product features
 Stempel czasu dla każdego pliku bez wysyłania go — zapisywany jest tylko skrót SHA-256

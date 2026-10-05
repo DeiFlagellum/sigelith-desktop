@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Sigelith Desktop\n"
-"POT-Creation-Date: 2026-09-30 18:54+0200\n"
+"POT-Creation-Date: 2026-10-05 18:59+0200\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -48,7 +48,7 @@ msgstr "#%(n)s — この記録から署名付きルートまでのパスを Sig
 msgid "#%(n)s — the path of this entry was NOT confirmed"
 msgstr "#%(n)s — この記録のパスは確認されていません"
 
-#: beatstamp/ui/main_window.py:1778
+#: beatstamp/ui/main_window.py:1916
 msgid "%(count)s anchored"
 msgstr "アンカリング済み %(count)s 件"
 
@@ -67,7 +67,7 @@ msgid "%(count)s file"
 msgid_plural "%(count)s files"
 msgstr[0] "%(count)s 個のファイル"
 
-#: beatstamp/ui/main_window.py:1784
+#: beatstamp/ui/main_window.py:1922
 msgid "%(count)s from the TVS archive"
 msgstr "TVS アーカイブ由来 %(count)s 件"
 
@@ -81,27 +81,27 @@ msgid "%(count)s step"
 msgid_plural "%(count)s steps"
 msgstr[0] "%(count)s ステップ"
 
-#: beatstamp/ui/main_window.py:1782
+#: beatstamp/ui/main_window.py:1920
 msgid "%(count)s with independent copies"
 msgstr "独立したコピーあり %(count)s 件"
 
-#: beatstamp/ui/main_window.py:2058
+#: beatstamp/ui/main_window.py:2201
 msgid "%(entries)s exported"
 msgstr "%(entries)s をエクスポートしました"
 
-#: beatstamp/ui/main_window.py:2020
+#: beatstamp/ui/main_window.py:2163
 msgid "%(entries)s matured in the background."
 msgstr "%(entries)s の証明がバックグラウンドで次の段階に進みました。"
 
-#: beatstamp/ui/main_window.py:1994
+#: beatstamp/ui/main_window.py:2137
 msgid "%(entries)s removed from the history."
 msgstr "%(entries)s を履歴から削除しました。"
 
-#: beatstamp/ui/main_window.py:1156
+#: beatstamp/ui/main_window.py:1162
 msgid "%(files)s could not be stamped:<br><br>%(list)s"
 msgstr "%(files)s にタイムスタンプを付与できませんでした：<br><br>%(list)s"
 
-#: beatstamp/ui/main_window.py:1108
+#: beatstamp/ui/main_window.py:1111
 msgid "%(files)s queued"
 msgstr "%(files)s が待機中"
 
@@ -177,15 +177,15 @@ msgstr "%(title)s — ファイルの保存先："
 msgid "%(what)s: the log proof was not accepted (%(code)s)"
 msgstr "%(what)s: ログの証明は認められませんでした（%(code)s）"
 
-#: beatstamp/ui/main_window.py:841
+#: beatstamp/ui/main_window.py:844
 msgid "&File"
 msgstr "ファイル(&F)"
 
-#: beatstamp/ui/main_window.py:867
+#: beatstamp/ui/main_window.py:870
 msgid "&Tools"
 msgstr "ツール(&T)"
 
-#: beatstamp/ui/main_window.py:1185
+#: beatstamp/ui/main_window.py:1191
 msgid "(%(count)s files in this batch)"
 msgstr "（このバッチのファイル数：%(count)s）"
 
@@ -199,7 +199,7 @@ msgstr "（タイトルなし）"
 msgid ".onion address:"
 msgstr ".onion アドレス："
 
-#: beatstamp/ui/main_window.py:1717
+#: beatstamp/ui/main_window.py:1855
 msgid ".ots proof saved"
 msgstr ".ots 証明を保存しました"
 
@@ -211,27 +211,27 @@ msgstr "1) 文書の SHA-256 を計算し、\"digest\" と比較します。2) �
 msgid "6) \"checkpoint.file\" is the exact signed checkpoint of the whole Sigelith log (beattime-checkpoint-v1): check its Ed25519 signature over \"beattime-checkpoint-v1|\" + the file without \"sig\", and that SHA-256 of the file equals \"checkpoint.hash\". 7) The leaf of this entry is SHA-256(0x00 || \"beattime-entry-v1|<seq>|<digest>|<utc with six fraction digits>Z\"); fold \"checkpoint.audit_path\" with \"leaf_index\" and \"tree_size\" (RFC 9162) — the result must equal \"root\" in the file. 8) Compare the file with an independent copy: https://github.com/DeiFlagellum/sigelith-log/releases, the Internet Archive or Zenodo."
 msgstr "6) \"checkpoint.file\" は Sigelith ログ全体の署名付きチェックポイントそのもの（beattime-checkpoint-v1）です。\"beattime-checkpoint-v1|\" + \"sig\" を除いたファイルに対するその Ed25519 署名を検証し、ファイルの SHA-256 が \"checkpoint.hash\" と一致することを確認します。7) この記録の葉は SHA-256(0x00 || \"beattime-entry-v1|<seq>|<digest>|<utc（秒の小数部 6 桁）>Z\") です。\"checkpoint.audit_path\" を \"leaf_index\" と \"tree_size\" を用いて畳み込みます（RFC 9162）— 結果はファイル内の \"root\" と一致しなければなりません。8) ファイルを独立したコピーと比較します：https://github.com/DeiFlagellum/sigelith-log/releases、Internet Archive、または Zenodo。"
 
-#: beatstamp/ui/main_window.py:1899
+#: beatstamp/ui/main_window.py:2037
 msgid "<b>%(entries)s</b> from the old TVS client were added to the history.<br><br>They are marked as an <b>archive</b>: their former \"signature\" is a concatenation of a time and a digest that cannot be verified. To get a proof that can be checked independently, stamp those files again — Sigelith will write a new entry and the old one will stay in the history."
 msgstr "旧 TVS クライアントの<b>%(entries)s</b>を履歴に追加しました。<br><br>これらは<b>アーカイブ</b>として表示されます。以前の「署名」は時刻とダイジェストを連結しただけのもので、検証できません。独立して確認できる証明を得るには、これらのファイルにもう一度タイムスタンプを付与してください — Sigelith が新しい記録を作成し、古い記録は履歴に残ります。"
 
-#: beatstamp/ui/main_window.py:2026
+#: beatstamp/ui/main_window.py:2169
 msgid "<b>%(entries)s</b> updated — the proofs have matured."
 msgstr "<b>%(entries)s</b>を更新しました — 証明が次の段階に進みました。"
 
-#: beatstamp/ui/main_window.py:1662
+#: beatstamp/ui/main_window.py:1788
 msgid "<b>%(name)s</b> was saved."
 msgstr "<b>%(name)s</b> を保存しました。"
 
-#: beatstamp/ui/main_window.py:1640
+#: beatstamp/ui/main_window.py:1766
 msgid "<b>%(name)s</b> was saved.<br><br>The root of this week is signed with a <b>retired</b> key, so the recipient will not accept this proof. Refresh the statuses (History -> Refresh statuses, F5) and export the proof again — it will get a signature made with the current Sigelith key."
 msgstr "<b>%(name)s</b> を保存しました。<br><br>この週のルートは<b>廃止済み</b>の鍵で署名されているため、受け取った人はこの証明を受け入れません。ステータスを更新し（履歴 → ステータスを更新、F5）、証明をもう一度エクスポートしてください — 現在の Sigelith の鍵による署名が付きます。"
 
-#: beatstamp/ui/main_window.py:1649
+#: beatstamp/ui/main_window.py:1775
 msgid "<b>%(name)s</b> was saved.<br><br>The week is still running, so the proof contains no root signature and <b>cannot be verified offline for now</b>. Export it again once the week has closed (the coming Monday, 00:00 UTC) — then it will be complete."
 msgstr "<b>%(name)s</b> を保存しました。<br><br>週はまだ進行中のため、この証明にはルートの署名が含まれておらず、<b>現時点ではオフラインで検証できません</b>。週が締まった後（次の月曜日 00:00 UTC）にもう一度エクスポートすると、完全な証明になります。"
 
-#: beatstamp/ui/main_window.py:1718
+#: beatstamp/ui/main_window.py:1856
 msgid "<b>%(name)s</b> was saved.<br><br>You can check it with an OpenTimestamps client:<br><code>ots verify %(command)s</code><br><br>That verification goes through the Bitcoin chain — entirely outside Sigelith and outside this application."
 msgstr "<b>%(name)s</b> を保存しました。<br><br>OpenTimestamps クライアントで確認できます：<br><code>ots verify %(command)s</code><br><br>この検証は Bitcoin のチェーンを通じて行われ、Sigelith からもこのアプリケーションからも完全に独立しています。"
 
@@ -278,7 +278,7 @@ msgstr ""
 "UTC 基準。@000 は UTC の午前 0 時、@500 は UTC の正午。\n"
 "タイムゾーンなし：@523 は世界中どこでも同じ瞬間です。"
 
-#: beatstamp/ui/main_window.py:270
+#: beatstamp/ui/main_window.py:273
 msgid "@beat timestamps %(version)s — Sigelith Desktop"
 msgstr "@beat タイムスタンプ %(version)s — Sigelith Desktop"
 
@@ -290,7 +290,7 @@ msgstr "ローカルファイルのための @beat タイムスタンプ"
 msgid "A .sigelith-answer file."
 msgstr ".sigelith-answer ファイル。"
 
-#: beatstamp/ui/main_window.py:858
+#: beatstamp/ui/main_window.py:861
 msgid "A .sigelith-handover file someone sent you"
 msgstr "誰かが送ってきた .sigelith-handover ファイル"
 
@@ -304,11 +304,11 @@ msgstr ""
 "そのチェックポイントはブロックが採掘される前には存在し得ず、\n"
 "記録はそのチェックポイントより後に作られました。"
 
-#: beatstamp/ui/main_window.py:1351
+#: beatstamp/ui/main_window.py:1387
 msgid "A SHA-256 digest is exactly <b>64 hexadecimal characters</b> (digits 0-9 and letters a-f).<br><br>%(typed)s were entered."
 msgstr "SHA-256 ダイジェストは正確に<b>16 進数 64 文字</b>（数字 0-9 と英字 a-f）です。<br><br>入力されたのは %(typed)s です。"
 
-#: beatstamp/ui/main_window.py:2524
+#: beatstamp/ui/main_window.py:2667
 msgid "A background task is still running. Close the program and stop it?"
 msgstr "バックグラウンドのタスクがまだ実行中です。プログラムを終了してタスクを停止しますか？"
 
@@ -332,7 +332,7 @@ msgstr "礼儀としての表示です。受取人はこの名前ではなく、
 msgid "A defect proof settles whether the package was what the sender offered: anyone can recompute it, and a false claim fails the same computation."
 msgstr "欠陥の証拠は、送付物が送付者の申し出どおりだったかを決着させます。誰でも再計算でき、虚偽の主張は同じ計算で失敗します。"
 
-#: beatstamp/ui/main_window.py:530
+#: beatstamp/ui/main_window.py:533
 msgid "A description visible only to you"
 msgstr "自分だけに表示される説明"
 
@@ -370,7 +370,7 @@ msgstr ""
 msgid "A folder you share with the other person (OneDrive, Dropbox, Google Drive, Syncthing). Packages and answers in it are picked up automatically."
 msgstr "相手と共有しているフォルダー（OneDrive、Dropbox、Google ドライブ、Syncthing）。ここに届いた送付物と回答は自動で取り込まれます。"
 
-#: beatstamp/ui/main_window.py:1093
+#: beatstamp/ui/main_window.py:1096
 msgid "A large number of files"
 msgstr "大量のファイル"
 
@@ -390,7 +390,7 @@ msgstr "送付物に欠陥があります"
 msgid "A package is open: %(title)s"
 msgstr "送付物を開きました: %(title)s"
 
-#: beatstamp/ui/main_window.py:751
+#: beatstamp/ui/main_window.py:754
 msgid ""
 "A proof MATURES: a stamp from this week gets its signature once the\n"
 "week closes, and the Bitcoin attestation a few hours later.\n"
@@ -415,7 +415,7 @@ msgstr ""
 "Zenodo（CERN）に置かれた完全なログの四半期版（DOI 付き）。\n"
 "Sigelith Desktop はそのレコードに含まれるチェックポイントファイルを比較します。"
 
-#: beatstamp/ui/main_window.py:920
+#: beatstamp/ui/main_window.py:923
 msgid "A record of errors — useful when reporting a problem"
 msgstr "エラーの記録 — 問題を報告するときに役立ちます"
 
@@ -423,7 +423,7 @@ msgstr "エラーの記録 — 問題を報告するときに役立ちます"
 msgid "A short note inside the signed binding record."
 msgstr "署名済みの紐付け記録に入る短いメモ。"
 
-#: beatstamp/ui/main_window.py:2523
+#: beatstamp/ui/main_window.py:2666
 msgid "A task is running"
 msgstr "タスクを実行中"
 
@@ -447,7 +447,7 @@ msgstr "API アドレス："
 msgid "API documentation"
 msgstr "API ドキュメント"
 
-#: beatstamp/ui/main_window.py:888
+#: beatstamp/ui/main_window.py:891
 msgid "About"
 msgstr "バージョン情報"
 
@@ -484,7 +484,7 @@ msgstr "まず連絡先を追加してください。"
 msgid "Add a contact from a card file…"
 msgstr "カードファイルから連絡先を追加…"
 
-#: beatstamp/ui/main_window.py:514
+#: beatstamp/ui/main_window.py:517
 msgid "Add a note to this stamp — e.g. \"client contract, signed version\""
 msgstr "このタイムスタンプにメモを追加 — 例：「顧客との契約書、署名済み版」"
 
@@ -540,7 +540,7 @@ msgstr ""
 "ダイジェストの登録後、アプリケーションはすぐに包含パスと署名を\n"
 "ローカルで確認します。追加のリクエストは行いません。"
 
-#: beatstamp/ui/main_window.py:2152
+#: beatstamp/ui/main_window.py:2295
 msgid "Alarm"
 msgstr "警報"
 
@@ -551,7 +551,7 @@ msgstr "警報"
 msgid "All checks"
 msgstr "すべてのチェック"
 
-#: beatstamp/ui/main_window.py:743
+#: beatstamp/ui/main_window.py:746
 msgid "All levels"
 msgstr "すべての段階"
 
@@ -634,7 +634,7 @@ msgstr "アプリケーション エラー — Sigelith Desktop"
 msgid "Ask before overwriting an existing file"
 msgstr "既存のファイルを上書きする前に確認する"
 
-#: beatstamp/ui/main_window.py:2320
+#: beatstamp/ui/main_window.py:2463
 msgid "Asking the Sigelith server about its database, cache and clock"
 msgstr "Sigelith サーバーにデータベース、キャッシュ、時計の状態を問い合わせています"
 
@@ -672,7 +672,7 @@ msgstr "BeatStamp は Sigelith Desktop に名前が変わりました — デー
 msgid "Behaviour"
 msgstr "動作"
 
-#: beatstamp/ui/main_window.py:2416
+#: beatstamp/ui/main_window.py:2559
 msgid "Besides the built-in list of Sigelith keys, the application will now also accept signatures made with <b>the key you entered</b>.<br><br>Whoever gave you that key can sign any \"proof\" with it. The status bar will keep reminding you. To go back to the built-in list alone, clear the field in Settings -> Trust."
 msgstr "組み込みの Sigelith 鍵リストに加えて、アプリケーションは今後<b>入力された鍵</b>による署名も受け入れます。<br><br>その鍵を渡した人は、その鍵であらゆる「証明」に署名できます。ステータスバーには、このことが常に表示されます。組み込みのリストだけに戻すには、設定 → 信頼 で欄を空にしてください。"
 
@@ -717,11 +717,11 @@ msgstr ""
 "矛盾する 2 つの署名付きファイルは、どちらもそこに保存されています。2 つを合わせると\n"
 "暗号学的な証明になります — コピーを安全な場所に保管してください。"
 
-#: beatstamp/ui/main_window.py:695
+#: beatstamp/ui/main_window.py:698
 msgid "Builds a certificate for the checked digest"
 msgstr "確認したダイジェストの証明書を作成します"
 
-#: beatstamp/ui/main_window.py:575
+#: beatstamp/ui/main_window.py:578
 msgid ""
 "Builds the certificate on this computer — it works without the internet too.\n"
 "It contains the digest, the time, the week root and a QR code for verification."
@@ -733,7 +733,7 @@ msgstr ""
 msgid "Built-in Sigelith keys"
 msgstr "組み込みの Sigelith 鍵"
 
-#: beatstamp/ui/main_window.py:2042
+#: beatstamp/ui/main_window.py:2185
 msgid "CSV sheet for Excel (*.csv);;JSON file (*.json)"
 msgstr "Excel 用 CSV シート (*.csv);;JSON ファイル (*.json)"
 
@@ -765,8 +765,12 @@ msgstr "双方のカード"
 msgid "Certificate issued %(utc)s (%(beat)s) by Sigelith Desktop %(version)s · sigelith.org"
 msgstr "証明書の発行：%(utc)s（%(beat)s）、Sigelith Desktop %(version)s · sigelith.org"
 
-#: beatstamp/ui/main_window.py:1610
+#: beatstamp/ui/main_window.py:1646
 msgid "Certificate saved"
+msgstr "証明書を保存しました"
+
+#: beatstamp/ui/main_window.py:1683
+msgid "Certificates saved"
 msgstr "証明書を保存しました"
 
 #: beatstamp/ui/dialogs.py:830
@@ -777,11 +781,11 @@ msgstr "変更…"
 msgid "Check a Sigelith Handover evidence package or defect proof (.zip) — yours or someone else's."
 msgstr "Sigelith Handover の証拠パッケージまたは欠陥の証拠（.zip）を確認します — ご自身のものでも他人のものでも。"
 
-#: beatstamp/ui/main_window.py:349
+#: beatstamp/ui/main_window.py:352
 msgid "Check a file, a SHA-256 digest or a .beatproof proof"
 msgstr "ファイル、SHA-256 ダイジェスト、.beatproof 証明を確認"
 
-#: beatstamp/ui/main_window.py:849
+#: beatstamp/ui/main_window.py:852
 msgid "Check a stand-alone proof — without the network"
 msgstr "単体の証明を確認 — ネットワーク不要"
 
@@ -789,13 +793,13 @@ msgstr "単体の証明を確認 — ネットワーク不要"
 msgid "Check again"
 msgstr "再確認"
 
-#: beatstamp/ui/main_window.py:660
+#: beatstamp/ui/main_window.py:663
 msgid "Check digest"
 msgstr "ダイジェストを確認"
 
-#: beatstamp/ui/main_window.py:587
-#: beatstamp/ui/main_window.py:1742
-#: beatstamp/ui/main_window.py:1936
+#: beatstamp/ui/main_window.py:590
+#: beatstamp/ui/main_window.py:1880
+#: beatstamp/ui/main_window.py:2075
 msgid "Check in the browser"
 msgstr "ブラウザーで確認"
 
@@ -804,7 +808,7 @@ msgstr "ブラウザーで確認"
 msgid "Check now"
 msgstr "今すぐ確認"
 
-#: beatstamp/ui/main_window.py:1383
+#: beatstamp/ui/main_window.py:1419
 msgid "Check that the digest was pasted in full."
 msgstr "ダイジェストが省略されずに貼り付けられているか確認してください。"
 
@@ -812,11 +816,11 @@ msgstr "ダイジェストが省略されずに貼り付けられているか確
 msgid "Check the log and refresh the proofs while the program is open"
 msgstr "プログラムが開いている間、ログを確認し証明を更新する"
 
-#: beatstamp/ui/main_window.py:875
+#: beatstamp/ui/main_window.py:878
 msgid "Check the service status"
 msgstr "サービスの状態を確認"
 
-#: beatstamp/ui/main_window.py:878
+#: beatstamp/ui/main_window.py:881
 msgid "Check the witnesses now"
 msgstr "今すぐ証人を確認"
 
@@ -824,15 +828,15 @@ msgstr "今すぐ証人を確認"
 msgid "Check this digest in the register (Verification tab -> Check digest) and export the proof again — it will get a signature made with the current key."
 msgstr "このダイジェストを台帳で確認し（「検証」タブ → ダイジェストを確認）、証明をもう一度エクスポートしてください — 現在の鍵による署名が付きます。"
 
-#: beatstamp/ui/main_window.py:634
+#: beatstamp/ui/main_window.py:637
 msgid "Check whether a document already has a timestamp — and whether the proof is consistent. Verification records nothing and changes nothing."
 msgstr "文書にすでにタイムスタンプがあるか、そして証明が整合しているかを確認します。検証では何も記録されず、何も変更されません。"
 
-#: beatstamp/ui/main_window.py:846
+#: beatstamp/ui/main_window.py:849
 msgid "Check whether a file already has a stamp"
 msgstr "ファイルにタイムスタンプがあるか確認"
 
-#: beatstamp/ui/main_window.py:870
+#: beatstamp/ui/main_window.py:873
 msgid "Check whether the proofs have matured"
 msgstr "証明の段階が進んだか確認"
 
@@ -860,7 +864,7 @@ msgstr "証拠を確認しています…"
 msgid "Checking the exchange folder…"
 msgstr "交換フォルダーを確認しています…"
 
-#: beatstamp/ui/main_window.py:1338
+#: beatstamp/ui/main_window.py:1374
 msgid "Checking the first of %(count)s files — verification works on one file at a time."
 msgstr "%(count)s 個のファイルのうち最初の 1 つを確認しています — 検証は 1 ファイルずつ行います。"
 
@@ -872,17 +876,17 @@ msgstr "ログを確認しています…"
 msgid "Checking the package…"
 msgstr "送付物を確認しています…"
 
-#: beatstamp/ui/main_window.py:1455
+#: beatstamp/ui/main_window.py:1491
 msgid "Checking the proof…"
 msgstr "証明を確認しています…"
 
-#: beatstamp/ui/main_window.py:2109
+#: beatstamp/ui/main_window.py:2252
 #: beatstamp/ui/witness_panel.py:387
 msgid "Checking the public log…"
 msgstr "公開ログを確認しています…"
 
-#: beatstamp/ui/main_window.py:2319
-#: beatstamp/ui/main_window.py:2323
+#: beatstamp/ui/main_window.py:2462
+#: beatstamp/ui/main_window.py:2466
 #: beatstamp/workers.py:526
 msgid "Checking the service status…"
 msgstr "サービスの状態を確認しています…"
@@ -901,11 +905,11 @@ msgstr "チェックポイントのアーカイブ"
 msgid "Checkpoints"
 msgstr "チェックポイント"
 
-#: beatstamp/ui/main_window.py:880
+#: beatstamp/ui/main_window.py:883
 msgid "Checkpoints, their chain and the independent copies"
 msgstr "チェックポイント、そのチェーン、独立したコピー"
 
-#: beatstamp/ui/main_window.py:671
+#: beatstamp/ui/main_window.py:674
 msgid ""
 "Checks a stand-alone proof file. The verification happens\n"
 "entirely locally — without connecting to anything."
@@ -917,7 +921,7 @@ msgstr ""
 msgid "Checks the Ed25519 signatures of the week roots and of the log checkpoints."
 msgstr "週次ルートとログのチェックポイントの Ed25519 署名を検証します。"
 
-#: beatstamp/ui/main_window.py:662
+#: beatstamp/ui/main_window.py:665
 msgid ""
 "Checks this digest and the answer locally: the inclusion path, the root\n"
 "signature, the identity of the key and the path to the signed checkpoint.\n"
@@ -935,7 +939,7 @@ msgstr "連絡先とファイルを選んでください。送付物は連絡先
 msgid "Choose a contact first."
 msgstr "まず連絡先を選んでください。"
 
-#: beatstamp/ui/main_window.py:1328
+#: beatstamp/ui/main_window.py:1364
 msgid "Choose a file to check"
 msgstr "確認するファイルを選択"
 
@@ -943,7 +947,15 @@ msgstr "確認するファイルを選択"
 msgid "Choose a folder for Sigelith Desktop data"
 msgstr "Sigelith Desktop のデータ用フォルダーを選択"
 
-#: beatstamp/ui/main_window.py:1429
+#: beatstamp/ui/main_window.py:1663
+msgid "Choose a folder for the PDF certificates"
+msgstr "PDF 証明書の保存先フォルダーを選択"
+
+#: beatstamp/ui/main_window.py:1687
+msgid "Choose a folder for the offline proofs"
+msgstr "オフライン証明の保存先フォルダーを選択"
+
+#: beatstamp/ui/main_window.py:1465
 msgid "Choose a proof file"
 msgstr "証明ファイルを選択"
 
@@ -956,12 +968,12 @@ msgstr "ファイルを 1 つ以上選んでください。"
 msgid "Choose files to send"
 msgstr "送るファイルを選択"
 
-#: beatstamp/ui/main_window.py:843
-#: beatstamp/ui/main_window.py:1079
+#: beatstamp/ui/main_window.py:846
+#: beatstamp/ui/main_window.py:1082
 msgid "Choose files to stamp"
 msgstr "タイムスタンプを付与するファイルを選択"
 
-#: beatstamp/ui/main_window.py:1448
+#: beatstamp/ui/main_window.py:1484
 msgid "Choose the document"
 msgstr "文書を選択"
 
@@ -987,11 +999,11 @@ msgstr "選択…"
 msgid "Clears your own key — verification then uses only the keys shipped with this version of the program"
 msgstr "独自の鍵を消去します — 以降の検証には、このバージョンのプログラムに同梱された鍵だけを使います"
 
-#: beatstamp/ui/main_window.py:2315
+#: beatstamp/ui/main_window.py:2458
 msgid "Clock synchronised"
 msgstr "時計を同期しました"
 
-#: beatstamp/ui/main_window.py:2309
+#: beatstamp/ui/main_window.py:2452
 msgid "Clock synchronised (difference %(offset)s s, round trip %(rtt)s ms)."
 msgstr "時計を同期しました（差 %(offset)s 秒、往復 %(rtt)s ms）。"
 
@@ -1006,7 +1018,8 @@ msgstr "時計を同期しました（差 %(offset)s 秒、往復 %(rtt)s ms）�
 #: beatstamp/ui/handover_dialogs.py:571
 #: beatstamp/ui/handover_dialogs.py:848
 #: beatstamp/ui/handover_dialogs.py:974
-#: beatstamp/ui/main_window.py:1671
+#: beatstamp/ui/main_window.py:1733
+#: beatstamp/ui/main_window.py:1797
 msgid "Close"
 msgstr "閉じる"
 
@@ -1055,7 +1068,7 @@ msgstr "ファイルの SHA-256 を計算し、上の値と比較してくださ
 msgid "Computing SHA-256: %(name)s"
 msgstr "SHA-256 を計算中：%(name)s"
 
-#: beatstamp/ui/main_window.py:1344
+#: beatstamp/ui/main_window.py:1380
 #: beatstamp/workers.py:206
 msgid "Computing digest: %(name)s"
 msgstr "ダイジェストを計算中：%(name)s"
@@ -1064,7 +1077,7 @@ msgstr "ダイジェストを計算中：%(name)s"
 msgid "Computing the document digest: %(name)s"
 msgstr "文書のダイジェストを計算中：%(name)s"
 
-#: beatstamp/ui/main_window.py:1405
+#: beatstamp/ui/main_window.py:1441
 msgid "Confirmed"
 msgstr "確認済み"
 
@@ -1088,7 +1101,7 @@ msgstr "sigelith.org に接続しています…"
 msgid "Connection"
 msgstr "接続"
 
-#: beatstamp/ui/main_window.py:885
+#: beatstamp/ui/main_window.py:888
 msgid "Connection, witnesses, trust, behaviour"
 msgstr "接続、証人、信頼、動作"
 
@@ -1130,7 +1143,7 @@ msgstr "GitHub と Internet Archive へのコピーは毎週、Zenodo へのコ�
 msgid "Copies the contents to the clipboard"
 msgstr "内容をクリップボードにコピーします"
 
-#: beatstamp/ui/main_window.py:801
+#: beatstamp/ui/main_window.py:804
 msgid "Copies the full SHA-256 digest to the clipboard"
 msgstr "SHA-256 ダイジェスト全体をクリップボードにコピーします"
 
@@ -1143,7 +1156,7 @@ msgstr "JSON ドキュメント全体をクリップボードにコピーしま�
 msgid "Copy"
 msgstr "コピー"
 
-#: beatstamp/ui/main_window.py:800
+#: beatstamp/ui/main_window.py:803
 msgid "Copy digest"
 msgstr "ダイジェストをコピー"
 
@@ -1151,7 +1164,7 @@ msgstr "ダイジェストをコピー"
 msgid "Copy everything"
 msgstr "すべてコピー"
 
-#: beatstamp/ui/main_window.py:1932
+#: beatstamp/ui/main_window.py:2071
 msgid "Copy the SHA-256 digest"
 msgstr "SHA-256 ダイジェストをコピー"
 
@@ -1202,7 +1215,7 @@ msgid "Data folder"
 msgstr "データフォルダー"
 
 #: beatstamp/config.py:790
-#: beatstamp/ui/main_window.py:1822
+#: beatstamp/ui/main_window.py:1960
 msgid "Data folder: %(path)s"
 msgstr "データフォルダー：%(path)s"
 
@@ -1273,10 +1286,10 @@ msgstr "引き渡し完了: %(title)s"
 msgid "Delivered: the key part is in the public log (%(when)s). Save the evidence package now? Sigelith keeps no copy."
 msgstr "引き渡し完了: 鍵の一部が公開ログにあります（%(when)s）。証拠パッケージを今すぐ保存しますか？ Sigelith はコピーを保管しません。"
 
-#: beatstamp/ui/main_window.py:591
-#: beatstamp/ui/main_window.py:705
-#: beatstamp/ui/main_window.py:796
-#: beatstamp/ui/main_window.py:1938
+#: beatstamp/ui/main_window.py:594
+#: beatstamp/ui/main_window.py:708
+#: beatstamp/ui/main_window.py:799
+#: beatstamp/ui/main_window.py:2077
 msgid "Details…"
 msgstr "詳細…"
 
@@ -1284,7 +1297,7 @@ msgstr "詳細…"
 msgid "Digest %(short)s…"
 msgstr "ダイジェスト %(short)s…"
 
-#: beatstamp/ui/main_window.py:1962
+#: beatstamp/ui/main_window.py:2105
 msgid "Digest copied to the clipboard."
 msgstr "ダイジェストをクリップボードにコピーしました。"
 
@@ -1300,7 +1313,7 @@ msgstr "開示された内容が送付物と一致"
 msgid "Do you also have the other party's copy of the same handover? It settles the case where the recipient signed two different answers."
 msgstr "同じ引き渡しについて、相手側のコピーもお持ちですか？ 受取人が異なる 2 つの回答に署名した場合の判断に使います。"
 
-#: beatstamp/ui/main_window.py:1438
+#: beatstamp/ui/main_window.py:1474
 msgid "Do you also want to point to the <b>document</b> this proof is about?<br><br>Without the document we check only whether the proof itself is consistent. With the document we additionally check whether the proof really is about <i>this</i> file and whether the file has been changed."
 msgstr "この証明が対象とする<b>文書</b>も指定しますか？<br><br>文書を指定しない場合は、証明自体が整合しているかだけを確認します。文書を指定すると、証明が本当に<i>この</i>ファイルに関するものか、ファイルが変更されていないかも確認します。"
 
@@ -1317,15 +1330,15 @@ msgstr "文書のダイジェスト — 台帳に届いた唯一の情報"
 msgid "Document name. It was never sent to the server"
 msgstr "文書名。サーバーには一度も送信されていません"
 
-#: beatstamp/ui/main_window.py:1139
+#: beatstamp/ui/main_window.py:1145
 msgid "Done — %(files)s stamped."
 msgstr "完了 — %(files)s にタイムスタンプを付与しました。"
 
-#: beatstamp/ui/main_window.py:1140
+#: beatstamp/ui/main_window.py:1146
 msgid "Done — the file has a timestamp."
 msgstr "完了 — ファイルにタイムスタンプが付与されました。"
 
-#: beatstamp/ui/main_window.py:700
+#: beatstamp/ui/main_window.py:703
 msgid "Download the .ots proof"
 msgstr ".ots 証明をダウンロード"
 
@@ -1333,11 +1346,11 @@ msgstr ".ots 証明をダウンロード"
 msgid "Downloaded: %(when)s"
 msgstr "ダウンロード日時：%(when)s"
 
-#: beatstamp/ui/main_window.py:2109
+#: beatstamp/ui/main_window.py:2252
 msgid "Downloading new checkpoints and checking the signature, the chain, consistency and the independent copies"
 msgstr "新しいチェックポイントをダウンロードし、署名、チェーン、整合性、独立したコピーを確認しています"
 
-#: beatstamp/ui/main_window.py:1702
+#: beatstamp/ui/main_window.py:1840
 #: beatstamp/workers.py:564
 msgid "Downloading the .ots proof for %(week)s…"
 msgstr "%(week)s の .ots 証明をダウンロードしています…"
@@ -1360,15 +1373,15 @@ msgstr ""
 msgid "Downloads the list from sigelith.org again"
 msgstr "sigelith.org からリストを再ダウンロードします"
 
-#: beatstamp/ui/main_window.py:641
+#: beatstamp/ui/main_window.py:644
 msgid "Drag a file here to check it"
 msgstr "ここにファイルをドラッグして確認"
 
-#: beatstamp/ui/main_window.py:686
+#: beatstamp/ui/main_window.py:689
 msgid "Drag a file in, paste a digest, or load a .beatproof file."
 msgstr "ファイルをドラッグするか、ダイジェストを貼り付けるか、.beatproof ファイルを読み込んでください。"
 
-#: beatstamp/ui/main_window.py:565
+#: beatstamp/ui/main_window.py:568
 msgid "Drag a file into the area above to give it a timestamp."
 msgstr "上の領域にファイルをドラッグすると、タイムスタンプを付与できます。"
 
@@ -1452,7 +1465,7 @@ msgstr ""
 "独立して確認できる証明を得るには、\n"
 "このファイルにもう一度タイムスタンプを付与してください。"
 
-#: beatstamp/ui/main_window.py:1956
+#: beatstamp/ui/main_window.py:2099
 msgid "Entry details"
 msgstr "記録の詳細"
 
@@ -1460,7 +1473,7 @@ msgstr "記録の詳細"
 msgid "Entry no. %(seq)s in the public Sigelith register"
 msgstr "Sigelith 公開台帳の記録番号 %(seq)s"
 
-#: beatstamp/ui/main_window.py:1163
+#: beatstamp/ui/main_window.py:1169
 msgid "Error"
 msgstr "エラー"
 
@@ -1494,12 +1507,12 @@ msgstr ""
 "毎週、マークルルートが銀行振込の摘要欄に記されます\n"
 "（MROOT）。週次チェックポイントにはそれらの振込が記載されます。"
 
-#: beatstamp/ui/main_window.py:797
+#: beatstamp/ui/main_window.py:800
 msgid "Everything about the selected entry, in plain words — and the note to edit"
 msgstr "選択した記録のすべてをわかりやすく表示 — メモの編集も可能"
 
-#: beatstamp/ui/main_window.py:592
-#: beatstamp/ui/main_window.py:706
+#: beatstamp/ui/main_window.py:595
+#: beatstamp/ui/main_window.py:709
 msgid "Everything about this proof: when, how far it has come and who confirms it"
 msgstr "この証明のすべて：いつ、どの段階まで進んだか、誰が確認しているか"
 
@@ -1540,15 +1553,15 @@ msgstr "交換フォルダー："
 msgid "Expired"
 msgstr "期限切れ"
 
-#: beatstamp/ui/main_window.py:860
+#: beatstamp/ui/main_window.py:863
 msgid "Export history…"
 msgstr "履歴をエクスポート…"
 
-#: beatstamp/ui/main_window.py:2039
+#: beatstamp/ui/main_window.py:2182
 msgid "Export the history"
 msgstr "履歴をエクスポート"
 
-#: beatstamp/ui/main_window.py:817
+#: beatstamp/ui/main_window.py:820
 msgid "Export…"
 msgstr "エクスポート…"
 
@@ -1556,7 +1569,7 @@ msgstr "エクスポート…"
 msgid "FOREIGN key — outside the Sigelith keys built into the application"
 msgstr "外部の鍵 — アプリケーションに組み込まれた Sigelith の鍵ではありません"
 
-#: beatstamp/ui/main_window.py:2217
+#: beatstamp/ui/main_window.py:2360
 msgid "Fast mode: the server is asked about each digest."
 msgstr "高速モード：ダイジェストごとにサーバーに問い合わせます。"
 
@@ -1582,7 +1595,7 @@ msgstr "ファイル %(name)s"
 msgid "File names:"
 msgstr "ファイル名："
 
-#: beatstamp/ui/main_window.py:2055
+#: beatstamp/ui/main_window.py:2198
 msgid "File write error:<br>%(reason)s"
 msgstr "ファイルの書き込みエラー：<br>%(reason)s"
 
@@ -1592,7 +1605,7 @@ msgstr "ファイルの書き込みエラー：<br>%(reason)s"
 msgid "Files"
 msgstr "ファイル"
 
-#: beatstamp/ui/main_window.py:737
+#: beatstamp/ui/main_window.py:740
 msgid ""
 "Filters entries as you type. It also searches the full digest,\n"
 "so you can paste a whole hash."
@@ -1620,7 +1633,7 @@ msgstr "差出人"
 msgid "Full licence texts"
 msgstr "ライセンス全文"
 
-#: beatstamp/ui/main_window.py:347
+#: beatstamp/ui/main_window.py:350
 msgid "Give files a timestamp in the Sigelith register"
 msgstr "Sigelith の台帳でファイルにタイムスタンプを付与"
 
@@ -1644,17 +1657,17 @@ msgstr "sigelith.org および独立したアーカイブへの HTTP 接続。"
 msgid "HTTP request error: %(kind)s."
 msgstr "HTTP リクエストのエラー：%(kind)s。"
 
-#: beatstamp/ui/main_window.py:2455
+#: beatstamp/ui/main_window.py:2598
 msgid "HTTPS connection with full certificate verification (certifi)."
 msgstr "証明書を完全に検証する HTTPS 接続（certifi）。"
 
 #: beatstamp/ui/handover_panel.py:140
-#: beatstamp/ui/main_window.py:355
+#: beatstamp/ui/main_window.py:358
 msgid "Hand over files with proof of delivery"
 msgstr "引き渡しの証明付きでファイルを渡す"
 
 #: beatstamp/ui/dialogs.py:417
-#: beatstamp/ui/main_window.py:345
+#: beatstamp/ui/main_window.py:348
 msgid "Handover"
 msgstr "Handover"
 
@@ -1671,7 +1684,7 @@ msgstr "%(role)sのハードウェア構成証明: %(what)s"
 msgid "Hardware attestation: %(what)s."
 msgstr "ハードウェア構成証明: %(what)s。"
 
-#: beatstamp/ui/main_window.py:887
+#: beatstamp/ui/main_window.py:890
 msgid "Hel&p"
 msgstr "ヘルプ(&H)"
 
@@ -1679,11 +1692,11 @@ msgstr "ヘルプ(&H)"
 msgid "Highest level: the week root is anchored outside Sigelith — in the Bitcoin chain (OpenTimestamps) and/or by a bank confirmation. Undoing this timestamp would require rewriting other parties' registers."
 msgstr "最高の段階：週次ルートが Sigelith の外部、つまり Bitcoin のチェーン（OpenTimestamps）と銀行の確認の一方または両方にアンカリングされています。このタイムスタンプを取り消すには、第三者の台帳を書き換える必要があります。"
 
-#: beatstamp/ui/main_window.py:335
+#: beatstamp/ui/main_window.py:338
 msgid "History"
 msgstr "履歴"
 
-#: beatstamp/ui/main_window.py:1898
+#: beatstamp/ui/main_window.py:2036
 msgid "History carried over from TVS"
 msgstr "TVS から引き継いだ履歴"
 
@@ -1715,7 +1728,7 @@ msgstr "紐付けの方法"
 msgid "How it works"
 msgstr "仕組み"
 
-#: beatstamp/ui/main_window.py:892
+#: beatstamp/ui/main_window.py:895
 msgid "How it works — sigelith.org"
 msgstr "仕組み — sigelith.org"
 
@@ -1782,17 +1795,17 @@ msgstr "引き渡したファイルを証拠に含めますか？ そうすれ�
 msgid "Inclusion path"
 msgstr "包含パス"
 
-#: beatstamp/ui/main_window.py:1542
+#: beatstamp/ui/main_window.py:1578
 msgid "Incomplete"
 msgstr "未完了"
 
-#: beatstamp/ui/main_window.py:1541
+#: beatstamp/ui/main_window.py:1577
 msgid "Incomplete proof"
 msgstr "未完了の証明"
 
-#: beatstamp/ui/main_window.py:1170
-#: beatstamp/ui/main_window.py:1391
-#: beatstamp/ui/main_window.py:1530
+#: beatstamp/ui/main_window.py:1176
+#: beatstamp/ui/main_window.py:1427
+#: beatstamp/ui/main_window.py:1566
 msgid "Inconsistent proof"
 msgstr "整合しない証明"
 
@@ -1803,7 +1816,7 @@ msgstr "整合しない証明"
 msgid "Independent copies"
 msgstr "独立したコピー"
 
-#: beatstamp/ui/main_window.py:2471
+#: beatstamp/ui/main_window.py:2614
 msgid "Interface language"
 msgstr "表示言語"
 
@@ -1829,7 +1842,7 @@ msgstr "アドレス内の国際化ドメイン名。"
 msgid "Invalid address"
 msgstr "無効なアドレス"
 
-#: beatstamp/ui/main_window.py:1350
+#: beatstamp/ui/main_window.py:1386
 msgid "Invalid digest"
 msgstr "無効なダイジェスト"
 
@@ -1837,19 +1850,20 @@ msgstr "無効なダイジェスト"
 msgid "Invalid key"
 msgstr "無効な鍵"
 
-#: beatstamp/ui/main_window.py:791
+#: beatstamp/ui/main_window.py:794
 msgid "Issues a certificate for the selected entry"
 msgstr "選択した記録の証明書を発行します"
 
-#: beatstamp/ui/main_window.py:1738
+#: beatstamp/ui/main_window.py:1876
 msgid "Issues a certificate for this entry"
 msgstr "この記録の証明書を発行します"
 
-#: beatstamp/ui/main_window.py:1595
-#: beatstamp/ui/main_window.py:1602
-#: beatstamp/ui/main_window.py:1632
-#: beatstamp/ui/main_window.py:1714
-#: beatstamp/ui/main_window.py:2054
+#: beatstamp/ui/main_window.py:1631
+#: beatstamp/ui/main_window.py:1638
+#: beatstamp/ui/main_window.py:1721
+#: beatstamp/ui/main_window.py:1758
+#: beatstamp/ui/main_window.py:1852
+#: beatstamp/ui/main_window.py:2197
 msgid "It could not be saved"
 msgstr "保存できませんでした"
 
@@ -1860,7 +1874,7 @@ msgstr "保存できませんでした"
 #: beatstamp/ui/handover_controller.py:484
 #: beatstamp/ui/handover_controller.py:526
 #: beatstamp/ui/handover_controller.py:559
-#: beatstamp/ui/main_window.py:1021
+#: beatstamp/ui/main_window.py:1024
 msgid "It did not work"
 msgstr "うまくいきませんでした"
 
@@ -1902,7 +1916,7 @@ msgid "Later"
 msgstr "後で"
 
 #: beatstamp/ui/dialogs.py:1150
-#: beatstamp/ui/main_window.py:914
+#: beatstamp/ui/main_window.py:917
 msgid "Legal notice (Impressum)"
 msgstr "法的表示（Impressum）"
 
@@ -1952,8 +1966,8 @@ msgstr "メールによる改行や空白は問題ありません。"
 msgid "Load"
 msgstr "読み込む"
 
-#: beatstamp/ui/main_window.py:670
-#: beatstamp/ui/main_window.py:847
+#: beatstamp/ui/main_window.py:673
+#: beatstamp/ui/main_window.py:850
 msgid "Load a .beatproof proof…"
 msgstr ".beatproof 証明を読み込む…"
 
@@ -1990,11 +2004,11 @@ msgstr "支援者リストを読み込んでいます…"
 msgid "Loading the list…"
 msgstr "リストを読み込んでいます…"
 
-#: beatstamp/ui/main_window.py:505
+#: beatstamp/ui/main_window.py:508
 msgid "Local check:"
 msgstr "ローカルチェック："
 
-#: beatstamp/ui/main_window.py:1857
+#: beatstamp/ui/main_window.py:1995
 msgid "Local history"
 msgstr "ローカル履歴"
 
@@ -2037,11 +2051,11 @@ msgstr "MROOT 振込は週次チェックポイントに記載されています
 msgid "Made by Sigelith Desktop %(version)s on %(when)s."
 msgstr "Sigelith Desktop %(version)s により %(when)s に作成。"
 
-#: beatstamp/ui/main_window.py:873
+#: beatstamp/ui/main_window.py:876
 msgid "Measure the clock drift of this computer"
 msgstr "このコンピューターの時計のずれを測定"
 
-#: beatstamp/ui/main_window.py:2232
+#: beatstamp/ui/main_window.py:2375
 msgid "Measuring the difference between this computer and the Sigelith server"
 msgstr "このコンピューターと Sigelith サーバーの時刻差を測定しています"
 
@@ -2099,11 +2113,11 @@ msgstr "効力を生じた受諾はありません。鍵の一部が、受諾の
 msgid "No anchor — the week is still running."
 msgstr "アンカーなし — 週はまだ進行中です。"
 
-#: beatstamp/ui/main_window.py:2030
+#: beatstamp/ui/main_window.py:2173
 msgid "No change — none of the proofs has moved to another stage yet."
 msgstr "変化なし — まだどの証明も次の段階に進んでいません。"
 
-#: beatstamp/ui/main_window.py:2154
+#: beatstamp/ui/main_window.py:2297
 msgid "No connection"
 msgstr "接続なし"
 
@@ -2139,7 +2153,7 @@ msgstr "欠陥なし"
 msgid "No exchange folder: you save and send the files yourself (e-mail, messenger, USB stick). A shared folder makes it automatic."
 msgstr "交換フォルダーがありません。ファイルは自分で保存して送ります（メール、メッセンジャー、USB メモリ）。共有フォルダーを使えば自動になります。"
 
-#: beatstamp/ui/main_window.py:1089
+#: beatstamp/ui/main_window.py:1092
 msgid "No file was found. Folders are expanded automatically — perhaps the chosen folder is empty."
 msgstr "ファイルが見つかりませんでした。フォルダーは自動的に展開されます — 選択したフォルダーが空の可能性があります。"
 
@@ -2156,12 +2170,12 @@ msgstr "メモなし"
 msgid "No permission to read the file \"%(name)s\"."
 msgstr "ファイル「%(name)s」を読み取る権限がありません。"
 
-#: beatstamp/ui/main_window.py:464
+#: beatstamp/ui/main_window.py:467
 msgid "No result"
 msgstr "結果なし"
 
 #: beatstamp/proof.py:103
-#: beatstamp/ui/main_window.py:1374
+#: beatstamp/ui/main_window.py:1410
 msgid "No stamp"
 msgstr "タイムスタンプなし"
 
@@ -2194,7 +2208,7 @@ msgstr "未引き渡し"
 msgid "Not earlier than"
 msgstr "早くとも"
 
-#: beatstamp/ui/main_window.py:1375
+#: beatstamp/ui/main_window.py:1411
 msgid "Not found"
 msgstr "見つかりません"
 
@@ -2203,7 +2217,7 @@ msgstr "見つかりません"
 msgid "Not later than"
 msgstr "遅くとも"
 
-#: beatstamp/ui/main_window.py:1162
+#: beatstamp/ui/main_window.py:1168
 msgid "Not registered"
 msgstr "未登録"
 
@@ -2229,12 +2243,12 @@ msgstr "メモ"
 msgid "Note (optional)"
 msgstr "メモ（任意）"
 
-#: beatstamp/ui/main_window.py:1305
-#: beatstamp/ui/main_window.py:1319
+#: beatstamp/ui/main_window.py:1341
+#: beatstamp/ui/main_window.py:1355
 msgid "Note saved."
 msgstr "メモを保存しました。"
 
-#: beatstamp/ui/main_window.py:530
+#: beatstamp/ui/main_window.py:533
 msgid "Note:"
 msgstr "メモ："
 
@@ -2242,7 +2256,7 @@ msgstr "メモ："
 msgid "Nothing to check: no package is waiting for an answer or a key part."
 msgstr "確認するものはありません。回答や鍵の一部を待っている送付物はありません。"
 
-#: beatstamp/ui/main_window.py:1088
+#: beatstamp/ui/main_window.py:1091
 msgid "Nothing to stamp"
 msgstr "タイムスタンプを付与するものがありません"
 
@@ -2275,19 +2289,24 @@ msgstr "オファーのログ記録: %(when)s"
 msgid "Offer signed by the sender"
 msgstr "送付者が署名したオファー"
 
-#: beatstamp/ui/main_window.py:793
-#: beatstamp/ui/main_window.py:1740
+#: beatstamp/ui/main_window.py:796
+#: beatstamp/ui/main_window.py:1878
 msgid "Offline proof"
 msgstr "オフライン証明"
 
-#: beatstamp/ui/main_window.py:580
-#: beatstamp/ui/main_window.py:697
+#: beatstamp/ui/main_window.py:583
+#: beatstamp/ui/main_window.py:700
+#: beatstamp/ui/main_window.py:1245
 msgid "Offline proof (.beatproof)"
 msgstr "オフライン証明（.beatproof）"
 
-#: beatstamp/ui/main_window.py:1935
+#: beatstamp/ui/main_window.py:2074
 msgid "Offline proof (.beatproof)…"
 msgstr "オフライン証明（.beatproof）…"
+
+#: beatstamp/ui/main_window.py:1242
+msgid "Offline proofs (%(count)s)"
+msgstr "オフライン証明（%(count)s）"
 
 #: beatstamp/ui/handover_dialogs.py:191
 msgid "On"
@@ -2301,7 +2320,7 @@ msgstr "使用できるのは HTTPS アドレスだけです。"
 msgid "Only for the Windows Hello window on this computer. It is not part of the card."
 msgstr "このコンピューターの Windows Hello のウィンドウ用です。カードには含まれません。"
 
-#: beatstamp/ui/main_window.py:397
+#: beatstamp/ui/main_window.py:400
 msgid "Only the SHA-256 digest, computed on this computer, reaches the Sigelith register."
 msgstr "Sigelith の台帳に届くのは、このコンピューターで計算した SHA-256 ダイジェストだけです。"
 
@@ -2313,7 +2332,7 @@ msgstr "最新のブラウザーで %(url)s を開き、ファイルをドロッ
 msgid "Open a .sigelith-handover file someone sent you."
 msgstr "誰かが送ってきた .sigelith-handover ファイルを開きます。"
 
-#: beatstamp/ui/main_window.py:856
+#: beatstamp/ui/main_window.py:859
 msgid "Open a Handover package…"
 msgstr "Handover の送付物を開く…"
 
@@ -2354,7 +2373,7 @@ msgstr "コピーを開く"
 msgid "Open the evidence folder"
 msgstr "証拠フォルダーを開く"
 
-#: beatstamp/ui/main_window.py:1669
+#: beatstamp/ui/main_window.py:1795
 msgid "Open the file"
 msgstr "ファイルを開く"
 
@@ -2376,7 +2395,7 @@ msgstr "ファイルのあるフォルダーを開く"
 msgid "Open the other party's copy"
 msgstr "相手側のコピーを開く"
 
-#: beatstamp/ui/main_window.py:1708
+#: beatstamp/ui/main_window.py:1846
 msgid "OpenTimestamps proof (*.ots)"
 msgstr "OpenTimestamps 証明 (*.ots)"
 
@@ -2413,12 +2432,12 @@ msgid "Opens Windows Security, where Sigelith Desktop can be allowed to write to
 msgstr "Windows セキュリティを開きます。ここで Sigelith Desktop に、保護されたフォルダーへの書き込みを許可できます。"
 
 #: beatstamp/ui/dialogs.py:1010
-#: beatstamp/ui/main_window.py:947
+#: beatstamp/ui/main_window.py:950
 #: beatstamp/ui/witness_panel.py:134
 msgid "Opens in the browser: %(url)s"
 msgstr "ブラウザーで開きます：%(url)s"
 
-#: beatstamp/ui/main_window.py:1742
+#: beatstamp/ui/main_window.py:1880
 msgid "Opens sigelith.org/proof with this digest"
 msgstr "このダイジェストで sigelith.org/proof を開きます"
 
@@ -2426,7 +2445,7 @@ msgstr "このダイジェストで sigelith.org/proof を開きます"
 msgid "Opens the folder with the licence files in the file manager"
 msgstr "ライセンス ファイルのあるフォルダーをエクスプローラーで開きます"
 
-#: beatstamp/ui/main_window.py:588
+#: beatstamp/ui/main_window.py:591
 msgid ""
 "Opens the public verification page sigelith.org/proof\n"
 "with the digest filled in — an independent confirmation."
@@ -2442,22 +2461,27 @@ msgstr "この確認の情報源をブラウザーで開きます"
 msgid "Optional: where and how"
 msgstr "任意: どこで、どのように"
 
-#: beatstamp/ui/main_window.py:2338
+#: beatstamp/ui/main_window.py:2481
 msgid "Overall state: <b>%(status)s</b><br>Database: %(database)s<br>Cache: %(cache)s<br>Server clock against NTP: %(offset)s (source: %(source)s)"
 msgstr "全体の状態：<b>%(status)s</b><br>データベース：%(database)s<br>キャッシュ：%(cache)s<br>NTP に対するサーバーの時計：%(offset)s（ソース：%(source)s）"
 
-#: beatstamp/ui/main_window.py:574
-#: beatstamp/ui/main_window.py:694
-#: beatstamp/ui/main_window.py:790
-#: beatstamp/ui/main_window.py:1738
+#: beatstamp/ui/main_window.py:577
+#: beatstamp/ui/main_window.py:697
+#: beatstamp/ui/main_window.py:793
+#: beatstamp/ui/main_window.py:1244
+#: beatstamp/ui/main_window.py:1876
 msgid "PDF certificate"
 msgstr "PDF 証明書"
 
-#: beatstamp/ui/main_window.py:1933
+#: beatstamp/ui/main_window.py:1241
+msgid "PDF certificates (%(count)s)"
+msgstr "PDF 証明書（%(count)s）"
+
+#: beatstamp/ui/main_window.py:2072
 msgid "PDF certificate…"
 msgstr "PDF 証明書…"
 
-#: beatstamp/ui/main_window.py:1586
+#: beatstamp/ui/main_window.py:1622
 msgid "PDF document (*.pdf)"
 msgstr "PDF ドキュメント (*.pdf)"
 
@@ -2493,7 +2517,7 @@ msgstr "回答のテキスト（sigelith:answer: で始まります）を貼り�
 msgid "People who support Sigelith and agreed to be named here"
 msgstr "Sigelith を支援し、ここへの掲載に同意した方々"
 
-#: beatstamp/ui/main_window.py:908
+#: beatstamp/ui/main_window.py:911
 msgid "People who support Sigelith — the list is loaded from sigelith.org"
 msgstr "Sigelith を支援している方々 — リストは sigelith.org から読み込まれます"
 
@@ -2501,11 +2525,11 @@ msgstr "Sigelith を支援している方々 — リストは sigelith.org か�
 msgid "Pick another folder…"
 msgstr "別のフォルダーを選択…"
 
-#: beatstamp/ui/main_window.py:1195
+#: beatstamp/ui/main_window.py:1201
 msgid "Please note:"
 msgstr "ご注意："
 
-#: beatstamp/ui/main_window.py:1437
+#: beatstamp/ui/main_window.py:1473
 msgid "Point to the document?"
 msgstr "文書を指定しますか？"
 
@@ -2513,7 +2537,7 @@ msgstr "文書を指定しますか？"
 msgid "Preparing the package…"
 msgstr "送付物を準備しています…"
 
-#: beatstamp/ui/main_window.py:1112
+#: beatstamp/ui/main_window.py:1115
 msgid "Preparing…"
 msgstr "準備しています…"
 
@@ -2523,11 +2547,11 @@ msgid "Preview: %(value)s"
 msgstr "プレビュー: %(value)s"
 
 #: beatstamp/ui/dialogs.py:1151
-#: beatstamp/ui/main_window.py:916
+#: beatstamp/ui/main_window.py:919
 msgid "Privacy policy"
 msgstr "プライバシーポリシー"
 
-#: beatstamp/ui/main_window.py:2215
+#: beatstamp/ui/main_window.py:2358
 msgid "Private mode: Sigelith Desktop keeps a copy of the whole public log."
 msgstr "プライベート モード：Sigelith Desktop が公開ログ全体のコピーを保持します。"
 
@@ -2563,7 +2587,7 @@ msgstr ""
 msgid "Proof"
 msgstr "証明"
 
-#: beatstamp/ui/main_window.py:1519
+#: beatstamp/ui/main_window.py:1555
 msgid "Proof confirmed — %(name)s"
 msgstr "証明を確認しました — %(name)s"
 
@@ -2571,9 +2595,9 @@ msgstr "証明を確認しました — %(name)s"
 msgid "Proof data"
 msgstr "証明データ"
 
-#: beatstamp/ui/main_window.py:1757
-#: beatstamp/ui/main_window.py:1763
-#: beatstamp/ui/main_window.py:1767
+#: beatstamp/ui/main_window.py:1895
+#: beatstamp/ui/main_window.py:1901
+#: beatstamp/ui/main_window.py:1905
 msgid "Proof details"
 msgstr "証明の詳細"
 
@@ -2590,21 +2614,25 @@ msgstr "証明の段階：%(level)s"
 msgid "Proof of existence of a document"
 msgstr "文書の存在証明"
 
-#: beatstamp/ui/main_window.py:1656
+#: beatstamp/ui/main_window.py:1782
 msgid "Proof saved"
 msgstr "証明を保存しました"
 
-#: beatstamp/ui/main_window.py:1639
+#: beatstamp/ui/main_window.py:1765
 msgid "Proof saved — it needs refreshing"
 msgstr "証明を保存しました — 更新が必要です"
 
-#: beatstamp/ui/main_window.py:1648
+#: beatstamp/ui/main_window.py:1774
 msgid "Proof saved — not closed yet"
 msgstr "証明を保存しました — まだ完了していません"
 
-#: beatstamp/ui/main_window.py:395
+#: beatstamp/ui/main_window.py:398
 msgid "Proof that a file existed in time — without sending the file"
 msgstr "ファイルがその時点に存在したことの証明 — ファイルを送信せずに"
+
+#: beatstamp/ui/main_window.py:1714
+msgid "Proofs saved"
+msgstr "証明を保存しました"
 
 #: beatstamp/ui/handover_dialogs.py:473
 msgid "Proves when the package became readable for you."
@@ -2634,11 +2662,11 @@ msgstr "Qt のソース"
 msgid "Querying the Sigelith register…"
 msgstr "Sigelith の台帳に問い合わせています…"
 
-#: beatstamp/ui/main_window.py:1366
+#: beatstamp/ui/main_window.py:1402
 msgid "Querying the register…"
 msgstr "台帳に問い合わせています…"
 
-#: beatstamp/ui/main_window.py:864
+#: beatstamp/ui/main_window.py:867
 msgid "Quit"
 msgstr "終了"
 
@@ -2658,7 +2686,7 @@ msgstr "記録済み — 週は締まりました。ルートの署名は準備�
 msgid "Read %(name)s"
 msgstr "%(name)s を表示"
 
-#: beatstamp/ui/main_window.py:374
+#: beatstamp/ui/main_window.py:377
 msgid "Ready. Drag files in to give them a timestamp."
 msgstr "準備完了。ファイルをドラッグすると、タイムスタンプを付与できます。"
 
@@ -2703,11 +2731,11 @@ msgstr "受諾の期限前に記録"
 msgid "Refresh"
 msgstr "更新"
 
-#: beatstamp/ui/main_window.py:868
+#: beatstamp/ui/main_window.py:871
 msgid "Refresh proof statuses"
 msgstr "証明のステータスを更新"
 
-#: beatstamp/ui/main_window.py:750
+#: beatstamp/ui/main_window.py:753
 msgid "Refresh statuses"
 msgstr "ステータスを更新"
 
@@ -2723,7 +2751,7 @@ msgstr "証明をオンラインで更新し（履歴 → ステータスを更�
 msgid "Refreshing %(index)s of %(total)s…"
 msgstr "%(total)s 件中 %(index)s 件目を更新しています…"
 
-#: beatstamp/ui/main_window.py:2009
+#: beatstamp/ui/main_window.py:2152
 msgid "Refreshing statuses…"
 msgstr "ステータスを更新しています…"
 
@@ -2767,7 +2795,7 @@ msgstr "台帳番号"
 msgid "Registering in Sigelith: %(name)s"
 msgstr "Sigelith に登録中：%(name)s"
 
-#: beatstamp/ui/main_window.py:1531
+#: beatstamp/ui/main_window.py:1567
 msgid "Rejected"
 msgstr "拒否"
 
@@ -2780,16 +2808,16 @@ msgstr "削除"
 msgid "Remove %(name)s from this application? Packages already sent stay."
 msgstr "%(name)s をこのアプリから削除しますか？ 送信済みの送付物は残ります。"
 
-#: beatstamp/ui/main_window.py:1979
+#: beatstamp/ui/main_window.py:2122
 msgid "Remove <b>%(entries)s</b> from the local history?<br><br>The stamp <b>stays in the public Sigelith register</b> — the register is append-only and nothing can be removed from it. Only this list on this computer changes."
 msgstr "ローカル履歴から<b>%(entries)s</b>を削除しますか？<br><br>タイムスタンプは<b>Sigelith の公開台帳に残ります</b> — 台帳は追記専用で、そこから何かを削除することはできません。変わるのは、このコンピューター上のこの一覧だけです。"
 
-#: beatstamp/ui/main_window.py:803
-#: beatstamp/ui/main_window.py:1940
+#: beatstamp/ui/main_window.py:806
+#: beatstamp/ui/main_window.py:2079
 msgid "Remove from history"
 msgstr "履歴から削除"
 
-#: beatstamp/ui/main_window.py:1978
+#: beatstamp/ui/main_window.py:2121
 msgid "Remove from history?"
 msgstr "履歴から削除しますか？"
 
@@ -2805,7 +2833,7 @@ msgstr "選択した連絡先をこのアプリから削除します。送信済
 msgid "Remove the selected file from the package."
 msgstr "選択したファイルを送付物から外します。"
 
-#: beatstamp/ui/main_window.py:804
+#: beatstamp/ui/main_window.py:807
 msgid ""
 "Removes the entry from this list ONLY.\n"
 "The stamp in the public Sigelith register\n"
@@ -2837,9 +2865,9 @@ msgid "Result"
 msgstr "結果"
 
 #: beatstamp/ui/dialogs.py:943
-#: beatstamp/ui/main_window.py:1178
-#: beatstamp/ui/main_window.py:1400
-#: beatstamp/ui/main_window.py:1537
+#: beatstamp/ui/main_window.py:1184
+#: beatstamp/ui/main_window.py:1436
+#: beatstamp/ui/main_window.py:1573
 msgid "Retired key"
 msgstr "廃止済みの鍵"
 
@@ -2876,7 +2904,7 @@ msgstr ""
 msgid "SHA-256 digest"
 msgstr "SHA-256 ダイジェスト"
 
-#: beatstamp/ui/main_window.py:493
+#: beatstamp/ui/main_window.py:496
 msgid "SHA-256 digest:"
 msgstr "SHA-256 ダイジェスト："
 
@@ -2914,11 +2942,11 @@ msgstr "自分のカードファイルを保存…"
 msgid "Save my evidence copy…"
 msgstr "自分の証拠コピーを保存…"
 
-#: beatstamp/ui/main_window.py:1707
+#: beatstamp/ui/main_window.py:1845
 msgid "Save the OpenTimestamps proof"
 msgstr "OpenTimestamps 証明を保存"
 
-#: beatstamp/ui/main_window.py:1584
+#: beatstamp/ui/main_window.py:1620
 msgid "Save the PDF certificate"
 msgstr "PDF 証明書を保存"
 
@@ -2951,11 +2979,11 @@ msgstr "証拠を保存"
 msgid "Save the evidence package of the selected handover. Sigelith keeps no copy — keep it safe."
 msgstr "選択した引き渡しの証拠パッケージを保存します。Sigelith はコピーを保管しません — 大切に保管してください。"
 
-#: beatstamp/ui/main_window.py:862
+#: beatstamp/ui/main_window.py:865
 msgid "Save the history to CSV or JSON"
 msgstr "履歴を CSV または JSON に保存"
 
-#: beatstamp/ui/main_window.py:1623
+#: beatstamp/ui/main_window.py:1749
 msgid "Save the offline proof"
 msgstr "オフライン証明を保存"
 
@@ -2967,24 +2995,28 @@ msgstr "レポートを保存"
 msgid "Save your card file and give it to the people who will send you packages. It holds only public keys."
 msgstr "カードファイルを保存して、あなたに送付物を送る人に渡してください。公開鍵しか含まれていません。"
 
-#: beatstamp/ui/main_window.py:1283
+#: beatstamp/ui/main_window.py:1319
 msgid "Saved automatically · visible only on this computer"
 msgstr "自動保存 · このコンピューターでのみ表示"
 
-#: beatstamp/ui/main_window.py:794
-#: beatstamp/ui/main_window.py:1740
+#: beatstamp/ui/main_window.py:1723
+msgid "Saved: %(saved)s of %(total)s."
+msgstr "保存済み：%(total)s 件中 %(saved)s 件。"
+
+#: beatstamp/ui/main_window.py:797
+#: beatstamp/ui/main_window.py:1878
 msgid "Saves a stand-alone .beatproof proof"
 msgstr "単体の .beatproof 証明を保存します"
 
-#: beatstamp/ui/main_window.py:698
+#: beatstamp/ui/main_window.py:701
 msgid "Saves a stand-alone proof for the checked digest"
 msgstr "確認したダイジェストの単体の証明を保存します"
 
-#: beatstamp/ui/main_window.py:820
+#: beatstamp/ui/main_window.py:823
 msgid "Saves the history to a CSV (Excel) or JSON file"
 msgstr "履歴を CSV（Excel）または JSON ファイルに保存します"
 
-#: beatstamp/ui/main_window.py:581
+#: beatstamp/ui/main_window.py:584
 msgid ""
 "Saves the proof in a form that can be checked WITHOUT this application\n"
 "and without access to sigelith.org: the digest, the inclusion path, the\n"
@@ -3002,11 +3034,11 @@ msgstr "欠陥の証拠を保存しています…"
 msgid "Scan to verify at sigelith.org/proof"
 msgstr "スキャンして sigelith.org/proof で検証"
 
-#: beatstamp/ui/main_window.py:735
+#: beatstamp/ui/main_window.py:738
 msgid "Search: file name, digest, note, week…"
 msgstr "検索：ファイル名、ダイジェスト、メモ、週…"
 
-#: beatstamp/ui/main_window.py:2152
+#: beatstamp/ui/main_window.py:2295
 msgid "See the Witnesses tab"
 msgstr "「証人」タブを参照"
 
@@ -3014,7 +3046,7 @@ msgstr "「証人」タブを参照"
 msgid "See the block"
 msgstr "ブロックを見る"
 
-#: beatstamp/ui/main_window.py:852
+#: beatstamp/ui/main_window.py:855
 msgid "Send files with proof of delivery…"
 msgstr "引き渡しの証明付きでファイルを送る…"
 
@@ -3063,7 +3095,7 @@ msgstr "送った送付物"
 msgid "Sent: %(when)s"
 msgstr "送信: %(when)s"
 
-#: beatstamp/ui/main_window.py:2422
+#: beatstamp/ui/main_window.py:2565
 msgid "Settings saved."
 msgstr "設定を保存しました。"
 
@@ -3071,19 +3103,20 @@ msgstr "設定を保存しました。"
 msgid "Settings — Sigelith Desktop"
 msgstr "設定 — Sigelith Desktop"
 
-#: beatstamp/ui/main_window.py:883
+#: beatstamp/ui/main_window.py:886
 msgid "Settings…"
 msgstr "設定…"
 
-#: beatstamp/ui/main_window.py:1670
+#: beatstamp/ui/main_window.py:1732
+#: beatstamp/ui/main_window.py:1796
 msgid "Show in folder"
 msgstr "フォルダーに表示"
 
-#: beatstamp/ui/main_window.py:747
+#: beatstamp/ui/main_window.py:750
 msgid "Show only entries at the selected proof stage"
 msgstr "選択した証明の段階の記録だけを表示"
 
-#: beatstamp/ui/main_window.py:919
+#: beatstamp/ui/main_window.py:922
 msgid "Show the event log"
 msgstr "イベントログを表示"
 
@@ -3121,7 +3154,7 @@ msgstr "このライセンスの全文を表示します"
 msgid "Show…"
 msgstr "表示…"
 
-#: beatstamp/ui/main_window.py:1502
+#: beatstamp/ui/main_window.py:1538
 msgid "Sigelith Backup file proof: %(name)s — the path in the backup tree leads to the sealed root."
 msgstr "Sigelith Backup のファイル証明: %(name)s — バックアップのツリー内の経路は封印されたルートにたどり着きます。"
 
@@ -3147,7 +3180,7 @@ msgstr "Sigelith Desktop はこのフォルダーに再び書き込めるよう�
 msgid "Sigelith Desktop cannot save data"
 msgstr "Sigelith Desktop がデータを保存できません"
 
-#: beatstamp/ui/main_window.py:1806
+#: beatstamp/ui/main_window.py:1944
 msgid "Sigelith Desktop cannot save data in %(path)s — new stamps will not be recorded in the history until the folder is changed (Settings -> Data)."
 msgstr "Sigelith Desktop は %(path)s にデータを保存できません — フォルダーを変更するまで（設定 → データ）、新しいタイムスタンプは履歴に記録されません。"
 
@@ -3161,7 +3194,7 @@ msgstr ""
 "すべての証明を自分で計算します。どの記録があなたのものかをサーバーが知ることはありません\n"
 "— ステータスの更新時も、ファイルの確認時も。"
 
-#: beatstamp/ui/main_window.py:2146
+#: beatstamp/ui/main_window.py:2289
 msgid "Sigelith Desktop found something in the public log that must not happen: <b>%(what)s</b>.<br><br>The conflicting files were kept as evidence in the data folder. Details are in the Witnesses tab."
 msgstr "Sigelith Desktop は公開ログの中に、あってはならないものを見つけました：<b>%(what)s</b>。<br><br>矛盾するファイルは証拠としてデータフォルダーに保存しました。詳細は「証人」タブにあります。"
 
@@ -3193,7 +3226,7 @@ msgstr "Sigelith Handover — 欠陥の証拠に関するレポート"
 msgid "Sigelith Handover — report on an evidence package"
 msgstr "Sigelith Handover — 証拠パッケージに関するレポート"
 
-#: beatstamp/ui/main_window.py:854
+#: beatstamp/ui/main_window.py:857
 msgid "Sigelith Handover: the recipient confirms receipt with their key"
 msgstr "Sigelith Handover: 受取人が自分の鍵で受領を確認します"
 
@@ -3229,11 +3262,11 @@ msgstr "アプリケーションに組み込まれたリストにある Sigelith
 msgid "Sigelith packages (*%(suffix)s);;All files (*)"
 msgstr "Sigelith の送付物 (*%(suffix)s);;すべてのファイル (*)"
 
-#: beatstamp/ui/main_window.py:1625
+#: beatstamp/ui/main_window.py:1751
 msgid "Sigelith proof (*.beatproof)"
 msgstr "Sigelith 証明 (*.beatproof)"
 
-#: beatstamp/ui/main_window.py:1426
+#: beatstamp/ui/main_window.py:1462
 msgid "Sigelith proof (*.beatproof);;JSON files (*.json);;All files (*)"
 msgstr "Sigelith 証明 (*.beatproof);;JSON ファイル (*.json);;すべてのファイル (*)"
 
@@ -3245,7 +3278,7 @@ msgstr "Sigelith 証明パイプライン"
 msgid "Sigelith served two DIFFERENT signed files under the same checkpoint number"
 msgstr "Sigelith が同じチェックポイント番号で、内容の異なる 2 つの署名付きファイルを配信した"
 
-#: beatstamp/ui/main_window.py:2337
+#: beatstamp/ui/main_window.py:2480
 msgid "Sigelith service status"
 msgstr "Sigelith サービスの状態"
 
@@ -3343,9 +3376,17 @@ msgstr "ソフトウェアによる描画。動作するグラフィックス �
 msgid "Some files could not be copied: %(names)s. The originals stayed in the previous folder."
 msgstr "一部のファイルをコピーできませんでした：%(names)s。元のファイルは以前のフォルダーに残っています。"
 
-#: beatstamp/ui/main_window.py:1155
+#: beatstamp/ui/main_window.py:1161
 msgid "Some files did not work out"
 msgstr "一部のファイルを処理できませんでした"
+
+#: beatstamp/ui/main_window.py:1711
+msgid "Some proofs are not closed yet: their week is still running, so they cannot be verified offline for now. Export them again once the week has closed (the coming Monday, 00:00 UTC)."
+msgstr "一部の証明はまだ締まっていません。週がまだ進行中のため、現時点ではオフラインで検証できません。週が締まった後（次の月曜日 00:00 UTC）にもう一度エクスポートしてください。"
+
+#: beatstamp/ui/main_window.py:1707
+msgid "Some proofs are signed with a retired key, so the recipient will not accept them. Refresh the statuses (History -> Refresh statuses, F5) and export them again."
+msgstr "一部の証明は廃止済みの鍵で署名されているため、受け取った人は受け入れません。ステータスを更新し（履歴 → ステータスを更新、F5）、もう一度エクスポートしてください。"
 
 #: beatstamp/ui/dialogs.py:676
 msgid ""
@@ -3363,11 +3404,11 @@ msgstr "ソース"
 msgid "Source code"
 msgstr "ソースコード"
 
-#: beatstamp/ui/main_window.py:842
+#: beatstamp/ui/main_window.py:845
 msgid "Stamp files…"
 msgstr "ファイルにタイムスタンプを付与…"
 
-#: beatstamp/ui/main_window.py:333
+#: beatstamp/ui/main_window.py:336
 msgid "Stamping"
 msgstr "タイムスタンプ付与"
 
@@ -3383,7 +3424,7 @@ msgstr "Windows の標準ランタイム ライブラリ。"
 msgid "Starts the program and unpacks its code — the executable file SigelithDesktop.exe itself."
 msgstr "プログラムを起動し、そのコードを展開します — 実行ファイル SigelithDesktop.exe そのものです。"
 
-#: beatstamp/ui/main_window.py:876
+#: beatstamp/ui/main_window.py:879
 msgid "State of the Sigelith server"
 msgstr "Sigelith サーバーの状態"
 
@@ -3392,11 +3433,11 @@ msgstr "Sigelith サーバーの状態"
 msgid "Status"
 msgstr "状態"
 
-#: beatstamp/ui/main_window.py:2025
+#: beatstamp/ui/main_window.py:2168
 msgid "Statuses refreshed"
 msgstr "ステータスを更新しました"
 
-#: beatstamp/ui/main_window.py:442
+#: beatstamp/ui/main_window.py:445
 msgid "Stop"
 msgstr "停止"
 
@@ -3404,15 +3445,15 @@ msgstr "停止"
 msgid "Stop using it"
 msgstr "使用をやめる"
 
-#: beatstamp/ui/main_window.py:1072
+#: beatstamp/ui/main_window.py:1075
 msgid "Stopping…"
 msgstr "停止しています…"
 
-#: beatstamp/ui/main_window.py:444
+#: beatstamp/ui/main_window.py:447
 msgid "Stops the current task (Esc)"
 msgstr "現在のタスクを停止します（Esc）"
 
-#: beatstamp/ui/main_window.py:871
+#: beatstamp/ui/main_window.py:874
 msgid "Synchronise the clock"
 msgstr "時計を同期"
 
@@ -3424,7 +3465,7 @@ msgstr "Sigelith サーバーと時計を同期します（F6）"
 msgid "Synchronised with the Sigelith server — difference %(offset)s s"
 msgstr "Sigelith サーバーと同期済み — 差 %(offset)s 秒"
 
-#: beatstamp/ui/main_window.py:2232
+#: beatstamp/ui/main_window.py:2375
 msgid "Synchronising the clock…"
 msgstr "時計を同期しています…"
 
@@ -3436,7 +3477,7 @@ msgstr "TVS アーカイブ — 旧クライアントの記録、検証可能な
 msgid "TVS archive"
 msgstr "TVS アーカイブ"
 
-#: beatstamp/ui/main_window.py:1073
+#: beatstamp/ui/main_window.py:1076
 msgid "Task stopped."
 msgstr "タスクを停止しました。"
 
@@ -3448,7 +3489,7 @@ msgstr "上級者向けの技術データ（JSON）"
 msgid "Thank you"
 msgstr "ありがとうございます"
 
-#: beatstamp/ui/main_window.py:904
+#: beatstamp/ui/main_window.py:907
 msgid "Thank you to the supporters…"
 msgstr "支援者の皆さまへの謝辞…"
 
@@ -3489,7 +3530,7 @@ msgstr "requests の下で動作する HTTP トランスポート。"
 msgid "The Merkle root of the week is frozen and signed with the Sigelith Ed25519 key; Sigelith Desktop checked the signature and the inclusion path."
 msgstr "週のマークルルートは固定され、Sigelith の Ed25519 鍵で署名されています。Sigelith Desktop が署名と包含パスを確認しました。"
 
-#: beatstamp/ui/main_window.py:701
+#: beatstamp/ui/main_window.py:704
 msgid ""
 "The OpenTimestamps proof of the week — to be checked with an\n"
 "OpenTimestamps client, entirely outside Sigelith and outside this application."
@@ -3505,7 +3546,7 @@ msgstr "ファイルの証明に含まれる Sigelith の確認は、このバ�
 msgid "The Sigelith log answered for a different digest."
 msgstr "Sigelith のログが別のハッシュについて応答しました。"
 
-#: beatstamp/ui/main_window.py:902
+#: beatstamp/ui/main_window.py:905
 msgid "The Sigelith manifesto"
 msgstr "Sigelith マニフェスト"
 
@@ -3537,7 +3578,7 @@ msgstr ""
 "アプリケーションは処理の続行を試みます。詳細はイベントログに記録されました：\n"
 "%(path)s"
 
-#: beatstamp/ui/main_window.py:898
+#: beatstamp/ui/main_window.py:901
 msgid "The archive of signed checkpoints"
 msgstr "署名付きチェックポイントのアーカイブ"
 
@@ -3575,16 +3616,17 @@ msgstr "カードには 2 つの公開鍵があります。1 つはあなたの�
 msgid "The certificate and the .beatproof proof are named after the stamped file."
 msgstr "証明書と .beatproof 証明には、タイムスタンプを付与したファイルの名前が付けられます。"
 
-#: beatstamp/ui/main_window.py:1596
-#: beatstamp/ui/main_window.py:1603
+#: beatstamp/ui/main_window.py:1632
+#: beatstamp/ui/main_window.py:1639
 msgid "The certificate could not be saved:<br>%(reason)s"
 msgstr "証明書を保存できませんでした：<br>%(reason)s"
 
-#: beatstamp/ui/main_window.py:1608
+#: beatstamp/ui/main_window.py:1644
+#: beatstamp/ui/main_window.py:1680
 msgid "The certificate is in English: a PDF cannot reproduce this script faithfully."
 msgstr "証明書は英語で作成されました。PDF ではこの文字を正確に再現できません。"
 
-#: beatstamp/ui/main_window.py:2178
+#: beatstamp/ui/main_window.py:2321
 msgid "The check did not work"
 msgstr "確認できませんでした"
 
@@ -3608,15 +3650,15 @@ msgstr "証明のチェックポイント部分が破損しています。"
 msgid "The choice could not be written down, so the next start will go back to the previous folder."
 msgstr "選択内容を保存できなかったため、次回の起動時には以前のフォルダーに戻ります。"
 
-#: beatstamp/ui/main_window.py:2315
+#: beatstamp/ui/main_window.py:2458
 msgid "The clock is out of step"
 msgstr "時計がずれています"
 
-#: beatstamp/ui/main_window.py:2295
+#: beatstamp/ui/main_window.py:2438
 msgid "The clock was not synchronised"
 msgstr "時計を同期できませんでした"
 
-#: beatstamp/ui/main_window.py:2293
+#: beatstamp/ui/main_window.py:2436
 msgid "The clock was not synchronised: %(reason)s"
 msgstr "時計を同期できませんでした：%(reason)s"
 
@@ -3664,6 +3706,10 @@ msgstr "欠陥の証拠には、オファー、鍵の両方の部分、暗号化
 #: beatstamp/ui/handover_dialogs.py:482
 msgid "The defect proof lets anyone check the defect, without you or the sender — at sigelith.org/handover/verify/ or in Sigelith Desktop."
 msgstr "欠陥の証拠があれば、あなたや送付者がいなくても、誰でも sigelith.org/handover/verify/ または Sigelith Desktop で欠陥を確認できます。"
+
+#: beatstamp/ui/main_window.py:1209
+msgid "The details below are for the last file of this batch, <b>%(name)s</b>. The buttons save a certificate and a proof for each file."
+msgstr "以下の詳細は、このバッチの最後のファイル <b>%(name)s</b> のものです。ボタンを使うと、ファイルごとに証明書と証明を保存します。"
 
 #: beatstamp/certificate.py:565
 msgid "The digest in this entry has an invalid format — the QR code was skipped"
@@ -3726,11 +3772,11 @@ msgstr "ファイル「%(name)s」は別のプログラムで使用中です。"
 msgid "The file \"%(name)s\" is open in another program and locked for reading. Close it and try again."
 msgstr "ファイル「%(name)s」は別のプログラムで開かれていて、読み取りがロックされています。そのプログラムを閉じてから、もう一度お試しください。"
 
-#: beatstamp/ui/main_window.py:1567
+#: beatstamp/ui/main_window.py:1603
 msgid "The file <b>%(name)s</b> already exists in this folder.<br><br>Overwrite it?"
 msgstr "このフォルダーにはすでにファイル <b>%(name)s</b> があります。<br><br>上書きしますか？"
 
-#: beatstamp/ui/main_window.py:1566
+#: beatstamp/ui/main_window.py:1602
 msgid "The file already exists"
 msgstr "ファイルはすでに存在します"
 
@@ -3763,7 +3809,7 @@ msgstr "証明内のファイルパスがバックアップのツリーの葉と
 msgid "The file proof is damaged — fields are missing or malformed."
 msgstr "ファイルの証明が壊れています — 項目が欠けているか、形式が正しくありません。"
 
-#: beatstamp/ui/main_window.py:1379
+#: beatstamp/ui/main_window.py:1415
 msgid "The file was never stamped, or it was changed after stamping — even a single changed byte gives a completely different digest."
 msgstr "このファイルにはタイムスタンプが付与されたことがないか、付与後に変更されています — 1 バイト変わっただけでも、ダイジェストはまったく別のものになります。"
 
@@ -3803,11 +3849,11 @@ msgstr "履歴ファイルの構造が想定外だったため、「%(name)s」�
 msgid "The history file was damaged and has been set aside as \"%(name)s\". The history starts over — the previous entries are in that file."
 msgstr "履歴ファイルが破損していたため、「%(name)s」として別に保存しました。履歴は新しく始まります — 以前の記録はそのファイルにあります。"
 
-#: beatstamp/ui/main_window.py:2035
+#: beatstamp/ui/main_window.py:2178
 msgid "The history is empty"
 msgstr "履歴は空です"
 
-#: beatstamp/ui/main_window.py:2000
+#: beatstamp/ui/main_window.py:2143
 msgid "The history is empty — there is nothing to refresh."
 msgstr "履歴は空です — 更新するものはありません。"
 
@@ -3897,7 +3943,7 @@ msgstr "支援者リストが想定外の形式で返されました。"
 msgid "The list of trusted root certificates for HTTPS."
 msgstr "HTTPS 用の信頼されたルート証明書の一覧。"
 
-#: beatstamp/ui/main_window.py:2158
+#: beatstamp/ui/main_window.py:2301
 msgid "The log checks out"
 msgstr "ログは整合しています"
 
@@ -3913,7 +3959,7 @@ msgstr "ログはまだ空です。"
 msgid "The names come from a public list on sigelith.org. Everyone on it asked to be named and can withdraw at any time, so Sigelith Desktop reloads the list at least once a day and keeps no copy older than that."
 msgstr "名前は sigelith.org の公開リストから取得しています。掲載されている方は全員、ご自身で掲載を希望された方で、いつでも取り下げることができます。そのため Sigelith Desktop は少なくとも 1 日 1 回リストを読み込み直し、それより古いコピーは保持しません。"
 
-#: beatstamp/ui/main_window.py:2472
+#: beatstamp/ui/main_window.py:2615
 msgid "The new language applies to texts drawn from now on. The whole window switches after Sigelith Desktop is restarted."
 msgstr "新しい言語は、これから表示されるテキストに適用されます。ウィンドウ全体が切り替わるのは、Sigelith Desktop の再起動後です。"
 
@@ -3921,11 +3967,11 @@ msgstr "新しい言語は、これから表示されるテキストに適用さ
 msgid "The next daily checkpoint (after 00:00 UTC) will contain this entry."
 msgstr "次の日次チェックポイント（00:00 UTC 以降）にこの記録が含まれます。"
 
-#: beatstamp/ui/main_window.py:1280
+#: beatstamp/ui/main_window.py:1316
 msgid "The note applies to all %(count)s files of this batch."
 msgstr "このメモは、このバッチの %(count)s 個のファイルすべてに適用されます。"
 
-#: beatstamp/ui/main_window.py:516
+#: beatstamp/ui/main_window.py:519
 msgid ""
 "The note stays ONLY on this computer, in the local history.\n"
 "It is not sent to the register and does not reach the server.\n"
@@ -3951,7 +3997,7 @@ msgstr "オファー、鍵の両方の部分、暗号化された送付物を 1 
 msgid "The only information that reached the Sigelith register"
 msgstr "Sigelith の台帳に届いた唯一の情報"
 
-#: beatstamp/ui/main_window.py:492
+#: beatstamp/ui/main_window.py:495
 msgid "The only information that reaches the Sigelith register"
 msgstr "Sigelith の台帳に届く唯一の情報"
 
@@ -4054,11 +4100,11 @@ msgstr "証明にはルートの署名が含まれていません。完全な証
 msgid "The proof contains no week root — the week was still open when it was exported."
 msgstr "証明には週次ルートが含まれていません — エクスポート時に週がまだ締まっていませんでした。"
 
-#: beatstamp/ui/main_window.py:1633
+#: beatstamp/ui/main_window.py:1759
 msgid "The proof could not be saved:<br>%(reason)s"
 msgstr "証明を保存できませんでした：<br>%(reason)s"
 
-#: beatstamp/ui/main_window.py:1395
+#: beatstamp/ui/main_window.py:1431
 msgid "The proof data did not pass the local check:"
 msgstr "証明データがローカルチェックに合格しませんでした："
 
@@ -4086,28 +4132,28 @@ msgstr "証明に記載された週の形式が無効です。"
 msgid "The proof gives the week root in an invalid format."
 msgstr "証明に記載された週次ルートの形式が無効です。"
 
-#: beatstamp/ui/main_window.py:1543
+#: beatstamp/ui/main_window.py:1579
 msgid "The proof is consistent but not closed yet — it was exported before the week ended. Check the digest in the register (the <b>Check digest</b> button) and export the proof again."
 msgstr "証明は整合していますが、まだ完了していません — 週の終了前にエクスポートされたものです。台帳でダイジェストを確認し（<b>ダイジェストを確認</b> ボタン）、証明をもう一度エクスポートしてください。"
 
-#: beatstamp/ui/main_window.py:1177
-#: beatstamp/ui/main_window.py:1398
+#: beatstamp/ui/main_window.py:1183
+#: beatstamp/ui/main_window.py:1434
 msgid "The proof needs refreshing"
 msgstr "証明の更新が必要です"
 
-#: beatstamp/ui/main_window.py:1535
+#: beatstamp/ui/main_window.py:1571
 msgid "The proof needs refreshing — %(name)s"
 msgstr "証明の更新が必要です — %(name)s"
 
-#: beatstamp/ui/main_window.py:1522
+#: beatstamp/ui/main_window.py:1558
 msgid "The proof was checked <b>entirely locally</b> — without connecting to sigelith.org and without trusting anyone. The inclusion path, the root signature, the identity of the key and the week of the stamp all add up. The signature confirms that the document existed no later than the end of the week; the exact moment is given by the register."
 msgstr "証明は<b>完全にローカルで</b>確認されました — sigelith.org に接続することなく、誰も信頼することなく。包含パス、ルートの署名、鍵の同一性、タイムスタンプの週がすべて整合しています。署名が確認するのは、文書が遅くともその週の終わりまでに存在していたことです。正確な時刻は台帳が示します。"
 
-#: beatstamp/ui/main_window.py:2447
+#: beatstamp/ui/main_window.py:2590
 msgid "The proxy \"%(proxy)s\" is not a local address. Traffic to the .onion service goes over plain HTTP, so it reaches that machine in clear text — this is NOT anonymisation."
 msgstr "プロキシ「%(proxy)s」はローカル アドレスではありません。.onion サービスへの通信は暗号化されていない HTTP で行われるため、そのマシンには平文で届きます — これは匿名化ではありません。"
 
-#: beatstamp/ui/main_window.py:897
+#: beatstamp/ui/main_window.py:900
 msgid "The public log and its checkpoints"
 msgstr "公開ログとそのチェックポイント"
 
@@ -4120,7 +4166,7 @@ msgstr "このアプリケーションが確認した公開ログ"
 msgid "The public log has not been checked yet"
 msgstr "公開ログはまだ確認されていません"
 
-#: beatstamp/ui/main_window.py:893
+#: beatstamp/ui/main_window.py:896
 msgid "The public verification page"
 msgstr "公開検証ページ"
 
@@ -4164,7 +4210,7 @@ msgstr "受取人の鍵が、その暗号化された送付物を保持してい
 msgid "The recipient's signed acceptance took effect at %(when)s, when the key part was recorded in the Sigelith log."
 msgstr "受取人の署名付き受諾は、鍵の一部が Sigelith のログに記録された %(when)s に効力を生じました。"
 
-#: beatstamp/ui/main_window.py:1165
+#: beatstamp/ui/main_window.py:1171
 msgid "The register did not confirm the write. Try again."
 msgstr "台帳が書き込みを確認しませんでした。もう一度お試しください。"
 
@@ -4245,7 +4291,7 @@ msgstr "サーバーは接続を受け入れましたが、時間内に応答を
 msgid "The server address must start with https:// — an unencrypted connection is allowed only for an .onion address."
 msgstr "サーバーのアドレスは https:// で始まる必要があります — 暗号化されていない接続が許可されるのは .onion アドレスだけです。"
 
-#: beatstamp/ui/main_window.py:1174
+#: beatstamp/ui/main_window.py:1180
 msgid "The server answer did not pass the local check."
 msgstr "サーバーの応答がローカルチェックに合格しませんでした。"
 
@@ -4377,7 +4423,7 @@ msgstr "タイムスタンプの時刻（%(utc)s）は、証明が対象とす�
 msgid "The stamp time (UTC) has an invalid format."
 msgstr "タイムスタンプの時刻（UTC）の形式が無効です。"
 
-#: beatstamp/ui/main_window.py:411
+#: beatstamp/ui/main_window.py:414
 msgid ""
 "The state of the public log as checked by this application. Click to see\n"
 "the witnesses: checkpoints, Bitcoin, the bank and the independent copies."
@@ -4385,7 +4431,7 @@ msgstr ""
 "このアプリケーションが確認した公開ログの状態。クリックすると\n"
 "証人（チェックポイント、Bitcoin、銀行、独立したコピー）を表示します。"
 
-#: beatstamp/ui/main_window.py:1018
+#: beatstamp/ui/main_window.py:1021
 msgid "The task ended with an error."
 msgstr "タスクはエラーで終了しました。"
 
@@ -4455,7 +4501,7 @@ msgstr "週次ルートは、アプリケーションに組み込まれた Sigel
 msgid "The whole user interface: windows, buttons, text and drawing."
 msgstr "ユーザー インターフェース全体：ウィンドウ、ボタン、テキスト、描画。"
 
-#: beatstamp/ui/main_window.py:2145
+#: beatstamp/ui/main_window.py:2288
 msgid "The witnesses raised an alarm"
 msgstr "証人が警報を発しました"
 
@@ -4467,9 +4513,13 @@ msgstr "テーマ："
 msgid "There is no answer yet."
 msgstr "まだ回答はありません。"
 
-#: beatstamp/ui/main_window.py:2036
+#: beatstamp/ui/main_window.py:2179
 msgid "There is nothing to export yet."
 msgstr "エクスポートするものはまだありません。"
+
+#: beatstamp/ui/main_window.py:1729
+msgid "These could not be saved: %(names)s"
+msgstr "保存できなかったもの：%(names)s"
 
 #: beatstamp/ui/dialogs.py:1084
 msgid "They are used unmodified and linked dynamically. This copy comes from the Microsoft Store, so its files cannot be exchanged in place — the package is installed read-only and bound to its signature. To run this program against your own build of Qt, use the portable release of the same version, where the libraries sit in the <code>_internal</code> folder next to the program; the notices below say how to obtain it."
@@ -4500,7 +4550,7 @@ msgstr "この確認は計算だけで行われます。ログもネットワー
 msgid "This computer's clock is %(direction)s the Sigelith server time by %(seconds)s s. Timestamps are issued by the server, so the proof is correct — but the clock shown next to it may differ from the real @beat."
 msgstr "このコンピューターの時計は Sigelith サーバーの時刻より %(seconds)s 秒%(direction)sいます。タイムスタンプはサーバーが発行するため証明は正確ですが、その横に表示される時計は実際の @beat と異なる場合があります。"
 
-#: beatstamp/ui/main_window.py:1377
+#: beatstamp/ui/main_window.py:1413
 msgid "This digest <b>does not appear</b> in the Sigelith register.<br><br>"
 msgstr "このダイジェストは Sigelith の台帳に<b>見つかりません</b>。<br><br>"
 
@@ -4520,7 +4570,7 @@ msgstr "この文書は、ローカルチェックで証明が<b>確認されな
 msgid "This file could not be read: %(name)s"
 msgstr "このファイルを読み取れませんでした：%(name)s"
 
-#: beatstamp/ui/main_window.py:1183
+#: beatstamp/ui/main_window.py:1189
 msgid "This file had already been stamped"
 msgstr "このファイルにはすでにタイムスタンプが付与されていました"
 
@@ -4602,11 +4652,11 @@ msgstr "タイムスタンプ証明書"
 msgid "Timestamp certificate · sigelith.org"
 msgstr "タイムスタンプ証明書 · sigelith.org"
 
-#: beatstamp/ui/main_window.py:1182
+#: beatstamp/ui/main_window.py:1188
 msgid "Timestamp granted"
 msgstr "タイムスタンプを付与しました"
 
-#: beatstamp/ui/main_window.py:498
+#: beatstamp/ui/main_window.py:501
 msgid "Timestamp:"
 msgstr "タイムスタンプ："
 
@@ -4640,7 +4690,7 @@ msgstr "Tor プロキシ："
 msgid "Total size"
 msgstr "合計サイズ"
 
-#: beatstamp/ui/main_window.py:2441
+#: beatstamp/ui/main_window.py:2584
 msgid ""
 "Traffic goes through the Tor network to the Sigelith hidden service.\n"
 "The server does not learn your IP address."
@@ -4704,7 +4754,7 @@ msgstr ""
 "証明そのものは Sigelith の公開台帳にあります — ローカル履歴から\n"
 "記録を削除しても、タイムスタンプは消えません。"
 
-#: beatstamp/ui/main_window.py:334
+#: beatstamp/ui/main_window.py:337
 msgid "Verification"
 msgstr "検証"
 
@@ -4716,11 +4766,11 @@ msgstr "検証用アドレス"
 msgid "Verified by"
 msgstr "確認方法"
 
-#: beatstamp/ui/main_window.py:1521
+#: beatstamp/ui/main_window.py:1557
 msgid "Verified offline"
 msgstr "オフラインで検証済み"
 
-#: beatstamp/ui/main_window.py:844
+#: beatstamp/ui/main_window.py:847
 msgid "Verify a file…"
 msgstr "ファイルを検証…"
 
@@ -4736,7 +4786,7 @@ msgstr "タイムスタンプの付与直後に証明を検証する"
 msgid "Wait a moment."
 msgstr "しばらくお待ちください。"
 
-#: beatstamp/ui/main_window.py:975
+#: beatstamp/ui/main_window.py:978
 msgid "Wait for the current task to finish, or stop it (Esc)."
 msgstr "現在のタスクが終わるまで待つか、タスクを停止してください（Esc）。"
 
@@ -4748,8 +4798,8 @@ msgstr "回答待ち"
 msgid "Waiting for your decision"
 msgstr "あなたの判断待ち"
 
-#: beatstamp/ui/main_window.py:1171
-#: beatstamp/ui/main_window.py:1392
+#: beatstamp/ui/main_window.py:1177
+#: beatstamp/ui/main_window.py:1428
 msgid "Warning"
 msgstr "警告"
 
@@ -4785,7 +4835,7 @@ msgstr "週の署名"
 msgid "What"
 msgstr "対象"
 
-#: beatstamp/ui/main_window.py:894
+#: beatstamp/ui/main_window.py:897
 msgid "What a timestamp proves"
 msgstr "タイムスタンプが証明すること"
 
@@ -4793,7 +4843,7 @@ msgstr "タイムスタンプが証明すること"
 msgid "What it does in Sigelith Desktop"
 msgstr "Sigelith Desktop での役割"
 
-#: beatstamp/ui/main_window.py:505
+#: beatstamp/ui/main_window.py:508
 msgid "What the application computed ITSELF, without trusting the server"
 msgstr "サーバーを信頼せずに、アプリケーションが「自ら」計算した内容"
 
@@ -4807,7 +4857,7 @@ msgstr "パッケージが示す内容"
 msgid "What the preview showed — and what the package holds"
 msgstr "プレビューが示していたもの — と送付物の中身"
 
-#: beatstamp/ui/main_window.py:895
+#: beatstamp/ui/main_window.py:898
 msgid "What the proof says in a dispute — and what it does not"
 msgstr "紛争のとき証明が示すこと — そして示さないこと"
 
@@ -4819,7 +4869,7 @@ msgstr "受取人が受諾前に見る内容"
 msgid "What the recipient signed"
 msgstr "受取人が署名した内容"
 
-#: beatstamp/ui/main_window.py:353
+#: beatstamp/ui/main_window.py:356
 msgid "What this application checks in the public log by itself"
 msgstr "このアプリケーションが公開ログで自ら確認すること"
 
@@ -4873,7 +4923,7 @@ msgstr "送付物の保存先"
 msgid "While Sigelith Desktop is open it checks the public Sigelith log by itself: every new signed checkpoint, the chain between them and the copies kept by third parties. Choose how it checks YOUR proofs."
 msgstr "Sigelith Desktop は開いている間、Sigelith 公開ログを自ら確認します：新しい署名付きチェックポイントのすべて、それらの間のチェーン、第三者が保管するコピー。「あなたの」証明の確認方法を選択してください。"
 
-#: beatstamp/ui/main_window.py:903
+#: beatstamp/ui/main_window.py:906
 msgid "Why Sigelith exists"
 msgstr "Sigelith が存在する理由"
 
@@ -4943,28 +4993,28 @@ msgid "Witness alarm"
 msgstr "証人の警報"
 
 #: beatstamp/ui/dialogs.py:414
-#: beatstamp/ui/main_window.py:340
+#: beatstamp/ui/main_window.py:343
 msgid "Witnesses"
 msgstr "証人"
 
-#: beatstamp/ui/main_window.py:2166
+#: beatstamp/ui/main_window.py:2309
 msgid "Witnesses: %(n)s new checkpoints checked"
 msgstr "証人：新しいチェックポイント %(n)s 件を確認しました"
 
-#: beatstamp/ui/main_window.py:997
-#: beatstamp/ui/main_window.py:1107
+#: beatstamp/ui/main_window.py:1000
+#: beatstamp/ui/main_window.py:1110
 msgid "Working…"
 msgstr "処理しています…"
 
-#: beatstamp/ui/main_window.py:2434
+#: beatstamp/ui/main_window.py:2577
 msgid "YOUR OWN public key is set — besides the built-in list of Sigelith keys the application also accepts signatures made with that key."
 msgstr "「独自の」公開鍵が設定されています — 組み込みの Sigelith 鍵リストに加えて、アプリケーションはその鍵による署名も受け入れます。"
 
-#: beatstamp/ui/main_window.py:1094
+#: beatstamp/ui/main_window.py:1097
 msgid "You are about to stamp <b>%(files)s</b>.<br><br>The server accepts 20 stamps per minute, so the operation will take about %(minutes)s. Continue?"
 msgstr "<b>%(files)s</b>にタイムスタンプを付与しようとしています。<br><br>サーバーが受け付けるのは 1 分あたり 20 件なので、処理には約 %(minutes)s かかります。続行しますか？"
 
-#: beatstamp/ui/main_window.py:655
+#: beatstamp/ui/main_window.py:658
 msgid ""
 "You can check any digest — including one you did not stamp\n"
 "from this computer. Enter starts the check."
@@ -5012,7 +5062,7 @@ msgstr "現在のカードはアーカイブされます。そのカード宛て
 msgid "Your local time"
 msgstr "あなたの現地時刻"
 
-#: beatstamp/ui/main_window.py:498
+#: beatstamp/ui/main_window.py:501
 msgid ""
 "Your local time, UTC and @beat — the same moment. Below: the two bounds\n"
 "that do not depend on the Sigelith clock at all."
@@ -5040,7 +5090,7 @@ msgstr "自分用の説明。このコンピューターに残ります"
 msgid "Your own key is accepted <b>alongside</b> the built-in list and is permanently visible in the status bar. Whoever slips you their key can sign any \"proof\" with it."
 msgstr "独自の鍵は組み込みリストと<b>並行して</b>受け入れられ、ステータスバーに常に表示されます。あなたに自分の鍵を紛れ込ませた人は、その鍵であらゆる「証明」に署名できます。"
 
-#: beatstamp/ui/main_window.py:2415
+#: beatstamp/ui/main_window.py:2558
 msgid "Your own public key"
 msgstr "独自の公開鍵"
 
@@ -5052,7 +5102,7 @@ msgstr "独自の公開鍵（上級者向け）"
 msgid "Your proofs"
 msgstr "あなたの証明"
 
-#: beatstamp/ui/main_window.py:351
+#: beatstamp/ui/main_window.py:354
 msgid "Your stamps and the stage their proof has reached"
 msgstr "あなたのタイムスタンプと、その証明が到達した段階"
 
@@ -5122,7 +5172,7 @@ msgstr "ログがアンカー済みと宣言する週 %(week)s のルートに�
 msgid "also in the signed root of week %(week)s"
 msgstr "週 %(week)s の署名済みルートにも含まれる"
 
-#: beatstamp/ui/main_window.py:1248
+#: beatstamp/ui/main_window.py:1284
 msgid "anchor (according to the register): %(anchors)s"
 msgstr "アンカー（台帳の記載による）：%(anchors)s"
 
@@ -5178,11 +5228,11 @@ msgstr "本人が管理する経路でカードを受領"
 msgid "certificate"
 msgstr "certificate"
 
-#: beatstamp/ui/main_window.py:1251
+#: beatstamp/ui/main_window.py:1287
 msgid "checked privately — the server was not told which digest this is"
 msgstr "プライベートに確認 — どのダイジェストかはサーバーに伝えていません"
 
-#: beatstamp/ui/main_window.py:2159
+#: beatstamp/ui/main_window.py:2302
 msgid "checkpoint #%(n)s · %(new)s new · %(copies)s independent copies confirmed"
 msgstr "チェックポイント #%(n)s · 新規 %(new)s 件 · 独立したコピー %(copies)s 件を確認"
 
@@ -5191,7 +5241,7 @@ msgstr "チェックポイント #%(n)s · 新規 %(new)s 件 · 独立したコ
 msgid "checks with outside services are turned off in the settings"
 msgstr "外部サービスでの確認は設定でオフになっています"
 
-#: beatstamp/ui/main_window.py:2301
+#: beatstamp/ui/main_window.py:2444
 msgid "clock out of step"
 msgstr "時計のずれ"
 
@@ -5241,7 +5291,7 @@ msgstr "日次"
 msgid "daily checkpoint"
 msgstr "日次チェックポイント"
 
-#: beatstamp/ui/main_window.py:2305
+#: beatstamp/ui/main_window.py:2448
 msgid "difference %(offset)s s, round trip %(rtt)s ms"
 msgstr "差 %(offset)s 秒、往復 %(rtt)s ms"
 
@@ -5318,7 +5368,7 @@ msgstr "ブロック %(h)s 内（OpenTimestamps）"
 msgid "in the log"
 msgstr "ログに記載"
 
-#: beatstamp/ui/main_window.py:1226
+#: beatstamp/ui/main_window.py:1262
 msgid "inclusion path — the week is still open"
 msgstr "包含パス — 週はまだ締まっていません"
 
@@ -5374,7 +5424,7 @@ msgstr "レベル %(level)s / 5（1 が最も強い）— %(method)s"
 msgid "level %(level)s: %(method)s"
 msgstr "レベル %(level)s: %(method)s"
 
-#: beatstamp/ui/main_window.py:1244
+#: beatstamp/ui/main_window.py:1280
 msgid "log checkpoint — the next daily one will contain this entry"
 msgstr "ログのチェックポイント — 次の日次チェックポイントにこの記録が含まれます"
 
@@ -5394,11 +5444,11 @@ msgstr "次回 %(when)s"
 msgid "no block in the checkpoints yet"
 msgstr "チェックポイントにはまだブロックがありません"
 
-#: beatstamp/ui/main_window.py:2163
+#: beatstamp/ui/main_window.py:2306
 msgid "no checkpoint has been issued yet"
 msgstr "チェックポイントはまだ発行されていません"
 
-#: beatstamp/ui/main_window.py:1483
+#: beatstamp/ui/main_window.py:1519
 msgid "no document was pointed to — only the proof itself was checked"
 msgstr "文書は指定されていません — 証明自体のみを確認しました"
 
@@ -5410,7 +5460,7 @@ msgstr "上限なし"
 msgid "no root signature"
 msgstr "ルートの署名なし"
 
-#: beatstamp/ui/main_window.py:1490
+#: beatstamp/ui/main_window.py:1526
 msgid "no valid root signature"
 msgstr "有効なルートの署名なし"
 
@@ -5443,7 +5493,7 @@ msgstr "未紐付け"
 msgid "not checked"
 msgstr "未確認"
 
-#: beatstamp/ui/main_window.py:491
+#: beatstamp/ui/main_window.py:494
 msgid "not computed yet"
 msgstr "未計算"
 
@@ -5519,7 +5569,7 @@ msgstr "プライベートに — このコンピューター上の公開ログ�
 msgid "proof"
 msgstr "proof"
 
-#: beatstamp/ui/main_window.py:2451
+#: beatstamp/ui/main_window.py:2594
 msgid "proxy outside this computer"
 msgstr "このコンピューター外のプロキシ"
 
@@ -5556,7 +5606,7 @@ msgstr "sigelith.org/api/proof/status の報告 %(when)s"
 msgid "retired %(date)s: <span style=\"font-family:monospace\">%(key)s</span>"
 msgstr "%(date)s に廃止：<span style=\"font-family:monospace\">%(key)s</span>"
 
-#: beatstamp/ui/main_window.py:1233
+#: beatstamp/ui/main_window.py:1269
 msgid "root signature — it arrives once the week closes"
 msgstr "ルートの署名 — 週が締まると追加されます"
 
@@ -5570,7 +5620,7 @@ msgstr "送付者"
 msgid "sender %(sender)s, recipient %(recipient)s"
 msgstr "送付者 %(sender)s、受取人 %(recipient)s"
 
-#: beatstamp/ui/main_window.py:2041
+#: beatstamp/ui/main_window.py:2184
 msgid "sigelith-history.csv"
 msgstr "sigelith-history.csv"
 
@@ -5598,16 +5648,16 @@ msgstr "Bitcoin のチェーン"
 msgid "the Bitcoin explorer knows a different block"
 msgstr "Bitcoin エクスプローラーが別のブロックを示している"
 
-#: beatstamp/ui/main_window.py:1228
-#: beatstamp/ui/main_window.py:1488
+#: beatstamp/ui/main_window.py:1264
+#: beatstamp/ui/main_window.py:1524
 msgid "the Ed25519 root signature is valid"
 msgstr "ルートの Ed25519 署名は有効"
 
-#: beatstamp/ui/main_window.py:1230
+#: beatstamp/ui/main_window.py:1266
 msgid "the Ed25519 signature is invalid"
 msgstr "Ed25519 署名が無効"
 
-#: beatstamp/ui/main_window.py:1196
+#: beatstamp/ui/main_window.py:1202
 msgid "the ORIGINAL timestamp was returned. The first stamp wins — the date on an already registered document cannot be refreshed."
 msgstr "「元の」タイムスタンプが返されました。最初のタイムスタンプが優先されます — 登録済みの文書の日付を新しくすることはできません。"
 
@@ -5615,7 +5665,7 @@ msgstr "「元の」タイムスタンプが返されました。最初のタイ
 msgid "the chain of every entry and the root of %(k)s checkpoints recomputed on this computer"
 msgstr "すべての記録のチェーンと %(k)s 件のチェックポイントのルートを、このコンピューターで再計算"
 
-#: beatstamp/ui/main_window.py:1498
+#: beatstamp/ui/main_window.py:1534
 msgid "the checkpoint in the proof does not check out"
 msgstr "証明内のチェックポイントが整合しない"
 
@@ -5643,15 +5693,15 @@ msgstr "タイムスタンプの日時（あなたの現地時刻）"
 msgid "the decrypted content is not the content committed in the offer"
 msgstr "復号した内容がオファーで約束された内容ではありません"
 
-#: beatstamp/ui/main_window.py:642
+#: beatstamp/ui/main_window.py:645
 msgid "the digest will be computed locally and looked up in the register"
 msgstr "ダイジェストをローカルで計算し、台帳で照会します"
 
-#: beatstamp/ui/main_window.py:1481
+#: beatstamp/ui/main_window.py:1517
 msgid "the document digest does NOT match the proof"
 msgstr "文書のダイジェストが証明と一致しない"
 
-#: beatstamp/ui/main_window.py:1479
+#: beatstamp/ui/main_window.py:1515
 msgid "the document digest matches the proof"
 msgstr "文書のダイジェストが証明と一致"
 
@@ -5683,19 +5733,19 @@ msgstr "最初の週次チェックポイントに、それまでのすべての
 msgid "the first weekly release follows the weekly checkpoint (Monday)"
 msgstr "最初の週次リリースは週次チェックポイント（月曜日）の後に行われます"
 
-#: beatstamp/ui/main_window.py:1224
+#: beatstamp/ui/main_window.py:1260
 msgid "the inclusion path does NOT lead to the root"
 msgstr "包含パスがルートにつながらない"
 
-#: beatstamp/ui/main_window.py:1487
+#: beatstamp/ui/main_window.py:1523
 msgid "the inclusion path does not match"
 msgstr "包含パスが一致しない"
 
-#: beatstamp/ui/main_window.py:1485
+#: beatstamp/ui/main_window.py:1521
 msgid "the inclusion path leads to the week root"
 msgstr "包含パスは週次ルートにつながる"
 
-#: beatstamp/ui/main_window.py:1222
+#: beatstamp/ui/main_window.py:1258
 msgid "the inclusion path matches the week root"
 msgstr "包含パスは週次ルートと一致"
 
@@ -5711,11 +5761,11 @@ msgstr "次の日次チェックポイントにこの記録が含まれます"
 msgid "the offer has expired."
 msgstr "オファーの期限が切れています。"
 
-#: beatstamp/ui/main_window.py:1241
+#: beatstamp/ui/main_window.py:1277
 msgid "the path to checkpoint #%(n)s does NOT check out"
 msgstr "チェックポイント #%(n)s までのパスが整合しない"
 
-#: beatstamp/ui/main_window.py:1237
+#: beatstamp/ui/main_window.py:1273
 msgid "the path to signed checkpoint #%(n)s checks out — against the checkpoint file this application verified"
 msgstr "署名付きチェックポイント #%(n)s までのパスは整合 — このアプリケーションが検証したチェックポイントのファイルと照合"
 
@@ -5727,7 +5777,7 @@ msgstr "オファーで約束された鍵の部分でプレビューを読み取
 msgid "the preview the recipient saw before accepting differs from the content"
 msgstr "受取人が受諾前に見たプレビューが内容と異なります"
 
-#: beatstamp/ui/main_window.py:1494
+#: beatstamp/ui/main_window.py:1530
 msgid "the proof carries signed checkpoint #%(n)s and the path of the entry to its root checks out"
 msgstr "証明には署名付きチェックポイント #%(n)s が含まれ、記録からそのルートまでのパスは整合"
 
@@ -5755,7 +5805,7 @@ msgstr "週次ルートを記した振込が今後行われます"
 msgid "time according to the register — week %(week)s without a confirmed signature"
 msgstr "台帳の記載による時刻 — 週 %(week)s の署名は未確認"
 
-#: beatstamp/ui/main_window.py:2335
+#: beatstamp/ui/main_window.py:2478
 msgid "unavailable"
 msgstr "利用不可"
 
@@ -5764,7 +5814,7 @@ msgid "under a checkpoint this application verified; copies at third parties fol
 msgstr "このアプリが検証したチェックポイントの下にあります。第三者のコピーは後から揃います"
 
 #: beatstamp/certificate.py:516
-#: beatstamp/ui/main_window.py:2346
+#: beatstamp/ui/main_window.py:2489
 msgid "unknown"
 msgstr "不明"
 
@@ -5828,7 +5878,7 @@ msgstr "週次"
 msgid "weekly checkpoint closing %(week)s"
 msgstr "%(week)s を締める週次チェックポイント"
 
-#: beatstamp/ui/main_window.py:2335
+#: beatstamp/ui/main_window.py:2478
 msgid "working"
 msgstr "稼働中"
 
@@ -5836,7 +5886,7 @@ msgstr "稼働中"
 msgid "— (the week is still running)"
 msgstr "—（週はまだ進行中）"
 
-#: beatstamp/ui/main_window.py:1152
+#: beatstamp/ui/main_window.py:1158
 msgid "…and %(count)s more."
 msgstr "…ほか %(count)s 件。"
 
@@ -5844,6 +5894,6 @@ msgstr "…ほか %(count)s 件。"
 msgid "…and %(files)s more."
 msgstr "…ほか %(files)s。"
 
-#: beatstamp/ui/main_window.py:654
+#: beatstamp/ui/main_window.py:657
 msgid "…or paste a SHA-256 digest here (64 hex characters)"
 msgstr "…またはここに SHA-256 ダイジェストを貼り付け（16 進数 64 文字）"

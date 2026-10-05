@@ -30,9 +30,9 @@ Sigelith Desktop is free and open source (Apache-2.0). No account, no ads, no te
 Available in English, Polish, German, Spanish, French, Russian, Turkish, Japanese, Korean, Chinese and Arabic.
 
 ## What's new in this version
-• Checks single-file time proofs from Sigelith Backup (.sigelith-proof files): a proof shows that one file was in a sealed backup at that moment, without revealing the other files.
-• Double-clicking a .beatproof or .sigelith-proof file opens the app on the Verification tab — a proof file is never stamped by mistake.
-• Sigelith Backup can pass a file from a backup straight to Sigelith Handover.
+• Several files at once: after stamping a batch, the “PDF certificates” and “Offline proofs” buttons save a certificate or a .beatproof proof for every file of the batch, into a folder you choose. Until now only the last file of the batch got one.
+• History: select several entries to save a certificate or a proof for each of them.
+• When saving several files nothing is overwritten: if a name is already taken, the new file gets a number, and one summary shows how many files were saved.
 
 ## Product features
 Timestamp any file without uploading it — only its SHA-256 digest is recorded

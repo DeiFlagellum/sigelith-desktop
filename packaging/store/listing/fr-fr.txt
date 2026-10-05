@@ -30,9 +30,9 @@ Sigelith Desktop est gratuit et open source (Apache-2.0). Sans compte, sans publ
 Disponible en anglais, polonais, allemand, espagnol, français, russe, turc, japonais, coréen, chinois et arabe.
 
 ## What's new in this version
-• Vérifie les preuves horodatées de fichiers individuels issues de Sigelith Backup (fichiers .sigelith-proof) : la preuve montre qu’un fichier se trouvait dans une sauvegarde scellée à ce moment-là, sans révéler les autres fichiers.
-• Un double-clic sur un fichier .beatproof ou .sigelith-proof ouvre l’application dans l’onglet Vérification : un fichier de preuve n’est jamais horodaté par erreur.
-• Sigelith Backup peut transmettre un fichier de la sauvegarde directement à Sigelith Handover.
+• Plusieurs fichiers à la fois : après l’horodatage d’un lot, les boutons « Certificats PDF » et « Preuves hors ligne » enregistrent un certificat ou une preuve .beatproof pour chaque fichier du lot, dans le dossier de votre choix. Jusqu’ici, seul le dernier fichier était concerné.
+• Historique : sélectionnez plusieurs entrées pour enregistrer un certificat ou une preuve pour chacune.
+• Lors de l’enregistrement de plusieurs fichiers, rien n’est écrasé : si un nom est déjà pris, le nouveau fichier reçoit un numéro, et un seul récapitulatif indique combien de fichiers ont été enregistrés.
 
 ## Product features
 Horodatez n’importe quel fichier sans l’envoyer — seule son empreinte SHA-256 est enregistrée

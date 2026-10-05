@@ -27,7 +27,7 @@ ladujace `beatstamp/keys.py` ze sciezki) — zmiana nazwy to osobny krok,
 patrz ROZWOJ.md, „Sigelith Desktop (2026-09-27)".
 """
 
-__version__ = '3.0.1'
+__version__ = '3.0.2'
 #: Nazwa programu widoczna dla uzytkownika (tytuly okien, Qt, dziennik).
 #: Marka — NIE tlumaczy sie jej w zadnym jezyku.
 __app_name__ = 'Sigelith Desktop'

@@ -23,7 +23,7 @@ not the size.
 ## Formerly BeatStamp
 
 On **2026-09-27** this program was renamed from **BeatStamp** to
-**Sigelith Desktop** (version 3.0.1). The proof-of-existence infrastructure it
+**Sigelith Desktop** (version 3.0.2). The proof-of-existence infrastructure it
 talks to — the public log, its signed checkpoints, the certificates and the
 verification API — was first published as "BeatTime proof" at
 [beattime.live](https://beattime.live) and is now called **Sigelith**, at

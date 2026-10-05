@@ -566,6 +566,161 @@ class MainWindowTests(unittest.TestCase):
             self.window._refresh_history_view()
             self.window._enable_result_buttons(False)
 
+    def _stamp_batch(self, count):
+        """Seria `count` plikow przez `_on_stamped` — jak po upuszczeniu kilku plikow."""
+        from test_core import DIGEST, LIVE_PAYLOAD
+        from beatstamp import proof, workers
+        from beatstamp.history import Entry
+
+        result = proof.verify_payload(LIVE_PAYLOAD, expected_digest=DIGEST)
+        successes = [
+            workers.StampOutcome(
+                Entry(digest=f'{n:064x}', file_name=f'plik{n}.txt', file_size=10,
+                      beat='@000.00', utc='2026-01-01T00:00:00Z', seq=n,
+                      week='2026-W01', verified_ok=True),
+                result, True, None)
+            for n in range(1, count + 1)]
+        self.window._on_stamped(workers.BatchOutcome(successes, []))
+        return successes
+
+    def test_a_batch_gets_a_certificate_and_a_proof_for_every_file(self):
+        """Regresja (zgloszenie z 5.10.2026): po upuszczeniu pieciu plikow okno
+        mowilo o pieciu plikach w serii, ale „Certyfikat PDF” wystawial
+        certyfikat tylko dla OSTATNIEGO — pozostale cztery trzeba bylo
+        wystawiac z Historii, a nic o tym nie mowilo."""
+        from unittest import mock
+
+        kept = list(self.window.history.entries)
+        folder = Path(self._tmp.name) / 'seria'
+        folder.mkdir(exist_ok=True)
+        reports = []
+        try:
+            self._stamp_batch(5)
+            self.assertEqual(self.window.button_pdf.text(),
+                             _('PDF certificates (%(count)s)') % {'count': 5})
+            self.assertEqual(self.window.button_bundle.text(),
+                             _('Offline proofs (%(count)s)') % {'count': 5})
+            self.assertTrue(self.window.button_pdf.isEnabled())
+            self.assertIn('plik5.txt', self.window.result_description.text(),
+                          'opis mowi, ktorego pliku dotycza szczegoly')
+            with mock.patch('beatstamp.ui.main_window.QFileDialog.getExistingDirectory',
+                            return_value=str(folder)), \
+                    mock.patch.object(self.window, '_report_saved',
+                                      side_effect=lambda *a, **k: reports.append(a)):
+                self.window.save_certificate()
+                self.window.save_bundle()
+            pdfs = sorted(folder.glob('*.pdf'))
+            proofs = sorted(folder.glob('*.beatproof'))
+            self.assertEqual(len(pdfs), 5, 'certyfikat dla KAZDEGO pliku serii')
+            self.assertEqual(len(proofs), 5, '.beatproof dla KAZDEGO pliku serii')
+            self.assertTrue(all(f.read_bytes().startswith(b'%PDF') for f in pdfs))
+            self.assertEqual([(r[1], r[2], r[3]) for r in reports], [(5, 5, []), (5, 5, [])],
+                             'jedno podsumowanie na serie: zapisano 5 z 5, bez bledow')
+
+            # Ponownie do tego samego folderu: nic nie nadpisuje poprzednich plikow.
+            with mock.patch('beatstamp.ui.main_window.QFileDialog.getExistingDirectory',
+                            return_value=str(folder)), \
+                    mock.patch.object(self.window, '_report_saved'):
+                self.window.save_certificate()
+            self.assertEqual(len(list(folder.glob('*.pdf'))), 10)
+
+            # Jeden plik: przycisk znow mowi o jednym certyfikacie.
+            self._stamp_batch(1)
+            self.assertEqual(self.window.button_pdf.text(), _('PDF certificate'))
+            self.assertEqual(self.window.button_bundle.text(), _('Offline proof (.beatproof)'))
+        finally:
+            self.window.history.entries = kept
+            self.window._current_batch = []
+            self.window._current_batch_exportable = []
+            self.window.current_entry = None
+            self.window.current_result = None
+            self.window._label_result_buttons(0)
+            self.window._refresh_history_view()
+            self.window._enable_result_buttons(False)
+
+    def test_several_history_entries_get_a_certificate_each(self):
+        """W Historii zaznaczone kilka wpisow: certyfikat dla kazdego, nie dla pierwszego."""
+        from unittest import mock
+
+        kept = list(self.window.history.entries)
+        folder = Path(self._tmp.name) / 'historia'
+        folder.mkdir(exist_ok=True)
+        try:
+            self._stamp_batch(3)
+            self.window.history_table.selectAll()
+            _app.processEvents()
+            self.assertTrue(self.window.history_buttons['pdf'].isEnabled(),
+                            'kilka zaznaczonych wpisow = certyfikat dla kazdego')
+            with mock.patch('beatstamp.ui.main_window.QFileDialog.getExistingDirectory',
+                            return_value=str(folder)), \
+                    mock.patch.object(self.window, '_report_saved'):
+                self.window.history_certificate()
+            self.assertEqual(len(list(folder.glob('*.pdf'))),
+                             len(self.window._selected_entries()))
+            self.assertGreaterEqual(len(list(folder.glob('*.pdf'))), 3)
+        finally:
+            self.window.history_table.clearSelection()
+            self.window.history.entries = kept
+            self.window._current_batch = []
+            self.window._current_batch_exportable = []
+            self.window.current_entry = None
+            self.window.current_result = None
+            self.window._label_result_buttons(0)
+            self.window._refresh_history_view()
+            self.window._enable_result_buttons(False)
+
+    def test_the_batch_summary_says_what_was_saved_and_what_not(self):
+        """Okno podsumowania serii (prawdziwe, tylko bez exec): ile zapisano,
+        gdzie, czego nie i uwaga o wycofanym kluczu."""
+        import html
+        from dataclasses import replace
+        from unittest import mock
+        from test_core import DIGEST, LIVE_PAYLOAD, RETIRED_KEY_PAYLOAD
+        from beatstamp import proof
+        from beatstamp.history import entry_from_verification
+        from beatstamp.ui import main_window as mw
+
+        folder = Path(self._tmp.name) / 'podsumowanie'
+        folder.mkdir(exist_ok=True)
+        good = entry_from_verification(
+            proof.verify_payload(LIVE_PAYLOAD, expected_digest=DIGEST), file_name='dobry.txt')
+        retired = entry_from_verification(
+            proof.verify_payload(RETIRED_KEY_PAYLOAD, expected_digest=DIGEST),
+            file_name='stary.txt')
+        broken = replace(good, file_name='zepsuty.txt')
+        real_build = mw.bundle.build
+        shown = []
+
+        def build(entry, **kwargs):
+            if entry is broken:
+                raise OSError('dysk pelny')
+            return real_build(entry, **kwargs)
+
+        def fake_exec(box):
+            shown.append((box.windowTitle(), box.text(), box.informativeText(),
+                          [b.text() for b in box.buttons()]))
+            return 0
+
+        with mock.patch.object(mw.QFileDialog, 'getExistingDirectory', return_value=str(folder)), \
+                mock.patch.object(mw.QMessageBox, 'exec', fake_exec), \
+                mock.patch.object(mw.bundle, 'build', side_effect=build), \
+                self.assertLogs(mw.log, level='ERROR') as logged:
+            self.window._write_bundles([good, retired, broken])
+
+        self.assertEqual(len(logged.records), 1, 'blad zepsutego pliku trafia do logu')
+        self.assertEqual(len(list(folder.glob('*.beatproof'))), 2)
+        self.assertEqual(len(shown), 1, 'jedno okno na cala serie')
+        title, text, info, buttons = shown[0]
+        self.assertEqual(title, _('Proofs saved'))
+        self.assertIn(_('Saved: %(saved)s of %(total)s.') % {'saved': 2, 'total': 3}, text)
+        self.assertIn(folder.name, info)
+        self.assertIn('zepsuty.txt', info)
+        self.assertIn(html.escape(_(
+            'Some proofs are signed with a retired key, so the recipient '
+            'will not accept them. Refresh the statuses (History -> '
+            'Refresh statuses, F5) and export them again.')), info)
+        self.assertIn(_('Show in folder'), buttons)
+
     def test_a_refused_move_leaves_a_warning_and_no_exception(self):
         from unittest import mock
         from beatstamp.ui import main_window as mw

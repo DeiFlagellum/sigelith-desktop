@@ -222,6 +222,9 @@ class MainWindow(QMainWindow):
         self.current_result: VerificationResult | None = None
         self.current_entry = None
         self._current_batch: list = []
+        # Wpisy serii, dla ktorych wolno wystawic certyfikat i .beatproof:
+        # dowod bez zastrzezen kontroli lokalnej (jak przy jednym pliku).
+        self._current_batch_exportable: list = []
         self.verify_result: VerificationResult | None = None
         self._verify_source_name = ''
         self._active_task: workers.Task | None = None
@@ -1127,6 +1130,9 @@ class MainWindow(QMainWindow):
             self.current_entry = self.history.find(last.entry.digest) or last.entry
             self._current_batch = [self.history.find(item.entry.digest) or item.entry
                                    for item in outcome.successes]
+            self._current_batch_exportable = [
+                self.history.find(item.entry.digest) or item.entry
+                for item in outcome.successes if not item.result.problems]
             self._show_result(last.result, self.current_entry,
                               newly_created=last.newly_created,
                               count=len(outcome.successes))
@@ -1196,6 +1202,14 @@ class MainWindow(QMainWindow):
                      + _('the ORIGINAL timestamp was returned. The first stamp '
                          'wins — the date on an already registered document '
                          'cannot be refreshed.'))
+            if count > 1:
+                # Szczegoly ponizej (skrot, czas, kontrole) sa jednego pliku —
+                # ostatniego. Przyciski obejmuja kazdy plik serii.
+                name = html.escape(str(getattr(entry, 'file_name', '') or ''))
+                extra += '<br><br>' + _(
+                    'The details below are for the last file of this batch, '
+                    '<b>%(name)s</b>. The buttons save a certificate and a proof '
+                    'for each file.') % {'name': name}
             self.result_description.setText(result.level.description + extra)
 
         self.result_digest.set_value(result.digest)
@@ -1205,8 +1219,30 @@ class MainWindow(QMainWindow):
         self.result_journey.show()
         # Certyfikat i .beatproof tylko dla dowodu bez zastrzezen — dokument
         # wystawiony z odpowiedzi odrzuconej przez kontrole lokalna
-        # wygladalby jak dowod, a nim nie jest.
-        self._enable_result_buttons(True, exportable=not result.problems)
+        # wygladalby jak dowod, a nim nie jest. Przy serii: dla kazdego pliku,
+        # ktorego dowod przeszedl kontrole.
+        batch = self._batch_targets() if count > 1 else []
+        self._label_result_buttons(len(batch))
+        self._enable_result_buttons(
+            True, exportable=bool(batch) if count > 1 else not result.problems)
+
+    def _batch_targets(self) -> list:
+        """Wpisy serii do certyfikatow i .beatproof — pusta lista przy jednym pliku."""
+        return self._current_batch_exportable if len(self._current_batch) > 1 else []
+
+    def _label_result_buttons(self, count: int) -> None:
+        """Przy serii plikow przyciski mowia, ze obejmuja KAZDY plik.
+
+        Do 3.0.1 po upuszczeniu np. pieciu plikow certyfikat powstawal tylko
+        dla ostatniego — nic nie mowilo, ze pozostale cztery trzeba wystawic
+        z Historii.
+        """
+        if count > 1:
+            self.button_pdf.setText(_('PDF certificates (%(count)s)') % {'count': count})
+            self.button_bundle.setText(_('Offline proofs (%(count)s)') % {'count': count})
+        else:
+            self.button_pdf.setText(_('PDF certificate'))
+            self.button_bundle.setText(_('Offline proof (.beatproof)'))
 
     @staticmethod
     def _result_week_note(result: VerificationResult) -> str:
@@ -1609,6 +1645,96 @@ class MainWindow(QMainWindow):
                      'script faithfully.')
         self._offer_open(target, _('Certificate saved'), note=note)
 
+    def _choose_folder(self, title: str) -> Path | None:
+        path = QFileDialog.getExistingDirectory(
+            self, title, self.settings.last_directory or str(Path.home()))
+        if not path:
+            return None
+        self.settings.last_directory = path
+        return Path(path)
+
+    def _write_certificates(self, entries: list) -> None:
+        """Certyfikat dla KAZDEGO wpisu, do jednego folderu.
+
+        Nazwy jak przy pojedynczym certyfikacie; zajeta nazwa dostaje „(2)”,
+        wiec nic nie nadpisuje innego pliku — takze dwa pliki o tej samej
+        nazwie z roznych folderow w jednej serii.
+        """
+        folder = self._choose_folder(_('Choose a folder for the PDF certificates'))
+        if folder is None:
+            return
+        saved, failed = 0, []
+        for entry in entries:
+            target = naming.unique_path(
+                folder / naming.certificate_name(entry, **self._name_parts()))
+            try:
+                write_atomic(target, certificate.build_certificate(
+                    entry, key_override=self.settings.key_override,
+                    witness_state=self.witness_state))
+                saved += 1
+            except Exception:     # noqa: BLE001 — OSError, LayoutError reportlaba
+                log.error('certyfikat PDF (seria)', exc_info=True)
+                failed.append(entry)
+        notes = []
+        if saved and certificate.certificate_language() != current_language():
+            notes.append(_('The certificate is in English: a PDF cannot reproduce this '
+                           'script faithfully.'))
+        self._report_saved(folder, saved, len(entries), failed,
+                           _('Certificates saved'), notes)
+
+    def _write_bundles(self, entries: list) -> None:
+        """Dowod .beatproof dla KAZDEGO wpisu, do jednego folderu."""
+        folder = self._choose_folder(_('Choose a folder for the offline proofs'))
+        if folder is None:
+            return
+        saved, failed, open_week, retired = 0, [], 0, 0
+        for entry in entries:
+            try:
+                data = bundle.build(entry, checkpoint_file=self._checkpoint_file(entry))
+                bundle.save(data, naming.unique_path(
+                    folder / naming.bundle_name(entry, **self._name_parts())))
+            except Exception:     # noqa: BLE001
+                log.error('dowod .beatproof (seria)', exc_info=True)
+                failed.append(entry)
+                continue
+            saved += 1
+            if data.get('root_signature') and keys.is_retired(data.get('public_key')):
+                retired += 1
+            elif str(data.get('level') or '') == Level.RECORDED.value:
+                open_week += 1
+        notes = []
+        if retired:
+            notes.append(_('Some proofs are signed with a retired key, so the recipient '
+                           'will not accept them. Refresh the statuses (History -> '
+                           'Refresh statuses, F5) and export them again.'))
+        if open_week:
+            notes.append(_('Some proofs are not closed yet: their week is still running, '
+                           'so they cannot be verified offline for now. Export them '
+                           'again once the week has closed (the coming Monday, 00:00 UTC).'))
+        self._report_saved(folder, saved, len(entries), failed, _('Proofs saved'), notes)
+
+    def _report_saved(self, folder: Path, saved: int, total: int, failed: list,
+                      title: str, notes: list[str]) -> None:
+        """Jedno okno na cala serie: ile zapisano, gdzie, czego nie i dlaczego."""
+        box = QMessageBox(self)
+        box.setIcon(QMessageBox.Warning if failed else QMessageBox.Information)
+        box.setWindowTitle(title if saved else _('It could not be saved'))
+        box.setTextFormat(Qt.RichText)
+        box.setText(rtl_block('<b>' + _('Saved: %(saved)s of %(total)s.')
+                              % {'saved': saved, 'total': total} + '</b>'))
+        lines = [html.escape(ltr(str(folder)))]
+        if failed:
+            names = ', '.join(html.escape(str(getattr(e, 'file_name', '') or e.digest[:16]))
+                              for e in failed)
+            lines.append(_('These could not be saved: %(names)s') % {'names': names})
+        lines += [html.escape(n) for n in notes]
+        box.setInformativeText(rtl_block('<br><br>'.join(lines)))
+        folder_button = box.addButton(_('Show in folder'), QMessageBox.ActionRole) if saved else None
+        box.addButton(_('Close'), QMessageBox.RejectRole)
+        box.exec()
+        if folder_button is not None and box.clickedButton() is folder_button:
+            QDesktopServices.openUrl(QUrl.fromLocalFile(str(folder)))
+
     def _checkpoint_file(self, entry) -> bytes | None:
         cp = getattr(entry, 'checkpoint', None) or {}
         if not cp.get('verified') or not isinstance(cp.get('n'), int):
@@ -1676,10 +1802,22 @@ class MainWindow(QMainWindow):
             QDesktopServices.openUrl(QUrl.fromLocalFile(str(path.parent)))
 
     def save_certificate(self) -> None:
-        self._write_certificate(self.current_entry)
+        batch = self._batch_targets()
+        if len(batch) > 1:
+            self._write_certificates(batch)
+        elif batch:
+            self._write_certificate(batch[0])
+        else:
+            self._write_certificate(self.current_entry)
 
     def save_bundle(self) -> None:
-        self._write_bundle(self.current_entry)
+        batch = self._batch_targets()
+        if len(batch) > 1:
+            self._write_bundles(batch)
+        elif batch:
+            self._write_bundle(batch[0])
+        else:
+            self._write_bundle(self.current_entry)
 
     def save_verify_certificate(self) -> None:
         if self.verify_result is None:
@@ -1917,8 +2055,9 @@ class MainWindow(QMainWindow):
     def _update_history_buttons(self, *_args) -> None:
         entries = self._selected_entries()
         one = len(entries) == 1
-        usable = one and entries[0].source != SOURCE_TVS_LEGACY
-        self.history_buttons['pdf'].setEnabled(one)
+        # Certyfikat i .beatproof takze dla kilku zaznaczonych wpisow — kazdy osobno.
+        usable = bool(entries) and all(e.source != SOURCE_TVS_LEGACY for e in entries)
+        self.history_buttons['pdf'].setEnabled(bool(entries))
         self.history_buttons['bundle'].setEnabled(usable)
         self.history_buttons['details'].setEnabled(one)
         self.history_buttons['copy'].setEnabled(one)
@@ -1931,7 +2070,7 @@ class MainWindow(QMainWindow):
         menu = QMenu(self)
         menu.addAction(_('Copy the SHA-256 digest'), self.history_copy_digest)
         menu.addAction(_('PDF certificate…'), self.history_certificate)
-        if entries[0].source != SOURCE_TVS_LEGACY:
+        if all(e.source != SOURCE_TVS_LEGACY for e in entries):
             menu.addAction(_('Offline proof (.beatproof)…'), self.history_bundle)
             menu.addAction(_('Check in the browser'), self.history_open_browser)
         menu.addSeparator()
@@ -1942,12 +2081,16 @@ class MainWindow(QMainWindow):
 
     def history_certificate(self) -> None:
         entries = self._selected_entries()
-        if entries:
+        if len(entries) > 1:
+            self._write_certificates(entries)
+        elif entries:
             self._write_certificate(entries[0])
 
     def history_bundle(self) -> None:
-        entries = self._selected_entries()
-        if entries:
+        entries = [e for e in self._selected_entries() if e.source != SOURCE_TVS_LEGACY]
+        if len(entries) > 1:
+            self._write_bundles(entries)
+        elif entries:
             self._write_bundle(entries[0])
 
     def history_details(self) -> None:

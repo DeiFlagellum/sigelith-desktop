@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Sigelith Desktop\n"
-"POT-Creation-Date: 2026-09-30 18:54+0200\n"
+"POT-Creation-Date: 2026-10-05 18:59+0200\n"
 "Language: zh\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -48,7 +48,7 @@ msgstr "#%(n)s——Sigelith Desktop 已核验此条目到其签名根的路径�
 msgid "#%(n)s — the path of this entry was NOT confirmed"
 msgstr "#%(n)s——此条目的路径未获确认"
 
-#: beatstamp/ui/main_window.py:1778
+#: beatstamp/ui/main_window.py:1916
 msgid "%(count)s anchored"
 msgstr "已锚定 %(count)s 个"
 
@@ -67,7 +67,7 @@ msgid "%(count)s file"
 msgid_plural "%(count)s files"
 msgstr[0] "%(count)s 个文件"
 
-#: beatstamp/ui/main_window.py:1784
+#: beatstamp/ui/main_window.py:1922
 msgid "%(count)s from the TVS archive"
 msgstr "%(count)s 个来自 TVS 存档"
 
@@ -81,27 +81,27 @@ msgid "%(count)s step"
 msgid_plural "%(count)s steps"
 msgstr[0] "%(count)s 步"
 
-#: beatstamp/ui/main_window.py:1782
+#: beatstamp/ui/main_window.py:1920
 msgid "%(count)s with independent copies"
 msgstr "%(count)s 个有独立副本"
 
-#: beatstamp/ui/main_window.py:2058
+#: beatstamp/ui/main_window.py:2201
 msgid "%(entries)s exported"
 msgstr "已导出 %(entries)s"
 
-#: beatstamp/ui/main_window.py:2020
+#: beatstamp/ui/main_window.py:2163
 msgid "%(entries)s matured in the background."
 msgstr "%(entries)s 的证明已在后台进一步完善。"
 
-#: beatstamp/ui/main_window.py:1994
+#: beatstamp/ui/main_window.py:2137
 msgid "%(entries)s removed from the history."
 msgstr "已从历史记录中移除 %(entries)s。"
 
-#: beatstamp/ui/main_window.py:1156
+#: beatstamp/ui/main_window.py:1162
 msgid "%(files)s could not be stamped:<br><br>%(list)s"
 msgstr "%(files)s 未能盖戳：<br><br>%(list)s"
 
-#: beatstamp/ui/main_window.py:1108
+#: beatstamp/ui/main_window.py:1111
 msgid "%(files)s queued"
 msgstr "%(files)s 已排队"
 
@@ -177,15 +177,15 @@ msgstr "%(title)s — 文件已保存到："
 msgid "%(what)s: the log proof was not accepted (%(code)s)"
 msgstr "%(what)s：日志证明未被认可（%(code)s）"
 
-#: beatstamp/ui/main_window.py:841
+#: beatstamp/ui/main_window.py:844
 msgid "&File"
 msgstr "文件(&F)"
 
-#: beatstamp/ui/main_window.py:867
+#: beatstamp/ui/main_window.py:870
 msgid "&Tools"
 msgstr "工具(&T)"
 
-#: beatstamp/ui/main_window.py:1185
+#: beatstamp/ui/main_window.py:1191
 msgid "(%(count)s files in this batch)"
 msgstr "（本批共 %(count)s 个文件）"
 
@@ -199,7 +199,7 @@ msgstr "（无标题）"
 msgid ".onion address:"
 msgstr ".onion 地址："
 
-#: beatstamp/ui/main_window.py:1717
+#: beatstamp/ui/main_window.py:1855
 msgid ".ots proof saved"
 msgstr ".ots 证明已保存"
 
@@ -211,27 +211,27 @@ msgstr "1) 计算文档的 SHA-256，并与 \"digest\" 比较。2) 从叶子 SHA
 msgid "6) \"checkpoint.file\" is the exact signed checkpoint of the whole Sigelith log (beattime-checkpoint-v1): check its Ed25519 signature over \"beattime-checkpoint-v1|\" + the file without \"sig\", and that SHA-256 of the file equals \"checkpoint.hash\". 7) The leaf of this entry is SHA-256(0x00 || \"beattime-entry-v1|<seq>|<digest>|<utc with six fraction digits>Z\"); fold \"checkpoint.audit_path\" with \"leaf_index\" and \"tree_size\" (RFC 9162) — the result must equal \"root\" in the file. 8) Compare the file with an independent copy: https://github.com/DeiFlagellum/sigelith-log/releases, the Internet Archive or Zenodo."
 msgstr "6) \"checkpoint.file\" 是整个 Sigelith 日志的确切签名检查点（beattime-checkpoint-v1）：检查其 Ed25519 签名（签名对象为 \"beattime-checkpoint-v1|\" + 去掉 \"sig\" 的文件），并检查该文件的 SHA-256 等于 \"checkpoint.hash\"。7) 此条目的叶子为 SHA-256(0x00 || \"beattime-entry-v1|<seq>|<digest>|<utc，带六位小数>Z\")；用 \"leaf_index\" 和 \"tree_size\" 折叠 \"checkpoint.audit_path\"（RFC 9162）——结果必须等于文件中的 \"root\"。8) 将该文件与独立副本比较：https://github.com/DeiFlagellum/sigelith-log/releases、Internet Archive 或 Zenodo。"
 
-#: beatstamp/ui/main_window.py:1899
+#: beatstamp/ui/main_window.py:2037
 msgid "<b>%(entries)s</b> from the old TVS client were added to the history.<br><br>They are marked as an <b>archive</b>: their former \"signature\" is a concatenation of a time and a digest that cannot be verified. To get a proof that can be checked independently, stamp those files again — Sigelith will write a new entry and the old one will stay in the history."
 msgstr "已将旧版 TVS 客户端的 <b>%(entries)s</b> 添加到历史记录。<br><br>它们被标记为<b>存档</b>：其原来的“签名”只是时间与摘要的拼接，无法验证。要获得可独立核验的证明，请为这些文件重新盖戳——Sigelith 会写入一个新条目，旧条目仍保留在历史记录中。"
 
-#: beatstamp/ui/main_window.py:2026
+#: beatstamp/ui/main_window.py:2169
 msgid "<b>%(entries)s</b> updated — the proofs have matured."
 msgstr "已更新 <b>%(entries)s</b>——证明已进一步完善。"
 
-#: beatstamp/ui/main_window.py:1662
+#: beatstamp/ui/main_window.py:1788
 msgid "<b>%(name)s</b> was saved."
 msgstr "<b>%(name)s</b> 已保存。"
 
-#: beatstamp/ui/main_window.py:1640
+#: beatstamp/ui/main_window.py:1766
 msgid "<b>%(name)s</b> was saved.<br><br>The root of this week is signed with a <b>retired</b> key, so the recipient will not accept this proof. Refresh the statuses (History -> Refresh statuses, F5) and export the proof again — it will get a signature made with the current Sigelith key."
 msgstr "<b>%(name)s</b> 已保存。<br><br>该周的根是用<b>已停用</b>的密钥签名的，因此接收方不会接受此证明。请刷新状态（历史记录 → 刷新状态，F5），然后重新导出证明——它将获得用当前 Sigelith 密钥制作的签名。"
 
-#: beatstamp/ui/main_window.py:1649
+#: beatstamp/ui/main_window.py:1775
 msgid "<b>%(name)s</b> was saved.<br><br>The week is still running, so the proof contains no root signature and <b>cannot be verified offline for now</b>. Export it again once the week has closed (the coming Monday, 00:00 UTC) — then it will be complete."
 msgstr "<b>%(name)s</b> 已保存。<br><br>该周尚未结束，因此证明中没有根签名，<b>暂时无法离线验证</b>。请在该周结束后（即将到来的周一 00:00 UTC）重新导出——届时证明就完整了。"
 
-#: beatstamp/ui/main_window.py:1718
+#: beatstamp/ui/main_window.py:1856
 msgid "<b>%(name)s</b> was saved.<br><br>You can check it with an OpenTimestamps client:<br><code>ots verify %(command)s</code><br><br>That verification goes through the Bitcoin chain — entirely outside Sigelith and outside this application."
 msgstr "<b>%(name)s</b> 已保存。<br><br>你可以用 OpenTimestamps 客户端核验它：<br><code>ots verify %(command)s</code><br><br>这项验证通过 Bitcoin 区块链进行——完全独立于 Sigelith 和本应用。"
 
@@ -278,7 +278,7 @@ msgstr ""
 "以 UTC 为基准。@000 是 UTC 午夜，@500 是 UTC 正午。\n"
 "没有时区：@523 在全世界都指同一时刻。"
 
-#: beatstamp/ui/main_window.py:270
+#: beatstamp/ui/main_window.py:273
 msgid "@beat timestamps %(version)s — Sigelith Desktop"
 msgstr "@beat 时间戳 %(version)s — Sigelith Desktop"
 
@@ -290,7 +290,7 @@ msgstr "为本地文件加盖 @beat 时间戳"
 msgid "A .sigelith-answer file."
 msgstr "一个 .sigelith-answer 文件。"
 
-#: beatstamp/ui/main_window.py:858
+#: beatstamp/ui/main_window.py:861
 msgid "A .sigelith-handover file someone sent you"
 msgstr "别人发给你的 .sigelith-handover 文件"
 
@@ -304,11 +304,11 @@ msgstr ""
 "该区块被挖出之前，这个检查点不可能存在，\n"
 "而此条目出现在该检查点之后。"
 
-#: beatstamp/ui/main_window.py:1351
+#: beatstamp/ui/main_window.py:1387
 msgid "A SHA-256 digest is exactly <b>64 hexadecimal characters</b> (digits 0-9 and letters a-f).<br><br>%(typed)s were entered."
 msgstr "SHA-256 摘要恰好是 <b>64 个十六进制字符</b>（数字 0-9 和字母 a-f）。<br><br>当前输入了 %(typed)s。"
 
-#: beatstamp/ui/main_window.py:2524
+#: beatstamp/ui/main_window.py:2667
 msgid "A background task is still running. Close the program and stop it?"
 msgstr "后台任务仍在运行。要关闭程序并停止该任务吗？"
 
@@ -332,7 +332,7 @@ msgstr "仅为礼貌——接收方凭你的卡片识别你，而不是凭这个
 msgid "A defect proof settles whether the package was what the sender offered: anyone can recompute it, and a false claim fails the same computation."
 msgstr "缺陷证明可以判定交付件是否就是发送方所提议的：任何人都能重新计算，虚假的主张会在同样的计算中失败。"
 
-#: beatstamp/ui/main_window.py:530
+#: beatstamp/ui/main_window.py:533
 msgid "A description visible only to you"
 msgstr "仅你自己可见的说明"
 
@@ -370,7 +370,7 @@ msgstr ""
 msgid "A folder you share with the other person (OneDrive, Dropbox, Google Drive, Syncthing). Packages and answers in it are picked up automatically."
 msgstr "与对方共享的文件夹（OneDrive、Dropbox、Google 云端硬盘、Syncthing）。进入其中的交付件和答复会被自动取回。"
 
-#: beatstamp/ui/main_window.py:1093
+#: beatstamp/ui/main_window.py:1096
 msgid "A large number of files"
 msgstr "文件数量较多"
 
@@ -390,7 +390,7 @@ msgstr "交付件有缺陷"
 msgid "A package is open: %(title)s"
 msgstr "交付件已打开：%(title)s"
 
-#: beatstamp/ui/main_window.py:751
+#: beatstamp/ui/main_window.py:754
 msgid ""
 "A proof MATURES: a stamp from this week gets its signature once the\n"
 "week closes, and the Bitcoin attestation a few hours later.\n"
@@ -415,7 +415,7 @@ msgstr ""
 "完整日志的季度版本，存放于 Zenodo（CERN），附有 DOI。\n"
 "Sigelith Desktop 会比对该记录中的检查点文件。"
 
-#: beatstamp/ui/main_window.py:920
+#: beatstamp/ui/main_window.py:923
 msgid "A record of errors — useful when reporting a problem"
 msgstr "错误记录——报告问题时很有用"
 
@@ -423,7 +423,7 @@ msgstr "错误记录——报告问题时很有用"
 msgid "A short note inside the signed binding record."
 msgstr "写在已签名绑定记录中的简短备注。"
 
-#: beatstamp/ui/main_window.py:2523
+#: beatstamp/ui/main_window.py:2666
 msgid "A task is running"
 msgstr "有任务正在运行"
 
@@ -447,7 +447,7 @@ msgstr "API 地址："
 msgid "API documentation"
 msgstr "API 文档"
 
-#: beatstamp/ui/main_window.py:888
+#: beatstamp/ui/main_window.py:891
 msgid "About"
 msgstr "关于"
 
@@ -484,7 +484,7 @@ msgstr "请先添加联系人。"
 msgid "Add a contact from a card file…"
 msgstr "从卡片文件添加联系人…"
 
-#: beatstamp/ui/main_window.py:514
+#: beatstamp/ui/main_window.py:517
 msgid "Add a note to this stamp — e.g. \"client contract, signed version\""
 msgstr "为此戳记添加备注——例如“客户合同，已签署版本”"
 
@@ -540,7 +540,7 @@ msgstr ""
 "摘要登记后，应用会立即检查\n"
 "包含路径和签名——在本地进行，无需再次请求。"
 
-#: beatstamp/ui/main_window.py:2152
+#: beatstamp/ui/main_window.py:2295
 msgid "Alarm"
 msgstr "警报"
 
@@ -551,7 +551,7 @@ msgstr "警报"
 msgid "All checks"
 msgstr "全部检查"
 
-#: beatstamp/ui/main_window.py:743
+#: beatstamp/ui/main_window.py:746
 msgid "All levels"
 msgstr "所有级别"
 
@@ -634,7 +634,7 @@ msgstr "应用错误 — Sigelith Desktop"
 msgid "Ask before overwriting an existing file"
 msgstr "覆盖现有文件前先询问"
 
-#: beatstamp/ui/main_window.py:2320
+#: beatstamp/ui/main_window.py:2463
 msgid "Asking the Sigelith server about its database, cache and clock"
 msgstr "正在向 Sigelith 服务器查询其数据库、缓存和时钟"
 
@@ -672,7 +672,7 @@ msgstr "BeatStamp 已更名为 Sigelith Desktop——数据已移至：%(path)s"
 msgid "Behaviour"
 msgstr "行为"
 
-#: beatstamp/ui/main_window.py:2416
+#: beatstamp/ui/main_window.py:2559
 msgid "Besides the built-in list of Sigelith keys, the application will now also accept signatures made with <b>the key you entered</b>.<br><br>Whoever gave you that key can sign any \"proof\" with it. The status bar will keep reminding you. To go back to the built-in list alone, clear the field in Settings -> Trust."
 msgstr "除内置的 Sigelith 密钥列表外，应用现在还会接受用<b>你输入的密钥</b>制作的签名。<br><br>给你这把密钥的人可以用它签署任何“证明”。状态栏会持续提醒你。若要恢复为仅使用内置列表，请在“设置 → 信任”中清空该字段。"
 
@@ -717,11 +717,11 @@ msgstr ""
 "两个相互矛盾的签名文件都保存在那里。两者合在一起构成\n"
 "密码学证据——请在安全的地方保留一份副本。"
 
-#: beatstamp/ui/main_window.py:695
+#: beatstamp/ui/main_window.py:698
 msgid "Builds a certificate for the checked digest"
 msgstr "为已核验的摘要生成证书"
 
-#: beatstamp/ui/main_window.py:575
+#: beatstamp/ui/main_window.py:578
 msgid ""
 "Builds the certificate on this computer — it works without the internet too.\n"
 "It contains the digest, the time, the week root and a QR code for verification."
@@ -733,7 +733,7 @@ msgstr ""
 msgid "Built-in Sigelith keys"
 msgstr "内置的 Sigelith 密钥"
 
-#: beatstamp/ui/main_window.py:2042
+#: beatstamp/ui/main_window.py:2185
 msgid "CSV sheet for Excel (*.csv);;JSON file (*.json)"
 msgstr "Excel 用 CSV 表格 (*.csv);;JSON 文件 (*.json)"
 
@@ -765,8 +765,12 @@ msgstr "双方的卡片"
 msgid "Certificate issued %(utc)s (%(beat)s) by Sigelith Desktop %(version)s · sigelith.org"
 msgstr "证书由 Sigelith Desktop %(version)s 于 %(utc)s（%(beat)s）签发 · sigelith.org"
 
-#: beatstamp/ui/main_window.py:1610
+#: beatstamp/ui/main_window.py:1646
 msgid "Certificate saved"
+msgstr "证书已保存"
+
+#: beatstamp/ui/main_window.py:1683
+msgid "Certificates saved"
 msgstr "证书已保存"
 
 #: beatstamp/ui/dialogs.py:830
@@ -777,11 +781,11 @@ msgstr "更改…"
 msgid "Check a Sigelith Handover evidence package or defect proof (.zip) — yours or someone else's."
 msgstr "检查 Sigelith Handover 证据包或缺陷证明（.zip）——你自己的或他人的。"
 
-#: beatstamp/ui/main_window.py:349
+#: beatstamp/ui/main_window.py:352
 msgid "Check a file, a SHA-256 digest or a .beatproof proof"
 msgstr "核验文件、SHA-256 摘要或 .beatproof 证明"
 
-#: beatstamp/ui/main_window.py:849
+#: beatstamp/ui/main_window.py:852
 msgid "Check a stand-alone proof — without the network"
 msgstr "核验独立证明文件——无需联网"
 
@@ -789,13 +793,13 @@ msgstr "核验独立证明文件——无需联网"
 msgid "Check again"
 msgstr "再次检查"
 
-#: beatstamp/ui/main_window.py:660
+#: beatstamp/ui/main_window.py:663
 msgid "Check digest"
 msgstr "核对摘要"
 
-#: beatstamp/ui/main_window.py:587
-#: beatstamp/ui/main_window.py:1742
-#: beatstamp/ui/main_window.py:1936
+#: beatstamp/ui/main_window.py:590
+#: beatstamp/ui/main_window.py:1880
+#: beatstamp/ui/main_window.py:2075
 msgid "Check in the browser"
 msgstr "在浏览器中核对"
 
@@ -804,7 +808,7 @@ msgstr "在浏览器中核对"
 msgid "Check now"
 msgstr "立即检查"
 
-#: beatstamp/ui/main_window.py:1383
+#: beatstamp/ui/main_window.py:1419
 msgid "Check that the digest was pasted in full."
 msgstr "请检查摘要是否已完整粘贴。"
 
@@ -812,11 +816,11 @@ msgstr "请检查摘要是否已完整粘贴。"
 msgid "Check the log and refresh the proofs while the program is open"
 msgstr "程序打开期间检查日志并刷新证明"
 
-#: beatstamp/ui/main_window.py:875
+#: beatstamp/ui/main_window.py:878
 msgid "Check the service status"
 msgstr "检查服务状态"
 
-#: beatstamp/ui/main_window.py:878
+#: beatstamp/ui/main_window.py:881
 msgid "Check the witnesses now"
 msgstr "立即检查见证者"
 
@@ -824,15 +828,15 @@ msgstr "立即检查见证者"
 msgid "Check this digest in the register (Verification tab -> Check digest) and export the proof again — it will get a signature made with the current key."
 msgstr "请在登记簿中核对此摘要（“验证”标签页 → “核对摘要”），然后重新导出证明——它将获得用当前密钥制作的签名。"
 
-#: beatstamp/ui/main_window.py:634
+#: beatstamp/ui/main_window.py:637
 msgid "Check whether a document already has a timestamp — and whether the proof is consistent. Verification records nothing and changes nothing."
 msgstr "检查文档是否已有时间戳，以及证明是否一致。验证不会记录任何内容，也不会更改任何内容。"
 
-#: beatstamp/ui/main_window.py:846
+#: beatstamp/ui/main_window.py:849
 msgid "Check whether a file already has a stamp"
 msgstr "检查文件是否已有戳记"
 
-#: beatstamp/ui/main_window.py:870
+#: beatstamp/ui/main_window.py:873
 msgid "Check whether the proofs have matured"
 msgstr "检查证明是否已进一步完善"
 
@@ -860,7 +864,7 @@ msgstr "正在检查证据…"
 msgid "Checking the exchange folder…"
 msgstr "正在检查交换文件夹…"
 
-#: beatstamp/ui/main_window.py:1338
+#: beatstamp/ui/main_window.py:1374
 msgid "Checking the first of %(count)s files — verification works on one file at a time."
 msgstr "正在核验 %(count)s 个文件中的第一个——验证一次只处理一个文件。"
 
@@ -872,17 +876,17 @@ msgstr "正在检查日志…"
 msgid "Checking the package…"
 msgstr "正在检查交付件…"
 
-#: beatstamp/ui/main_window.py:1455
+#: beatstamp/ui/main_window.py:1491
 msgid "Checking the proof…"
 msgstr "正在检查证明…"
 
-#: beatstamp/ui/main_window.py:2109
+#: beatstamp/ui/main_window.py:2252
 #: beatstamp/ui/witness_panel.py:387
 msgid "Checking the public log…"
 msgstr "正在检查公开日志…"
 
-#: beatstamp/ui/main_window.py:2319
-#: beatstamp/ui/main_window.py:2323
+#: beatstamp/ui/main_window.py:2462
+#: beatstamp/ui/main_window.py:2466
 #: beatstamp/workers.py:526
 msgid "Checking the service status…"
 msgstr "正在检查服务状态…"
@@ -901,11 +905,11 @@ msgstr "检查点存档"
 msgid "Checkpoints"
 msgstr "检查点"
 
-#: beatstamp/ui/main_window.py:880
+#: beatstamp/ui/main_window.py:883
 msgid "Checkpoints, their chain and the independent copies"
 msgstr "检查点、检查点链及独立副本"
 
-#: beatstamp/ui/main_window.py:671
+#: beatstamp/ui/main_window.py:674
 msgid ""
 "Checks a stand-alone proof file. The verification happens\n"
 "entirely locally — without connecting to anything."
@@ -917,7 +921,7 @@ msgstr ""
 msgid "Checks the Ed25519 signatures of the week roots and of the log checkpoints."
 msgstr "检查周根和日志检查点的 Ed25519 签名。"
 
-#: beatstamp/ui/main_window.py:662
+#: beatstamp/ui/main_window.py:665
 msgid ""
 "Checks this digest and the answer locally: the inclusion path, the root\n"
 "signature, the identity of the key and the path to the signed checkpoint.\n"
@@ -935,7 +939,7 @@ msgstr "选择联系人和文件；交付件将针对联系人的卡片加密。
 msgid "Choose a contact first."
 msgstr "请先选择联系人。"
 
-#: beatstamp/ui/main_window.py:1328
+#: beatstamp/ui/main_window.py:1364
 msgid "Choose a file to check"
 msgstr "选择要核验的文件"
 
@@ -943,7 +947,15 @@ msgstr "选择要核验的文件"
 msgid "Choose a folder for Sigelith Desktop data"
 msgstr "为 Sigelith Desktop 数据选择文件夹"
 
-#: beatstamp/ui/main_window.py:1429
+#: beatstamp/ui/main_window.py:1663
+msgid "Choose a folder for the PDF certificates"
+msgstr "选择保存 PDF 证书的文件夹"
+
+#: beatstamp/ui/main_window.py:1687
+msgid "Choose a folder for the offline proofs"
+msgstr "选择保存离线证明的文件夹"
+
+#: beatstamp/ui/main_window.py:1465
 msgid "Choose a proof file"
 msgstr "选择证明文件"
 
@@ -956,12 +968,12 @@ msgstr "请至少选择一个文件。"
 msgid "Choose files to send"
 msgstr "选择要发送的文件"
 
-#: beatstamp/ui/main_window.py:843
-#: beatstamp/ui/main_window.py:1079
+#: beatstamp/ui/main_window.py:846
+#: beatstamp/ui/main_window.py:1082
 msgid "Choose files to stamp"
 msgstr "选择要盖戳的文件"
 
-#: beatstamp/ui/main_window.py:1448
+#: beatstamp/ui/main_window.py:1484
 msgid "Choose the document"
 msgstr "选择文档"
 
@@ -987,11 +999,11 @@ msgstr "选择…"
 msgid "Clears your own key — verification then uses only the keys shipped with this version of the program"
 msgstr "清除你自己的密钥——之后验证只使用此版本程序自带的密钥"
 
-#: beatstamp/ui/main_window.py:2315
+#: beatstamp/ui/main_window.py:2458
 msgid "Clock synchronised"
 msgstr "时钟已同步"
 
-#: beatstamp/ui/main_window.py:2309
+#: beatstamp/ui/main_window.py:2452
 msgid "Clock synchronised (difference %(offset)s s, round trip %(rtt)s ms)."
 msgstr "时钟已同步（偏差 %(offset)s 秒，往返 %(rtt)s 毫秒）。"
 
@@ -1006,7 +1018,8 @@ msgstr "时钟已同步（偏差 %(offset)s 秒，往返 %(rtt)s 毫秒）。"
 #: beatstamp/ui/handover_dialogs.py:571
 #: beatstamp/ui/handover_dialogs.py:848
 #: beatstamp/ui/handover_dialogs.py:974
-#: beatstamp/ui/main_window.py:1671
+#: beatstamp/ui/main_window.py:1733
+#: beatstamp/ui/main_window.py:1797
 msgid "Close"
 msgstr "关闭"
 
@@ -1055,7 +1068,7 @@ msgstr "计算该文件的 SHA-256，并与上面的值比较。在 Windows 上�
 msgid "Computing SHA-256: %(name)s"
 msgstr "正在计算 SHA-256：%(name)s"
 
-#: beatstamp/ui/main_window.py:1344
+#: beatstamp/ui/main_window.py:1380
 #: beatstamp/workers.py:206
 msgid "Computing digest: %(name)s"
 msgstr "正在计算摘要：%(name)s"
@@ -1064,7 +1077,7 @@ msgstr "正在计算摘要：%(name)s"
 msgid "Computing the document digest: %(name)s"
 msgstr "正在计算文档摘要：%(name)s"
 
-#: beatstamp/ui/main_window.py:1405
+#: beatstamp/ui/main_window.py:1441
 msgid "Confirmed"
 msgstr "已确认"
 
@@ -1088,7 +1101,7 @@ msgstr "正在连接 sigelith.org…"
 msgid "Connection"
 msgstr "连接"
 
-#: beatstamp/ui/main_window.py:885
+#: beatstamp/ui/main_window.py:888
 msgid "Connection, witnesses, trust, behaviour"
 msgstr "连接、见证者、信任、行为"
 
@@ -1130,7 +1143,7 @@ msgstr "GitHub 和 Internet Archive 上的副本每周跟进，Zenodo 上的每�
 msgid "Copies the contents to the clipboard"
 msgstr "将内容复制到剪贴板"
 
-#: beatstamp/ui/main_window.py:801
+#: beatstamp/ui/main_window.py:804
 msgid "Copies the full SHA-256 digest to the clipboard"
 msgstr "将完整的 SHA-256 摘要复制到剪贴板"
 
@@ -1143,7 +1156,7 @@ msgstr "将整个 JSON 文档复制到剪贴板"
 msgid "Copy"
 msgstr "复制"
 
-#: beatstamp/ui/main_window.py:800
+#: beatstamp/ui/main_window.py:803
 msgid "Copy digest"
 msgstr "复制摘要"
 
@@ -1151,7 +1164,7 @@ msgstr "复制摘要"
 msgid "Copy everything"
 msgstr "全部复制"
 
-#: beatstamp/ui/main_window.py:1932
+#: beatstamp/ui/main_window.py:2071
 msgid "Copy the SHA-256 digest"
 msgstr "复制 SHA-256 摘要"
 
@@ -1202,7 +1215,7 @@ msgid "Data folder"
 msgstr "数据文件夹"
 
 #: beatstamp/config.py:790
-#: beatstamp/ui/main_window.py:1822
+#: beatstamp/ui/main_window.py:1960
 msgid "Data folder: %(path)s"
 msgstr "数据文件夹：%(path)s"
 
@@ -1273,10 +1286,10 @@ msgstr "已交付：%(title)s"
 msgid "Delivered: the key part is in the public log (%(when)s). Save the evidence package now? Sigelith keeps no copy."
 msgstr "已交付：密钥部分已在公开日志中（%(when)s）。现在保存证据包吗？Sigelith 不保存任何副本。"
 
-#: beatstamp/ui/main_window.py:591
-#: beatstamp/ui/main_window.py:705
-#: beatstamp/ui/main_window.py:796
-#: beatstamp/ui/main_window.py:1938
+#: beatstamp/ui/main_window.py:594
+#: beatstamp/ui/main_window.py:708
+#: beatstamp/ui/main_window.py:799
+#: beatstamp/ui/main_window.py:2077
 msgid "Details…"
 msgstr "详细信息…"
 
@@ -1284,7 +1297,7 @@ msgstr "详细信息…"
 msgid "Digest %(short)s…"
 msgstr "摘要 %(short)s…"
 
-#: beatstamp/ui/main_window.py:1962
+#: beatstamp/ui/main_window.py:2105
 msgid "Digest copied to the clipboard."
 msgstr "摘要已复制到剪贴板。"
 
@@ -1300,7 +1313,7 @@ msgstr "披露的内容与交付物一致"
 msgid "Do you also have the other party's copy of the same handover? It settles the case where the recipient signed two different answers."
 msgstr "你是否也有同一次交付中另一方的副本？它可用于判断接收方签署了两个不同答复的情况。"
 
-#: beatstamp/ui/main_window.py:1438
+#: beatstamp/ui/main_window.py:1474
 msgid "Do you also want to point to the <b>document</b> this proof is about?<br><br>Without the document we check only whether the proof itself is consistent. With the document we additionally check whether the proof really is about <i>this</i> file and whether the file has been changed."
 msgstr "是否还要指定此证明所涉及的<b>文档</b>？<br><br>不指定文档时，我们只检查证明本身是否一致。指定文档后，我们还会检查该证明是否确实针对<i>这个</i>文件，以及文件是否被改动过。"
 
@@ -1317,15 +1330,15 @@ msgstr "文档摘要——唯一到达登记簿的信息"
 msgid "Document name. It was never sent to the server"
 msgstr "文档名称。它从未发送到服务器"
 
-#: beatstamp/ui/main_window.py:1139
+#: beatstamp/ui/main_window.py:1145
 msgid "Done — %(files)s stamped."
 msgstr "完成——已为 %(files)s 盖戳。"
 
-#: beatstamp/ui/main_window.py:1140
+#: beatstamp/ui/main_window.py:1146
 msgid "Done — the file has a timestamp."
 msgstr "完成——该文件已有时间戳。"
 
-#: beatstamp/ui/main_window.py:700
+#: beatstamp/ui/main_window.py:703
 msgid "Download the .ots proof"
 msgstr "下载 .ots 证明"
 
@@ -1333,11 +1346,11 @@ msgstr "下载 .ots 证明"
 msgid "Downloaded: %(when)s"
 msgstr "下载时间：%(when)s"
 
-#: beatstamp/ui/main_window.py:2109
+#: beatstamp/ui/main_window.py:2252
 msgid "Downloading new checkpoints and checking the signature, the chain, consistency and the independent copies"
 msgstr "正在下载新的检查点，并检查签名、链、一致性和独立副本"
 
-#: beatstamp/ui/main_window.py:1702
+#: beatstamp/ui/main_window.py:1840
 #: beatstamp/workers.py:564
 msgid "Downloading the .ots proof for %(week)s…"
 msgstr "正在下载 %(week)s 的 .ots 证明…"
@@ -1360,15 +1373,15 @@ msgstr ""
 msgid "Downloads the list from sigelith.org again"
 msgstr "重新从 sigelith.org 下载名单"
 
-#: beatstamp/ui/main_window.py:641
+#: beatstamp/ui/main_window.py:644
 msgid "Drag a file here to check it"
 msgstr "将文件拖到此处进行核验"
 
-#: beatstamp/ui/main_window.py:686
+#: beatstamp/ui/main_window.py:689
 msgid "Drag a file in, paste a digest, or load a .beatproof file."
 msgstr "拖入文件、粘贴摘要，或载入 .beatproof 文件。"
 
-#: beatstamp/ui/main_window.py:565
+#: beatstamp/ui/main_window.py:568
 msgid "Drag a file into the area above to give it a timestamp."
 msgstr "将文件拖入上方区域，为其加盖时间戳。"
 
@@ -1452,7 +1465,7 @@ msgstr ""
 "请为此文件重新盖戳，以获得\n"
 "可独立核验的证明。"
 
-#: beatstamp/ui/main_window.py:1956
+#: beatstamp/ui/main_window.py:2099
 msgid "Entry details"
 msgstr "条目详细信息"
 
@@ -1460,7 +1473,7 @@ msgstr "条目详细信息"
 msgid "Entry no. %(seq)s in the public Sigelith register"
 msgstr "公开 Sigelith 登记簿中的第 %(seq)s 号条目"
 
-#: beatstamp/ui/main_window.py:1163
+#: beatstamp/ui/main_window.py:1169
 msgid "Error"
 msgstr "错误"
 
@@ -1494,12 +1507,12 @@ msgstr ""
 "每周的 Merkle 根都会写入一笔银行转账的附言\n"
 "（MROOT）。每周检查点会列出这些转账。"
 
-#: beatstamp/ui/main_window.py:797
+#: beatstamp/ui/main_window.py:800
 msgid "Everything about the selected entry, in plain words — and the note to edit"
 msgstr "用通俗的语言说明所选条目的全部信息——并可编辑备注"
 
-#: beatstamp/ui/main_window.py:592
-#: beatstamp/ui/main_window.py:706
+#: beatstamp/ui/main_window.py:595
+#: beatstamp/ui/main_window.py:709
 msgid "Everything about this proof: when, how far it has come and who confirms it"
 msgstr "关于此证明的全部信息：时间、进展到哪一步、由谁确认"
 
@@ -1540,15 +1553,15 @@ msgstr "交换文件夹："
 msgid "Expired"
 msgstr "已过期"
 
-#: beatstamp/ui/main_window.py:860
+#: beatstamp/ui/main_window.py:863
 msgid "Export history…"
 msgstr "导出历史记录…"
 
-#: beatstamp/ui/main_window.py:2039
+#: beatstamp/ui/main_window.py:2182
 msgid "Export the history"
 msgstr "导出历史记录"
 
-#: beatstamp/ui/main_window.py:817
+#: beatstamp/ui/main_window.py:820
 msgid "Export…"
 msgstr "导出…"
 
@@ -1556,7 +1569,7 @@ msgstr "导出…"
 msgid "FOREIGN key — outside the Sigelith keys built into the application"
 msgstr "外来密钥——不在应用内置的 Sigelith 密钥之列"
 
-#: beatstamp/ui/main_window.py:2217
+#: beatstamp/ui/main_window.py:2360
 msgid "Fast mode: the server is asked about each digest."
 msgstr "快速模式：逐个向服务器查询每个摘要。"
 
@@ -1582,7 +1595,7 @@ msgstr "文件 %(name)s"
 msgid "File names:"
 msgstr "文件名："
 
-#: beatstamp/ui/main_window.py:2055
+#: beatstamp/ui/main_window.py:2198
 msgid "File write error:<br>%(reason)s"
 msgstr "文件写入错误：<br>%(reason)s"
 
@@ -1592,7 +1605,7 @@ msgstr "文件写入错误：<br>%(reason)s"
 msgid "Files"
 msgstr "文件"
 
-#: beatstamp/ui/main_window.py:737
+#: beatstamp/ui/main_window.py:740
 msgid ""
 "Filters entries as you type. It also searches the full digest,\n"
 "so you can paste a whole hash."
@@ -1620,7 +1633,7 @@ msgstr "发件人"
 msgid "Full licence texts"
 msgstr "完整许可证文本"
 
-#: beatstamp/ui/main_window.py:347
+#: beatstamp/ui/main_window.py:350
 msgid "Give files a timestamp in the Sigelith register"
 msgstr "在 Sigelith 登记簿中为文件加盖时间戳"
 
@@ -1644,17 +1657,17 @@ msgstr "与 sigelith.org 及各独立存档之间的 HTTP 连接。"
 msgid "HTTP request error: %(kind)s."
 msgstr "HTTP 请求错误：%(kind)s。"
 
-#: beatstamp/ui/main_window.py:2455
+#: beatstamp/ui/main_window.py:2598
 msgid "HTTPS connection with full certificate verification (certifi)."
 msgstr "HTTPS 连接，完整验证证书（certifi）。"
 
 #: beatstamp/ui/handover_panel.py:140
-#: beatstamp/ui/main_window.py:355
+#: beatstamp/ui/main_window.py:358
 msgid "Hand over files with proof of delivery"
 msgstr "带交付证明地交付文件"
 
 #: beatstamp/ui/dialogs.py:417
-#: beatstamp/ui/main_window.py:345
+#: beatstamp/ui/main_window.py:348
 msgid "Handover"
 msgstr "Handover"
 
@@ -1671,7 +1684,7 @@ msgstr "%(role)s的硬件证明：%(what)s"
 msgid "Hardware attestation: %(what)s."
 msgstr "硬件证明：%(what)s。"
 
-#: beatstamp/ui/main_window.py:887
+#: beatstamp/ui/main_window.py:890
 msgid "Hel&p"
 msgstr "帮助(&H)"
 
@@ -1679,11 +1692,11 @@ msgstr "帮助(&H)"
 msgid "Highest level: the week root is anchored outside Sigelith — in the Bitcoin chain (OpenTimestamps) and/or by a bank confirmation. Undoing this timestamp would require rewriting other parties' registers."
 msgstr "最高级别：周根已锚定在 Sigelith 之外——写入 Bitcoin 区块链（OpenTimestamps）和/或经银行确认。要撤销此时间戳，就必须改写其他各方的记录。"
 
-#: beatstamp/ui/main_window.py:335
+#: beatstamp/ui/main_window.py:338
 msgid "History"
 msgstr "历史记录"
 
-#: beatstamp/ui/main_window.py:1898
+#: beatstamp/ui/main_window.py:2036
 msgid "History carried over from TVS"
 msgstr "从 TVS 迁移的历史记录"
 
@@ -1715,7 +1728,7 @@ msgstr "绑定方式"
 msgid "How it works"
 msgstr "工作原理"
 
-#: beatstamp/ui/main_window.py:892
+#: beatstamp/ui/main_window.py:895
 msgid "How it works — sigelith.org"
 msgstr "工作原理 — sigelith.org"
 
@@ -1782,17 +1795,17 @@ msgstr "要把已交付的文件放入证据吗？这样它能准确显示交付
 msgid "Inclusion path"
 msgstr "包含路径"
 
-#: beatstamp/ui/main_window.py:1542
+#: beatstamp/ui/main_window.py:1578
 msgid "Incomplete"
 msgstr "不完整"
 
-#: beatstamp/ui/main_window.py:1541
+#: beatstamp/ui/main_window.py:1577
 msgid "Incomplete proof"
 msgstr "证明不完整"
 
-#: beatstamp/ui/main_window.py:1170
-#: beatstamp/ui/main_window.py:1391
-#: beatstamp/ui/main_window.py:1530
+#: beatstamp/ui/main_window.py:1176
+#: beatstamp/ui/main_window.py:1427
+#: beatstamp/ui/main_window.py:1566
 msgid "Inconsistent proof"
 msgstr "证明不一致"
 
@@ -1803,7 +1816,7 @@ msgstr "证明不一致"
 msgid "Independent copies"
 msgstr "独立副本"
 
-#: beatstamp/ui/main_window.py:2471
+#: beatstamp/ui/main_window.py:2614
 msgid "Interface language"
 msgstr "界面语言"
 
@@ -1829,7 +1842,7 @@ msgstr "地址中的国际化域名。"
 msgid "Invalid address"
 msgstr "地址无效"
 
-#: beatstamp/ui/main_window.py:1350
+#: beatstamp/ui/main_window.py:1386
 msgid "Invalid digest"
 msgstr "摘要无效"
 
@@ -1837,19 +1850,20 @@ msgstr "摘要无效"
 msgid "Invalid key"
 msgstr "密钥无效"
 
-#: beatstamp/ui/main_window.py:791
+#: beatstamp/ui/main_window.py:794
 msgid "Issues a certificate for the selected entry"
 msgstr "为所选条目签发证书"
 
-#: beatstamp/ui/main_window.py:1738
+#: beatstamp/ui/main_window.py:1876
 msgid "Issues a certificate for this entry"
 msgstr "为此条目签发证书"
 
-#: beatstamp/ui/main_window.py:1595
-#: beatstamp/ui/main_window.py:1602
-#: beatstamp/ui/main_window.py:1632
-#: beatstamp/ui/main_window.py:1714
-#: beatstamp/ui/main_window.py:2054
+#: beatstamp/ui/main_window.py:1631
+#: beatstamp/ui/main_window.py:1638
+#: beatstamp/ui/main_window.py:1721
+#: beatstamp/ui/main_window.py:1758
+#: beatstamp/ui/main_window.py:1852
+#: beatstamp/ui/main_window.py:2197
 msgid "It could not be saved"
 msgstr "无法保存"
 
@@ -1860,7 +1874,7 @@ msgstr "无法保存"
 #: beatstamp/ui/handover_controller.py:484
 #: beatstamp/ui/handover_controller.py:526
 #: beatstamp/ui/handover_controller.py:559
-#: beatstamp/ui/main_window.py:1021
+#: beatstamp/ui/main_window.py:1024
 msgid "It did not work"
 msgstr "操作未成功"
 
@@ -1902,7 +1916,7 @@ msgid "Later"
 msgstr "稍后"
 
 #: beatstamp/ui/dialogs.py:1150
-#: beatstamp/ui/main_window.py:914
+#: beatstamp/ui/main_window.py:917
 msgid "Legal notice (Impressum)"
 msgstr "法律声明（Impressum）"
 
@@ -1952,8 +1966,8 @@ msgstr "邮件中的换行和空格不影响。"
 msgid "Load"
 msgstr "载入"
 
-#: beatstamp/ui/main_window.py:670
-#: beatstamp/ui/main_window.py:847
+#: beatstamp/ui/main_window.py:673
+#: beatstamp/ui/main_window.py:850
 msgid "Load a .beatproof proof…"
 msgstr "载入 .beatproof 证明…"
 
@@ -1990,11 +2004,11 @@ msgstr "正在载入支持者名单…"
 msgid "Loading the list…"
 msgstr "正在载入名单…"
 
-#: beatstamp/ui/main_window.py:505
+#: beatstamp/ui/main_window.py:508
 msgid "Local check:"
 msgstr "本地检查："
 
-#: beatstamp/ui/main_window.py:1857
+#: beatstamp/ui/main_window.py:1995
 msgid "Local history"
 msgstr "本地历史记录"
 
@@ -2037,11 +2051,11 @@ msgstr "MROOT 转账列在每周检查点中——转账附言可在银行对账
 msgid "Made by Sigelith Desktop %(version)s on %(when)s."
 msgstr "由 Sigelith Desktop %(version)s 于 %(when)s 生成。"
 
-#: beatstamp/ui/main_window.py:873
+#: beatstamp/ui/main_window.py:876
 msgid "Measure the clock drift of this computer"
 msgstr "测量这台电脑的时钟偏差"
 
-#: beatstamp/ui/main_window.py:2232
+#: beatstamp/ui/main_window.py:2375
 msgid "Measuring the difference between this computer and the Sigelith server"
 msgstr "正在测量这台电脑与 Sigelith 服务器之间的时间差"
 
@@ -2099,11 +2113,11 @@ msgstr "没有已生效的接受：密钥部分未在接受之后、期限之前
 msgid "No anchor — the week is still running."
 msgstr "尚无锚定——该周仍在进行中。"
 
-#: beatstamp/ui/main_window.py:2030
+#: beatstamp/ui/main_window.py:2173
 msgid "No change — none of the proofs has moved to another stage yet."
 msgstr "没有变化——尚无任何证明进入下一阶段。"
 
-#: beatstamp/ui/main_window.py:2154
+#: beatstamp/ui/main_window.py:2297
 msgid "No connection"
 msgstr "无连接"
 
@@ -2139,7 +2153,7 @@ msgstr "无缺陷"
 msgid "No exchange folder: you save and send the files yourself (e-mail, messenger, USB stick). A shared folder makes it automatic."
 msgstr "没有交换文件夹：文件需要你自己保存并发送（电子邮件、即时通讯、U 盘）。共享文件夹可以让这一切自动完成。"
 
-#: beatstamp/ui/main_window.py:1089
+#: beatstamp/ui/main_window.py:1092
 msgid "No file was found. Folders are expanded automatically — perhaps the chosen folder is empty."
 msgstr "未找到任何文件。文件夹会自动展开——所选文件夹可能是空的。"
 
@@ -2156,12 +2170,12 @@ msgstr "无备注"
 msgid "No permission to read the file \"%(name)s\"."
 msgstr "没有读取文件“%(name)s”的权限。"
 
-#: beatstamp/ui/main_window.py:464
+#: beatstamp/ui/main_window.py:467
 msgid "No result"
 msgstr "暂无结果"
 
 #: beatstamp/proof.py:103
-#: beatstamp/ui/main_window.py:1374
+#: beatstamp/ui/main_window.py:1410
 msgid "No stamp"
 msgstr "无戳记"
 
@@ -2194,7 +2208,7 @@ msgstr "未交付"
 msgid "Not earlier than"
 msgstr "不早于"
 
-#: beatstamp/ui/main_window.py:1375
+#: beatstamp/ui/main_window.py:1411
 msgid "Not found"
 msgstr "未找到"
 
@@ -2203,7 +2217,7 @@ msgstr "未找到"
 msgid "Not later than"
 msgstr "不晚于"
 
-#: beatstamp/ui/main_window.py:1162
+#: beatstamp/ui/main_window.py:1168
 msgid "Not registered"
 msgstr "未登记"
 
@@ -2229,12 +2243,12 @@ msgstr "备注"
 msgid "Note (optional)"
 msgstr "备注（可选）"
 
-#: beatstamp/ui/main_window.py:1305
-#: beatstamp/ui/main_window.py:1319
+#: beatstamp/ui/main_window.py:1341
+#: beatstamp/ui/main_window.py:1355
 msgid "Note saved."
 msgstr "备注已保存。"
 
-#: beatstamp/ui/main_window.py:530
+#: beatstamp/ui/main_window.py:533
 msgid "Note:"
 msgstr "备注："
 
@@ -2242,7 +2256,7 @@ msgstr "备注："
 msgid "Nothing to check: no package is waiting for an answer or a key part."
 msgstr "没有需要检查的内容：没有交付件在等待答复或密钥部分。"
 
-#: beatstamp/ui/main_window.py:1088
+#: beatstamp/ui/main_window.py:1091
 msgid "Nothing to stamp"
 msgstr "没有可盖戳的内容"
 
@@ -2275,19 +2289,24 @@ msgstr "提议已记录到日志：%(when)s"
 msgid "Offer signed by the sender"
 msgstr "发送方签署的提议"
 
-#: beatstamp/ui/main_window.py:793
-#: beatstamp/ui/main_window.py:1740
+#: beatstamp/ui/main_window.py:796
+#: beatstamp/ui/main_window.py:1878
 msgid "Offline proof"
 msgstr "离线证明"
 
-#: beatstamp/ui/main_window.py:580
-#: beatstamp/ui/main_window.py:697
+#: beatstamp/ui/main_window.py:583
+#: beatstamp/ui/main_window.py:700
+#: beatstamp/ui/main_window.py:1245
 msgid "Offline proof (.beatproof)"
 msgstr "离线证明（.beatproof）"
 
-#: beatstamp/ui/main_window.py:1935
+#: beatstamp/ui/main_window.py:2074
 msgid "Offline proof (.beatproof)…"
 msgstr "离线证明（.beatproof）…"
+
+#: beatstamp/ui/main_window.py:1242
+msgid "Offline proofs (%(count)s)"
+msgstr "离线证明（%(count)s）"
 
 #: beatstamp/ui/handover_dialogs.py:191
 msgid "On"
@@ -2301,7 +2320,7 @@ msgstr "只能使用 HTTPS 地址。"
 msgid "Only for the Windows Hello window on this computer. It is not part of the card."
 msgstr "仅用于此计算机上的 Windows Hello 窗口，不属于卡片的一部分。"
 
-#: beatstamp/ui/main_window.py:397
+#: beatstamp/ui/main_window.py:400
 msgid "Only the SHA-256 digest, computed on this computer, reaches the Sigelith register."
 msgstr "只有在这台电脑上计算出的 SHA-256 摘要会到达 Sigelith 登记簿。"
 
@@ -2313,7 +2332,7 @@ msgstr "在最新的浏览器中打开 %(url)s 并拖入文件。该页面在浏
 msgid "Open a .sigelith-handover file someone sent you."
 msgstr "打开别人发给你的 .sigelith-handover 文件。"
 
-#: beatstamp/ui/main_window.py:856
+#: beatstamp/ui/main_window.py:859
 msgid "Open a Handover package…"
 msgstr "打开 Handover 交付件…"
 
@@ -2354,7 +2373,7 @@ msgstr "打开副本"
 msgid "Open the evidence folder"
 msgstr "打开证据文件夹"
 
-#: beatstamp/ui/main_window.py:1669
+#: beatstamp/ui/main_window.py:1795
 msgid "Open the file"
 msgstr "打开文件"
 
@@ -2376,7 +2395,7 @@ msgstr "打开存放文件的文件夹"
 msgid "Open the other party's copy"
 msgstr "打开另一方的副本"
 
-#: beatstamp/ui/main_window.py:1708
+#: beatstamp/ui/main_window.py:1846
 msgid "OpenTimestamps proof (*.ots)"
 msgstr "OpenTimestamps 证明 (*.ots)"
 
@@ -2413,12 +2432,12 @@ msgid "Opens Windows Security, where Sigelith Desktop can be allowed to write to
 msgstr "打开 Windows 安全中心，可在其中允许 Sigelith Desktop 写入受保护的文件夹。"
 
 #: beatstamp/ui/dialogs.py:1010
-#: beatstamp/ui/main_window.py:947
+#: beatstamp/ui/main_window.py:950
 #: beatstamp/ui/witness_panel.py:134
 msgid "Opens in the browser: %(url)s"
 msgstr "在浏览器中打开：%(url)s"
 
-#: beatstamp/ui/main_window.py:1742
+#: beatstamp/ui/main_window.py:1880
 msgid "Opens sigelith.org/proof with this digest"
 msgstr "用此摘要打开 sigelith.org/proof"
 
@@ -2426,7 +2445,7 @@ msgstr "用此摘要打开 sigelith.org/proof"
 msgid "Opens the folder with the licence files in the file manager"
 msgstr "在文件资源管理器中打开存放许可证文件的文件夹"
 
-#: beatstamp/ui/main_window.py:588
+#: beatstamp/ui/main_window.py:591
 msgid ""
 "Opens the public verification page sigelith.org/proof\n"
 "with the digest filled in — an independent confirmation."
@@ -2442,22 +2461,27 @@ msgstr "在浏览器中打开此项检查的来源"
 msgid "Optional: where and how"
 msgstr "可选：在哪里、如何核实"
 
-#: beatstamp/ui/main_window.py:2338
+#: beatstamp/ui/main_window.py:2481
 msgid "Overall state: <b>%(status)s</b><br>Database: %(database)s<br>Cache: %(cache)s<br>Server clock against NTP: %(offset)s (source: %(source)s)"
 msgstr "总体状态：<b>%(status)s</b><br>数据库：%(database)s<br>缓存：%(cache)s<br>服务器时钟与 NTP 的偏差：%(offset)s（来源：%(source)s）"
 
-#: beatstamp/ui/main_window.py:574
-#: beatstamp/ui/main_window.py:694
-#: beatstamp/ui/main_window.py:790
-#: beatstamp/ui/main_window.py:1738
+#: beatstamp/ui/main_window.py:577
+#: beatstamp/ui/main_window.py:697
+#: beatstamp/ui/main_window.py:793
+#: beatstamp/ui/main_window.py:1244
+#: beatstamp/ui/main_window.py:1876
 msgid "PDF certificate"
 msgstr "PDF 证书"
 
-#: beatstamp/ui/main_window.py:1933
+#: beatstamp/ui/main_window.py:1241
+msgid "PDF certificates (%(count)s)"
+msgstr "PDF 证书（%(count)s）"
+
+#: beatstamp/ui/main_window.py:2072
 msgid "PDF certificate…"
 msgstr "PDF 证书…"
 
-#: beatstamp/ui/main_window.py:1586
+#: beatstamp/ui/main_window.py:1622
 msgid "PDF document (*.pdf)"
 msgstr "PDF 文档 (*.pdf)"
 
@@ -2493,7 +2517,7 @@ msgstr "粘贴答复文本（以 sigelith:answer: 开头），或打开答复文
 msgid "People who support Sigelith and agreed to be named here"
 msgstr "支持 Sigelith 并同意在此署名的人"
 
-#: beatstamp/ui/main_window.py:908
+#: beatstamp/ui/main_window.py:911
 msgid "People who support Sigelith — the list is loaded from sigelith.org"
 msgstr "支持 Sigelith 的人——名单从 sigelith.org 载入"
 
@@ -2501,11 +2525,11 @@ msgstr "支持 Sigelith 的人——名单从 sigelith.org 载入"
 msgid "Pick another folder…"
 msgstr "选择其他文件夹…"
 
-#: beatstamp/ui/main_window.py:1195
+#: beatstamp/ui/main_window.py:1201
 msgid "Please note:"
 msgstr "请注意："
 
-#: beatstamp/ui/main_window.py:1437
+#: beatstamp/ui/main_window.py:1473
 msgid "Point to the document?"
 msgstr "指定文档？"
 
@@ -2513,7 +2537,7 @@ msgstr "指定文档？"
 msgid "Preparing the package…"
 msgstr "正在准备交付件…"
 
-#: beatstamp/ui/main_window.py:1112
+#: beatstamp/ui/main_window.py:1115
 msgid "Preparing…"
 msgstr "正在准备…"
 
@@ -2523,11 +2547,11 @@ msgid "Preview: %(value)s"
 msgstr "预览：%(value)s"
 
 #: beatstamp/ui/dialogs.py:1151
-#: beatstamp/ui/main_window.py:916
+#: beatstamp/ui/main_window.py:919
 msgid "Privacy policy"
 msgstr "隐私政策"
 
-#: beatstamp/ui/main_window.py:2215
+#: beatstamp/ui/main_window.py:2358
 msgid "Private mode: Sigelith Desktop keeps a copy of the whole public log."
 msgstr "隐私模式：Sigelith Desktop 保存整个公开日志的副本。"
 
@@ -2563,7 +2587,7 @@ msgstr ""
 msgid "Proof"
 msgstr "证明"
 
-#: beatstamp/ui/main_window.py:1519
+#: beatstamp/ui/main_window.py:1555
 msgid "Proof confirmed — %(name)s"
 msgstr "证明已确认 — %(name)s"
 
@@ -2571,9 +2595,9 @@ msgstr "证明已确认 — %(name)s"
 msgid "Proof data"
 msgstr "证明数据"
 
-#: beatstamp/ui/main_window.py:1757
-#: beatstamp/ui/main_window.py:1763
-#: beatstamp/ui/main_window.py:1767
+#: beatstamp/ui/main_window.py:1895
+#: beatstamp/ui/main_window.py:1901
+#: beatstamp/ui/main_window.py:1905
 msgid "Proof details"
 msgstr "证明详细信息"
 
@@ -2590,21 +2614,25 @@ msgstr "证明级别：%(level)s"
 msgid "Proof of existence of a document"
 msgstr "文档存在性证明"
 
-#: beatstamp/ui/main_window.py:1656
+#: beatstamp/ui/main_window.py:1782
 msgid "Proof saved"
 msgstr "证明已保存"
 
-#: beatstamp/ui/main_window.py:1639
+#: beatstamp/ui/main_window.py:1765
 msgid "Proof saved — it needs refreshing"
 msgstr "证明已保存——需要刷新"
 
-#: beatstamp/ui/main_window.py:1648
+#: beatstamp/ui/main_window.py:1774
 msgid "Proof saved — not closed yet"
 msgstr "证明已保存——尚未完结"
 
-#: beatstamp/ui/main_window.py:395
+#: beatstamp/ui/main_window.py:398
 msgid "Proof that a file existed in time — without sending the file"
 msgstr "证明文件在某一时间已经存在——无需发送文件"
+
+#: beatstamp/ui/main_window.py:1714
+msgid "Proofs saved"
+msgstr "证明已保存"
 
 #: beatstamp/ui/handover_dialogs.py:473
 msgid "Proves when the package became readable for you."
@@ -2634,11 +2662,11 @@ msgstr "Qt 源代码"
 msgid "Querying the Sigelith register…"
 msgstr "正在查询 Sigelith 登记簿…"
 
-#: beatstamp/ui/main_window.py:1366
+#: beatstamp/ui/main_window.py:1402
 msgid "Querying the register…"
 msgstr "正在查询登记簿…"
 
-#: beatstamp/ui/main_window.py:864
+#: beatstamp/ui/main_window.py:867
 msgid "Quit"
 msgstr "退出"
 
@@ -2658,7 +2686,7 @@ msgstr "已记录——该周已结束，根签名即将到来"
 msgid "Read %(name)s"
 msgstr "阅读 %(name)s"
 
-#: beatstamp/ui/main_window.py:374
+#: beatstamp/ui/main_window.py:377
 msgid "Ready. Drag files in to give them a timestamp."
 msgstr "就绪。拖入文件即可为其加盖时间戳。"
 
@@ -2703,11 +2731,11 @@ msgstr "在接受期限之前记录"
 msgid "Refresh"
 msgstr "刷新"
 
-#: beatstamp/ui/main_window.py:868
+#: beatstamp/ui/main_window.py:871
 msgid "Refresh proof statuses"
 msgstr "刷新证明状态"
 
-#: beatstamp/ui/main_window.py:750
+#: beatstamp/ui/main_window.py:753
 msgid "Refresh statuses"
 msgstr "刷新状态"
 
@@ -2723,7 +2751,7 @@ msgstr "请在线刷新证明（历史记录 → 刷新状态，F5），以获�
 msgid "Refreshing %(index)s of %(total)s…"
 msgstr "正在刷新第 %(index)s 个，共 %(total)s 个…"
 
-#: beatstamp/ui/main_window.py:2009
+#: beatstamp/ui/main_window.py:2152
 msgid "Refreshing statuses…"
 msgstr "正在刷新状态…"
 
@@ -2767,7 +2795,7 @@ msgstr "登记编号"
 msgid "Registering in Sigelith: %(name)s"
 msgstr "正在登记到 Sigelith：%(name)s"
 
-#: beatstamp/ui/main_window.py:1531
+#: beatstamp/ui/main_window.py:1567
 msgid "Rejected"
 msgstr "已拒绝"
 
@@ -2780,16 +2808,16 @@ msgstr "移除"
 msgid "Remove %(name)s from this application? Packages already sent stay."
 msgstr "要从本应用中移除 %(name)s 吗？已发送的交付件会保留。"
 
-#: beatstamp/ui/main_window.py:1979
+#: beatstamp/ui/main_window.py:2122
 msgid "Remove <b>%(entries)s</b> from the local history?<br><br>The stamp <b>stays in the public Sigelith register</b> — the register is append-only and nothing can be removed from it. Only this list on this computer changes."
 msgstr "要从本地历史记录中移除 <b>%(entries)s</b> 吗？<br><br>戳记<b>仍会保留在公开的 Sigelith 登记簿中</b>——登记簿只可追加，其中的任何内容都无法删除。改变的只是这台电脑上的这份列表。"
 
-#: beatstamp/ui/main_window.py:803
-#: beatstamp/ui/main_window.py:1940
+#: beatstamp/ui/main_window.py:806
+#: beatstamp/ui/main_window.py:2079
 msgid "Remove from history"
 msgstr "从历史记录中移除"
 
-#: beatstamp/ui/main_window.py:1978
+#: beatstamp/ui/main_window.py:2121
 msgid "Remove from history?"
 msgstr "从历史记录中移除？"
 
@@ -2805,7 +2833,7 @@ msgstr "从本应用中移除所选联系人。已发送的交付件会保留。
 msgid "Remove the selected file from the package."
 msgstr "从交付件中移除所选文件。"
 
-#: beatstamp/ui/main_window.py:804
+#: beatstamp/ui/main_window.py:807
 msgid ""
 "Removes the entry from this list ONLY.\n"
 "The stamp in the public Sigelith register\n"
@@ -2837,9 +2865,9 @@ msgid "Result"
 msgstr "结果"
 
 #: beatstamp/ui/dialogs.py:943
-#: beatstamp/ui/main_window.py:1178
-#: beatstamp/ui/main_window.py:1400
-#: beatstamp/ui/main_window.py:1537
+#: beatstamp/ui/main_window.py:1184
+#: beatstamp/ui/main_window.py:1436
+#: beatstamp/ui/main_window.py:1573
 msgid "Retired key"
 msgstr "已停用的密钥"
 
@@ -2876,7 +2904,7 @@ msgstr ""
 msgid "SHA-256 digest"
 msgstr "SHA-256 摘要"
 
-#: beatstamp/ui/main_window.py:493
+#: beatstamp/ui/main_window.py:496
 msgid "SHA-256 digest:"
 msgstr "SHA-256 摘要："
 
@@ -2914,11 +2942,11 @@ msgstr "保存我的卡片文件…"
 msgid "Save my evidence copy…"
 msgstr "保存我的证据副本…"
 
-#: beatstamp/ui/main_window.py:1707
+#: beatstamp/ui/main_window.py:1845
 msgid "Save the OpenTimestamps proof"
 msgstr "保存 OpenTimestamps 证明"
 
-#: beatstamp/ui/main_window.py:1584
+#: beatstamp/ui/main_window.py:1620
 msgid "Save the PDF certificate"
 msgstr "保存 PDF 证书"
 
@@ -2951,11 +2979,11 @@ msgstr "保存证据"
 msgid "Save the evidence package of the selected handover. Sigelith keeps no copy — keep it safe."
 msgstr "保存所选交付的证据包。Sigelith 不保存任何副本——请妥善保存。"
 
-#: beatstamp/ui/main_window.py:862
+#: beatstamp/ui/main_window.py:865
 msgid "Save the history to CSV or JSON"
 msgstr "将历史记录保存为 CSV 或 JSON"
 
-#: beatstamp/ui/main_window.py:1623
+#: beatstamp/ui/main_window.py:1749
 msgid "Save the offline proof"
 msgstr "保存离线证明"
 
@@ -2967,24 +2995,28 @@ msgstr "保存报告"
 msgid "Save your card file and give it to the people who will send you packages. It holds only public keys."
 msgstr "保存你的卡片文件，并交给将向你发送交付件的人。其中只有公钥。"
 
-#: beatstamp/ui/main_window.py:1283
+#: beatstamp/ui/main_window.py:1319
 msgid "Saved automatically · visible only on this computer"
 msgstr "自动保存 · 仅在这台电脑上可见"
 
-#: beatstamp/ui/main_window.py:794
-#: beatstamp/ui/main_window.py:1740
+#: beatstamp/ui/main_window.py:1723
+msgid "Saved: %(saved)s of %(total)s."
+msgstr "已保存：%(saved)s / %(total)s。"
+
+#: beatstamp/ui/main_window.py:797
+#: beatstamp/ui/main_window.py:1878
 msgid "Saves a stand-alone .beatproof proof"
 msgstr "保存独立的 .beatproof 证明"
 
-#: beatstamp/ui/main_window.py:698
+#: beatstamp/ui/main_window.py:701
 msgid "Saves a stand-alone proof for the checked digest"
 msgstr "为已核验的摘要保存独立证明文件"
 
-#: beatstamp/ui/main_window.py:820
+#: beatstamp/ui/main_window.py:823
 msgid "Saves the history to a CSV (Excel) or JSON file"
 msgstr "将历史记录保存为 CSV（Excel）或 JSON 文件"
 
-#: beatstamp/ui/main_window.py:581
+#: beatstamp/ui/main_window.py:584
 msgid ""
 "Saves the proof in a form that can be checked WITHOUT this application\n"
 "and without access to sigelith.org: the digest, the inclusion path, the\n"
@@ -3002,11 +3034,11 @@ msgstr "正在保存缺陷证明…"
 msgid "Scan to verify at sigelith.org/proof"
 msgstr "扫码在 sigelith.org/proof 验证"
 
-#: beatstamp/ui/main_window.py:735
+#: beatstamp/ui/main_window.py:738
 msgid "Search: file name, digest, note, week…"
 msgstr "搜索：文件名、摘要、备注、周…"
 
-#: beatstamp/ui/main_window.py:2152
+#: beatstamp/ui/main_window.py:2295
 msgid "See the Witnesses tab"
 msgstr "请查看“见证者”标签页"
 
@@ -3014,7 +3046,7 @@ msgstr "请查看“见证者”标签页"
 msgid "See the block"
 msgstr "查看区块"
 
-#: beatstamp/ui/main_window.py:852
+#: beatstamp/ui/main_window.py:855
 msgid "Send files with proof of delivery…"
 msgstr "带交付证明发送文件…"
 
@@ -3063,7 +3095,7 @@ msgstr "已发送的交付件"
 msgid "Sent: %(when)s"
 msgstr "已发送：%(when)s"
 
-#: beatstamp/ui/main_window.py:2422
+#: beatstamp/ui/main_window.py:2565
 msgid "Settings saved."
 msgstr "设置已保存。"
 
@@ -3071,19 +3103,20 @@ msgstr "设置已保存。"
 msgid "Settings — Sigelith Desktop"
 msgstr "设置 — Sigelith Desktop"
 
-#: beatstamp/ui/main_window.py:883
+#: beatstamp/ui/main_window.py:886
 msgid "Settings…"
 msgstr "设置…"
 
-#: beatstamp/ui/main_window.py:1670
+#: beatstamp/ui/main_window.py:1732
+#: beatstamp/ui/main_window.py:1796
 msgid "Show in folder"
 msgstr "在文件夹中显示"
 
-#: beatstamp/ui/main_window.py:747
+#: beatstamp/ui/main_window.py:750
 msgid "Show only entries at the selected proof stage"
 msgstr "仅显示处于所选证明阶段的条目"
 
-#: beatstamp/ui/main_window.py:919
+#: beatstamp/ui/main_window.py:922
 msgid "Show the event log"
 msgstr "显示事件日志"
 
@@ -3121,7 +3154,7 @@ msgstr "显示此许可证的全文"
 msgid "Show…"
 msgstr "显示…"
 
-#: beatstamp/ui/main_window.py:1502
+#: beatstamp/ui/main_window.py:1538
 msgid "Sigelith Backup file proof: %(name)s — the path in the backup tree leads to the sealed root."
 msgstr "Sigelith Backup 文件证明：%(name)s——备份树中的路径通向已封印的根。"
 
@@ -3147,7 +3180,7 @@ msgstr "Sigelith Desktop 已可再次写入此文件夹："
 msgid "Sigelith Desktop cannot save data"
 msgstr "Sigelith Desktop 无法保存数据"
 
-#: beatstamp/ui/main_window.py:1806
+#: beatstamp/ui/main_window.py:1944
 msgid "Sigelith Desktop cannot save data in %(path)s — new stamps will not be recorded in the history until the folder is changed (Settings -> Data)."
 msgstr "Sigelith Desktop 无法在 %(path)s 中保存数据——在更换文件夹（设置 → 数据）之前，新的戳记不会记入历史记录。"
 
@@ -3161,7 +3194,7 @@ msgstr ""
 "并自行计算每一个证明。服务器永远不会知道哪些条目\n"
 "属于你——无论是刷新状态时，还是核验文件时。"
 
-#: beatstamp/ui/main_window.py:2146
+#: beatstamp/ui/main_window.py:2289
 msgid "Sigelith Desktop found something in the public log that must not happen: <b>%(what)s</b>.<br><br>The conflicting files were kept as evidence in the data folder. Details are in the Witnesses tab."
 msgstr "Sigelith Desktop 在公开日志中发现了绝不应发生的情况：<b>%(what)s</b>。<br><br>相互矛盾的文件已作为证据保存在数据文件夹中。详情见“见证者”标签页。"
 
@@ -3193,7 +3226,7 @@ msgstr "Sigelith Handover — 缺陷证明报告"
 msgid "Sigelith Handover — report on an evidence package"
 msgstr "Sigelith Handover — 证据包报告"
 
-#: beatstamp/ui/main_window.py:854
+#: beatstamp/ui/main_window.py:857
 msgid "Sigelith Handover: the recipient confirms receipt with their key"
 msgstr "Sigelith Handover：接收方用自己的密钥确认收到"
 
@@ -3229,11 +3262,11 @@ msgstr "来自应用内置列表的 Sigelith 密钥"
 msgid "Sigelith packages (*%(suffix)s);;All files (*)"
 msgstr "Sigelith 交付件 (*%(suffix)s);;所有文件 (*)"
 
-#: beatstamp/ui/main_window.py:1625
+#: beatstamp/ui/main_window.py:1751
 msgid "Sigelith proof (*.beatproof)"
 msgstr "Sigelith 证明 (*.beatproof)"
 
-#: beatstamp/ui/main_window.py:1426
+#: beatstamp/ui/main_window.py:1462
 msgid "Sigelith proof (*.beatproof);;JSON files (*.json);;All files (*)"
 msgstr "Sigelith 证明 (*.beatproof);;JSON 文件 (*.json);;所有文件 (*)"
 
@@ -3245,7 +3278,7 @@ msgstr "Sigelith 证明流水线"
 msgid "Sigelith served two DIFFERENT signed files under the same checkpoint number"
 msgstr "Sigelith 在同一个检查点编号下提供了两个不同的签名文件"
 
-#: beatstamp/ui/main_window.py:2337
+#: beatstamp/ui/main_window.py:2480
 msgid "Sigelith service status"
 msgstr "Sigelith 服务状态"
 
@@ -3343,9 +3376,17 @@ msgstr "软件绘图，仅在没有可用显卡驱动程序的电脑上使用。
 msgid "Some files could not be copied: %(names)s. The originals stayed in the previous folder."
 msgstr "部分文件无法复制：%(names)s。原文件仍保留在之前的文件夹中。"
 
-#: beatstamp/ui/main_window.py:1155
+#: beatstamp/ui/main_window.py:1161
 msgid "Some files did not work out"
 msgstr "部分文件未成功"
+
+#: beatstamp/ui/main_window.py:1711
+msgid "Some proofs are not closed yet: their week is still running, so they cannot be verified offline for now. Export them again once the week has closed (the coming Monday, 00:00 UTC)."
+msgstr "部分证明尚未完成：其所在周尚未结束，暂时无法离线验证。请在该周结束后（即将到来的周一 00:00 UTC）重新导出。"
+
+#: beatstamp/ui/main_window.py:1707
+msgid "Some proofs are signed with a retired key, so the recipient will not accept them. Refresh the statuses (History -> Refresh statuses, F5) and export them again."
+msgstr "部分证明是用已停用的密钥签名的，因此接收方不会接受。请刷新状态（历史记录 → 刷新状态，F5），然后重新导出。"
 
 #: beatstamp/ui/dialogs.py:676
 msgid ""
@@ -3363,11 +3404,11 @@ msgstr "来源"
 msgid "Source code"
 msgstr "源代码"
 
-#: beatstamp/ui/main_window.py:842
+#: beatstamp/ui/main_window.py:845
 msgid "Stamp files…"
 msgstr "为文件盖戳…"
 
-#: beatstamp/ui/main_window.py:333
+#: beatstamp/ui/main_window.py:336
 msgid "Stamping"
 msgstr "盖戳"
 
@@ -3383,7 +3424,7 @@ msgstr "标准 Windows 运行时库。"
 msgid "Starts the program and unpacks its code — the executable file SigelithDesktop.exe itself."
 msgstr "启动程序并解包其代码——即可执行文件 SigelithDesktop.exe 本身。"
 
-#: beatstamp/ui/main_window.py:876
+#: beatstamp/ui/main_window.py:879
 msgid "State of the Sigelith server"
 msgstr "Sigelith 服务器状态"
 
@@ -3392,11 +3433,11 @@ msgstr "Sigelith 服务器状态"
 msgid "Status"
 msgstr "状态"
 
-#: beatstamp/ui/main_window.py:2025
+#: beatstamp/ui/main_window.py:2168
 msgid "Statuses refreshed"
 msgstr "状态已刷新"
 
-#: beatstamp/ui/main_window.py:442
+#: beatstamp/ui/main_window.py:445
 msgid "Stop"
 msgstr "停止"
 
@@ -3404,15 +3445,15 @@ msgstr "停止"
 msgid "Stop using it"
 msgstr "停止使用"
 
-#: beatstamp/ui/main_window.py:1072
+#: beatstamp/ui/main_window.py:1075
 msgid "Stopping…"
 msgstr "正在停止…"
 
-#: beatstamp/ui/main_window.py:444
+#: beatstamp/ui/main_window.py:447
 msgid "Stops the current task (Esc)"
 msgstr "停止当前任务（Esc）"
 
-#: beatstamp/ui/main_window.py:871
+#: beatstamp/ui/main_window.py:874
 msgid "Synchronise the clock"
 msgstr "同步时钟"
 
@@ -3424,7 +3465,7 @@ msgstr "与 Sigelith 服务器同步时钟（F6）"
 msgid "Synchronised with the Sigelith server — difference %(offset)s s"
 msgstr "已与 Sigelith 服务器同步——偏差 %(offset)s 秒"
 
-#: beatstamp/ui/main_window.py:2232
+#: beatstamp/ui/main_window.py:2375
 msgid "Synchronising the clock…"
 msgstr "正在同步时钟…"
 
@@ -3436,7 +3477,7 @@ msgstr "TVS 存档——来自旧版客户端的条目，没有可验证的证�
 msgid "TVS archive"
 msgstr "TVS 存档"
 
-#: beatstamp/ui/main_window.py:1073
+#: beatstamp/ui/main_window.py:1076
 msgid "Task stopped."
 msgstr "任务已停止。"
 
@@ -3448,7 +3489,7 @@ msgstr "供专家查看的技术数据（JSON）"
 msgid "Thank you"
 msgstr "致谢"
 
-#: beatstamp/ui/main_window.py:904
+#: beatstamp/ui/main_window.py:907
 msgid "Thank you to the supporters…"
 msgstr "感谢支持者…"
 
@@ -3489,7 +3530,7 @@ msgstr "requests 底层的 HTTP 传输层。"
 msgid "The Merkle root of the week is frozen and signed with the Sigelith Ed25519 key; Sigelith Desktop checked the signature and the inclusion path."
 msgstr "该周的 Merkle 根已冻结，并由 Sigelith 的 Ed25519 密钥签名；Sigelith Desktop 已检查签名和包含路径。"
 
-#: beatstamp/ui/main_window.py:701
+#: beatstamp/ui/main_window.py:704
 msgid ""
 "The OpenTimestamps proof of the week — to be checked with an\n"
 "OpenTimestamps client, entirely outside Sigelith and outside this application."
@@ -3505,7 +3546,7 @@ msgstr "文件证明中的 Sigelith 确认不属于此备份封印。"
 msgid "The Sigelith log answered for a different digest."
 msgstr "Sigelith 日志针对另一个哈希值作出了应答。"
 
-#: beatstamp/ui/main_window.py:902
+#: beatstamp/ui/main_window.py:905
 msgid "The Sigelith manifesto"
 msgstr "Sigelith 宣言"
 
@@ -3537,7 +3578,7 @@ msgstr ""
 "应用将尝试继续运行。详细信息已写入事件日志：\n"
 "%(path)s"
 
-#: beatstamp/ui/main_window.py:898
+#: beatstamp/ui/main_window.py:901
 msgid "The archive of signed checkpoints"
 msgstr "签名检查点存档"
 
@@ -3575,16 +3616,17 @@ msgstr "卡片包含两个公钥：一个用于你的签名，另一个供他人
 msgid "The certificate and the .beatproof proof are named after the stamped file."
 msgstr "证书和 .beatproof 证明以被盖戳的文件命名。"
 
-#: beatstamp/ui/main_window.py:1596
-#: beatstamp/ui/main_window.py:1603
+#: beatstamp/ui/main_window.py:1632
+#: beatstamp/ui/main_window.py:1639
 msgid "The certificate could not be saved:<br>%(reason)s"
 msgstr "无法保存证书：<br>%(reason)s"
 
-#: beatstamp/ui/main_window.py:1608
+#: beatstamp/ui/main_window.py:1644
+#: beatstamp/ui/main_window.py:1680
 msgid "The certificate is in English: a PDF cannot reproduce this script faithfully."
 msgstr "证书以英文生成：PDF 无法准确呈现这种文字。"
 
-#: beatstamp/ui/main_window.py:2178
+#: beatstamp/ui/main_window.py:2321
 msgid "The check did not work"
 msgstr "检查未成功"
 
@@ -3608,15 +3650,15 @@ msgstr "证明中的检查点部分已损坏。"
 msgid "The choice could not be written down, so the next start will go back to the previous folder."
 msgstr "无法保存这一选择，因此下次启动时会退回到之前的文件夹。"
 
-#: beatstamp/ui/main_window.py:2315
+#: beatstamp/ui/main_window.py:2458
 msgid "The clock is out of step"
 msgstr "时钟不同步"
 
-#: beatstamp/ui/main_window.py:2295
+#: beatstamp/ui/main_window.py:2438
 msgid "The clock was not synchronised"
 msgstr "时钟未同步"
 
-#: beatstamp/ui/main_window.py:2293
+#: beatstamp/ui/main_window.py:2436
 msgid "The clock was not synchronised: %(reason)s"
 msgstr "时钟未同步：%(reason)s"
 
@@ -3664,6 +3706,10 @@ msgstr "缺陷证明包含提议、两部分密钥和加密交付件。任何得
 #: beatstamp/ui/handover_dialogs.py:482
 msgid "The defect proof lets anyone check the defect, without you or the sender — at sigelith.org/handover/verify/ or in Sigelith Desktop."
 msgstr "有了缺陷证明，任何人无需你或发送方参与，就能在 sigelith.org/handover/verify/ 或 Sigelith Desktop 中检查缺陷。"
+
+#: beatstamp/ui/main_window.py:1209
+msgid "The details below are for the last file of this batch, <b>%(name)s</b>. The buttons save a certificate and a proof for each file."
+msgstr "下面的详情属于本批的最后一个文件 <b>%(name)s</b>。按钮会为每个文件分别保存证书和证明。"
 
 #: beatstamp/certificate.py:565
 msgid "The digest in this entry has an invalid format — the QR code was skipped"
@@ -3726,11 +3772,11 @@ msgstr "文件“%(name)s”正被其他程序使用。"
 msgid "The file \"%(name)s\" is open in another program and locked for reading. Close it and try again."
 msgstr "文件“%(name)s”已在其他程序中打开，并被锁定而无法读取。请关闭后重试。"
 
-#: beatstamp/ui/main_window.py:1567
+#: beatstamp/ui/main_window.py:1603
 msgid "The file <b>%(name)s</b> already exists in this folder.<br><br>Overwrite it?"
 msgstr "此文件夹中已存在文件 <b>%(name)s</b>。<br><br>要覆盖它吗？"
 
-#: beatstamp/ui/main_window.py:1566
+#: beatstamp/ui/main_window.py:1602
 msgid "The file already exists"
 msgstr "文件已存在"
 
@@ -3763,7 +3809,7 @@ msgstr "证明中的文件路径与备份树的叶子不一致。"
 msgid "The file proof is damaged — fields are missing or malformed."
 msgstr "文件证明已损坏——缺少字段或字段格式错误。"
 
-#: beatstamp/ui/main_window.py:1379
+#: beatstamp/ui/main_window.py:1415
 msgid "The file was never stamped, or it was changed after stamping — even a single changed byte gives a completely different digest."
 msgstr "该文件从未盖戳，或者在盖戳后被改动过——哪怕只改动一个字节，得到的摘要也会完全不同。"
 
@@ -3803,11 +3849,11 @@ msgstr "历史记录文件的结构异常，已另存为“%(name)s”。"
 msgid "The history file was damaged and has been set aside as \"%(name)s\". The history starts over — the previous entries are in that file."
 msgstr "历史记录文件已损坏，已另存为“%(name)s”。历史记录将从头开始——之前的条目保存在该文件中。"
 
-#: beatstamp/ui/main_window.py:2035
+#: beatstamp/ui/main_window.py:2178
 msgid "The history is empty"
 msgstr "历史记录为空"
 
-#: beatstamp/ui/main_window.py:2000
+#: beatstamp/ui/main_window.py:2143
 msgid "The history is empty — there is nothing to refresh."
 msgstr "历史记录为空——没有可刷新的内容。"
 
@@ -3897,7 +3943,7 @@ msgstr "返回的支持者名单格式异常。"
 msgid "The list of trusted root certificates for HTTPS."
 msgstr "HTTPS 所用的受信任根证书列表。"
 
-#: beatstamp/ui/main_window.py:2158
+#: beatstamp/ui/main_window.py:2301
 msgid "The log checks out"
 msgstr "日志核验无误"
 
@@ -3913,7 +3959,7 @@ msgstr "日志仍为空。"
 msgid "The names come from a public list on sigelith.org. Everyone on it asked to be named and can withdraw at any time, so Sigelith Desktop reloads the list at least once a day and keeps no copy older than that."
 msgstr "这些名字来自 sigelith.org 上的一份公开名单。名单上的每个人都是主动要求署名的，并且可以随时撤回，因此 Sigelith Desktop 每天至少重新载入一次名单，也不会保留超过一天的旧副本。"
 
-#: beatstamp/ui/main_window.py:2472
+#: beatstamp/ui/main_window.py:2615
 msgid "The new language applies to texts drawn from now on. The whole window switches after Sigelith Desktop is restarted."
 msgstr "新语言会应用于此后显示的文字。重新启动 Sigelith Desktop 后，整个窗口都会切换。"
 
@@ -3921,11 +3967,11 @@ msgstr "新语言会应用于此后显示的文字。重新启动 Sigelith Deskt
 msgid "The next daily checkpoint (after 00:00 UTC) will contain this entry."
 msgstr "下一个每日检查点（00:00 UTC 之后）将包含此条目。"
 
-#: beatstamp/ui/main_window.py:1280
+#: beatstamp/ui/main_window.py:1316
 msgid "The note applies to all %(count)s files of this batch."
 msgstr "该备注适用于本批全部 %(count)s 个文件。"
 
-#: beatstamp/ui/main_window.py:516
+#: beatstamp/ui/main_window.py:519
 msgid ""
 "The note stays ONLY on this computer, in the local history.\n"
 "It is not sent to the register and does not reach the server.\n"
@@ -3951,7 +3997,7 @@ msgstr "提议、两部分密钥和加密交付件合在一个文件中。"
 msgid "The only information that reached the Sigelith register"
 msgstr "唯一到达 Sigelith 登记簿的信息"
 
-#: beatstamp/ui/main_window.py:492
+#: beatstamp/ui/main_window.py:495
 msgid "The only information that reaches the Sigelith register"
 msgstr "唯一会到达 Sigelith 登记簿的信息"
 
@@ -4054,11 +4100,11 @@ msgstr "证明中没有根签名。请在该周结束后重新导出，使其完
 msgid "The proof contains no week root — the week was still open when it was exported."
 msgstr "证明中没有周根——导出时该周尚未结束。"
 
-#: beatstamp/ui/main_window.py:1633
+#: beatstamp/ui/main_window.py:1759
 msgid "The proof could not be saved:<br>%(reason)s"
 msgstr "无法保存证明：<br>%(reason)s"
 
-#: beatstamp/ui/main_window.py:1395
+#: beatstamp/ui/main_window.py:1431
 msgid "The proof data did not pass the local check:"
 msgstr "证明数据未通过本地检查："
 
@@ -4086,28 +4132,28 @@ msgstr "证明中给出的周格式无效。"
 msgid "The proof gives the week root in an invalid format."
 msgstr "证明中给出的周根格式无效。"
 
-#: beatstamp/ui/main_window.py:1543
+#: beatstamp/ui/main_window.py:1579
 msgid "The proof is consistent but not closed yet — it was exported before the week ended. Check the digest in the register (the <b>Check digest</b> button) and export the proof again."
 msgstr "证明一致，但尚未完结——它是在该周结束前导出的。请在登记簿中核对摘要（<b>核对摘要</b>按钮），然后重新导出证明。"
 
-#: beatstamp/ui/main_window.py:1177
-#: beatstamp/ui/main_window.py:1398
+#: beatstamp/ui/main_window.py:1183
+#: beatstamp/ui/main_window.py:1434
 msgid "The proof needs refreshing"
 msgstr "证明需要刷新"
 
-#: beatstamp/ui/main_window.py:1535
+#: beatstamp/ui/main_window.py:1571
 msgid "The proof needs refreshing — %(name)s"
 msgstr "证明需要刷新 — %(name)s"
 
-#: beatstamp/ui/main_window.py:1522
+#: beatstamp/ui/main_window.py:1558
 msgid "The proof was checked <b>entirely locally</b> — without connecting to sigelith.org and without trusting anyone. The inclusion path, the root signature, the identity of the key and the week of the stamp all add up. The signature confirms that the document existed no later than the end of the week; the exact moment is given by the register."
 msgstr "证明<b>完全在本地</b>完成了核验——未连接 sigelith.org，也无需信任任何人。包含路径、根签名、密钥身份以及戳记所在的周全部吻合。签名证实该文档最迟在该周结束时已经存在；确切时刻由登记簿给出。"
 
-#: beatstamp/ui/main_window.py:2447
+#: beatstamp/ui/main_window.py:2590
 msgid "The proxy \"%(proxy)s\" is not a local address. Traffic to the .onion service goes over plain HTTP, so it reaches that machine in clear text — this is NOT anonymisation."
 msgstr "代理“%(proxy)s”不是本地地址。发往 .onion 服务的流量走的是普通 HTTP，因此会以明文到达那台机器——这并不是匿名化。"
 
-#: beatstamp/ui/main_window.py:897
+#: beatstamp/ui/main_window.py:900
 msgid "The public log and its checkpoints"
 msgstr "公开日志及其检查点"
 
@@ -4120,7 +4166,7 @@ msgstr "由本应用核验的公开日志"
 msgid "The public log has not been checked yet"
 msgstr "公开日志尚未检查"
 
-#: beatstamp/ui/main_window.py:893
+#: beatstamp/ui/main_window.py:896
 msgid "The public verification page"
 msgstr "公开验证页面"
 
@@ -4164,7 +4210,7 @@ msgstr "接收方的密钥签署了接受声明，表明其持有该加密交付
 msgid "The recipient's signed acceptance took effect at %(when)s, when the key part was recorded in the Sigelith log."
 msgstr "接收方签署的接受于 %(when)s 生效，即密钥部分被记录到 Sigelith 日志之时。"
 
-#: beatstamp/ui/main_window.py:1165
+#: beatstamp/ui/main_window.py:1171
 msgid "The register did not confirm the write. Try again."
 msgstr "登记簿未确认写入。请重试。"
 
@@ -4245,7 +4291,7 @@ msgstr "服务器接受了连接，但未能及时回应。"
 msgid "The server address must start with https:// — an unencrypted connection is allowed only for an .onion address."
 msgstr "服务器地址必须以 https:// 开头——只有 .onion 地址才允许使用未加密的连接。"
 
-#: beatstamp/ui/main_window.py:1174
+#: beatstamp/ui/main_window.py:1180
 msgid "The server answer did not pass the local check."
 msgstr "服务器的回应未通过本地检查。"
 
@@ -4377,7 +4423,7 @@ msgstr "盖戳时间（%(utc)s）落在周 %(week)s（%(range)s UTC）之外，�
 msgid "The stamp time (UTC) has an invalid format."
 msgstr "盖戳时间（UTC）格式无效。"
 
-#: beatstamp/ui/main_window.py:411
+#: beatstamp/ui/main_window.py:414
 msgid ""
 "The state of the public log as checked by this application. Click to see\n"
 "the witnesses: checkpoints, Bitcoin, the bank and the independent copies."
@@ -4385,7 +4431,7 @@ msgstr ""
 "由本应用核验的公开日志状态。点击查看\n"
 "见证者：检查点、Bitcoin、银行以及独立副本。"
 
-#: beatstamp/ui/main_window.py:1018
+#: beatstamp/ui/main_window.py:1021
 msgid "The task ended with an error."
 msgstr "任务因错误而结束。"
 
@@ -4455,7 +4501,7 @@ msgstr "周根是用应用内置 Sigelith 密钥列表之外的密钥签名的�
 msgid "The whole user interface: windows, buttons, text and drawing."
 msgstr "整个用户界面：窗口、按钮、文字和绘图。"
 
-#: beatstamp/ui/main_window.py:2145
+#: beatstamp/ui/main_window.py:2288
 msgid "The witnesses raised an alarm"
 msgstr "见证者发出了警报"
 
@@ -4467,9 +4513,13 @@ msgstr "主题："
 msgid "There is no answer yet."
 msgstr "还没有答复。"
 
-#: beatstamp/ui/main_window.py:2036
+#: beatstamp/ui/main_window.py:2179
 msgid "There is nothing to export yet."
 msgstr "目前还没有可导出的内容。"
+
+#: beatstamp/ui/main_window.py:1729
+msgid "These could not be saved: %(names)s"
+msgstr "以下项目无法保存：%(names)s"
 
 #: beatstamp/ui/dialogs.py:1084
 msgid "They are used unmodified and linked dynamically. This copy comes from the Microsoft Store, so its files cannot be exchanged in place — the package is installed read-only and bound to its signature. To run this program against your own build of Qt, use the portable release of the same version, where the libraries sit in the <code>_internal</code> folder next to the program; the notices below say how to obtain it."
@@ -4500,7 +4550,7 @@ msgstr "此检查纯属计算：既不需要日志也不需要网络，任何人
 msgid "This computer's clock is %(direction)s the Sigelith server time by %(seconds)s s. Timestamps are issued by the server, so the proof is correct — but the clock shown next to it may differ from the real @beat."
 msgstr "这台电脑的时钟比 Sigelith 服务器时间%(direction)s %(seconds)s 秒。时间戳由服务器签发，因此证明是正确的——但旁边显示的时钟可能与真实的 @beat 不同。"
 
-#: beatstamp/ui/main_window.py:1377
+#: beatstamp/ui/main_window.py:1413
 msgid "This digest <b>does not appear</b> in the Sigelith register.<br><br>"
 msgstr "此摘要<b>未出现</b>在 Sigelith 登记簿中。<br><br>"
 
@@ -4520,7 +4570,7 @@ msgstr "本文件描述的条目，其证明<b>未通过</b>本地检查的确�
 msgid "This file could not be read: %(name)s"
 msgstr "无法读取此文件：%(name)s"
 
-#: beatstamp/ui/main_window.py:1183
+#: beatstamp/ui/main_window.py:1189
 msgid "This file had already been stamped"
 msgstr "此文件此前已盖过戳"
 
@@ -4602,11 +4652,11 @@ msgstr "时间戳证书"
 msgid "Timestamp certificate · sigelith.org"
 msgstr "时间戳证书 · sigelith.org"
 
-#: beatstamp/ui/main_window.py:1182
+#: beatstamp/ui/main_window.py:1188
 msgid "Timestamp granted"
 msgstr "已获得时间戳"
 
-#: beatstamp/ui/main_window.py:498
+#: beatstamp/ui/main_window.py:501
 msgid "Timestamp:"
 msgstr "时间戳："
 
@@ -4640,7 +4690,7 @@ msgstr "Tor 代理："
 msgid "Total size"
 msgstr "总大小"
 
-#: beatstamp/ui/main_window.py:2441
+#: beatstamp/ui/main_window.py:2584
 msgid ""
 "Traffic goes through the Tor network to the Sigelith hidden service.\n"
 "The server does not learn your IP address."
@@ -4704,7 +4754,7 @@ msgstr ""
 "证明本身在公开的 Sigelith 登记簿中——从本地历史记录中\n"
 "移除条目并不会删除戳记。"
 
-#: beatstamp/ui/main_window.py:334
+#: beatstamp/ui/main_window.py:337
 msgid "Verification"
 msgstr "验证"
 
@@ -4716,11 +4766,11 @@ msgstr "验证地址"
 msgid "Verified by"
 msgstr "核实方式"
 
-#: beatstamp/ui/main_window.py:1521
+#: beatstamp/ui/main_window.py:1557
 msgid "Verified offline"
 msgstr "已离线核验"
 
-#: beatstamp/ui/main_window.py:844
+#: beatstamp/ui/main_window.py:847
 msgid "Verify a file…"
 msgstr "核验文件…"
 
@@ -4736,7 +4786,7 @@ msgstr "盖戳后立即核验证明"
 msgid "Wait a moment."
 msgstr "请稍候。"
 
-#: beatstamp/ui/main_window.py:975
+#: beatstamp/ui/main_window.py:978
 msgid "Wait for the current task to finish, or stop it (Esc)."
 msgstr "请等待当前任务完成，或将其停止（Esc）。"
 
@@ -4748,8 +4798,8 @@ msgstr "等待答复"
 msgid "Waiting for your decision"
 msgstr "等待你的决定"
 
-#: beatstamp/ui/main_window.py:1171
-#: beatstamp/ui/main_window.py:1392
+#: beatstamp/ui/main_window.py:1177
+#: beatstamp/ui/main_window.py:1428
 msgid "Warning"
 msgstr "警告"
 
@@ -4785,7 +4835,7 @@ msgstr "周已签名"
 msgid "What"
 msgstr "内容"
 
-#: beatstamp/ui/main_window.py:894
+#: beatstamp/ui/main_window.py:897
 msgid "What a timestamp proves"
 msgstr "时间戳能证明什么"
 
@@ -4793,7 +4843,7 @@ msgstr "时间戳能证明什么"
 msgid "What it does in Sigelith Desktop"
 msgstr "在 Sigelith Desktop 中的作用"
 
-#: beatstamp/ui/main_window.py:505
+#: beatstamp/ui/main_window.py:508
 msgid "What the application computed ITSELF, without trusting the server"
 msgstr "应用自行计算的结果，无需信任服务器"
 
@@ -4807,7 +4857,7 @@ msgstr "证据包显示的内容"
 msgid "What the preview showed — and what the package holds"
 msgstr "预览显示的内容——以及交付件实际包含的内容"
 
-#: beatstamp/ui/main_window.py:895
+#: beatstamp/ui/main_window.py:898
 msgid "What the proof says in a dispute — and what it does not"
 msgstr "发生争议时证明能说明什么——以及不能说明什么"
 
@@ -4819,7 +4869,7 @@ msgstr "接收方在接受前看到的内容"
 msgid "What the recipient signed"
 msgstr "接收方签署的内容"
 
-#: beatstamp/ui/main_window.py:353
+#: beatstamp/ui/main_window.py:356
 msgid "What this application checks in the public log by itself"
 msgstr "本应用在公开日志中自行检查的内容"
 
@@ -4873,7 +4923,7 @@ msgstr "交付件保存位置"
 msgid "While Sigelith Desktop is open it checks the public Sigelith log by itself: every new signed checkpoint, the chain between them and the copies kept by third parties. Choose how it checks YOUR proofs."
 msgstr "Sigelith Desktop 打开期间会自行检查公开的 Sigelith 日志：每个新的签名检查点、它们之间的链，以及第三方保存的副本。请选择它如何检查你自己的证明。"
 
-#: beatstamp/ui/main_window.py:903
+#: beatstamp/ui/main_window.py:906
 msgid "Why Sigelith exists"
 msgstr "Sigelith 为何存在"
 
@@ -4943,28 +4993,28 @@ msgid "Witness alarm"
 msgstr "见证者警报"
 
 #: beatstamp/ui/dialogs.py:414
-#: beatstamp/ui/main_window.py:340
+#: beatstamp/ui/main_window.py:343
 msgid "Witnesses"
 msgstr "见证者"
 
-#: beatstamp/ui/main_window.py:2166
+#: beatstamp/ui/main_window.py:2309
 msgid "Witnesses: %(n)s new checkpoints checked"
 msgstr "见证者：已检查 %(n)s 个新检查点"
 
-#: beatstamp/ui/main_window.py:997
-#: beatstamp/ui/main_window.py:1107
+#: beatstamp/ui/main_window.py:1000
+#: beatstamp/ui/main_window.py:1110
 msgid "Working…"
 msgstr "正在处理…"
 
-#: beatstamp/ui/main_window.py:2434
+#: beatstamp/ui/main_window.py:2577
 msgid "YOUR OWN public key is set — besides the built-in list of Sigelith keys the application also accepts signatures made with that key."
 msgstr "已设置你自己的公钥——除内置的 Sigelith 密钥列表外，应用也会接受用该密钥制作的签名。"
 
-#: beatstamp/ui/main_window.py:1094
+#: beatstamp/ui/main_window.py:1097
 msgid "You are about to stamp <b>%(files)s</b>.<br><br>The server accepts 20 stamps per minute, so the operation will take about %(minutes)s. Continue?"
 msgstr "你即将为 <b>%(files)s</b> 盖戳。<br><br>服务器每分钟接受 20 次盖戳，因此此操作大约需要 %(minutes)s。要继续吗？"
 
-#: beatstamp/ui/main_window.py:655
+#: beatstamp/ui/main_window.py:658
 msgid ""
 "You can check any digest — including one you did not stamp\n"
 "from this computer. Enter starts the check."
@@ -5012,7 +5062,7 @@ msgstr "你当前的卡片将被归档。发往它的交付件仍可在这里打
 msgid "Your local time"
 msgstr "你的本地时间"
 
-#: beatstamp/ui/main_window.py:498
+#: beatstamp/ui/main_window.py:501
 msgid ""
 "Your local time, UTC and @beat — the same moment. Below: the two bounds\n"
 "that do not depend on the Sigelith clock at all."
@@ -5040,7 +5090,7 @@ msgstr "你自己的说明。它只保存在这台电脑上"
 msgid "Your own key is accepted <b>alongside</b> the built-in list and is permanently visible in the status bar. Whoever slips you their key can sign any \"proof\" with it."
 msgstr "你自己的密钥会与内置列表<b>一并</b>被接受，并始终显示在状态栏中。谁把自己的密钥塞给你，谁就能用它签署任何“证明”。"
 
-#: beatstamp/ui/main_window.py:2415
+#: beatstamp/ui/main_window.py:2558
 msgid "Your own public key"
 msgstr "你自己的公钥"
 
@@ -5052,7 +5102,7 @@ msgstr "你自己的公钥（高级）"
 msgid "Your proofs"
 msgstr "你的证明"
 
-#: beatstamp/ui/main_window.py:351
+#: beatstamp/ui/main_window.py:354
 msgid "Your stamps and the stage their proof has reached"
 msgstr "你的戳记及其证明所处的阶段"
 
@@ -5122,7 +5172,7 @@ msgstr "也在 %(week)s 周的根中，日志声明该根已锚定"
 msgid "also in the signed root of week %(week)s"
 msgstr "也在 %(week)s 周的已签名根中"
 
-#: beatstamp/ui/main_window.py:1248
+#: beatstamp/ui/main_window.py:1284
 msgid "anchor (according to the register): %(anchors)s"
 msgstr "锚定（据登记簿）：%(anchors)s"
 
@@ -5178,11 +5228,11 @@ msgstr "通过本人控制的渠道收到卡片"
 msgid "certificate"
 msgstr "certificate"
 
-#: beatstamp/ui/main_window.py:1251
+#: beatstamp/ui/main_window.py:1287
 msgid "checked privately — the server was not told which digest this is"
 msgstr "已私密核验——服务器未被告知这是哪个摘要"
 
-#: beatstamp/ui/main_window.py:2159
+#: beatstamp/ui/main_window.py:2302
 msgid "checkpoint #%(n)s · %(new)s new · %(copies)s independent copies confirmed"
 msgstr "检查点 #%(n)s · %(new)s 个新检查点 · 已确认 %(copies)s 份独立副本"
 
@@ -5191,7 +5241,7 @@ msgstr "检查点 #%(n)s · %(new)s 个新检查点 · 已确认 %(copies)s 份�
 msgid "checks with outside services are turned off in the settings"
 msgstr "已在设置中关闭与外部服务的比对"
 
-#: beatstamp/ui/main_window.py:2301
+#: beatstamp/ui/main_window.py:2444
 msgid "clock out of step"
 msgstr "时钟不同步"
 
@@ -5241,7 +5291,7 @@ msgstr "每日"
 msgid "daily checkpoint"
 msgstr "每日检查点"
 
-#: beatstamp/ui/main_window.py:2305
+#: beatstamp/ui/main_window.py:2448
 msgid "difference %(offset)s s, round trip %(rtt)s ms"
 msgstr "偏差 %(offset)s 秒，往返 %(rtt)s 毫秒"
 
@@ -5318,7 +5368,7 @@ msgstr "在区块 %(h)s 中（OpenTimestamps）"
 msgid "in the log"
 msgstr "已入日志"
 
-#: beatstamp/ui/main_window.py:1226
+#: beatstamp/ui/main_window.py:1262
 msgid "inclusion path — the week is still open"
 msgstr "包含路径——该周尚未结束"
 
@@ -5374,7 +5424,7 @@ msgstr "等级 %(level)s/5（1 为最强）— %(method)s"
 msgid "level %(level)s: %(method)s"
 msgstr "等级 %(level)s：%(method)s"
 
-#: beatstamp/ui/main_window.py:1244
+#: beatstamp/ui/main_window.py:1280
 msgid "log checkpoint — the next daily one will contain this entry"
 msgstr "日志检查点——下一个每日检查点将包含此条目"
 
@@ -5394,11 +5444,11 @@ msgstr "下次：%(when)s"
 msgid "no block in the checkpoints yet"
 msgstr "检查点中尚无区块"
 
-#: beatstamp/ui/main_window.py:2163
+#: beatstamp/ui/main_window.py:2306
 msgid "no checkpoint has been issued yet"
 msgstr "尚未签发任何检查点"
 
-#: beatstamp/ui/main_window.py:1483
+#: beatstamp/ui/main_window.py:1519
 msgid "no document was pointed to — only the proof itself was checked"
 msgstr "未指定文档——只检查了证明本身"
 
@@ -5410,7 +5460,7 @@ msgstr "不限"
 msgid "no root signature"
 msgstr "无根签名"
 
-#: beatstamp/ui/main_window.py:1490
+#: beatstamp/ui/main_window.py:1526
 msgid "no valid root signature"
 msgstr "无有效的根签名"
 
@@ -5443,7 +5493,7 @@ msgstr "未绑定"
 msgid "not checked"
 msgstr "未检查"
 
-#: beatstamp/ui/main_window.py:491
+#: beatstamp/ui/main_window.py:494
 msgid "not computed yet"
 msgstr "尚未计算"
 
@@ -5519,7 +5569,7 @@ msgstr "私密方式——根据这台电脑上的公开日志副本"
 msgid "proof"
 msgstr "proof"
 
-#: beatstamp/ui/main_window.py:2451
+#: beatstamp/ui/main_window.py:2594
 msgid "proxy outside this computer"
 msgstr "代理不在这台电脑上"
 
@@ -5556,7 +5606,7 @@ msgstr "由 sigelith.org/api/proof/status 报告（%(when)s）"
 msgid "retired %(date)s: <span style=\"font-family:monospace\">%(key)s</span>"
 msgstr "%(date)s 停用：<span style=\"font-family:monospace\">%(key)s</span>"
 
-#: beatstamp/ui/main_window.py:1233
+#: beatstamp/ui/main_window.py:1269
 msgid "root signature — it arrives once the week closes"
 msgstr "根签名——该周结束后到来"
 
@@ -5570,7 +5620,7 @@ msgstr "发送方"
 msgid "sender %(sender)s, recipient %(recipient)s"
 msgstr "发送方 %(sender)s，接收方 %(recipient)s"
 
-#: beatstamp/ui/main_window.py:2041
+#: beatstamp/ui/main_window.py:2184
 msgid "sigelith-history.csv"
 msgstr "sigelith-history.csv"
 
@@ -5598,16 +5648,16 @@ msgstr "Bitcoin 区块链"
 msgid "the Bitcoin explorer knows a different block"
 msgstr "Bitcoin 区块浏览器记录的是另一个区块"
 
-#: beatstamp/ui/main_window.py:1228
-#: beatstamp/ui/main_window.py:1488
+#: beatstamp/ui/main_window.py:1264
+#: beatstamp/ui/main_window.py:1524
 msgid "the Ed25519 root signature is valid"
 msgstr "Ed25519 根签名有效"
 
-#: beatstamp/ui/main_window.py:1230
+#: beatstamp/ui/main_window.py:1266
 msgid "the Ed25519 signature is invalid"
 msgstr "Ed25519 签名无效"
 
-#: beatstamp/ui/main_window.py:1196
+#: beatstamp/ui/main_window.py:1202
 msgid "the ORIGINAL timestamp was returned. The first stamp wins — the date on an already registered document cannot be refreshed."
 msgstr "返回的是原始时间戳。以第一次盖戳为准——已登记文档的日期无法更新。"
 
@@ -5615,7 +5665,7 @@ msgstr "返回的是原始时间戳。以第一次盖戳为准——已登记文
 msgid "the chain of every entry and the root of %(k)s checkpoints recomputed on this computer"
 msgstr "已在这台电脑上重新计算每个条目的链以及 %(k)s 个检查点的根"
 
-#: beatstamp/ui/main_window.py:1498
+#: beatstamp/ui/main_window.py:1534
 msgid "the checkpoint in the proof does not check out"
 msgstr "证明中的检查点未通过核验"
 
@@ -5643,15 +5693,15 @@ msgstr "盖戳的日期和时间（你的本地时间）"
 msgid "the decrypted content is not the content committed in the offer"
 msgstr "解密后的内容不是提议中承诺的内容"
 
-#: beatstamp/ui/main_window.py:642
+#: beatstamp/ui/main_window.py:645
 msgid "the digest will be computed locally and looked up in the register"
 msgstr "摘要将在本地计算，并在登记簿中查找"
 
-#: beatstamp/ui/main_window.py:1481
+#: beatstamp/ui/main_window.py:1517
 msgid "the document digest does NOT match the proof"
 msgstr "文档摘要与证明不符"
 
-#: beatstamp/ui/main_window.py:1479
+#: beatstamp/ui/main_window.py:1515
 msgid "the document digest matches the proof"
 msgstr "文档摘要与证明相符"
 
@@ -5683,19 +5733,19 @@ msgstr "首个每周检查点会列出迄今为止的所有银行锚定"
 msgid "the first weekly release follows the weekly checkpoint (Monday)"
 msgstr "首个每周发布会在每周检查点（周一）之后跟进"
 
-#: beatstamp/ui/main_window.py:1224
+#: beatstamp/ui/main_window.py:1260
 msgid "the inclusion path does NOT lead to the root"
 msgstr "包含路径并不通向根"
 
-#: beatstamp/ui/main_window.py:1487
+#: beatstamp/ui/main_window.py:1523
 msgid "the inclusion path does not match"
 msgstr "包含路径不匹配"
 
-#: beatstamp/ui/main_window.py:1485
+#: beatstamp/ui/main_window.py:1521
 msgid "the inclusion path leads to the week root"
 msgstr "包含路径通向周根"
 
-#: beatstamp/ui/main_window.py:1222
+#: beatstamp/ui/main_window.py:1258
 msgid "the inclusion path matches the week root"
 msgstr "包含路径与周根相符"
 
@@ -5711,11 +5761,11 @@ msgstr "下一个每日检查点将包含此条目"
 msgid "the offer has expired."
 msgstr "提议已过期。"
 
-#: beatstamp/ui/main_window.py:1241
+#: beatstamp/ui/main_window.py:1277
 msgid "the path to checkpoint #%(n)s does NOT check out"
 msgstr "到检查点 #%(n)s 的路径未通过核验"
 
-#: beatstamp/ui/main_window.py:1237
+#: beatstamp/ui/main_window.py:1273
 msgid "the path to signed checkpoint #%(n)s checks out — against the checkpoint file this application verified"
 msgstr "到签名检查点 #%(n)s 的路径核验无误——依据的是本应用核验过的检查点文件"
 
@@ -5727,7 +5777,7 @@ msgstr "无法用提议中承诺的密钥部分读取预览"
 msgid "the preview the recipient saw before accepting differs from the content"
 msgstr "接收方在接受前看到的预览与内容不同"
 
-#: beatstamp/ui/main_window.py:1494
+#: beatstamp/ui/main_window.py:1530
 msgid "the proof carries signed checkpoint #%(n)s and the path of the entry to its root checks out"
 msgstr "证明中带有签名检查点 #%(n)s，且条目到其根的路径核验无误"
 
@@ -5755,7 +5805,7 @@ msgstr "附带周根的转账随后跟进"
 msgid "time according to the register — week %(week)s without a confirmed signature"
 msgstr "时间据登记簿——周 %(week)s 没有经确认的签名"
 
-#: beatstamp/ui/main_window.py:2335
+#: beatstamp/ui/main_window.py:2478
 msgid "unavailable"
 msgstr "不可用"
 
@@ -5764,7 +5814,7 @@ msgid "under a checkpoint this application verified; copies at third parties fol
 msgstr "位于本应用已验证的检查点之下；第三方副本随后跟进"
 
 #: beatstamp/certificate.py:516
-#: beatstamp/ui/main_window.py:2346
+#: beatstamp/ui/main_window.py:2489
 msgid "unknown"
 msgstr "未知"
 
@@ -5828,7 +5878,7 @@ msgstr "每周"
 msgid "weekly checkpoint closing %(week)s"
 msgstr "结束 %(week)s 的每周检查点"
 
-#: beatstamp/ui/main_window.py:2335
+#: beatstamp/ui/main_window.py:2478
 msgid "working"
 msgstr "正常"
 
@@ -5836,7 +5886,7 @@ msgstr "正常"
 msgid "— (the week is still running)"
 msgstr "—（该周仍在进行中）"
 
-#: beatstamp/ui/main_window.py:1152
+#: beatstamp/ui/main_window.py:1158
 msgid "…and %(count)s more."
 msgstr "…另有 %(count)s 个。"
 
@@ -5844,6 +5894,6 @@ msgstr "…另有 %(count)s 个。"
 msgid "…and %(files)s more."
 msgstr "…以及另外 %(files)s。"
 
-#: beatstamp/ui/main_window.py:654
+#: beatstamp/ui/main_window.py:657
 msgid "…or paste a SHA-256 digest here (64 hex characters)"
 msgstr "…或在此粘贴 SHA-256 摘要（64 个十六进制字符）"

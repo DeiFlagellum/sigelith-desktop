@@ -30,9 +30,9 @@ Sigelith Desktop ist kostenlos und quelloffen (Apache-2.0). Kein Konto, keine We
 Verfügbar auf Englisch, Polnisch, Deutsch, Spanisch, Französisch, Russisch, Türkisch, Japanisch, Koreanisch, Chinesisch und Arabisch.
 
 ## What's new in this version
-• Prüft Zeitnachweise für einzelne Dateien aus Sigelith Backup (.sigelith-proof-Dateien): Der Nachweis zeigt, dass eine Datei zu diesem Zeitpunkt in einer versiegelten Sicherung war — ohne die anderen Dateien preiszugeben.
-• Ein Doppelklick auf eine .beatproof- oder .sigelith-proof-Datei öffnet die App im Reiter „Prüfung“ — eine Nachweisdatei wird nie versehentlich gestempelt.
-• Sigelith Backup kann eine Datei aus der Sicherung direkt an Sigelith Handover übergeben.
+• Mehrere Dateien auf einmal: Nach dem Stempeln eines Durchgangs speichern die Schaltflächen „PDF-Zertifikate“ und „Offline-Nachweise“ für jede Datei des Durchgangs ein Zertifikat bzw. einen .beatproof-Nachweis in einem Ordner deiner Wahl. Bisher geschah das nur für die letzte Datei.
+• Verlauf: Markiere mehrere Einträge, um für jeden ein Zertifikat oder einen Nachweis zu speichern.
+• Beim Speichern mehrerer Dateien wird nichts überschrieben: Ist ein Name schon vergeben, bekommt die neue Datei eine Nummer, und eine Übersicht zeigt, wie viele Dateien gespeichert wurden.
 
 ## Product features
 Zeitstempel für jede Datei, ohne sie hochzuladen — erfasst wird nur ihr SHA-256-Hash

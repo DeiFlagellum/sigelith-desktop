@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Sigelith Desktop\n"
-"POT-Creation-Date: 2026-09-30 18:54+0200\n"
+"POT-Creation-Date: 2026-10-05 18:59+0200\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -48,7 +48,7 @@ msgstr "#%(n)s — 이 항목에서 서명된 루트까지의 경로를 Sigelith
 msgid "#%(n)s — the path of this entry was NOT confirmed"
 msgstr "#%(n)s — 이 항목의 경로는 확인되지 않았습니다"
 
-#: beatstamp/ui/main_window.py:1778
+#: beatstamp/ui/main_window.py:1916
 msgid "%(count)s anchored"
 msgstr "앵커링됨 %(count)s개"
 
@@ -67,7 +67,7 @@ msgid "%(count)s file"
 msgid_plural "%(count)s files"
 msgstr[0] "파일 %(count)s개"
 
-#: beatstamp/ui/main_window.py:1784
+#: beatstamp/ui/main_window.py:1922
 msgid "%(count)s from the TVS archive"
 msgstr "TVS 아카이브 %(count)s개"
 
@@ -81,27 +81,27 @@ msgid "%(count)s step"
 msgid_plural "%(count)s steps"
 msgstr[0] "%(count)s단계"
 
-#: beatstamp/ui/main_window.py:1782
+#: beatstamp/ui/main_window.py:1920
 msgid "%(count)s with independent copies"
 msgstr "독립 사본 있음 %(count)s개"
 
-#: beatstamp/ui/main_window.py:2058
+#: beatstamp/ui/main_window.py:2201
 msgid "%(entries)s exported"
 msgstr "내보냄: %(entries)s"
 
-#: beatstamp/ui/main_window.py:2020
+#: beatstamp/ui/main_window.py:2163
 msgid "%(entries)s matured in the background."
 msgstr "백그라운드에서 증명이 진행되었습니다: %(entries)s."
 
-#: beatstamp/ui/main_window.py:1994
+#: beatstamp/ui/main_window.py:2137
 msgid "%(entries)s removed from the history."
 msgstr "내역에서 삭제했습니다: %(entries)s."
 
-#: beatstamp/ui/main_window.py:1156
+#: beatstamp/ui/main_window.py:1162
 msgid "%(files)s could not be stamped:<br><br>%(list)s"
 msgstr "%(files)s에 스탬프를 찍지 못했습니다:<br><br>%(list)s"
 
-#: beatstamp/ui/main_window.py:1108
+#: beatstamp/ui/main_window.py:1111
 msgid "%(files)s queued"
 msgstr "대기 중: %(files)s"
 
@@ -177,15 +177,15 @@ msgstr "%(title)s — 파일이 저장된 위치:"
 msgid "%(what)s: the log proof was not accepted (%(code)s)"
 msgstr "%(what)s: 로그 증명이 인정되지 않았습니다(%(code)s)"
 
-#: beatstamp/ui/main_window.py:841
+#: beatstamp/ui/main_window.py:844
 msgid "&File"
 msgstr "파일(&F)"
 
-#: beatstamp/ui/main_window.py:867
+#: beatstamp/ui/main_window.py:870
 msgid "&Tools"
 msgstr "도구(&T)"
 
-#: beatstamp/ui/main_window.py:1185
+#: beatstamp/ui/main_window.py:1191
 msgid "(%(count)s files in this batch)"
 msgstr "(이번 묶음의 파일 %(count)s개)"
 
@@ -199,7 +199,7 @@ msgstr "(제목 없음)"
 msgid ".onion address:"
 msgstr ".onion 주소:"
 
-#: beatstamp/ui/main_window.py:1717
+#: beatstamp/ui/main_window.py:1855
 msgid ".ots proof saved"
 msgstr ".ots 증명 저장됨"
 
@@ -211,27 +211,27 @@ msgstr "1) 문서의 SHA-256을 계산하여 \"digest\" 값과 비교합니다. 
 msgid "6) \"checkpoint.file\" is the exact signed checkpoint of the whole Sigelith log (beattime-checkpoint-v1): check its Ed25519 signature over \"beattime-checkpoint-v1|\" + the file without \"sig\", and that SHA-256 of the file equals \"checkpoint.hash\". 7) The leaf of this entry is SHA-256(0x00 || \"beattime-entry-v1|<seq>|<digest>|<utc with six fraction digits>Z\"); fold \"checkpoint.audit_path\" with \"leaf_index\" and \"tree_size\" (RFC 9162) — the result must equal \"root\" in the file. 8) Compare the file with an independent copy: https://github.com/DeiFlagellum/sigelith-log/releases, the Internet Archive or Zenodo."
 msgstr "6) \"checkpoint.file\" 필드는 Sigelith 로그 전체의 정확한 서명된 체크포인트(beattime-checkpoint-v1)입니다: \"beattime-checkpoint-v1|\" + \"sig\" 필드를 뺀 파일에 대한 Ed25519 서명을 확인하고, 파일의 SHA-256이 \"checkpoint.hash\"와 같은지 확인합니다. 7) 이 항목의 리프는 SHA-256(0x00 || \"beattime-entry-v1|<seq>|<digest>|<utc 소수점 이하 6자리>Z\")입니다. \"leaf_index\"와 \"tree_size\"를 사용해 \"checkpoint.audit_path\"를 차례로 접으면(RFC 9162) 결과가 파일의 \"root\"와 같아야 합니다. 8) 파일을 독립 사본과 비교합니다: https://github.com/DeiFlagellum/sigelith-log/releases, Internet Archive 또는 Zenodo."
 
-#: beatstamp/ui/main_window.py:1899
+#: beatstamp/ui/main_window.py:2037
 msgid "<b>%(entries)s</b> from the old TVS client were added to the history.<br><br>They are marked as an <b>archive</b>: their former \"signature\" is a concatenation of a time and a digest that cannot be verified. To get a proof that can be checked independently, stamp those files again — Sigelith will write a new entry and the old one will stay in the history."
 msgstr "이전 TVS 클라이언트의 기록을 내역에 추가했습니다: <b>%(entries)s</b>.<br><br>이 항목들은 <b>아카이브</b>로 표시됩니다: 이전의 \"서명\"은 시각과 해시를 이어 붙인 것일 뿐이어서 검증할 수 없습니다. 독립적으로 확인할 수 있는 증명을 받으려면 해당 파일에 다시 스탬프를 찍으세요 — Sigelith가 새 항목을 기록하고, 이전 항목은 내역에 그대로 남습니다."
 
-#: beatstamp/ui/main_window.py:2026
+#: beatstamp/ui/main_window.py:2169
 msgid "<b>%(entries)s</b> updated — the proofs have matured."
 msgstr "<b>%(entries)s</b> 업데이트됨 — 증명이 한 단계 진행되었습니다."
 
-#: beatstamp/ui/main_window.py:1662
+#: beatstamp/ui/main_window.py:1788
 msgid "<b>%(name)s</b> was saved."
 msgstr "<b>%(name)s</b> 파일을 저장했습니다."
 
-#: beatstamp/ui/main_window.py:1640
+#: beatstamp/ui/main_window.py:1766
 msgid "<b>%(name)s</b> was saved.<br><br>The root of this week is signed with a <b>retired</b> key, so the recipient will not accept this proof. Refresh the statuses (History -> Refresh statuses, F5) and export the proof again — it will get a signature made with the current Sigelith key."
 msgstr "<b>%(name)s</b> 파일을 저장했습니다.<br><br>해당 주의 루트가 <b>폐기된</b> 키로 서명되어 있으므로 받는 사람은 이 증명을 인정하지 않습니다. 상태를 새로 고친 뒤(내역 -> 상태 새로 고침, F5) 증명을 다시 내보내세요 — 현재 Sigelith 키로 만든 서명이 포함됩니다."
 
-#: beatstamp/ui/main_window.py:1649
+#: beatstamp/ui/main_window.py:1775
 msgid "<b>%(name)s</b> was saved.<br><br>The week is still running, so the proof contains no root signature and <b>cannot be verified offline for now</b>. Export it again once the week has closed (the coming Monday, 00:00 UTC) — then it will be complete."
 msgstr "<b>%(name)s</b> 파일을 저장했습니다.<br><br>아직 주가 진행 중이어서 증명에 루트 서명이 없으므로 <b>당분간 오프라인으로 검증할 수 없습니다</b>. 주가 마감된 뒤(다가오는 월요일 00:00 UTC) 다시 내보내세요 — 그때 완전한 증명이 됩니다."
 
-#: beatstamp/ui/main_window.py:1718
+#: beatstamp/ui/main_window.py:1856
 msgid "<b>%(name)s</b> was saved.<br><br>You can check it with an OpenTimestamps client:<br><code>ots verify %(command)s</code><br><br>That verification goes through the Bitcoin chain — entirely outside Sigelith and outside this application."
 msgstr "<b>%(name)s</b> 파일을 저장했습니다.<br><br>OpenTimestamps 클라이언트로 확인할 수 있습니다:<br><code>ots verify %(command)s</code><br><br>이 검증은 Bitcoin 체인을 통해 이루어지며, Sigelith와 이 애플리케이션의 완전히 바깥에서 진행됩니다."
 
@@ -278,7 +278,7 @@ msgstr ""
 "UTC 기준. @000 = UTC 자정, @500 = UTC 정오.\n"
 "시간대 없음: @523은 전 세계 어디서나 같은 순간입니다."
 
-#: beatstamp/ui/main_window.py:270
+#: beatstamp/ui/main_window.py:273
 msgid "@beat timestamps %(version)s — Sigelith Desktop"
 msgstr "@beat 타임스탬프 %(version)s — Sigelith Desktop"
 
@@ -290,7 +290,7 @@ msgstr "로컬 파일을 위한 @beat 타임스탬프"
 msgid "A .sigelith-answer file."
 msgstr ".sigelith-answer 파일."
 
-#: beatstamp/ui/main_window.py:858
+#: beatstamp/ui/main_window.py:861
 msgid "A .sigelith-handover file someone sent you"
 msgstr "누군가 보낸 .sigelith-handover 파일"
 
@@ -304,11 +304,11 @@ msgstr ""
 "그 체크포인트는 블록이 채굴되기 전에는 존재할 수 없었고,\n"
 "항목은 그 체크포인트보다 나중에 생겼습니다."
 
-#: beatstamp/ui/main_window.py:1351
+#: beatstamp/ui/main_window.py:1387
 msgid "A SHA-256 digest is exactly <b>64 hexadecimal characters</b> (digits 0-9 and letters a-f).<br><br>%(typed)s were entered."
 msgstr "SHA-256 해시는 정확히 <b>16진수 64자</b>(숫자 0-9와 문자 a-f)입니다.<br><br>입력한 길이: %(typed)s."
 
-#: beatstamp/ui/main_window.py:2524
+#: beatstamp/ui/main_window.py:2667
 msgid "A background task is still running. Close the program and stop it?"
 msgstr "백그라운드 작업이 아직 실행 중입니다. 프로그램을 닫고 작업을 중지할까요?"
 
@@ -332,7 +332,7 @@ msgstr "예의일 뿐입니다 — 수신자는 이 이름이 아니라 사용�
 msgid "A defect proof settles whether the package was what the sender offered: anyone can recompute it, and a false claim fails the same computation."
 msgstr "결함 증거는 전달물이 발신자가 제안한 그대로였는지를 가립니다. 누구나 다시 계산할 수 있고, 거짓 주장은 같은 계산에서 실패합니다."
 
-#: beatstamp/ui/main_window.py:530
+#: beatstamp/ui/main_window.py:533
 msgid "A description visible only to you"
 msgstr "나만 볼 수 있는 설명"
 
@@ -370,7 +370,7 @@ msgstr ""
 msgid "A folder you share with the other person (OneDrive, Dropbox, Google Drive, Syncthing). Packages and answers in it are picked up automatically."
 msgstr "상대방과 공유하는 폴더(OneDrive, Dropbox, Google Drive, Syncthing). 이 폴더에 들어온 전달물과 응답은 자동으로 가져옵니다."
 
-#: beatstamp/ui/main_window.py:1093
+#: beatstamp/ui/main_window.py:1096
 msgid "A large number of files"
 msgstr "대량의 파일"
 
@@ -390,7 +390,7 @@ msgstr "전달물에 결함이 있습니다"
 msgid "A package is open: %(title)s"
 msgstr "전달물이 열렸습니다: %(title)s"
 
-#: beatstamp/ui/main_window.py:751
+#: beatstamp/ui/main_window.py:754
 msgid ""
 "A proof MATURES: a stamp from this week gets its signature once the\n"
 "week closes, and the Bitcoin attestation a few hours later.\n"
@@ -415,7 +415,7 @@ msgstr ""
 "Zenodo(CERN)에 보관된, DOI가 부여된 전체 로그의 분기별 버전입니다.\n"
 "Sigelith Desktop은 이 레코드의 체크포인트 파일을 비교합니다."
 
-#: beatstamp/ui/main_window.py:920
+#: beatstamp/ui/main_window.py:923
 msgid "A record of errors — useful when reporting a problem"
 msgstr "오류 기록 — 문제를 신고할 때 유용합니다"
 
@@ -423,7 +423,7 @@ msgstr "오류 기록 — 문제를 신고할 때 유용합니다"
 msgid "A short note inside the signed binding record."
 msgstr "서명된 연결 기록 안에 들어가는 짧은 메모."
 
-#: beatstamp/ui/main_window.py:2523
+#: beatstamp/ui/main_window.py:2666
 msgid "A task is running"
 msgstr "작업 실행 중"
 
@@ -447,7 +447,7 @@ msgstr "API 주소:"
 msgid "API documentation"
 msgstr "API 문서"
 
-#: beatstamp/ui/main_window.py:888
+#: beatstamp/ui/main_window.py:891
 msgid "About"
 msgstr "정보"
 
@@ -484,7 +484,7 @@ msgstr "먼저 연락처를 추가하세요."
 msgid "Add a contact from a card file…"
 msgstr "카드 파일에서 연락처 추가…"
 
-#: beatstamp/ui/main_window.py:514
+#: beatstamp/ui/main_window.py:517
 msgid "Add a note to this stamp — e.g. \"client contract, signed version\""
 msgstr "이 스탬프에 메모를 추가하세요 — 예: \"고객 계약서, 서명본\""
 
@@ -540,7 +540,7 @@ msgstr ""
 "해시가 등록되면 애플리케이션이 즉시 포함 경로와\n"
 "서명을 확인합니다 — 추가 요청 없이 로컬에서."
 
-#: beatstamp/ui/main_window.py:2152
+#: beatstamp/ui/main_window.py:2295
 msgid "Alarm"
 msgstr "경보"
 
@@ -551,7 +551,7 @@ msgstr "경보"
 msgid "All checks"
 msgstr "모든 검사"
 
-#: beatstamp/ui/main_window.py:743
+#: beatstamp/ui/main_window.py:746
 msgid "All levels"
 msgstr "모든 단계"
 
@@ -634,7 +634,7 @@ msgstr "애플리케이션 오류 — Sigelith Desktop"
 msgid "Ask before overwriting an existing file"
 msgstr "기존 파일을 덮어쓰기 전에 묻기"
 
-#: beatstamp/ui/main_window.py:2320
+#: beatstamp/ui/main_window.py:2463
 msgid "Asking the Sigelith server about its database, cache and clock"
 msgstr "Sigelith 서버에 데이터베이스, 캐시, 시계 상태를 묻는 중"
 
@@ -672,7 +672,7 @@ msgstr "BeatStamp의 새 이름은 Sigelith Desktop입니다 — 데이터가 �
 msgid "Behaviour"
 msgstr "동작"
 
-#: beatstamp/ui/main_window.py:2416
+#: beatstamp/ui/main_window.py:2559
 msgid "Besides the built-in list of Sigelith keys, the application will now also accept signatures made with <b>the key you entered</b>.<br><br>Whoever gave you that key can sign any \"proof\" with it. The status bar will keep reminding you. To go back to the built-in list alone, clear the field in Settings -> Trust."
 msgstr "이제 애플리케이션은 내장된 Sigelith 키 목록 외에 <b>직접 입력한 키</b>로 만든 서명도 인정합니다.<br><br>그 키를 건넨 사람은 그 키로 어떤 \"증명\"이든 서명할 수 있습니다. 상태 표시줄에 이 사실이 계속 표시됩니다. 내장 목록만 사용하도록 되돌리려면 설정 -> 신뢰에서 칸을 비우세요."
 
@@ -717,11 +717,11 @@ msgstr ""
 "서로 충돌하는 서명 파일 두 개가 모두 그곳에 보관되어 있습니다. 두 파일을 합치면\n"
 "암호학적 증명이 됩니다 — 사본을 안전한 곳에 보관하세요."
 
-#: beatstamp/ui/main_window.py:695
+#: beatstamp/ui/main_window.py:698
 msgid "Builds a certificate for the checked digest"
 msgstr "확인한 해시의 인증서를 만듭니다"
 
-#: beatstamp/ui/main_window.py:575
+#: beatstamp/ui/main_window.py:578
 msgid ""
 "Builds the certificate on this computer — it works without the internet too.\n"
 "It contains the digest, the time, the week root and a QR code for verification."
@@ -733,7 +733,7 @@ msgstr ""
 msgid "Built-in Sigelith keys"
 msgstr "내장 Sigelith 키"
 
-#: beatstamp/ui/main_window.py:2042
+#: beatstamp/ui/main_window.py:2185
 msgid "CSV sheet for Excel (*.csv);;JSON file (*.json)"
 msgstr "Excel용 CSV 시트 (*.csv);;JSON 파일 (*.json)"
 
@@ -765,8 +765,12 @@ msgstr "양측의 카드"
 msgid "Certificate issued %(utc)s (%(beat)s) by Sigelith Desktop %(version)s · sigelith.org"
 msgstr "인증서 발급: %(utc)s (%(beat)s) · Sigelith Desktop %(version)s · sigelith.org"
 
-#: beatstamp/ui/main_window.py:1610
+#: beatstamp/ui/main_window.py:1646
 msgid "Certificate saved"
+msgstr "인증서 저장됨"
+
+#: beatstamp/ui/main_window.py:1683
+msgid "Certificates saved"
 msgstr "인증서 저장됨"
 
 #: beatstamp/ui/dialogs.py:830
@@ -777,11 +781,11 @@ msgstr "변경…"
 msgid "Check a Sigelith Handover evidence package or defect proof (.zip) — yours or someone else's."
 msgstr "Sigelith Handover 증거 패키지 또는 결함 증거(.zip)를 확인합니다 — 본인 것이든 다른 사람 것이든."
 
-#: beatstamp/ui/main_window.py:349
+#: beatstamp/ui/main_window.py:352
 msgid "Check a file, a SHA-256 digest or a .beatproof proof"
 msgstr "파일, SHA-256 해시 또는 .beatproof 증명 확인"
 
-#: beatstamp/ui/main_window.py:849
+#: beatstamp/ui/main_window.py:852
 msgid "Check a stand-alone proof — without the network"
 msgstr "독립형 증명 확인 — 네트워크 없이"
 
@@ -789,13 +793,13 @@ msgstr "독립형 증명 확인 — 네트워크 없이"
 msgid "Check again"
 msgstr "다시 확인"
 
-#: beatstamp/ui/main_window.py:660
+#: beatstamp/ui/main_window.py:663
 msgid "Check digest"
 msgstr "해시 확인"
 
-#: beatstamp/ui/main_window.py:587
-#: beatstamp/ui/main_window.py:1742
-#: beatstamp/ui/main_window.py:1936
+#: beatstamp/ui/main_window.py:590
+#: beatstamp/ui/main_window.py:1880
+#: beatstamp/ui/main_window.py:2075
 msgid "Check in the browser"
 msgstr "브라우저에서 확인"
 
@@ -804,7 +808,7 @@ msgstr "브라우저에서 확인"
 msgid "Check now"
 msgstr "지금 확인"
 
-#: beatstamp/ui/main_window.py:1383
+#: beatstamp/ui/main_window.py:1419
 msgid "Check that the digest was pasted in full."
 msgstr "해시를 빠짐없이 붙여 넣었는지 확인하세요."
 
@@ -812,11 +816,11 @@ msgstr "해시를 빠짐없이 붙여 넣었는지 확인하세요."
 msgid "Check the log and refresh the proofs while the program is open"
 msgstr "프로그램이 열려 있는 동안 로그를 확인하고 증명을 새로 고침"
 
-#: beatstamp/ui/main_window.py:875
+#: beatstamp/ui/main_window.py:878
 msgid "Check the service status"
 msgstr "서비스 상태 확인"
 
-#: beatstamp/ui/main_window.py:878
+#: beatstamp/ui/main_window.py:881
 msgid "Check the witnesses now"
 msgstr "지금 증인 확인"
 
@@ -824,15 +828,15 @@ msgstr "지금 증인 확인"
 msgid "Check this digest in the register (Verification tab -> Check digest) and export the proof again — it will get a signature made with the current key."
 msgstr "기록부에서 이 해시를 확인한 뒤(검증 탭 -> 해시 확인) 증명을 다시 내보내세요 — 현재 키로 만든 서명이 포함됩니다."
 
-#: beatstamp/ui/main_window.py:634
+#: beatstamp/ui/main_window.py:637
 msgid "Check whether a document already has a timestamp — and whether the proof is consistent. Verification records nothing and changes nothing."
 msgstr "문서에 이미 타임스탬프가 있는지, 그리고 증명이 일관적인지 확인합니다. 검증은 아무것도 기록하거나 변경하지 않습니다."
 
-#: beatstamp/ui/main_window.py:846
+#: beatstamp/ui/main_window.py:849
 msgid "Check whether a file already has a stamp"
 msgstr "파일에 이미 스탬프가 있는지 확인"
 
-#: beatstamp/ui/main_window.py:870
+#: beatstamp/ui/main_window.py:873
 msgid "Check whether the proofs have matured"
 msgstr "증명 진행 상황 확인"
 
@@ -860,7 +864,7 @@ msgstr "증거를 확인하는 중…"
 msgid "Checking the exchange folder…"
 msgstr "교환 폴더를 확인하는 중…"
 
-#: beatstamp/ui/main_window.py:1338
+#: beatstamp/ui/main_window.py:1374
 msgid "Checking the first of %(count)s files — verification works on one file at a time."
 msgstr "파일 %(count)s개 중 첫 번째 파일을 확인합니다 — 검증은 한 번에 한 파일씩 진행됩니다."
 
@@ -872,17 +876,17 @@ msgstr "로그 확인 중…"
 msgid "Checking the package…"
 msgstr "전달물을 확인하는 중…"
 
-#: beatstamp/ui/main_window.py:1455
+#: beatstamp/ui/main_window.py:1491
 msgid "Checking the proof…"
 msgstr "증명 확인 중…"
 
-#: beatstamp/ui/main_window.py:2109
+#: beatstamp/ui/main_window.py:2252
 #: beatstamp/ui/witness_panel.py:387
 msgid "Checking the public log…"
 msgstr "공개 로그 확인 중…"
 
-#: beatstamp/ui/main_window.py:2319
-#: beatstamp/ui/main_window.py:2323
+#: beatstamp/ui/main_window.py:2462
+#: beatstamp/ui/main_window.py:2466
 #: beatstamp/workers.py:526
 msgid "Checking the service status…"
 msgstr "서비스 상태 확인 중…"
@@ -901,11 +905,11 @@ msgstr "체크포인트 아카이브"
 msgid "Checkpoints"
 msgstr "체크포인트"
 
-#: beatstamp/ui/main_window.py:880
+#: beatstamp/ui/main_window.py:883
 msgid "Checkpoints, their chain and the independent copies"
 msgstr "체크포인트, 그 체인, 독립 사본"
 
-#: beatstamp/ui/main_window.py:671
+#: beatstamp/ui/main_window.py:674
 msgid ""
 "Checks a stand-alone proof file. The verification happens\n"
 "entirely locally — without connecting to anything."
@@ -917,7 +921,7 @@ msgstr ""
 msgid "Checks the Ed25519 signatures of the week roots and of the log checkpoints."
 msgstr "주간 루트와 로그 체크포인트의 Ed25519 서명을 확인합니다."
 
-#: beatstamp/ui/main_window.py:662
+#: beatstamp/ui/main_window.py:665
 msgid ""
 "Checks this digest and the answer locally: the inclusion path, the root\n"
 "signature, the identity of the key and the path to the signed checkpoint.\n"
@@ -935,7 +939,7 @@ msgstr "연락처와 파일을 고르세요. 전달물은 연락처의 카드로
 msgid "Choose a contact first."
 msgstr "먼저 연락처를 고르세요."
 
-#: beatstamp/ui/main_window.py:1328
+#: beatstamp/ui/main_window.py:1364
 msgid "Choose a file to check"
 msgstr "확인할 파일 선택"
 
@@ -943,7 +947,15 @@ msgstr "확인할 파일 선택"
 msgid "Choose a folder for Sigelith Desktop data"
 msgstr "Sigelith Desktop 데이터 폴더 선택"
 
-#: beatstamp/ui/main_window.py:1429
+#: beatstamp/ui/main_window.py:1663
+msgid "Choose a folder for the PDF certificates"
+msgstr "PDF 인증서를 저장할 폴더 선택"
+
+#: beatstamp/ui/main_window.py:1687
+msgid "Choose a folder for the offline proofs"
+msgstr "오프라인 증명을 저장할 폴더 선택"
+
+#: beatstamp/ui/main_window.py:1465
 msgid "Choose a proof file"
 msgstr "증명 파일 선택"
 
@@ -956,12 +968,12 @@ msgstr "파일을 하나 이상 고르세요."
 msgid "Choose files to send"
 msgstr "보낼 파일 선택"
 
-#: beatstamp/ui/main_window.py:843
-#: beatstamp/ui/main_window.py:1079
+#: beatstamp/ui/main_window.py:846
+#: beatstamp/ui/main_window.py:1082
 msgid "Choose files to stamp"
 msgstr "스탬프할 파일 선택"
 
-#: beatstamp/ui/main_window.py:1448
+#: beatstamp/ui/main_window.py:1484
 msgid "Choose the document"
 msgstr "문서 선택"
 
@@ -987,11 +999,11 @@ msgstr "선택…"
 msgid "Clears your own key — verification then uses only the keys shipped with this version of the program"
 msgstr "직접 입력한 키를 지웁니다 — 이후 검증에는 이 버전의 프로그램과 함께 제공된 키만 사용됩니다"
 
-#: beatstamp/ui/main_window.py:2315
+#: beatstamp/ui/main_window.py:2458
 msgid "Clock synchronised"
 msgstr "시계 동기화됨"
 
-#: beatstamp/ui/main_window.py:2309
+#: beatstamp/ui/main_window.py:2452
 msgid "Clock synchronised (difference %(offset)s s, round trip %(rtt)s ms)."
 msgstr "시계 동기화됨 (차이 %(offset)s초, 왕복 %(rtt)s ms)."
 
@@ -1006,7 +1018,8 @@ msgstr "시계 동기화됨 (차이 %(offset)s초, 왕복 %(rtt)s ms)."
 #: beatstamp/ui/handover_dialogs.py:571
 #: beatstamp/ui/handover_dialogs.py:848
 #: beatstamp/ui/handover_dialogs.py:974
-#: beatstamp/ui/main_window.py:1671
+#: beatstamp/ui/main_window.py:1733
+#: beatstamp/ui/main_window.py:1797
 msgid "Close"
 msgstr "닫기"
 
@@ -1055,7 +1068,7 @@ msgstr "파일의 SHA-256을 계산해 위의 값과 비교하세요. Windows에
 msgid "Computing SHA-256: %(name)s"
 msgstr "SHA-256 계산 중: %(name)s"
 
-#: beatstamp/ui/main_window.py:1344
+#: beatstamp/ui/main_window.py:1380
 #: beatstamp/workers.py:206
 msgid "Computing digest: %(name)s"
 msgstr "해시 계산 중: %(name)s"
@@ -1064,7 +1077,7 @@ msgstr "해시 계산 중: %(name)s"
 msgid "Computing the document digest: %(name)s"
 msgstr "문서 해시 계산 중: %(name)s"
 
-#: beatstamp/ui/main_window.py:1405
+#: beatstamp/ui/main_window.py:1441
 msgid "Confirmed"
 msgstr "확인됨"
 
@@ -1088,7 +1101,7 @@ msgstr "sigelith.org에 연결하는 중…"
 msgid "Connection"
 msgstr "연결"
 
-#: beatstamp/ui/main_window.py:885
+#: beatstamp/ui/main_window.py:888
 msgid "Connection, witnesses, trust, behaviour"
 msgstr "연결, 증인, 신뢰, 동작"
 
@@ -1130,7 +1143,7 @@ msgstr "GitHub와 Internet Archive의 사본은 매주, Zenodo의 사본은 분�
 msgid "Copies the contents to the clipboard"
 msgstr "내용을 클립보드에 복사합니다"
 
-#: beatstamp/ui/main_window.py:801
+#: beatstamp/ui/main_window.py:804
 msgid "Copies the full SHA-256 digest to the clipboard"
 msgstr "SHA-256 해시 전체를 클립보드에 복사합니다"
 
@@ -1143,7 +1156,7 @@ msgstr "JSON 문서 전체를 클립보드에 복사합니다"
 msgid "Copy"
 msgstr "복사"
 
-#: beatstamp/ui/main_window.py:800
+#: beatstamp/ui/main_window.py:803
 msgid "Copy digest"
 msgstr "해시 복사"
 
@@ -1151,7 +1164,7 @@ msgstr "해시 복사"
 msgid "Copy everything"
 msgstr "모두 복사"
 
-#: beatstamp/ui/main_window.py:1932
+#: beatstamp/ui/main_window.py:2071
 msgid "Copy the SHA-256 digest"
 msgstr "SHA-256 해시 복사"
 
@@ -1202,7 +1215,7 @@ msgid "Data folder"
 msgstr "데이터 폴더"
 
 #: beatstamp/config.py:790
-#: beatstamp/ui/main_window.py:1822
+#: beatstamp/ui/main_window.py:1960
 msgid "Data folder: %(path)s"
 msgstr "데이터 폴더: %(path)s"
 
@@ -1273,10 +1286,10 @@ msgstr "전달됨: %(title)s"
 msgid "Delivered: the key part is in the public log (%(when)s). Save the evidence package now? Sigelith keeps no copy."
 msgstr "전달됨: 키 조각이 공개 로그에 있습니다(%(when)s). 지금 증거 패키지를 저장할까요? Sigelith는 사본을 보관하지 않습니다."
 
-#: beatstamp/ui/main_window.py:591
-#: beatstamp/ui/main_window.py:705
-#: beatstamp/ui/main_window.py:796
-#: beatstamp/ui/main_window.py:1938
+#: beatstamp/ui/main_window.py:594
+#: beatstamp/ui/main_window.py:708
+#: beatstamp/ui/main_window.py:799
+#: beatstamp/ui/main_window.py:2077
 msgid "Details…"
 msgstr "자세히…"
 
@@ -1284,7 +1297,7 @@ msgstr "자세히…"
 msgid "Digest %(short)s…"
 msgstr "해시 %(short)s…"
 
-#: beatstamp/ui/main_window.py:1962
+#: beatstamp/ui/main_window.py:2105
 msgid "Digest copied to the clipboard."
 msgstr "해시를 클립보드에 복사했습니다."
 
@@ -1300,7 +1313,7 @@ msgstr "공개된 내용이 전달물과 일치"
 msgid "Do you also have the other party's copy of the same handover? It settles the case where the recipient signed two different answers."
 msgstr "같은 전달에 대한 상대방의 사본도 가지고 있나요? 수신자가 서로 다른 두 응답에 서명한 경우를 판단할 때 쓰입니다."
 
-#: beatstamp/ui/main_window.py:1438
+#: beatstamp/ui/main_window.py:1474
 msgid "Do you also want to point to the <b>document</b> this proof is about?<br><br>Without the document we check only whether the proof itself is consistent. With the document we additionally check whether the proof really is about <i>this</i> file and whether the file has been changed."
 msgstr "이 증명이 다루는 <b>문서</b>도 지정하시겠습니까?<br><br>문서가 없으면 증명 자체가 일관적인지만 확인합니다. 문서가 있으면 증명이 정말 <i>이</i> 파일에 관한 것인지, 파일이 변경되지 않았는지도 추가로 확인합니다."
 
@@ -1317,15 +1330,15 @@ msgstr "문서 해시 — 기록부에 전달된 유일한 정보"
 msgid "Document name. It was never sent to the server"
 msgstr "문서 이름. 서버로 전송된 적이 없습니다"
 
-#: beatstamp/ui/main_window.py:1139
+#: beatstamp/ui/main_window.py:1145
 msgid "Done — %(files)s stamped."
 msgstr "완료 — %(files)s에 스탬프를 찍었습니다."
 
-#: beatstamp/ui/main_window.py:1140
+#: beatstamp/ui/main_window.py:1146
 msgid "Done — the file has a timestamp."
 msgstr "완료 — 파일에 타임스탬프가 생겼습니다."
 
-#: beatstamp/ui/main_window.py:700
+#: beatstamp/ui/main_window.py:703
 msgid "Download the .ots proof"
 msgstr ".ots 증명 다운로드"
 
@@ -1333,11 +1346,11 @@ msgstr ".ots 증명 다운로드"
 msgid "Downloaded: %(when)s"
 msgstr "다운로드: %(when)s"
 
-#: beatstamp/ui/main_window.py:2109
+#: beatstamp/ui/main_window.py:2252
 msgid "Downloading new checkpoints and checking the signature, the chain, consistency and the independent copies"
 msgstr "새 체크포인트를 내려받고 서명, 체인, 일관성, 독립 사본을 확인하는 중"
 
-#: beatstamp/ui/main_window.py:1702
+#: beatstamp/ui/main_window.py:1840
 #: beatstamp/workers.py:564
 msgid "Downloading the .ots proof for %(week)s…"
 msgstr "%(week)s의 .ots 증명을 다운로드하는 중…"
@@ -1360,15 +1373,15 @@ msgstr ""
 msgid "Downloads the list from sigelith.org again"
 msgstr "sigelith.org에서 목록을 다시 내려받습니다"
 
-#: beatstamp/ui/main_window.py:641
+#: beatstamp/ui/main_window.py:644
 msgid "Drag a file here to check it"
 msgstr "확인할 파일을 여기로 끌어 오세요"
 
-#: beatstamp/ui/main_window.py:686
+#: beatstamp/ui/main_window.py:689
 msgid "Drag a file in, paste a digest, or load a .beatproof file."
 msgstr "파일을 끌어 오거나, 해시를 붙여 넣거나, .beatproof 파일을 불러오세요."
 
-#: beatstamp/ui/main_window.py:565
+#: beatstamp/ui/main_window.py:568
 msgid "Drag a file into the area above to give it a timestamp."
 msgstr "타임스탬프를 찍으려면 위 영역으로 파일을 끌어 오세요."
 
@@ -1452,7 +1465,7 @@ msgstr ""
 "독립적으로 확인할 수 있는 증명을\n"
 "받으려면 이 파일에 다시 스탬프를 찍으세요."
 
-#: beatstamp/ui/main_window.py:1956
+#: beatstamp/ui/main_window.py:2099
 msgid "Entry details"
 msgstr "항목 세부 정보"
 
@@ -1460,7 +1473,7 @@ msgstr "항목 세부 정보"
 msgid "Entry no. %(seq)s in the public Sigelith register"
 msgstr "공개 Sigelith 기록부의 항목 번호 %(seq)s"
 
-#: beatstamp/ui/main_window.py:1163
+#: beatstamp/ui/main_window.py:1169
 msgid "Error"
 msgstr "오류"
 
@@ -1494,12 +1507,12 @@ msgstr ""
 "매주 Merkle 루트가 은행 이체의 적요(MROOT)에\n"
 "기록됩니다. 주간 체크포인트에 이 이체들이 나열됩니다."
 
-#: beatstamp/ui/main_window.py:797
+#: beatstamp/ui/main_window.py:800
 msgid "Everything about the selected entry, in plain words — and the note to edit"
 msgstr "선택한 항목에 관한 모든 것을 쉬운 말로 — 메모 편집도 가능"
 
-#: beatstamp/ui/main_window.py:592
-#: beatstamp/ui/main_window.py:706
+#: beatstamp/ui/main_window.py:595
+#: beatstamp/ui/main_window.py:709
 msgid "Everything about this proof: when, how far it has come and who confirms it"
 msgstr "이 증명에 관한 모든 것: 언제인지, 어디까지 진행되었는지, 누가 확인하는지"
 
@@ -1540,15 +1553,15 @@ msgstr "교환 폴더:"
 msgid "Expired"
 msgstr "만료됨"
 
-#: beatstamp/ui/main_window.py:860
+#: beatstamp/ui/main_window.py:863
 msgid "Export history…"
 msgstr "내역 내보내기…"
 
-#: beatstamp/ui/main_window.py:2039
+#: beatstamp/ui/main_window.py:2182
 msgid "Export the history"
 msgstr "내역 내보내기"
 
-#: beatstamp/ui/main_window.py:817
+#: beatstamp/ui/main_window.py:820
 msgid "Export…"
 msgstr "내보내기…"
 
@@ -1556,7 +1569,7 @@ msgstr "내보내기…"
 msgid "FOREIGN key — outside the Sigelith keys built into the application"
 msgstr "외부 키 — 애플리케이션에 내장된 Sigelith 키가 아님"
 
-#: beatstamp/ui/main_window.py:2217
+#: beatstamp/ui/main_window.py:2360
 msgid "Fast mode: the server is asked about each digest."
 msgstr "빠른 모드: 각 해시에 대해 서버에 묻습니다."
 
@@ -1582,7 +1595,7 @@ msgstr "파일 %(name)s"
 msgid "File names:"
 msgstr "파일 이름:"
 
-#: beatstamp/ui/main_window.py:2055
+#: beatstamp/ui/main_window.py:2198
 msgid "File write error:<br>%(reason)s"
 msgstr "파일 쓰기 오류:<br>%(reason)s"
 
@@ -1592,7 +1605,7 @@ msgstr "파일 쓰기 오류:<br>%(reason)s"
 msgid "Files"
 msgstr "파일"
 
-#: beatstamp/ui/main_window.py:737
+#: beatstamp/ui/main_window.py:740
 msgid ""
 "Filters entries as you type. It also searches the full digest,\n"
 "so you can paste a whole hash."
@@ -1620,7 +1633,7 @@ msgstr "보낸 사람"
 msgid "Full licence texts"
 msgstr "전체 라이선스 전문"
 
-#: beatstamp/ui/main_window.py:347
+#: beatstamp/ui/main_window.py:350
 msgid "Give files a timestamp in the Sigelith register"
 msgstr "Sigelith 기록부에서 파일에 타임스탬프 찍기"
 
@@ -1644,17 +1657,17 @@ msgstr "sigelith.org 및 독립 아카이브와의 HTTP 연결."
 msgid "HTTP request error: %(kind)s."
 msgstr "HTTP 요청 오류: %(kind)s."
 
-#: beatstamp/ui/main_window.py:2455
+#: beatstamp/ui/main_window.py:2598
 msgid "HTTPS connection with full certificate verification (certifi)."
 msgstr "인증서를 완전히 검증하는 HTTPS 연결(certifi)."
 
 #: beatstamp/ui/handover_panel.py:140
-#: beatstamp/ui/main_window.py:355
+#: beatstamp/ui/main_window.py:358
 msgid "Hand over files with proof of delivery"
 msgstr "전달 증명과 함께 파일 전달하기"
 
 #: beatstamp/ui/dialogs.py:417
-#: beatstamp/ui/main_window.py:345
+#: beatstamp/ui/main_window.py:348
 msgid "Handover"
 msgstr "Handover"
 
@@ -1671,7 +1684,7 @@ msgstr "%(role)s의 하드웨어 증명: %(what)s"
 msgid "Hardware attestation: %(what)s."
 msgstr "하드웨어 증명: %(what)s."
 
-#: beatstamp/ui/main_window.py:887
+#: beatstamp/ui/main_window.py:890
 msgid "Hel&p"
 msgstr "도움말(&H)"
 
@@ -1679,11 +1692,11 @@ msgstr "도움말(&H)"
 msgid "Highest level: the week root is anchored outside Sigelith — in the Bitcoin chain (OpenTimestamps) and/or by a bank confirmation. Undoing this timestamp would require rewriting other parties' registers."
 msgstr "최고 단계: 주간 루트가 Sigelith 외부에 앵커링되었습니다 — Bitcoin 체인(OpenTimestamps) 및/또는 은행 확인으로. 이 타임스탬프를 되돌리려면 다른 당사자들의 기록을 다시 써야 합니다."
 
-#: beatstamp/ui/main_window.py:335
+#: beatstamp/ui/main_window.py:338
 msgid "History"
 msgstr "내역"
 
-#: beatstamp/ui/main_window.py:1898
+#: beatstamp/ui/main_window.py:2036
 msgid "History carried over from TVS"
 msgstr "TVS에서 가져온 내역"
 
@@ -1715,7 +1728,7 @@ msgstr "연결 방법"
 msgid "How it works"
 msgstr "작동 방식"
 
-#: beatstamp/ui/main_window.py:892
+#: beatstamp/ui/main_window.py:895
 msgid "How it works — sigelith.org"
 msgstr "작동 방식 — sigelith.org"
 
@@ -1782,17 +1795,17 @@ msgstr "전달한 파일을 증거에 포함할까요? 그러면 무엇이 전�
 msgid "Inclusion path"
 msgstr "포함 경로"
 
-#: beatstamp/ui/main_window.py:1542
+#: beatstamp/ui/main_window.py:1578
 msgid "Incomplete"
 msgstr "불완전"
 
-#: beatstamp/ui/main_window.py:1541
+#: beatstamp/ui/main_window.py:1577
 msgid "Incomplete proof"
 msgstr "불완전한 증명"
 
-#: beatstamp/ui/main_window.py:1170
-#: beatstamp/ui/main_window.py:1391
-#: beatstamp/ui/main_window.py:1530
+#: beatstamp/ui/main_window.py:1176
+#: beatstamp/ui/main_window.py:1427
+#: beatstamp/ui/main_window.py:1566
 msgid "Inconsistent proof"
 msgstr "일관성 없는 증명"
 
@@ -1803,7 +1816,7 @@ msgstr "일관성 없는 증명"
 msgid "Independent copies"
 msgstr "독립 사본"
 
-#: beatstamp/ui/main_window.py:2471
+#: beatstamp/ui/main_window.py:2614
 msgid "Interface language"
 msgstr "인터페이스 언어"
 
@@ -1829,7 +1842,7 @@ msgstr "주소에 쓰이는 국제화 도메인 이름."
 msgid "Invalid address"
 msgstr "잘못된 주소"
 
-#: beatstamp/ui/main_window.py:1350
+#: beatstamp/ui/main_window.py:1386
 msgid "Invalid digest"
 msgstr "잘못된 해시"
 
@@ -1837,19 +1850,20 @@ msgstr "잘못된 해시"
 msgid "Invalid key"
 msgstr "잘못된 키"
 
-#: beatstamp/ui/main_window.py:791
+#: beatstamp/ui/main_window.py:794
 msgid "Issues a certificate for the selected entry"
 msgstr "선택한 항목의 인증서를 발급합니다"
 
-#: beatstamp/ui/main_window.py:1738
+#: beatstamp/ui/main_window.py:1876
 msgid "Issues a certificate for this entry"
 msgstr "이 항목의 인증서를 발급합니다"
 
-#: beatstamp/ui/main_window.py:1595
-#: beatstamp/ui/main_window.py:1602
-#: beatstamp/ui/main_window.py:1632
-#: beatstamp/ui/main_window.py:1714
-#: beatstamp/ui/main_window.py:2054
+#: beatstamp/ui/main_window.py:1631
+#: beatstamp/ui/main_window.py:1638
+#: beatstamp/ui/main_window.py:1721
+#: beatstamp/ui/main_window.py:1758
+#: beatstamp/ui/main_window.py:1852
+#: beatstamp/ui/main_window.py:2197
 msgid "It could not be saved"
 msgstr "저장하지 못했습니다"
 
@@ -1860,7 +1874,7 @@ msgstr "저장하지 못했습니다"
 #: beatstamp/ui/handover_controller.py:484
 #: beatstamp/ui/handover_controller.py:526
 #: beatstamp/ui/handover_controller.py:559
-#: beatstamp/ui/main_window.py:1021
+#: beatstamp/ui/main_window.py:1024
 msgid "It did not work"
 msgstr "실패했습니다"
 
@@ -1902,7 +1916,7 @@ msgid "Later"
 msgstr "나중에"
 
 #: beatstamp/ui/dialogs.py:1150
-#: beatstamp/ui/main_window.py:914
+#: beatstamp/ui/main_window.py:917
 msgid "Legal notice (Impressum)"
 msgstr "법적 고지 (Impressum)"
 
@@ -1952,8 +1966,8 @@ msgstr "이메일의 줄바꿈과 공백은 상관없습니다."
 msgid "Load"
 msgstr "불러오기"
 
-#: beatstamp/ui/main_window.py:670
-#: beatstamp/ui/main_window.py:847
+#: beatstamp/ui/main_window.py:673
+#: beatstamp/ui/main_window.py:850
 msgid "Load a .beatproof proof…"
 msgstr ".beatproof 증명 불러오기…"
 
@@ -1990,11 +2004,11 @@ msgstr "후원자 목록을 불러오는 중…"
 msgid "Loading the list…"
 msgstr "목록을 불러오는 중…"
 
-#: beatstamp/ui/main_window.py:505
+#: beatstamp/ui/main_window.py:508
 msgid "Local check:"
 msgstr "로컬 검사:"
 
-#: beatstamp/ui/main_window.py:1857
+#: beatstamp/ui/main_window.py:1995
 msgid "Local history"
 msgstr "로컬 내역"
 
@@ -2037,11 +2051,11 @@ msgstr "MROOT 이체는 주간 체크포인트에 나열됩니다 — 이체 적
 msgid "Made by Sigelith Desktop %(version)s on %(when)s."
 msgstr "Sigelith Desktop %(version)s(으)로 %(when)s에 작성함."
 
-#: beatstamp/ui/main_window.py:873
+#: beatstamp/ui/main_window.py:876
 msgid "Measure the clock drift of this computer"
 msgstr "이 컴퓨터의 시계 오차 측정"
 
-#: beatstamp/ui/main_window.py:2232
+#: beatstamp/ui/main_window.py:2375
 msgid "Measuring the difference between this computer and the Sigelith server"
 msgstr "이 컴퓨터와 Sigelith 서버의 시간 차이를 측정하는 중"
 
@@ -2099,11 +2113,11 @@ msgstr "효력이 생긴 수락이 없습니다. 키 조각이 수락 이후, �
 msgid "No anchor — the week is still running."
 msgstr "앵커 없음 — 아직 주가 진행 중입니다."
 
-#: beatstamp/ui/main_window.py:2030
+#: beatstamp/ui/main_window.py:2173
 msgid "No change — none of the proofs has moved to another stage yet."
 msgstr "변경 없음 — 아직 다음 단계로 넘어간 증명이 없습니다."
 
-#: beatstamp/ui/main_window.py:2154
+#: beatstamp/ui/main_window.py:2297
 msgid "No connection"
 msgstr "연결 없음"
 
@@ -2139,7 +2153,7 @@ msgstr "결함 없음"
 msgid "No exchange folder: you save and send the files yourself (e-mail, messenger, USB stick). A shared folder makes it automatic."
 msgstr "교환 폴더가 없습니다. 파일은 직접 저장하고 보냅니다(이메일, 메신저, USB 메모리). 공유 폴더를 쓰면 자동으로 처리됩니다."
 
-#: beatstamp/ui/main_window.py:1089
+#: beatstamp/ui/main_window.py:1092
 msgid "No file was found. Folders are expanded automatically — perhaps the chosen folder is empty."
 msgstr "파일을 찾지 못했습니다. 폴더는 자동으로 펼쳐지므로, 선택한 폴더가 비어 있을 수 있습니다."
 
@@ -2156,12 +2170,12 @@ msgstr "메모 없음"
 msgid "No permission to read the file \"%(name)s\"."
 msgstr "\"%(name)s\" 파일을 읽을 권한이 없습니다."
 
-#: beatstamp/ui/main_window.py:464
+#: beatstamp/ui/main_window.py:467
 msgid "No result"
 msgstr "결과 없음"
 
 #: beatstamp/proof.py:103
-#: beatstamp/ui/main_window.py:1374
+#: beatstamp/ui/main_window.py:1410
 msgid "No stamp"
 msgstr "스탬프 없음"
 
@@ -2194,7 +2208,7 @@ msgstr "전달되지 않음"
 msgid "Not earlier than"
 msgstr "빨라도"
 
-#: beatstamp/ui/main_window.py:1375
+#: beatstamp/ui/main_window.py:1411
 msgid "Not found"
 msgstr "찾을 수 없음"
 
@@ -2203,7 +2217,7 @@ msgstr "찾을 수 없음"
 msgid "Not later than"
 msgstr "늦어도"
 
-#: beatstamp/ui/main_window.py:1162
+#: beatstamp/ui/main_window.py:1168
 msgid "Not registered"
 msgstr "등록되지 않음"
 
@@ -2229,12 +2243,12 @@ msgstr "메모"
 msgid "Note (optional)"
 msgstr "메모(선택)"
 
-#: beatstamp/ui/main_window.py:1305
-#: beatstamp/ui/main_window.py:1319
+#: beatstamp/ui/main_window.py:1341
+#: beatstamp/ui/main_window.py:1355
 msgid "Note saved."
 msgstr "메모를 저장했습니다."
 
-#: beatstamp/ui/main_window.py:530
+#: beatstamp/ui/main_window.py:533
 msgid "Note:"
 msgstr "메모:"
 
@@ -2242,7 +2256,7 @@ msgstr "메모:"
 msgid "Nothing to check: no package is waiting for an answer or a key part."
 msgstr "확인할 것이 없습니다. 응답이나 키 조각을 기다리는 전달물이 없습니다."
 
-#: beatstamp/ui/main_window.py:1088
+#: beatstamp/ui/main_window.py:1091
 msgid "Nothing to stamp"
 msgstr "스탬프할 파일 없음"
 
@@ -2275,19 +2289,24 @@ msgstr "제안이 로그에 기록됨: %(when)s"
 msgid "Offer signed by the sender"
 msgstr "발신자가 서명한 제안"
 
-#: beatstamp/ui/main_window.py:793
-#: beatstamp/ui/main_window.py:1740
+#: beatstamp/ui/main_window.py:796
+#: beatstamp/ui/main_window.py:1878
 msgid "Offline proof"
 msgstr "오프라인 증명"
 
-#: beatstamp/ui/main_window.py:580
-#: beatstamp/ui/main_window.py:697
+#: beatstamp/ui/main_window.py:583
+#: beatstamp/ui/main_window.py:700
+#: beatstamp/ui/main_window.py:1245
 msgid "Offline proof (.beatproof)"
 msgstr "오프라인 증명 (.beatproof)"
 
-#: beatstamp/ui/main_window.py:1935
+#: beatstamp/ui/main_window.py:2074
 msgid "Offline proof (.beatproof)…"
 msgstr "오프라인 증명 (.beatproof)…"
+
+#: beatstamp/ui/main_window.py:1242
+msgid "Offline proofs (%(count)s)"
+msgstr "오프라인 증명 (%(count)s)"
 
 #: beatstamp/ui/handover_dialogs.py:191
 msgid "On"
@@ -2301,7 +2320,7 @@ msgstr "HTTPS 주소만 사용할 수 있습니다."
 msgid "Only for the Windows Hello window on this computer. It is not part of the card."
 msgstr "이 컴퓨터의 Windows Hello 창에만 쓰입니다. 카드에는 포함되지 않습니다."
 
-#: beatstamp/ui/main_window.py:397
+#: beatstamp/ui/main_window.py:400
 msgid "Only the SHA-256 digest, computed on this computer, reaches the Sigelith register."
 msgstr "이 컴퓨터에서 계산한 SHA-256 해시만 Sigelith 기록부에 전달됩니다."
 
@@ -2313,7 +2332,7 @@ msgstr "최신 브라우저에서 %(url)s을(를) 열고 파일을 끌어 놓으
 msgid "Open a .sigelith-handover file someone sent you."
 msgstr "누군가 보낸 .sigelith-handover 파일을 엽니다."
 
-#: beatstamp/ui/main_window.py:856
+#: beatstamp/ui/main_window.py:859
 msgid "Open a Handover package…"
 msgstr "Handover 전달물 열기…"
 
@@ -2354,7 +2373,7 @@ msgstr "사본 열기"
 msgid "Open the evidence folder"
 msgstr "증거 폴더 열기"
 
-#: beatstamp/ui/main_window.py:1669
+#: beatstamp/ui/main_window.py:1795
 msgid "Open the file"
 msgstr "파일 열기"
 
@@ -2376,7 +2395,7 @@ msgstr "파일이 있는 폴더 열기"
 msgid "Open the other party's copy"
 msgstr "상대방의 사본 열기"
 
-#: beatstamp/ui/main_window.py:1708
+#: beatstamp/ui/main_window.py:1846
 msgid "OpenTimestamps proof (*.ots)"
 msgstr "OpenTimestamps 증명 (*.ots)"
 
@@ -2413,12 +2432,12 @@ msgid "Opens Windows Security, where Sigelith Desktop can be allowed to write to
 msgstr "Sigelith Desktop이 보호된 폴더에 쓸 수 있도록 허용할 수 있는 Windows 보안을 엽니다."
 
 #: beatstamp/ui/dialogs.py:1010
-#: beatstamp/ui/main_window.py:947
+#: beatstamp/ui/main_window.py:950
 #: beatstamp/ui/witness_panel.py:134
 msgid "Opens in the browser: %(url)s"
 msgstr "브라우저에서 엽니다: %(url)s"
 
-#: beatstamp/ui/main_window.py:1742
+#: beatstamp/ui/main_window.py:1880
 msgid "Opens sigelith.org/proof with this digest"
 msgstr "이 해시로 sigelith.org/proof를 엽니다"
 
@@ -2426,7 +2445,7 @@ msgstr "이 해시로 sigelith.org/proof를 엽니다"
 msgid "Opens the folder with the licence files in the file manager"
 msgstr "파일 관리자에서 라이선스 파일이 있는 폴더를 엽니다"
 
-#: beatstamp/ui/main_window.py:588
+#: beatstamp/ui/main_window.py:591
 msgid ""
 "Opens the public verification page sigelith.org/proof\n"
 "with the digest filled in — an independent confirmation."
@@ -2442,22 +2461,27 @@ msgstr "이 검사의 출처를 브라우저에서 엽니다"
 msgid "Optional: where and how"
 msgstr "선택: 어디서, 어떻게"
 
-#: beatstamp/ui/main_window.py:2338
+#: beatstamp/ui/main_window.py:2481
 msgid "Overall state: <b>%(status)s</b><br>Database: %(database)s<br>Cache: %(cache)s<br>Server clock against NTP: %(offset)s (source: %(source)s)"
 msgstr "전체 상태: <b>%(status)s</b><br>데이터베이스: %(database)s<br>캐시: %(cache)s<br>NTP 대비 서버 시계: %(offset)s (출처: %(source)s)"
 
-#: beatstamp/ui/main_window.py:574
-#: beatstamp/ui/main_window.py:694
-#: beatstamp/ui/main_window.py:790
-#: beatstamp/ui/main_window.py:1738
+#: beatstamp/ui/main_window.py:577
+#: beatstamp/ui/main_window.py:697
+#: beatstamp/ui/main_window.py:793
+#: beatstamp/ui/main_window.py:1244
+#: beatstamp/ui/main_window.py:1876
 msgid "PDF certificate"
 msgstr "PDF 인증서"
 
-#: beatstamp/ui/main_window.py:1933
+#: beatstamp/ui/main_window.py:1241
+msgid "PDF certificates (%(count)s)"
+msgstr "PDF 인증서 (%(count)s)"
+
+#: beatstamp/ui/main_window.py:2072
 msgid "PDF certificate…"
 msgstr "PDF 인증서…"
 
-#: beatstamp/ui/main_window.py:1586
+#: beatstamp/ui/main_window.py:1622
 msgid "PDF document (*.pdf)"
 msgstr "PDF 문서 (*.pdf)"
 
@@ -2493,7 +2517,7 @@ msgstr "응답 텍스트(sigelith:answer:로 시작)를 붙여 넣거나 응답 
 msgid "People who support Sigelith and agreed to be named here"
 msgstr "Sigelith를 후원하며 여기에 이름을 올리는 데 동의한 분들"
 
-#: beatstamp/ui/main_window.py:908
+#: beatstamp/ui/main_window.py:911
 msgid "People who support Sigelith — the list is loaded from sigelith.org"
 msgstr "Sigelith를 후원하는 분들 — 목록은 sigelith.org에서 불러옵니다"
 
@@ -2501,11 +2525,11 @@ msgstr "Sigelith를 후원하는 분들 — 목록은 sigelith.org에서 불러�
 msgid "Pick another folder…"
 msgstr "다른 폴더 선택…"
 
-#: beatstamp/ui/main_window.py:1195
+#: beatstamp/ui/main_window.py:1201
 msgid "Please note:"
 msgstr "참고:"
 
-#: beatstamp/ui/main_window.py:1437
+#: beatstamp/ui/main_window.py:1473
 msgid "Point to the document?"
 msgstr "문서를 지정할까요?"
 
@@ -2513,7 +2537,7 @@ msgstr "문서를 지정할까요?"
 msgid "Preparing the package…"
 msgstr "전달물을 준비하는 중…"
 
-#: beatstamp/ui/main_window.py:1112
+#: beatstamp/ui/main_window.py:1115
 msgid "Preparing…"
 msgstr "준비 중…"
 
@@ -2523,11 +2547,11 @@ msgid "Preview: %(value)s"
 msgstr "미리보기: %(value)s"
 
 #: beatstamp/ui/dialogs.py:1151
-#: beatstamp/ui/main_window.py:916
+#: beatstamp/ui/main_window.py:919
 msgid "Privacy policy"
 msgstr "개인정보 처리방침"
 
-#: beatstamp/ui/main_window.py:2215
+#: beatstamp/ui/main_window.py:2358
 msgid "Private mode: Sigelith Desktop keeps a copy of the whole public log."
 msgstr "비공개 모드: Sigelith Desktop이 공개 로그 전체의 사본을 보관합니다."
 
@@ -2563,7 +2587,7 @@ msgstr ""
 msgid "Proof"
 msgstr "증명"
 
-#: beatstamp/ui/main_window.py:1519
+#: beatstamp/ui/main_window.py:1555
 msgid "Proof confirmed — %(name)s"
 msgstr "증명 확인됨 — %(name)s"
 
@@ -2571,9 +2595,9 @@ msgstr "증명 확인됨 — %(name)s"
 msgid "Proof data"
 msgstr "증명 데이터"
 
-#: beatstamp/ui/main_window.py:1757
-#: beatstamp/ui/main_window.py:1763
-#: beatstamp/ui/main_window.py:1767
+#: beatstamp/ui/main_window.py:1895
+#: beatstamp/ui/main_window.py:1901
+#: beatstamp/ui/main_window.py:1905
 msgid "Proof details"
 msgstr "증명 세부 정보"
 
@@ -2590,21 +2614,25 @@ msgstr "증명 단계: %(level)s"
 msgid "Proof of existence of a document"
 msgstr "문서의 존재 증명"
 
-#: beatstamp/ui/main_window.py:1656
+#: beatstamp/ui/main_window.py:1782
 msgid "Proof saved"
 msgstr "증명 저장됨"
 
-#: beatstamp/ui/main_window.py:1639
+#: beatstamp/ui/main_window.py:1765
 msgid "Proof saved — it needs refreshing"
 msgstr "증명 저장됨 — 새로 고쳐야 합니다"
 
-#: beatstamp/ui/main_window.py:1648
+#: beatstamp/ui/main_window.py:1774
 msgid "Proof saved — not closed yet"
 msgstr "증명 저장됨 — 아직 완결되지 않음"
 
-#: beatstamp/ui/main_window.py:395
+#: beatstamp/ui/main_window.py:398
 msgid "Proof that a file existed in time — without sending the file"
 msgstr "파일이 특정 시점에 존재했다는 증명 — 파일을 보내지 않고"
+
+#: beatstamp/ui/main_window.py:1714
+msgid "Proofs saved"
+msgstr "증명 저장됨"
 
 #: beatstamp/ui/handover_dialogs.py:473
 msgid "Proves when the package became readable for you."
@@ -2634,11 +2662,11 @@ msgstr "Qt 소스"
 msgid "Querying the Sigelith register…"
 msgstr "Sigelith 기록부에 조회하는 중…"
 
-#: beatstamp/ui/main_window.py:1366
+#: beatstamp/ui/main_window.py:1402
 msgid "Querying the register…"
 msgstr "기록부에 조회하는 중…"
 
-#: beatstamp/ui/main_window.py:864
+#: beatstamp/ui/main_window.py:867
 msgid "Quit"
 msgstr "종료"
 
@@ -2658,7 +2686,7 @@ msgstr "기록됨 — 주가 마감되었으며, 루트 서명이 곧 추가됩�
 msgid "Read %(name)s"
 msgstr "%(name)s 보기"
 
-#: beatstamp/ui/main_window.py:374
+#: beatstamp/ui/main_window.py:377
 msgid "Ready. Drag files in to give them a timestamp."
 msgstr "준비됨. 파일을 끌어 오면 타임스탬프를 찍습니다."
 
@@ -2703,11 +2731,11 @@ msgstr "수락 기한 전에 기록됨"
 msgid "Refresh"
 msgstr "새로 고침"
 
-#: beatstamp/ui/main_window.py:868
+#: beatstamp/ui/main_window.py:871
 msgid "Refresh proof statuses"
 msgstr "증명 상태 새로 고침"
 
-#: beatstamp/ui/main_window.py:750
+#: beatstamp/ui/main_window.py:753
 msgid "Refresh statuses"
 msgstr "상태 새로 고침"
 
@@ -2723,7 +2751,7 @@ msgstr "온라인에서 증명을 새로 고쳐(내역 -> 상태 새로 고침, 
 msgid "Refreshing %(index)s of %(total)s…"
 msgstr "%(total)s개 중 %(index)s번째 새로 고치는 중…"
 
-#: beatstamp/ui/main_window.py:2009
+#: beatstamp/ui/main_window.py:2152
 msgid "Refreshing statuses…"
 msgstr "상태를 새로 고치는 중…"
 
@@ -2767,7 +2795,7 @@ msgstr "기록부 번호"
 msgid "Registering in Sigelith: %(name)s"
 msgstr "Sigelith에 등록하는 중: %(name)s"
 
-#: beatstamp/ui/main_window.py:1531
+#: beatstamp/ui/main_window.py:1567
 msgid "Rejected"
 msgstr "거부됨"
 
@@ -2780,16 +2808,16 @@ msgstr "제거"
 msgid "Remove %(name)s from this application? Packages already sent stay."
 msgstr "%(name)s을(를) 이 애플리케이션에서 제거할까요? 이미 보낸 전달물은 남습니다."
 
-#: beatstamp/ui/main_window.py:1979
+#: beatstamp/ui/main_window.py:2122
 msgid "Remove <b>%(entries)s</b> from the local history?<br><br>The stamp <b>stays in the public Sigelith register</b> — the register is append-only and nothing can be removed from it. Only this list on this computer changes."
 msgstr "<b>%(entries)s</b>를 로컬 내역에서 삭제할까요?<br><br>스탬프는 <b>공개 Sigelith 기록부에 그대로 남습니다</b> — 기록부는 추가만 가능하며 어떤 것도 삭제할 수 없습니다. 바뀌는 것은 이 컴퓨터의 이 목록뿐입니다."
 
-#: beatstamp/ui/main_window.py:803
-#: beatstamp/ui/main_window.py:1940
+#: beatstamp/ui/main_window.py:806
+#: beatstamp/ui/main_window.py:2079
 msgid "Remove from history"
 msgstr "내역에서 삭제"
 
-#: beatstamp/ui/main_window.py:1978
+#: beatstamp/ui/main_window.py:2121
 msgid "Remove from history?"
 msgstr "내역에서 삭제할까요?"
 
@@ -2805,7 +2833,7 @@ msgstr "선택한 연락처를 이 애플리케이션에서 제거합니다. 보
 msgid "Remove the selected file from the package."
 msgstr "선택한 파일을 전달물에서 뺍니다."
 
-#: beatstamp/ui/main_window.py:804
+#: beatstamp/ui/main_window.py:807
 msgid ""
 "Removes the entry from this list ONLY.\n"
 "The stamp in the public Sigelith register\n"
@@ -2837,9 +2865,9 @@ msgid "Result"
 msgstr "결과"
 
 #: beatstamp/ui/dialogs.py:943
-#: beatstamp/ui/main_window.py:1178
-#: beatstamp/ui/main_window.py:1400
-#: beatstamp/ui/main_window.py:1537
+#: beatstamp/ui/main_window.py:1184
+#: beatstamp/ui/main_window.py:1436
+#: beatstamp/ui/main_window.py:1573
 msgid "Retired key"
 msgstr "폐기된 키"
 
@@ -2876,7 +2904,7 @@ msgstr ""
 msgid "SHA-256 digest"
 msgstr "SHA-256 해시"
 
-#: beatstamp/ui/main_window.py:493
+#: beatstamp/ui/main_window.py:496
 msgid "SHA-256 digest:"
 msgstr "SHA-256 해시:"
 
@@ -2914,11 +2942,11 @@ msgstr "내 카드 파일 저장…"
 msgid "Save my evidence copy…"
 msgstr "내 증거 사본 저장…"
 
-#: beatstamp/ui/main_window.py:1707
+#: beatstamp/ui/main_window.py:1845
 msgid "Save the OpenTimestamps proof"
 msgstr "OpenTimestamps 증명 저장"
 
-#: beatstamp/ui/main_window.py:1584
+#: beatstamp/ui/main_window.py:1620
 msgid "Save the PDF certificate"
 msgstr "PDF 인증서 저장"
 
@@ -2951,11 +2979,11 @@ msgstr "증거 저장"
 msgid "Save the evidence package of the selected handover. Sigelith keeps no copy — keep it safe."
 msgstr "선택한 전달의 증거 패키지를 저장합니다. Sigelith는 사본을 보관하지 않습니다 — 안전하게 보관하세요."
 
-#: beatstamp/ui/main_window.py:862
+#: beatstamp/ui/main_window.py:865
 msgid "Save the history to CSV or JSON"
 msgstr "내역을 CSV 또는 JSON으로 저장"
 
-#: beatstamp/ui/main_window.py:1623
+#: beatstamp/ui/main_window.py:1749
 msgid "Save the offline proof"
 msgstr "오프라인 증명 저장"
 
@@ -2967,24 +2995,28 @@ msgstr "보고서 저장"
 msgid "Save your card file and give it to the people who will send you packages. It holds only public keys."
 msgstr "카드 파일을 저장해서 사용자에게 전달물을 보낼 사람들에게 주세요. 공개 키만 들어 있습니다."
 
-#: beatstamp/ui/main_window.py:1283
+#: beatstamp/ui/main_window.py:1319
 msgid "Saved automatically · visible only on this computer"
 msgstr "자동 저장됨 · 이 컴퓨터에서만 보임"
 
-#: beatstamp/ui/main_window.py:794
-#: beatstamp/ui/main_window.py:1740
+#: beatstamp/ui/main_window.py:1723
+msgid "Saved: %(saved)s of %(total)s."
+msgstr "저장됨: %(total)s개 중 %(saved)s개."
+
+#: beatstamp/ui/main_window.py:797
+#: beatstamp/ui/main_window.py:1878
 msgid "Saves a stand-alone .beatproof proof"
 msgstr "독립형 .beatproof 증명을 저장합니다"
 
-#: beatstamp/ui/main_window.py:698
+#: beatstamp/ui/main_window.py:701
 msgid "Saves a stand-alone proof for the checked digest"
 msgstr "확인한 해시의 독립형 증명을 저장합니다"
 
-#: beatstamp/ui/main_window.py:820
+#: beatstamp/ui/main_window.py:823
 msgid "Saves the history to a CSV (Excel) or JSON file"
 msgstr "내역을 CSV(Excel) 또는 JSON 파일로 저장합니다"
 
-#: beatstamp/ui/main_window.py:581
+#: beatstamp/ui/main_window.py:584
 msgid ""
 "Saves the proof in a form that can be checked WITHOUT this application\n"
 "and without access to sigelith.org: the digest, the inclusion path, the\n"
@@ -3002,11 +3034,11 @@ msgstr "결함 증거를 저장하는 중…"
 msgid "Scan to verify at sigelith.org/proof"
 msgstr "sigelith.org/proof에서 검증하려면 스캔하세요"
 
-#: beatstamp/ui/main_window.py:735
+#: beatstamp/ui/main_window.py:738
 msgid "Search: file name, digest, note, week…"
 msgstr "검색: 파일 이름, 해시, 메모, 주…"
 
-#: beatstamp/ui/main_window.py:2152
+#: beatstamp/ui/main_window.py:2295
 msgid "See the Witnesses tab"
 msgstr "증인 탭을 확인하세요"
 
@@ -3014,7 +3046,7 @@ msgstr "증인 탭을 확인하세요"
 msgid "See the block"
 msgstr "블록 보기"
 
-#: beatstamp/ui/main_window.py:852
+#: beatstamp/ui/main_window.py:855
 msgid "Send files with proof of delivery…"
 msgstr "전달 증명과 함께 파일 보내기…"
 
@@ -3063,7 +3095,7 @@ msgstr "보낸 전달물"
 msgid "Sent: %(when)s"
 msgstr "보냄: %(when)s"
 
-#: beatstamp/ui/main_window.py:2422
+#: beatstamp/ui/main_window.py:2565
 msgid "Settings saved."
 msgstr "설정을 저장했습니다."
 
@@ -3071,19 +3103,20 @@ msgstr "설정을 저장했습니다."
 msgid "Settings — Sigelith Desktop"
 msgstr "설정 — Sigelith Desktop"
 
-#: beatstamp/ui/main_window.py:883
+#: beatstamp/ui/main_window.py:886
 msgid "Settings…"
 msgstr "설정…"
 
-#: beatstamp/ui/main_window.py:1670
+#: beatstamp/ui/main_window.py:1732
+#: beatstamp/ui/main_window.py:1796
 msgid "Show in folder"
 msgstr "폴더에서 보기"
 
-#: beatstamp/ui/main_window.py:747
+#: beatstamp/ui/main_window.py:750
 msgid "Show only entries at the selected proof stage"
 msgstr "선택한 증명 단계의 항목만 표시"
 
-#: beatstamp/ui/main_window.py:919
+#: beatstamp/ui/main_window.py:922
 msgid "Show the event log"
 msgstr "이벤트 로그 보기"
 
@@ -3121,7 +3154,7 @@ msgstr "이 라이선스의 전문을 표시합니다"
 msgid "Show…"
 msgstr "보기…"
 
-#: beatstamp/ui/main_window.py:1502
+#: beatstamp/ui/main_window.py:1538
 msgid "Sigelith Backup file proof: %(name)s — the path in the backup tree leads to the sealed root."
 msgstr "Sigelith Backup 파일 증명: %(name)s — 백업 트리의 경로가 봉인된 루트로 이어집니다."
 
@@ -3147,7 +3180,7 @@ msgstr "Sigelith Desktop이 이 폴더에 다시 쓸 수 있습니다:"
 msgid "Sigelith Desktop cannot save data"
 msgstr "Sigelith Desktop이 데이터를 저장할 수 없습니다"
 
-#: beatstamp/ui/main_window.py:1806
+#: beatstamp/ui/main_window.py:1944
 msgid "Sigelith Desktop cannot save data in %(path)s — new stamps will not be recorded in the history until the folder is changed (Settings -> Data)."
 msgstr "Sigelith Desktop이 %(path)s 위치에 데이터를 저장할 수 없습니다 — 폴더를 변경하기 전까지 새 스탬프는 내역에 기록되지 않습니다(설정 -> 데이터)."
 
@@ -3161,7 +3194,7 @@ msgstr ""
 "모든 증명을 직접 계산합니다. 서버는 어떤 항목이 사용자의 것인지\n"
 "알 수 없습니다 — 상태를 새로 고칠 때도, 파일을 확인할 때도 마찬가지입니다."
 
-#: beatstamp/ui/main_window.py:2146
+#: beatstamp/ui/main_window.py:2289
 msgid "Sigelith Desktop found something in the public log that must not happen: <b>%(what)s</b>.<br><br>The conflicting files were kept as evidence in the data folder. Details are in the Witnesses tab."
 msgstr "Sigelith Desktop이 공개 로그에서 일어나서는 안 되는 일을 발견했습니다: <b>%(what)s</b>.<br><br>서로 충돌하는 파일은 증거로 데이터 폴더에 보관했습니다. 자세한 내용은 증인 탭에 있습니다."
 
@@ -3193,7 +3226,7 @@ msgstr "Sigelith Handover — 결함 증거 보고서"
 msgid "Sigelith Handover — report on an evidence package"
 msgstr "Sigelith Handover — 증거 패키지 보고서"
 
-#: beatstamp/ui/main_window.py:854
+#: beatstamp/ui/main_window.py:857
 msgid "Sigelith Handover: the recipient confirms receipt with their key"
 msgstr "Sigelith Handover: 수신자가 자신의 키로 수령을 확인합니다"
 
@@ -3229,11 +3262,11 @@ msgstr "애플리케이션에 내장된 목록의 Sigelith 키"
 msgid "Sigelith packages (*%(suffix)s);;All files (*)"
 msgstr "Sigelith 전달물(*%(suffix)s);;모든 파일(*)"
 
-#: beatstamp/ui/main_window.py:1625
+#: beatstamp/ui/main_window.py:1751
 msgid "Sigelith proof (*.beatproof)"
 msgstr "Sigelith 증명 (*.beatproof)"
 
-#: beatstamp/ui/main_window.py:1426
+#: beatstamp/ui/main_window.py:1462
 msgid "Sigelith proof (*.beatproof);;JSON files (*.json);;All files (*)"
 msgstr "Sigelith 증명 (*.beatproof);;JSON 파일 (*.json);;모든 파일 (*)"
 
@@ -3245,7 +3278,7 @@ msgstr "Sigelith 증명 처리 과정"
 msgid "Sigelith served two DIFFERENT signed files under the same checkpoint number"
 msgstr "Sigelith가 같은 체크포인트 번호로 서로 다른 서명 파일 두 개를 제공했습니다"
 
-#: beatstamp/ui/main_window.py:2337
+#: beatstamp/ui/main_window.py:2480
 msgid "Sigelith service status"
 msgstr "Sigelith 서비스 상태"
 
@@ -3343,9 +3376,17 @@ msgstr "소프트웨어 렌더링으로, 그래픽 드라이버가 작동하지 
 msgid "Some files could not be copied: %(names)s. The originals stayed in the previous folder."
 msgstr "일부 파일을 복사하지 못했습니다: %(names)s. 원본은 이전 폴더에 그대로 있습니다."
 
-#: beatstamp/ui/main_window.py:1155
+#: beatstamp/ui/main_window.py:1161
 msgid "Some files did not work out"
 msgstr "일부 파일을 처리하지 못했습니다"
+
+#: beatstamp/ui/main_window.py:1711
+msgid "Some proofs are not closed yet: their week is still running, so they cannot be verified offline for now. Export them again once the week has closed (the coming Monday, 00:00 UTC)."
+msgstr "일부 증명은 아직 마감되지 않았습니다. 해당 주가 아직 진행 중이어서 당분간 오프라인으로 검증할 수 없습니다. 주가 마감된 뒤(다가오는 월요일 00:00 UTC) 다시 내보내세요."
+
+#: beatstamp/ui/main_window.py:1707
+msgid "Some proofs are signed with a retired key, so the recipient will not accept them. Refresh the statuses (History -> Refresh statuses, F5) and export them again."
+msgstr "일부 증명은 폐기된 키로 서명되어 있으므로 받는 사람이 인정하지 않습니다. 상태를 새로 고친 뒤(내역 -> 상태 새로 고침, F5) 다시 내보내세요."
 
 #: beatstamp/ui/dialogs.py:676
 msgid ""
@@ -3363,11 +3404,11 @@ msgstr "출처"
 msgid "Source code"
 msgstr "소스 코드"
 
-#: beatstamp/ui/main_window.py:842
+#: beatstamp/ui/main_window.py:845
 msgid "Stamp files…"
 msgstr "파일에 스탬프 찍기…"
 
-#: beatstamp/ui/main_window.py:333
+#: beatstamp/ui/main_window.py:336
 msgid "Stamping"
 msgstr "스탬프"
 
@@ -3383,7 +3424,7 @@ msgstr "표준 Windows 런타임 라이브러리."
 msgid "Starts the program and unpacks its code — the executable file SigelithDesktop.exe itself."
 msgstr "프로그램을 시작하고 코드의 압축을 풉니다 — 실행 파일 SigelithDesktop.exe 자체입니다."
 
-#: beatstamp/ui/main_window.py:876
+#: beatstamp/ui/main_window.py:879
 msgid "State of the Sigelith server"
 msgstr "Sigelith 서버 상태"
 
@@ -3392,11 +3433,11 @@ msgstr "Sigelith 서버 상태"
 msgid "Status"
 msgstr "상태"
 
-#: beatstamp/ui/main_window.py:2025
+#: beatstamp/ui/main_window.py:2168
 msgid "Statuses refreshed"
 msgstr "상태 새로 고침 완료"
 
-#: beatstamp/ui/main_window.py:442
+#: beatstamp/ui/main_window.py:445
 msgid "Stop"
 msgstr "중지"
 
@@ -3404,15 +3445,15 @@ msgstr "중지"
 msgid "Stop using it"
 msgstr "사용 중지"
 
-#: beatstamp/ui/main_window.py:1072
+#: beatstamp/ui/main_window.py:1075
 msgid "Stopping…"
 msgstr "중지하는 중…"
 
-#: beatstamp/ui/main_window.py:444
+#: beatstamp/ui/main_window.py:447
 msgid "Stops the current task (Esc)"
 msgstr "현재 작업을 중지합니다 (Esc)"
 
-#: beatstamp/ui/main_window.py:871
+#: beatstamp/ui/main_window.py:874
 msgid "Synchronise the clock"
 msgstr "시계 동기화"
 
@@ -3424,7 +3465,7 @@ msgstr "Sigelith 서버와 시계 동기화 (F6)"
 msgid "Synchronised with the Sigelith server — difference %(offset)s s"
 msgstr "Sigelith 서버와 동기화됨 — 차이 %(offset)s초"
 
-#: beatstamp/ui/main_window.py:2232
+#: beatstamp/ui/main_window.py:2375
 msgid "Synchronising the clock…"
 msgstr "시계를 동기화하는 중…"
 
@@ -3436,7 +3477,7 @@ msgstr "TVS 아카이브 — 이전 클라이언트의 항목, 검증 가능한 
 msgid "TVS archive"
 msgstr "TVS 아카이브"
 
-#: beatstamp/ui/main_window.py:1073
+#: beatstamp/ui/main_window.py:1076
 msgid "Task stopped."
 msgstr "작업을 중지했습니다."
 
@@ -3448,7 +3489,7 @@ msgstr "전문가를 위한 기술 데이터(JSON)"
 msgid "Thank you"
 msgstr "감사합니다"
 
-#: beatstamp/ui/main_window.py:904
+#: beatstamp/ui/main_window.py:907
 msgid "Thank you to the supporters…"
 msgstr "후원자분들께 감사 인사…"
 
@@ -3489,7 +3530,7 @@ msgstr "requests의 기반이 되는 HTTP 전송 계층."
 msgid "The Merkle root of the week is frozen and signed with the Sigelith Ed25519 key; Sigelith Desktop checked the signature and the inclusion path."
 msgstr "해당 주의 Merkle 루트가 고정되어 Sigelith Ed25519 키로 서명되었습니다. Sigelith Desktop이 서명과 포함 경로를 확인했습니다."
 
-#: beatstamp/ui/main_window.py:701
+#: beatstamp/ui/main_window.py:704
 msgid ""
 "The OpenTimestamps proof of the week — to be checked with an\n"
 "OpenTimestamps client, entirely outside Sigelith and outside this application."
@@ -3505,7 +3546,7 @@ msgstr "파일 증명의 Sigelith 확인이 이 백업 봉인에 대한 것이 �
 msgid "The Sigelith log answered for a different digest."
 msgstr "Sigelith 로그가 다른 해시에 대해 응답했습니다."
 
-#: beatstamp/ui/main_window.py:902
+#: beatstamp/ui/main_window.py:905
 msgid "The Sigelith manifesto"
 msgstr "Sigelith 선언문"
 
@@ -3537,7 +3578,7 @@ msgstr ""
 "애플리케이션이 계속 실행을 시도합니다. 자세한 내용은 이벤트 로그에 기록되었습니다:\n"
 "%(path)s"
 
-#: beatstamp/ui/main_window.py:898
+#: beatstamp/ui/main_window.py:901
 msgid "The archive of signed checkpoints"
 msgstr "서명된 체크포인트 아카이브"
 
@@ -3575,16 +3616,17 @@ msgstr "카드에는 공개 키 두 개가 들어 있습니다. 하나는 사용
 msgid "The certificate and the .beatproof proof are named after the stamped file."
 msgstr "인증서와 .beatproof 증명의 이름은 스탬프한 파일의 이름을 따릅니다."
 
-#: beatstamp/ui/main_window.py:1596
-#: beatstamp/ui/main_window.py:1603
+#: beatstamp/ui/main_window.py:1632
+#: beatstamp/ui/main_window.py:1639
 msgid "The certificate could not be saved:<br>%(reason)s"
 msgstr "인증서를 저장하지 못했습니다:<br>%(reason)s"
 
-#: beatstamp/ui/main_window.py:1608
+#: beatstamp/ui/main_window.py:1644
+#: beatstamp/ui/main_window.py:1680
 msgid "The certificate is in English: a PDF cannot reproduce this script faithfully."
 msgstr "인증서는 영어로 작성되었습니다. PDF에서는 이 문자를 정확하게 표현할 수 없습니다."
 
-#: beatstamp/ui/main_window.py:2178
+#: beatstamp/ui/main_window.py:2321
 msgid "The check did not work"
 msgstr "확인하지 못했습니다"
 
@@ -3608,15 +3650,15 @@ msgstr "증명의 체크포인트 부분이 손상되었습니다."
 msgid "The choice could not be written down, so the next start will go back to the previous folder."
 msgstr "선택 사항을 기록하지 못했으므로, 다음에 시작할 때는 이전 폴더로 돌아갑니다."
 
-#: beatstamp/ui/main_window.py:2315
+#: beatstamp/ui/main_window.py:2458
 msgid "The clock is out of step"
 msgstr "시계가 맞지 않습니다"
 
-#: beatstamp/ui/main_window.py:2295
+#: beatstamp/ui/main_window.py:2438
 msgid "The clock was not synchronised"
 msgstr "시계를 동기화하지 못했습니다"
 
-#: beatstamp/ui/main_window.py:2293
+#: beatstamp/ui/main_window.py:2436
 msgid "The clock was not synchronised: %(reason)s"
 msgstr "시계를 동기화하지 못했습니다: %(reason)s"
 
@@ -3664,6 +3706,10 @@ msgstr "결함 증거에는 제안, 두 키 조각, 암호화된 전달물이 �
 #: beatstamp/ui/handover_dialogs.py:482
 msgid "The defect proof lets anyone check the defect, without you or the sender — at sigelith.org/handover/verify/ or in Sigelith Desktop."
 msgstr "결함 증거가 있으면 사용자나 발신자 없이도 누구나 sigelith.org/handover/verify/ 또는 Sigelith Desktop에서 결함을 확인할 수 있습니다."
+
+#: beatstamp/ui/main_window.py:1209
+msgid "The details below are for the last file of this batch, <b>%(name)s</b>. The buttons save a certificate and a proof for each file."
+msgstr "아래 세부 정보는 이번 묶음의 마지막 파일 <b>%(name)s</b>의 것입니다. 버튼을 누르면 파일마다 인증서와 증명을 저장합니다."
 
 #: beatstamp/certificate.py:565
 msgid "The digest in this entry has an invalid format — the QR code was skipped"
@@ -3726,11 +3772,11 @@ msgstr "\"%(name)s\" 파일을 다른 프로그램이 사용 중입니다."
 msgid "The file \"%(name)s\" is open in another program and locked for reading. Close it and try again."
 msgstr "\"%(name)s\" 파일이 다른 프로그램에서 열려 있어 읽기가 잠겨 있습니다. 파일을 닫고 다시 시도하세요."
 
-#: beatstamp/ui/main_window.py:1567
+#: beatstamp/ui/main_window.py:1603
 msgid "The file <b>%(name)s</b> already exists in this folder.<br><br>Overwrite it?"
 msgstr "이 폴더에 <b>%(name)s</b> 파일이 이미 있습니다.<br><br>덮어쓸까요?"
 
-#: beatstamp/ui/main_window.py:1566
+#: beatstamp/ui/main_window.py:1602
 msgid "The file already exists"
 msgstr "파일이 이미 있습니다"
 
@@ -3763,7 +3809,7 @@ msgstr "증명의 파일 경로가 백업 트리의 잎과 일치하지 않습�
 msgid "The file proof is damaged — fields are missing or malformed."
 msgstr "파일 증명이 손상되었습니다 — 항목이 없거나 형식이 잘못되었습니다."
 
-#: beatstamp/ui/main_window.py:1379
+#: beatstamp/ui/main_window.py:1415
 msgid "The file was never stamped, or it was changed after stamping — even a single changed byte gives a completely different digest."
 msgstr "이 파일은 스탬프된 적이 없거나, 스탬프 후에 변경되었습니다 — 단 1바이트만 바뀌어도 완전히 다른 해시가 나옵니다."
 
@@ -3803,11 +3849,11 @@ msgstr "내역 파일의 구조가 예상과 달라 따로 보관했습니다: \
 msgid "The history file was damaged and has been set aside as \"%(name)s\". The history starts over — the previous entries are in that file."
 msgstr "내역 파일이 손상되어 따로 보관했습니다: \"%(name)s\". 내역은 처음부터 다시 시작되며, 이전 항목은 그 파일에 있습니다."
 
-#: beatstamp/ui/main_window.py:2035
+#: beatstamp/ui/main_window.py:2178
 msgid "The history is empty"
 msgstr "내역이 비어 있습니다"
 
-#: beatstamp/ui/main_window.py:2000
+#: beatstamp/ui/main_window.py:2143
 msgid "The history is empty — there is nothing to refresh."
 msgstr "내역이 비어 있습니다 — 새로 고칠 것이 없습니다."
 
@@ -3897,7 +3943,7 @@ msgstr "후원자 목록이 예상치 못한 형식으로 반환되었습니다.
 msgid "The list of trusted root certificates for HTTPS."
 msgstr "HTTPS용 신뢰할 수 있는 루트 인증서 목록."
 
-#: beatstamp/ui/main_window.py:2158
+#: beatstamp/ui/main_window.py:2301
 msgid "The log checks out"
 msgstr "로그가 일치합니다"
 
@@ -3913,7 +3959,7 @@ msgstr "로그가 아직 비어 있습니다."
 msgid "The names come from a public list on sigelith.org. Everyone on it asked to be named and can withdraw at any time, so Sigelith Desktop reloads the list at least once a day and keeps no copy older than that."
 msgstr "이름은 sigelith.org의 공개 목록에서 가져옵니다. 목록에 있는 모든 분은 직접 이름 게재를 요청했으며 언제든 철회할 수 있으므로, Sigelith Desktop은 적어도 하루에 한 번 목록을 다시 불러오고 그보다 오래된 사본은 보관하지 않습니다."
 
-#: beatstamp/ui/main_window.py:2472
+#: beatstamp/ui/main_window.py:2615
 msgid "The new language applies to texts drawn from now on. The whole window switches after Sigelith Desktop is restarted."
 msgstr "새 언어는 지금부터 표시되는 텍스트에 적용됩니다. 창 전체는 Sigelith Desktop을 다시 시작하면 바뀝니다."
 
@@ -3921,11 +3967,11 @@ msgstr "새 언어는 지금부터 표시되는 텍스트에 적용됩니다. �
 msgid "The next daily checkpoint (after 00:00 UTC) will contain this entry."
 msgstr "다음 일일 체크포인트(00:00 UTC 이후)에 이 항목이 포함됩니다."
 
-#: beatstamp/ui/main_window.py:1280
+#: beatstamp/ui/main_window.py:1316
 msgid "The note applies to all %(count)s files of this batch."
 msgstr "메모는 이번 묶음의 파일 %(count)s개 모두에 적용됩니다."
 
-#: beatstamp/ui/main_window.py:516
+#: beatstamp/ui/main_window.py:519
 msgid ""
 "The note stays ONLY on this computer, in the local history.\n"
 "It is not sent to the register and does not reach the server.\n"
@@ -3951,7 +3997,7 @@ msgstr "제안, 두 키 조각, 암호화된 전달물을 하나의 파일에 �
 msgid "The only information that reached the Sigelith register"
 msgstr "Sigelith 기록부에 전달된 유일한 정보"
 
-#: beatstamp/ui/main_window.py:492
+#: beatstamp/ui/main_window.py:495
 msgid "The only information that reaches the Sigelith register"
 msgstr "Sigelith 기록부에 전달되는 유일한 정보"
 
@@ -4054,11 +4100,11 @@ msgstr "증명에 루트 서명이 없습니다. 완전한 증명이 되도록 �
 msgid "The proof contains no week root — the week was still open when it was exported."
 msgstr "증명에 주간 루트가 없습니다 — 내보낼 당시 주가 아직 마감되지 않았습니다."
 
-#: beatstamp/ui/main_window.py:1633
+#: beatstamp/ui/main_window.py:1759
 msgid "The proof could not be saved:<br>%(reason)s"
 msgstr "증명을 저장하지 못했습니다:<br>%(reason)s"
 
-#: beatstamp/ui/main_window.py:1395
+#: beatstamp/ui/main_window.py:1431
 msgid "The proof data did not pass the local check:"
 msgstr "증명 데이터가 로컬 검사를 통과하지 못했습니다:"
 
@@ -4086,28 +4132,28 @@ msgstr "증명에 기재된 주의 형식이 잘못되었습니다."
 msgid "The proof gives the week root in an invalid format."
 msgstr "증명에 기재된 주간 루트의 형식이 잘못되었습니다."
 
-#: beatstamp/ui/main_window.py:1543
+#: beatstamp/ui/main_window.py:1579
 msgid "The proof is consistent but not closed yet — it was exported before the week ended. Check the digest in the register (the <b>Check digest</b> button) and export the proof again."
 msgstr "증명은 일관적이지만 아직 완결되지 않았습니다 — 주가 끝나기 전에 내보낸 것입니다. 기록부에서 해시를 확인한 뒤(<b>해시 확인</b> 버튼) 증명을 다시 내보내세요."
 
-#: beatstamp/ui/main_window.py:1177
-#: beatstamp/ui/main_window.py:1398
+#: beatstamp/ui/main_window.py:1183
+#: beatstamp/ui/main_window.py:1434
 msgid "The proof needs refreshing"
 msgstr "증명을 새로 고쳐야 합니다"
 
-#: beatstamp/ui/main_window.py:1535
+#: beatstamp/ui/main_window.py:1571
 msgid "The proof needs refreshing — %(name)s"
 msgstr "증명을 새로 고쳐야 합니다 — %(name)s"
 
-#: beatstamp/ui/main_window.py:1522
+#: beatstamp/ui/main_window.py:1558
 msgid "The proof was checked <b>entirely locally</b> — without connecting to sigelith.org and without trusting anyone. The inclusion path, the root signature, the identity of the key and the week of the stamp all add up. The signature confirms that the document existed no later than the end of the week; the exact moment is given by the register."
 msgstr "증명을 <b>완전히 로컬에서</b> 확인했습니다 — sigelith.org에 연결하지 않고, 누구도 신뢰하지 않고. 포함 경로, 루트 서명, 키의 신원, 스탬프의 주가 모두 일치합니다. 서명은 문서가 늦어도 그 주가 끝날 때까지는 존재했음을 확인하며, 정확한 시각은 기록부가 제공합니다."
 
-#: beatstamp/ui/main_window.py:2447
+#: beatstamp/ui/main_window.py:2590
 msgid "The proxy \"%(proxy)s\" is not a local address. Traffic to the .onion service goes over plain HTTP, so it reaches that machine in clear text — this is NOT anonymisation."
 msgstr "프록시 \"%(proxy)s\" 주소는 로컬 주소가 아닙니다. .onion 서비스로 가는 트래픽은 일반 HTTP로 전송되므로 그 컴퓨터에 평문으로 도달합니다 — 이것은 익명화가 아닙니다."
 
-#: beatstamp/ui/main_window.py:897
+#: beatstamp/ui/main_window.py:900
 msgid "The public log and its checkpoints"
 msgstr "공개 로그와 체크포인트"
 
@@ -4120,7 +4166,7 @@ msgstr "이 애플리케이션이 확인한 공개 로그"
 msgid "The public log has not been checked yet"
 msgstr "공개 로그를 아직 확인하지 않았습니다"
 
-#: beatstamp/ui/main_window.py:893
+#: beatstamp/ui/main_window.py:896
 msgid "The public verification page"
 msgstr "공개 검증 페이지"
 
@@ -4164,7 +4210,7 @@ msgstr "수신자의 키가 그 암호화된 전달물을 보유하고 있다고
 msgid "The recipient's signed acceptance took effect at %(when)s, when the key part was recorded in the Sigelith log."
 msgstr "수신자의 서명된 수락은 키 조각이 Sigelith 로그에 기록된 %(when)s에 효력이 생겼습니다."
 
-#: beatstamp/ui/main_window.py:1165
+#: beatstamp/ui/main_window.py:1171
 msgid "The register did not confirm the write. Try again."
 msgstr "기록부가 기록을 확인해 주지 않았습니다. 다시 시도하세요."
 
@@ -4245,7 +4291,7 @@ msgstr "서버가 연결을 수락했지만 제시간에 응답을 보내지 않
 msgid "The server address must start with https:// — an unencrypted connection is allowed only for an .onion address."
 msgstr "서버 주소는 https://로 시작해야 합니다 — 암호화되지 않은 연결은 .onion 주소에만 허용됩니다."
 
-#: beatstamp/ui/main_window.py:1174
+#: beatstamp/ui/main_window.py:1180
 msgid "The server answer did not pass the local check."
 msgstr "서버 응답이 로컬 검사를 통과하지 못했습니다."
 
@@ -4377,7 +4423,7 @@ msgstr "스탬프 시각(%(utc)s)이 %(week)s 주(%(range)s UTC)를 벗어납니
 msgid "The stamp time (UTC) has an invalid format."
 msgstr "스탬프 시각(UTC)의 형식이 잘못되었습니다."
 
-#: beatstamp/ui/main_window.py:411
+#: beatstamp/ui/main_window.py:414
 msgid ""
 "The state of the public log as checked by this application. Click to see\n"
 "the witnesses: checkpoints, Bitcoin, the bank and the independent copies."
@@ -4385,7 +4431,7 @@ msgstr ""
 "이 애플리케이션이 확인한 공개 로그의 상태입니다. 클릭하면 증인을\n"
 "볼 수 있습니다: 체크포인트, Bitcoin, 은행, 독립 사본."
 
-#: beatstamp/ui/main_window.py:1018
+#: beatstamp/ui/main_window.py:1021
 msgid "The task ended with an error."
 msgstr "작업이 오류로 끝났습니다."
 
@@ -4455,7 +4501,7 @@ msgstr "주간 루트가 애플리케이션에 내장된 Sigelith 키 목록에 
 msgid "The whole user interface: windows, buttons, text and drawing."
 msgstr "사용자 인터페이스 전체: 창, 버튼, 텍스트, 그리기."
 
-#: beatstamp/ui/main_window.py:2145
+#: beatstamp/ui/main_window.py:2288
 msgid "The witnesses raised an alarm"
 msgstr "증인이 경보를 울렸습니다"
 
@@ -4467,9 +4513,13 @@ msgstr "테마:"
 msgid "There is no answer yet."
 msgstr "아직 응답이 없습니다."
 
-#: beatstamp/ui/main_window.py:2036
+#: beatstamp/ui/main_window.py:2179
 msgid "There is nothing to export yet."
 msgstr "아직 내보낼 것이 없습니다."
+
+#: beatstamp/ui/main_window.py:1729
+msgid "These could not be saved: %(names)s"
+msgstr "저장하지 못한 항목: %(names)s"
 
 #: beatstamp/ui/dialogs.py:1084
 msgid "They are used unmodified and linked dynamically. This copy comes from the Microsoft Store, so its files cannot be exchanged in place — the package is installed read-only and bound to its signature. To run this program against your own build of Qt, use the portable release of the same version, where the libraries sit in the <code>_internal</code> folder next to the program; the notices below say how to obtain it."
@@ -4500,7 +4550,7 @@ msgstr "이 확인은 계산만으로 이루어집니다. 로그도 네트워크
 msgid "This computer's clock is %(direction)s the Sigelith server time by %(seconds)s s. Timestamps are issued by the server, so the proof is correct — but the clock shown next to it may differ from the real @beat."
 msgstr "이 컴퓨터의 시계는 Sigelith 서버 시간보다 %(seconds)s초 %(direction)s 상태입니다. 타임스탬프는 서버가 발행하므로 증명은 정확합니다 — 다만 옆에 표시되는 시계는 실제 @beat와 다를 수 있습니다."
 
-#: beatstamp/ui/main_window.py:1377
+#: beatstamp/ui/main_window.py:1413
 msgid "This digest <b>does not appear</b> in the Sigelith register.<br><br>"
 msgstr "이 해시는 Sigelith 기록부에 <b>없습니다</b>.<br><br>"
 
@@ -4520,7 +4570,7 @@ msgstr "이 문서는 로컬 검사에서 증명이 <b>확인되지 않은</b> �
 msgid "This file could not be read: %(name)s"
 msgstr "이 파일을 읽을 수 없습니다: %(name)s"
 
-#: beatstamp/ui/main_window.py:1183
+#: beatstamp/ui/main_window.py:1189
 msgid "This file had already been stamped"
 msgstr "이 파일에는 이미 스탬프가 있었습니다"
 
@@ -4602,11 +4652,11 @@ msgstr "타임스탬프 인증서"
 msgid "Timestamp certificate · sigelith.org"
 msgstr "타임스탬프 인증서 · sigelith.org"
 
-#: beatstamp/ui/main_window.py:1182
+#: beatstamp/ui/main_window.py:1188
 msgid "Timestamp granted"
 msgstr "타임스탬프 발급됨"
 
-#: beatstamp/ui/main_window.py:498
+#: beatstamp/ui/main_window.py:501
 msgid "Timestamp:"
 msgstr "타임스탬프:"
 
@@ -4640,7 +4690,7 @@ msgstr "Tor 프록시:"
 msgid "Total size"
 msgstr "전체 크기"
 
-#: beatstamp/ui/main_window.py:2441
+#: beatstamp/ui/main_window.py:2584
 msgid ""
 "Traffic goes through the Tor network to the Sigelith hidden service.\n"
 "The server does not learn your IP address."
@@ -4704,7 +4754,7 @@ msgstr ""
 "증명 자체는 공개 Sigelith 기록부에 있습니다 — 로컬 내역에서\n"
 "항목을 삭제해도 스탬프는 지워지지 않습니다."
 
-#: beatstamp/ui/main_window.py:334
+#: beatstamp/ui/main_window.py:337
 msgid "Verification"
 msgstr "검증"
 
@@ -4716,11 +4766,11 @@ msgstr "검증 주소"
 msgid "Verified by"
 msgstr "확인 방법"
 
-#: beatstamp/ui/main_window.py:1521
+#: beatstamp/ui/main_window.py:1557
 msgid "Verified offline"
 msgstr "오프라인으로 검증됨"
 
-#: beatstamp/ui/main_window.py:844
+#: beatstamp/ui/main_window.py:847
 msgid "Verify a file…"
 msgstr "파일 검증…"
 
@@ -4736,7 +4786,7 @@ msgstr "스탬프 직후 바로 증명 검증"
 msgid "Wait a moment."
 msgstr "잠시 기다려 주세요."
 
-#: beatstamp/ui/main_window.py:975
+#: beatstamp/ui/main_window.py:978
 msgid "Wait for the current task to finish, or stop it (Esc)."
 msgstr "현재 작업이 끝날 때까지 기다리거나 작업을 중지하세요(Esc)."
 
@@ -4748,8 +4798,8 @@ msgstr "응답 대기 중"
 msgid "Waiting for your decision"
 msgstr "사용자의 결정 대기 중"
 
-#: beatstamp/ui/main_window.py:1171
-#: beatstamp/ui/main_window.py:1392
+#: beatstamp/ui/main_window.py:1177
+#: beatstamp/ui/main_window.py:1428
 msgid "Warning"
 msgstr "경고"
 
@@ -4785,7 +4835,7 @@ msgstr "주 서명됨"
 msgid "What"
 msgstr "항목"
 
-#: beatstamp/ui/main_window.py:894
+#: beatstamp/ui/main_window.py:897
 msgid "What a timestamp proves"
 msgstr "타임스탬프가 증명하는 것"
 
@@ -4793,7 +4843,7 @@ msgstr "타임스탬프가 증명하는 것"
 msgid "What it does in Sigelith Desktop"
 msgstr "Sigelith Desktop에서의 역할"
 
-#: beatstamp/ui/main_window.py:505
+#: beatstamp/ui/main_window.py:508
 msgid "What the application computed ITSELF, without trusting the server"
 msgstr "애플리케이션이 서버를 신뢰하지 않고 직접 계산한 결과"
 
@@ -4807,7 +4857,7 @@ msgstr "패키지가 보여 주는 내용"
 msgid "What the preview showed — and what the package holds"
 msgstr "미리보기가 보여 준 것 — 그리고 전달물에 들어 있는 것"
 
-#: beatstamp/ui/main_window.py:895
+#: beatstamp/ui/main_window.py:898
 msgid "What the proof says in a dispute — and what it does not"
 msgstr "분쟁 시 증명이 말해 주는 것 — 그리고 말해 주지 않는 것"
 
@@ -4819,7 +4869,7 @@ msgstr "수신자가 수락 전에 보는 내용"
 msgid "What the recipient signed"
 msgstr "수신자가 서명한 내용"
 
-#: beatstamp/ui/main_window.py:353
+#: beatstamp/ui/main_window.py:356
 msgid "What this application checks in the public log by itself"
 msgstr "이 애플리케이션이 공개 로그에서 직접 확인하는 내용"
 
@@ -4873,7 +4923,7 @@ msgstr "전달물을 저장할 곳"
 msgid "While Sigelith Desktop is open it checks the public Sigelith log by itself: every new signed checkpoint, the chain between them and the copies kept by third parties. Choose how it checks YOUR proofs."
 msgstr "Sigelith Desktop이 열려 있는 동안 공개 Sigelith 로그를 직접 확인합니다: 새로 서명된 모든 체크포인트, 체크포인트 사이의 체인, 제3자가 보관하는 사본. 사용자의 증명을 어떤 방식으로 확인할지 선택하세요."
 
-#: beatstamp/ui/main_window.py:903
+#: beatstamp/ui/main_window.py:906
 msgid "Why Sigelith exists"
 msgstr "Sigelith가 존재하는 이유"
 
@@ -4943,28 +4993,28 @@ msgid "Witness alarm"
 msgstr "증인 경보"
 
 #: beatstamp/ui/dialogs.py:414
-#: beatstamp/ui/main_window.py:340
+#: beatstamp/ui/main_window.py:343
 msgid "Witnesses"
 msgstr "증인"
 
-#: beatstamp/ui/main_window.py:2166
+#: beatstamp/ui/main_window.py:2309
 msgid "Witnesses: %(n)s new checkpoints checked"
 msgstr "증인: 새 체크포인트 %(n)s개 확인됨"
 
-#: beatstamp/ui/main_window.py:997
-#: beatstamp/ui/main_window.py:1107
+#: beatstamp/ui/main_window.py:1000
+#: beatstamp/ui/main_window.py:1110
 msgid "Working…"
 msgstr "작업 중…"
 
-#: beatstamp/ui/main_window.py:2434
+#: beatstamp/ui/main_window.py:2577
 msgid "YOUR OWN public key is set — besides the built-in list of Sigelith keys the application also accepts signatures made with that key."
 msgstr "직접 입력한 공개 키가 설정되어 있습니다 — 애플리케이션은 내장된 Sigelith 키 목록 외에 그 키로 만든 서명도 인정합니다."
 
-#: beatstamp/ui/main_window.py:1094
+#: beatstamp/ui/main_window.py:1097
 msgid "You are about to stamp <b>%(files)s</b>.<br><br>The server accepts 20 stamps per minute, so the operation will take about %(minutes)s. Continue?"
 msgstr "<b>%(files)s</b>에 스탬프를 찍으려고 합니다.<br><br>서버는 분당 20개의 스탬프를 받으므로 작업에 약 %(minutes)s이 걸립니다. 계속할까요?"
 
-#: beatstamp/ui/main_window.py:655
+#: beatstamp/ui/main_window.py:658
 msgid ""
 "You can check any digest — including one you did not stamp\n"
 "from this computer. Enter starts the check."
@@ -5012,7 +5062,7 @@ msgstr "현재 카드는 보관됩니다. 그 카드로 온 전달물은 여기�
 msgid "Your local time"
 msgstr "현지 시각"
 
-#: beatstamp/ui/main_window.py:498
+#: beatstamp/ui/main_window.py:501
 msgid ""
 "Your local time, UTC and @beat — the same moment. Below: the two bounds\n"
 "that do not depend on the Sigelith clock at all."
@@ -5040,7 +5090,7 @@ msgstr "직접 작성한 설명. 이 컴퓨터에만 남습니다"
 msgid "Your own key is accepted <b>alongside</b> the built-in list and is permanently visible in the status bar. Whoever slips you their key can sign any \"proof\" with it."
 msgstr "직접 입력한 키는 내장 목록과 <b>함께</b> 인정되며 상태 표시줄에 항상 표시됩니다. 자기 키를 슬쩍 건네는 사람은 누구든 그 키로 어떤 \"증명\"이든 서명할 수 있습니다."
 
-#: beatstamp/ui/main_window.py:2415
+#: beatstamp/ui/main_window.py:2558
 msgid "Your own public key"
 msgstr "직접 입력한 공개 키"
 
@@ -5052,7 +5102,7 @@ msgstr "직접 입력한 공개 키(고급)"
 msgid "Your proofs"
 msgstr "내 증명"
 
-#: beatstamp/ui/main_window.py:351
+#: beatstamp/ui/main_window.py:354
 msgid "Your stamps and the stage their proof has reached"
 msgstr "내 스탬프와 각 증명의 진행 단계"
 
@@ -5122,7 +5172,7 @@ msgstr "로그가 앵커링되었다고 밝힌 %(week)s 주의 루트에도 포�
 msgid "also in the signed root of week %(week)s"
 msgstr "%(week)s 주의 서명된 루트에도 포함됨"
 
-#: beatstamp/ui/main_window.py:1248
+#: beatstamp/ui/main_window.py:1284
 msgid "anchor (according to the register): %(anchors)s"
 msgstr "앵커(기록부 기준): %(anchors)s"
 
@@ -5178,11 +5228,11 @@ msgstr "본인이 관리하는 채널로 카드를 받음"
 msgid "certificate"
 msgstr "certificate"
 
-#: beatstamp/ui/main_window.py:1251
+#: beatstamp/ui/main_window.py:1287
 msgid "checked privately — the server was not told which digest this is"
 msgstr "비공개로 확인됨 — 서버는 어떤 해시인지 알지 못했습니다"
 
-#: beatstamp/ui/main_window.py:2159
+#: beatstamp/ui/main_window.py:2302
 msgid "checkpoint #%(n)s · %(new)s new · %(copies)s independent copies confirmed"
 msgstr "체크포인트 #%(n)s · 새 체크포인트 %(new)s개 · 독립 사본 %(copies)s곳 확인됨"
 
@@ -5191,7 +5241,7 @@ msgstr "체크포인트 #%(n)s · 새 체크포인트 %(new)s개 · 독립 사�
 msgid "checks with outside services are turned off in the settings"
 msgstr "외부 서비스를 통한 확인이 설정에서 꺼져 있습니다"
 
-#: beatstamp/ui/main_window.py:2301
+#: beatstamp/ui/main_window.py:2444
 msgid "clock out of step"
 msgstr "시계 불일치"
 
@@ -5241,7 +5291,7 @@ msgstr "일일"
 msgid "daily checkpoint"
 msgstr "일일 체크포인트"
 
-#: beatstamp/ui/main_window.py:2305
+#: beatstamp/ui/main_window.py:2448
 msgid "difference %(offset)s s, round trip %(rtt)s ms"
 msgstr "차이 %(offset)s초, 왕복 %(rtt)s ms"
 
@@ -5318,7 +5368,7 @@ msgstr "블록 %(h)s에 포함(OpenTimestamps)"
 msgid "in the log"
 msgstr "로그에 있음"
 
-#: beatstamp/ui/main_window.py:1226
+#: beatstamp/ui/main_window.py:1262
 msgid "inclusion path — the week is still open"
 msgstr "포함 경로 — 주가 아직 진행 중"
 
@@ -5374,7 +5424,7 @@ msgstr "레벨 %(level)s/5(1이 가장 강함) — %(method)s"
 msgid "level %(level)s: %(method)s"
 msgstr "레벨 %(level)s: %(method)s"
 
-#: beatstamp/ui/main_window.py:1244
+#: beatstamp/ui/main_window.py:1280
 msgid "log checkpoint — the next daily one will contain this entry"
 msgstr "로그 체크포인트 — 다음 일일 체크포인트에 이 항목이 포함됩니다"
 
@@ -5394,11 +5444,11 @@ msgstr "다음 확인 %(when)s"
 msgid "no block in the checkpoints yet"
 msgstr "체크포인트에 아직 블록이 없음"
 
-#: beatstamp/ui/main_window.py:2163
+#: beatstamp/ui/main_window.py:2306
 msgid "no checkpoint has been issued yet"
 msgstr "아직 발행된 체크포인트가 없습니다"
 
-#: beatstamp/ui/main_window.py:1483
+#: beatstamp/ui/main_window.py:1519
 msgid "no document was pointed to — only the proof itself was checked"
 msgstr "문서를 지정하지 않음 — 증명 자체만 확인했습니다"
 
@@ -5410,7 +5460,7 @@ msgstr "제한 없음"
 msgid "no root signature"
 msgstr "루트 서명 없음"
 
-#: beatstamp/ui/main_window.py:1490
+#: beatstamp/ui/main_window.py:1526
 msgid "no valid root signature"
 msgstr "유효한 루트 서명 없음"
 
@@ -5443,7 +5493,7 @@ msgstr "연결 안 됨"
 msgid "not checked"
 msgstr "확인 안 됨"
 
-#: beatstamp/ui/main_window.py:491
+#: beatstamp/ui/main_window.py:494
 msgid "not computed yet"
 msgstr "아직 계산되지 않음"
 
@@ -5519,7 +5569,7 @@ msgstr "비공개 — 이 컴퓨터에 있는 공개 로그 사본으로 확인"
 msgid "proof"
 msgstr "proof"
 
-#: beatstamp/ui/main_window.py:2451
+#: beatstamp/ui/main_window.py:2594
 msgid "proxy outside this computer"
 msgstr "이 컴퓨터 외부의 프록시"
 
@@ -5556,7 +5606,7 @@ msgstr "sigelith.org/api/proof/status 보고(%(when)s)"
 msgid "retired %(date)s: <span style=\"font-family:monospace\">%(key)s</span>"
 msgstr "폐기 %(date)s: <span style=\"font-family:monospace\">%(key)s</span>"
 
-#: beatstamp/ui/main_window.py:1233
+#: beatstamp/ui/main_window.py:1269
 msgid "root signature — it arrives once the week closes"
 msgstr "루트 서명 — 주가 마감되면 추가됩니다"
 
@@ -5570,7 +5620,7 @@ msgstr "발신자"
 msgid "sender %(sender)s, recipient %(recipient)s"
 msgstr "발신자 %(sender)s, 수신자 %(recipient)s"
 
-#: beatstamp/ui/main_window.py:2041
+#: beatstamp/ui/main_window.py:2184
 msgid "sigelith-history.csv"
 msgstr "sigelith-history.csv"
 
@@ -5598,16 +5648,16 @@ msgstr "Bitcoin 체인"
 msgid "the Bitcoin explorer knows a different block"
 msgstr "Bitcoin 블록 탐색기가 다른 블록을 알고 있습니다"
 
-#: beatstamp/ui/main_window.py:1228
-#: beatstamp/ui/main_window.py:1488
+#: beatstamp/ui/main_window.py:1264
+#: beatstamp/ui/main_window.py:1524
 msgid "the Ed25519 root signature is valid"
 msgstr "Ed25519 루트 서명이 유효합니다"
 
-#: beatstamp/ui/main_window.py:1230
+#: beatstamp/ui/main_window.py:1266
 msgid "the Ed25519 signature is invalid"
 msgstr "Ed25519 서명이 올바르지 않습니다"
 
-#: beatstamp/ui/main_window.py:1196
+#: beatstamp/ui/main_window.py:1202
 msgid "the ORIGINAL timestamp was returned. The first stamp wins — the date on an already registered document cannot be refreshed."
 msgstr "최초의 타임스탬프가 반환되었습니다. 첫 번째 스탬프가 우선합니다 — 이미 등록된 문서의 날짜는 새로 고칠 수 없습니다."
 
@@ -5615,7 +5665,7 @@ msgstr "최초의 타임스탬프가 반환되었습니다. 첫 번째 스탬프
 msgid "the chain of every entry and the root of %(k)s checkpoints recomputed on this computer"
 msgstr "모든 항목의 체인과 체크포인트 %(k)s개의 루트를 이 컴퓨터에서 다시 계산했습니다"
 
-#: beatstamp/ui/main_window.py:1498
+#: beatstamp/ui/main_window.py:1534
 msgid "the checkpoint in the proof does not check out"
 msgstr "증명 안의 체크포인트가 맞지 않습니다"
 
@@ -5643,15 +5693,15 @@ msgstr "스탬프 날짜와 시각(현지 시각)"
 msgid "the decrypted content is not the content committed in the offer"
 msgstr "복호화된 내용이 제안에서 약속한 내용이 아닙니다"
 
-#: beatstamp/ui/main_window.py:642
+#: beatstamp/ui/main_window.py:645
 msgid "the digest will be computed locally and looked up in the register"
 msgstr "해시를 로컬에서 계산하여 기록부에서 조회합니다"
 
-#: beatstamp/ui/main_window.py:1481
+#: beatstamp/ui/main_window.py:1517
 msgid "the document digest does NOT match the proof"
 msgstr "문서 해시가 증명과 일치하지 않습니다"
 
-#: beatstamp/ui/main_window.py:1479
+#: beatstamp/ui/main_window.py:1515
 msgid "the document digest matches the proof"
 msgstr "문서 해시가 증명과 일치합니다"
 
@@ -5683,19 +5733,19 @@ msgstr "첫 주간 체크포인트에 지금까지의 모든 은행 앵커가 �
 msgid "the first weekly release follows the weekly checkpoint (Monday)"
 msgstr "첫 주간 릴리스는 주간 체크포인트(월요일) 뒤에 이어집니다"
 
-#: beatstamp/ui/main_window.py:1224
+#: beatstamp/ui/main_window.py:1260
 msgid "the inclusion path does NOT lead to the root"
 msgstr "포함 경로가 루트로 이어지지 않습니다"
 
-#: beatstamp/ui/main_window.py:1487
+#: beatstamp/ui/main_window.py:1523
 msgid "the inclusion path does not match"
 msgstr "포함 경로가 일치하지 않습니다"
 
-#: beatstamp/ui/main_window.py:1485
+#: beatstamp/ui/main_window.py:1521
 msgid "the inclusion path leads to the week root"
 msgstr "포함 경로가 주간 루트로 이어집니다"
 
-#: beatstamp/ui/main_window.py:1222
+#: beatstamp/ui/main_window.py:1258
 msgid "the inclusion path matches the week root"
 msgstr "포함 경로가 주간 루트와 일치합니다"
 
@@ -5711,11 +5761,11 @@ msgstr "다음 일일 체크포인트에 이 항목이 포함됩니다"
 msgid "the offer has expired."
 msgstr "제안이 만료되었습니다."
 
-#: beatstamp/ui/main_window.py:1241
+#: beatstamp/ui/main_window.py:1277
 msgid "the path to checkpoint #%(n)s does NOT check out"
 msgstr "체크포인트 #%(n)s까지의 경로가 맞지 않습니다"
 
-#: beatstamp/ui/main_window.py:1237
+#: beatstamp/ui/main_window.py:1273
 msgid "the path to signed checkpoint #%(n)s checks out — against the checkpoint file this application verified"
 msgstr "서명된 체크포인트 #%(n)s까지의 경로가 일치합니다 — 이 애플리케이션이 검증한 체크포인트 파일 기준"
 
@@ -5727,7 +5777,7 @@ msgstr "제안에서 약속한 키 조각으로 미리보기를 읽을 수 없�
 msgid "the preview the recipient saw before accepting differs from the content"
 msgstr "수신자가 수락 전에 본 미리보기가 내용과 다릅니다"
 
-#: beatstamp/ui/main_window.py:1494
+#: beatstamp/ui/main_window.py:1530
 msgid "the proof carries signed checkpoint #%(n)s and the path of the entry to its root checks out"
 msgstr "증명에 서명된 체크포인트 #%(n)s 포함, 항목에서 그 루트까지의 경로가 일치합니다"
 
@@ -5755,7 +5805,7 @@ msgstr "주간 루트가 담긴 이체가 이어집니다"
 msgid "time according to the register — week %(week)s without a confirmed signature"
 msgstr "기록부 기준 시각 — %(week)s 주, 확인된 서명 없음"
 
-#: beatstamp/ui/main_window.py:2335
+#: beatstamp/ui/main_window.py:2478
 msgid "unavailable"
 msgstr "사용 불가"
 
@@ -5764,7 +5814,7 @@ msgid "under a checkpoint this application verified; copies at third parties fol
 msgstr "이 애플리케이션이 검증한 체크포인트 아래에 있습니다. 제3자의 사본은 이후에 갖춰집니다"
 
 #: beatstamp/certificate.py:516
-#: beatstamp/ui/main_window.py:2346
+#: beatstamp/ui/main_window.py:2489
 msgid "unknown"
 msgstr "알 수 없음"
 
@@ -5828,7 +5878,7 @@ msgstr "주간"
 msgid "weekly checkpoint closing %(week)s"
 msgstr "%(week)s 주를 마감하는 주간 체크포인트"
 
-#: beatstamp/ui/main_window.py:2335
+#: beatstamp/ui/main_window.py:2478
 msgid "working"
 msgstr "작동 중"
 
@@ -5836,7 +5886,7 @@ msgstr "작동 중"
 msgid "— (the week is still running)"
 msgstr "— (주가 아직 진행 중)"
 
-#: beatstamp/ui/main_window.py:1152
+#: beatstamp/ui/main_window.py:1158
 msgid "…and %(count)s more."
 msgstr "…외 %(count)s개."
 
@@ -5844,6 +5894,6 @@ msgstr "…외 %(count)s개."
 msgid "…and %(files)s more."
 msgstr "…외 %(files)s."
 
-#: beatstamp/ui/main_window.py:654
+#: beatstamp/ui/main_window.py:657
 msgid "…or paste a SHA-256 digest here (64 hex characters)"
 msgstr "…또는 여기에 SHA-256 해시를 붙여 넣으세요(16진수 64자)"
