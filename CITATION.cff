@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using the metadata from this file."
+type: software
+title: "Sigelith Desktop"
+abstract: >-
+  Windows application for the Sigelith public timestamp log. It computes SHA-256
+  fingerprints locally — files never leave the computer — timestamps them, keeps
+  proofs and PDF certificates, verifies proofs offline against the published keys,
+  and checks the log's checkpoints against third-party copies (GitHub, the Internet
+  Archive, Zenodo). Formerly BeatStamp.
+authors:
+  - family-names: Koch
+    given-names: Adam
+    orcid: "https://orcid.org/0009-0008-7882-7426"
+repository-code: "https://github.com/DeiFlagellum/sigelith-desktop"
+url: "https://sigelith.org/desktop/"
+license: Apache-2.0
+keywords:
+  - timestamping
+  - proof of existence
+  - transparency log
+  - verification
+  - Windows
+references:
+  - type: report
+    title: "Sigelith: Public Timestamps a Court Expert Can Verify Independently — Design, Trust Model and Evidentiary Limits"
+    authors:
+      - family-names: Koch
+        given-names: Adam
+        orcid: "https://orcid.org/0009-0008-7882-7426"
+    doi: 10.5281/zenodo.23265547
+    year: 2026

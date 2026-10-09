@@ -93,10 +93,24 @@ def render(source: Image.Image, width: int, height: int, fill: float) -> Image.I
     return canvas
 
 
+#: Limit WACK (test „Zasoby aplikacji"): obraz w paczce musi byc mniejszy niz
+#: 200 KB — wiekszego kafelka Windows moze nie pokazac. Pierscien stu kresek
+#: (ikona od 2026-10-06) dal najwiekszy kafelek RGBA 215 KB; paleta 256 kolorow
+#: to ok. 31 KB przy sredniej roznicy 0,45/255 (gola roznica niewidoczna).
+MAX_IMAGE_BYTES = 204800
+
+
 def save(image: Image.Image, name: str, upscaled: bool) -> None:
     path = ASSETS / name
     image.save(path, format='PNG', optimize=True)
     note = '  (POWIEKSZANE ponad rozdzielczosc zrodla)' if upscaled else ''
+    if path.stat().st_size >= MAX_IMAGE_BYTES:
+        image.quantize(colors=256, method=Image.Quantize.FASTOCTREE,
+                       dither=Image.Dither.NONE).save(path, format='PNG', optimize=True)
+        note += '  (paleta 256 kolorow: limit 200 KB)'
+        if path.stat().st_size >= MAX_IMAGE_BYTES:
+            raise SystemExit(f'{name}: {path.stat().st_size} B — ponad limit WACK '
+                             f'{MAX_IMAGE_BYTES} B nawet z paleta')
     print(f'  {name:<46} {image.width}x{image.height}{note}')
 
 

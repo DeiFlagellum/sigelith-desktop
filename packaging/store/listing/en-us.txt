@@ -30,6 +30,7 @@ Sigelith Desktop is free and open source (Apache-2.0). No account, no ads, no te
 Available in English, Polish, German, Spanish, French, Russian, Turkish, Japanese, Korean, Chinese and Arabic.
 
 ## What's new in this version
+• New app icon: the Sigelith ring with a check mark.
 • Several files at once: after stamping a batch, the “PDF certificates” and “Offline proofs” buttons save a certificate or a .beatproof proof for every file of the batch, into a folder you choose. Until now only the last file of the batch got one.
 • History: select several entries to save a certificate or a proof for each of them.
 • When saving several files nothing is overwritten: if a name is already taken, the new file gets a number, and one summary shows how many files were saved.

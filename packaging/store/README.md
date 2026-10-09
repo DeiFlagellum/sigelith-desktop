@@ -1,7 +1,7 @@
 # Karta Sigelith Desktop w Microsoft Store
 
 Teksty karty w 11 językach paczki MSIX (en-us, pl-pl, de-de, es-es, fr-fr,
-ru-ru, tr-tr, ja-jp, ko-kr, zh-cn, ar-sa) — stan 2026-10-05, wersja 3.0.2.
+ru-ru, tr-tr, ja-jp, ko-kr, zh-cn, ar-sa) — stan 2026-10-06, wersja 3.0.4.
 
 | plik | co to jest |
 |---|---|

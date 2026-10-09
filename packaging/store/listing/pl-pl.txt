@@ -30,6 +30,7 @@ Sigelith Desktop jest darmowy i ma otwarty kod (Apache-2.0). Bez konta, bez rekl
 Dostępny po angielsku, polsku, niemiecku, hiszpańsku, francusku, rosyjsku, turecku, japońsku, koreańsku, chińsku i arabsku.
 
 ## What's new in this version
+• Nowa ikona aplikacji: pierścień Sigelith z ptaszkiem.
 • Kilka plików naraz: po ostemplowaniu serii przyciski „Certyfikaty PDF” i „Dowody offline” zapisują certyfikat albo dowód .beatproof dla każdego pliku serii, w wybranym katalogu. Dotąd dostawał go tylko ostatni plik serii.
 • Historia: zaznacz kilka wpisów, aby zapisać certyfikat albo dowód dla każdego z nich.
 • Przy zapisie wielu plików nic nie jest nadpisywane: jeśli nazwa jest zajęta, nowy plik dostaje numer, a jedno podsumowanie pokazuje, ile plików zapisano.

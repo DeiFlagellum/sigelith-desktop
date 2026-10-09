@@ -46,7 +46,7 @@
   <Identity
     Name="AdamKoch.SigelithDesktop"
     Publisher="CN=322BC472-4859-4579-991B-25EE879D3796"
-    Version="3.0.2.0"
+    Version="3.0.4.0"
     ProcessorArchitecture="x64" />
 
   <Properties>

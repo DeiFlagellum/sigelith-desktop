@@ -30,6 +30,7 @@ Sigelith Desktop es gratuito y de código abierto (Apache-2.0). Sin cuenta, sin 
 Disponible en inglés, polaco, alemán, español, francés, ruso, turco, japonés, coreano, chino y árabe.
 
 ## What's new in this version
+• Nuevo icono de la aplicación: el anillo de Sigelith con una marca de verificación.
 • Varios archivos a la vez: tras sellar un lote, los botones «Certificados PDF» y «Pruebas sin conexión» guardan un certificado o una prueba .beatproof de cada archivo del lote en la carpeta que elijas. Hasta ahora solo se hacía para el último archivo.
 • Historial: selecciona varias entradas para guardar un certificado o una prueba de cada una.
 • Al guardar varios archivos no se sobrescribe nada: si un nombre ya está en uso, el archivo nuevo recibe un número, y un único resumen muestra cuántos archivos se guardaron.

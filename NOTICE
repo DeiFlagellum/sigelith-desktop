@@ -13,7 +13,7 @@ own in the package -- ReportLab, requests, urllib3, idna, PySocks -- live
 there, and SigelithDesktop.exe is listed among the files of every component
 whose code is inside it.
 
-Package:  Sigelith Desktop 3.0.2
+Package:  Sigelith Desktop 3.0.4
 Files:    252 (plus the legal documents listed at the end)
 Modules:  110 top-level packages inside SigelithDesktop.exe
 
@@ -118,7 +118,7 @@ THIRD-PARTY COMPONENTS
 ==============================================================================
 
 ------------------------------------------------------------------------------
-Sigelith Desktop 3.0.2
+Sigelith Desktop 3.0.4
 License: Apache-2.0
 ------------------------------------------------------------------------------
 

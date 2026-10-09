@@ -30,6 +30,7 @@ Sigelith Desktop ist kostenlos und quelloffen (Apache-2.0). Kein Konto, keine We
 Verfügbar auf Englisch, Polnisch, Deutsch, Spanisch, Französisch, Russisch, Türkisch, Japanisch, Koreanisch, Chinesisch und Arabisch.
 
 ## What's new in this version
+• Neues App-Symbol: der Sigelith-Ring mit Häkchen.
 • Mehrere Dateien auf einmal: Nach dem Stempeln eines Durchgangs speichern die Schaltflächen „PDF-Zertifikate“ und „Offline-Nachweise“ für jede Datei des Durchgangs ein Zertifikat bzw. einen .beatproof-Nachweis in einem Ordner deiner Wahl. Bisher geschah das nur für die letzte Datei.
 • Verlauf: Markiere mehrere Einträge, um für jeden ein Zertifikat oder einen Nachweis zu speichern.
 • Beim Speichern mehrerer Dateien wird nichts überschrieben: Ist ein Name schon vergeben, bekommt die neue Datei eine Nummer, und eine Übersicht zeigt, wie viele Dateien gespeichert wurden.

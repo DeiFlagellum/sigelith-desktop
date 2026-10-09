@@ -560,8 +560,7 @@ approves, and verifiers render it the same way:
 - **refuse:** "I refuse to accept package ⟨offer⟩ from ⟨sender card⟩."
 
 The signed data is the structured object; the text is its fixed reading, not
-a free field, so nobody can make a person sign a different sentence. The
-wording is subject to legal review (§14).
+a free field, so nobody can make a person sign a different sentence.
 
 ## 7. Procedure
 
@@ -957,21 +956,9 @@ the product's documentation:
   themselves, over channels they choose.
 - **What Sigelith supplies:** software that runs on the parties' devices,
   open source (Apache-2.0), with a verifier anybody can run.
-- **Questions for counsel before launch:**
-  1. Handover as designed is not an electronic registered delivery service
-     (eIDAS art. 3(36)) provided by Sigelith — confirm.
-  2. Is the stamp log itself a (non-qualified) trust service — electronic
-     time stamps — and what follows (eIDAS art. 19a; NIS2, which covers trust
-     service providers regardless of size)? This concerns the log as it runs
-     today.
-  3. Cyber Resilience Act: reporting of actively exploited vulnerabilities
-     applies from 11 September 2026 to products made available in the course
-     of a commercial activity — do Sigelith's applications qualify?
-  4. Wording and effect of the acceptance: when a declaration reaches its
-     addressee (BGB § 130, KC art. 61); weight of a non-qualified time stamp
-     in court (eIDAS art. 41).
-  5. Terms of use and the limitation of liability for a free feature.
-  6. Product claims (§0.4).
+- **No qualified status:** Sigelith is not a qualified trust service provider
+  under eIDAS and provides no electronic registered delivery service — the
+  parties deliver the data themselves, and the log records digests only.
 
 ## 15. Test vectors
 
@@ -1009,16 +996,14 @@ together test the conflict rule of §6. The web verifier page is tested on
 the page Django actually renders, with those packages
 (`robocze/handover_js/test-dom.mjs`).
 
-## 16. Open points for the owner
+## 16. Decisions and later versions
 
 Decided 2026-09-28: no server-side store at all; hybrid post-quantum
 encryption keys from v1; signed stamp receipts for all stamps in v1; defaults
-`expires` 30 days and `complete_within` 14 days. Still open:
+`expires` 30 days and `complete_within` 14 days. Hardware attestation: the
+Windows Hello path is the WebAuthn platform authenticator (§2.1), and its TPM
+attestation travels as a separate, optional companion of the card (§3.6), not
+inside it; implementation follows the second (JavaScript) verifier.
 
-5. Legal review (§14) before public launch.
-6. Hardware attestation. Decided 2026-09-28: the Windows Hello path is the
-   WebAuthn platform authenticator (§2.1), and its TPM attestation travels as
-   a separate, optional companion of the card (§3.6), not inside it.
-   Implementation follows the second (JavaScript) verifier.
-7. Later versions: direct transfer over Tor, card succession, revocation,
-   platform attestation, binding to a national eID.
+Later versions: direct transfer over Tor, card succession, revocation,
+platform attestation, binding to a national eID.
