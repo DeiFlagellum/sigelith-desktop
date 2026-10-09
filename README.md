@@ -12,7 +12,7 @@ not the size.
 
 **Free in the [Microsoft Store](https://apps.microsoft.com/detail/9n5xk65gtf33)** (Windows 10 22H2 or Windows 11, 64-bit) — the Store version updates itself. From the command line: `winget install --id 9N5XK65GTF33 --source msstore`. Or build it from source (below).
 
-[![tests](https://github.com/DeiFlagellum/sigelith-desktop/actions/workflows/tests.yml/badge.svg)](https://github.com/DeiFlagellum/sigelith-desktop/actions/workflows/tests.yml)
+[![tests](https://github.com/DeiFlagellum/sigelith-desktop/actions/workflows/tests.yml/badge.svg)](https://github.com/DeiFlagellum/sigelith-desktop/actions/workflows/tests.yml) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23268692.svg)](https://doi.org/10.5281/zenodo.23268692)
 
 | Stamp a file | Watch the log's witnesses | Hand over with proof of delivery |
 |---|---|---|
